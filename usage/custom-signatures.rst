@@ -165,10 +165,10 @@ names.
 
 For example, every file that contains the string "**c2**" will be
 initialized as Simple IOC indicators file with C2 server information.
-Internally we use the regex " **[\_\\W]c2[\_\\W]**" to detect the
-tag, so "**mysource-c2-iocs.txt**", "**mysource\_c2\_iocs.txt**" and
-"**dec15\_batch1\_c2\_indicators.txt**" would be detected correctly,
-whereas on the contrary "**c2-iocs.txt**" or "**myc2iocs.txt**" would
+Internally we use the regex "**[\\W]c2[\\W]**" to detect the
+tag, so "**mysource-c2-iocs.txt**" and
+"**dec15-batch1-c2-indicators.txt**" would be detected correctly,
+whereas on the contrary "**filenameiocs.txt**" or "**myc2iocs.txt**" would
 not.
 
 The following tags are currently supported:
@@ -189,15 +189,15 @@ separate manual)
 +------------------------+-------------------------------------+
 | Keyword in File Name   | Example                             |
 +========================+=====================================+
-| c2                     | misp\_c2\_\_domains\_iocs.txt       |
+| c2                     | misp-c2-domains-iocs.txt            |
 +------------------------+-------------------------------------+
-| filename               | Case\_UX22\_filename\_iocs.txt      |
+| filename               | Case-UX22-filename-iocs.txt         |
 +------------------------+-------------------------------------+
-| filenames              | Malicious\_filenames\_unitX.txt     |
+| filenames              | Malicious-filenames-unitX.txt       |
 +------------------------+-------------------------------------+
-| hash                   | op\_aura\_hash\_iocs.cfg            |
+| hash                   | op-aura-hash-iocs.cfg               |
 +------------------------+-------------------------------------+
-| hashes                 | int\_misp\_hashes.txt               |
+| hashes                 | int-misp-hashes.txt                 |
 +------------------------+-------------------------------------+
 | keyword                | keywords-incident-3389.txt          |
 +------------------------+-------------------------------------+
@@ -219,7 +219,7 @@ THOR applies Sigma rules to Windows Eventlogs and log files on disk
 is maintained by the community on Github.
 
 To activate Sigma scanning, you have to use the **--sigma** command line
-option or perform a **--intense** scan. Sigma scanning is not activated
+option or perform an **--intense** scan. Sigma scanning is not activated
 by default. This behavior may change in the future.
 
 Custom Sigma rules have to be placed in the
