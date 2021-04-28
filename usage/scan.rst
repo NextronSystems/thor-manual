@@ -91,14 +91,14 @@ access rights on the share.
 
 .. code:: batch
 
-   thor.exe --nohtml --nocsv -l \\\\sys\\rep\\%COMPUTERNAME%\_thor.txt
+   thor64.exe --nohtml --nocsv -l \\\\sys\\rep\\%COMPUTERNAME%\_thor.txt
 
 If preferably used in the "thor\_remote.bat" use the variable %RESDRIVE%
 instead of the UNC path:
 
 .. code:: batch
 
-   thor.exe --nohtml --nocsv -l %RESDRIVE%\\%COMPUTERNAME%.txt
+   thor64.exe --nohtml --nocsv -l %RESDRIVE%\\%COMPUTERNAME%.txt
 
 Logging to Syslog Server
 ^^^^^^^^^^^^^^^^^^^^^^^^
@@ -108,7 +108,7 @@ only.
 
 .. code:: batch
 
-   thor.exe --nohtml --nocsv --nolog -s syslog.server.net
+   thor64.exe --nohtml --nocsv --nolog -s syslog.server.net
 
 Logging to a Local Log File and Import
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -119,7 +119,7 @@ at runtime and a HTML report that is generated at the end of the scan.
 
 .. code:: batch
 
-   thor.exe --nocsv
+   thor64.exe --nocsv
 
 Often Used Parameters
 ---------------------
@@ -129,29 +129,29 @@ Scan Run on a Single Directory
 
 .. code:: batch
 
-   thor.exe --lab -p C:\\ProgramData
-   thor.exe --lab -p I:\\mounted\_image\\disk1
+   thor64.exe --lab -p C:\\ProgramData
+   thor64.exe --lab -p I:\\mounted\_image\\disk1
 
 Deactivate all file output - Syslog only
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code:: batch
 
-   thor.exe -s 10.1.5.14 --nohtml --nolog --nocsv
+   thor64.exe -s 10.1.5.14 --nohtml --nolog --nocsv
 
 Save the result files to a different directory 
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code:: batch
 
-   thor.exe -s 10.1.5.14 -e Z:\\
+   thor64.exe -s 10.1.5.14 -e Z:\\
 
 Only scan the last 7 days of the Windows Eventlog and log files on disk 
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code:: batch
 
-   thor.exe --lookback 7
+   thor64.exe --lookback 7
 
 Scan System with Defaults and Make a Surface Scan
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -162,32 +162,34 @@ written to a network share.
 
 .. code:: batch
 
-   thor.exe --deepdivecustom -e \\\\server\\thor\_output\_share
+   thor64.exe --deepdivecustom -e \\\\server\\thor\_output\_share
 
 Intense Scan and DeepDive on a Mounted Image as Drive Z
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code:: batch
 
-   thor.exe --lab --deepdive -p Z:\\
+   thor64.exe --lab --deepdive -p Z:\\
+
+IMPORTANT: This feature requires a `forensic lab license <https://www.nextron-systems.com/thor/license-packs/>`_ type which is meant to be used in forensic labs. 
 
 Throttled THOR Run (static throttling value)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Will restrict THOR’s CPU usage in the long running modules “FileScan”,
-“Eventlog”, “LogScan” and “Registry” to 80%. Note that THOR
+“Eventlog”, “LogScan” and “Registry” to 60%. Note that THOR
 automatically applies certain restrictions in automatic soft mode.
 
 .. code:: batch
 
-   thor.exe -c 80
+   thor64.exe -c 60
 
 Scan Multiple Paths
 ^^^^^^^^^^^^^^^^^^^
 
 .. code:: batch
 
-   thor.exe --lab -p C:\\ D:\\webapps E:\\inetpub
+   thor64.exe --lab -p C:\\ D:\\webapps E:\\inetpub
 
 (non-existent directories will be automatically skipped)
 
@@ -196,7 +198,16 @@ Scan All Hard Drives (Windows Only)
 
 .. code:: batch
 
-   thor.exe --allhds
+   thor64.exe --allhds
+
+Don't Scan Recursively 
+^^^^^^^^^^^^^^^^^^^^^^
+
+To instruct THOR to scan a folder non-recursively use the **:NOWALK** suffix. 
+
+.. code:: batch
+
+  thor64.exe -a FileScan -p C:\Windows\System32:NOWALK
 
 Scan Output
 -----------

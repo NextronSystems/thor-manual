@@ -21,6 +21,8 @@ options:
 * nodoublecheck (do not check for other THOR instances on the same system and do not interrupt scan if another instance has been found)
 * multi-threading (it automatically sets the number of threads to use to the number of CPU cores found on the workstation)
 
+IMPORTANT: Lab scanning mode requires a `forensic lab license <https://www.nextron-systems.com/thor/license-packs/>`_ type which is meant to be used in forensic labs. You can achieve a similar (but not equal) scan using **-a Filescan --intense -p path-to-scan**
+
 Virtual Drive Mapping
 ^^^^^^^^^^^^^^^^^^^^^
 
@@ -64,6 +66,8 @@ forensic lab workstation:
 
   --virtual-map /mnt/image1:C
 
+IMPORTANT: This feature requires a `forensic lab license <https://www.nextron-systems.com/thor/license-packs/>`_ type which is meant to be used in forensic labs. 
+
 Hostname Replacement in Logs
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -94,6 +98,8 @@ It instructs THOR to scan the mounted partition S: in lab scanning mode,
 maps the current partition “S:” to a virtual drive “C:”, replaces the
 hostname with “WKS001” in the outputs and saves every output file (text
 log, HTML, CSV) to a reports folder named “C:\\reports”.
+
+IMPORTANT: This feature requires a `forensic lab license <https://www.nextron-systems.com/thor/license-packs/>`_ type which is meant to be used in forensic labs. 
 
 Lookback Mode (--lookback --all-module-lookback)
 ------------------------------------------------
@@ -128,6 +134,8 @@ be used to remove the dropped file once it has been scanned. Example:
 
   thor.exe --dropzone –p C:\\dropzone
 
+IMPORTANT: This feature requires a `forensic lab license <https://www.nextron-systems.com/thor/license-packs/>`_ type which is meant to be used in forensic labs. 
+
 Image File Scan Mode (-m)
 -------------------------
 
@@ -149,6 +157,8 @@ YARA signatures placed in the "./custom-signatures/yara" sub folder.
 .. code:: batch
 
   thor.exe –m systemX123.mem –j systemX123 –e C:\\reports
+
+IMPORTANT: This feature requires a `forensic lab license <https://www.nextron-systems.com/thor/license-packs/>`_ type which is meant to be used in forensic labs. 
 
 DeepDive (--deepdive)
 ---------------------
