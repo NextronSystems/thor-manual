@@ -32,7 +32,7 @@ Verify Signatures (optional)
 
 You can verify the executable files in the THOR package via:
 
-* Their digital signature - issued by "BSK Consulting GmbH"
+* Their digital signature - issued by "Nextron Systems GmbH"
 * thor-util’s “verify” feature
 * This hash list https://www.nextron-systems.com/download/hashsums.txt
 
