@@ -1,6 +1,3 @@
-.. role:: raw-html-m2r(raw)
-   :format: html
-
 Deployment
 ==========
 
@@ -141,8 +138,8 @@ services are:
 * **IOC Management** – manage and scan with custom IOC and YARA rule sets
 * **Evidence Collection** – collect evidences (files and memory) from asset
 
-.. figure:: ../images/image5.tiff
-   :target: ../_images/image5.tiff
+.. figure:: ../images/image5.png
+   :target: ../_images/image5.png
    :alt: ASGARD Management Center
 
    ASGARD Management Center
