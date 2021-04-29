@@ -55,7 +55,7 @@ Unsupported
 * many others 
 
 If you need to perform an analysis on unspupported operating systems or architectures, contact us
-for a solution using `THOR Thunderstorm <https://www.nextron-systems.com/thor-thunderstorm/`__ and `Thunderstorm collectors <https://github.com/NextronSystems/thunderstorm-collector>`__.
+for a solution using `THOR Thunderstorm <https://www.nextron-systems.com/thor-thunderstorm/>`__ and `Thunderstorm collectors <https://github.com/NextronSystems/thunderstorm-collector>`__.
 
 We have productive setups with our customers involving the file collection from: 
 
