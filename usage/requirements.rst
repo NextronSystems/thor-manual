@@ -12,7 +12,8 @@ For best results, it is necessary to run THOR with administrative
 privileges or LOCAL\_SYSTEM on Windows and “root” on Linux/macOS
 systems.
 
-Supported:
+Supported
+---------
 
 * Windows 7 x86 / x64
 * Windows Server 2008 R2 x64
@@ -36,7 +37,10 @@ Supported:
 * Debian 10
 * macOS 10
 
-Unsupported:
+Limited Support
+---------------
+
+These versions are scannable with THOR Legacy. Contact us for details on how to download and use THOR Legacy. 
 
 * Windows XP SP2 x86 (unsupported)
 * Windows XP SP2 x64 (unsupported)
@@ -44,5 +48,18 @@ Unsupported:
 * Windows Server 2003 x64 (unsupported)
 * Windows Server 2008 x86
 
-If you need to run scans on old Windows XP and 2003 machines, contact us
-for a solution using THOR Thunderstorm and collector scripts.
+Unsupported
+-----------
+
+* VMWare ESX - `https://kb.vmware.com/s/article/1036544 <https://kb.vmware.com/s/article/1036544>`__
+* many others 
+
+If you need to perform an analysis on unspupported operating systems or architectures, contact us
+for a solution using `THOR Thunderstorm <https://www.nextron-systems.com/thor-thunderstorm/`__ and `Thunderstorm collectors <https://github.com/NextronSystems/thunderstorm-collector>`__.
+
+We have productive setups with our customers involving the file collection from: 
+
+* SPARC Solaris 
+* RHEL Linux 4
+* Citrix Netscaler
+* ICS environments with Windows XP embedded systems (planned)
