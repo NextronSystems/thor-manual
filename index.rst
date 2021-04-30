@@ -14,26 +14,22 @@ THOR Scanner User Manual
    usage/what-is-thor
    usage/requirements
    usage/beforeyoustart
-   usage/single-scan
    usage/deployment
    usage/scan
    usage/analysis
    usage/special-scan-modes
    usage/configuration-files
-   usage/license-files
    usage/scan-modes
    usage/evidence-collection
    usage/scoring-system
    usage/update
-   usage/syslog
+   usage/output-options
    usage/action-on-match
    usage/thor-db
    usage/resource-control
    usage/exclude-elements
-   usage/threat-intel-receivers
    usage/custom-signatures
    usage/analysis-and-info
-   usage/encrypted-output-files
    usage/links-and-references
 
 

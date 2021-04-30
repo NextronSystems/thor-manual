@@ -1,4 +1,3 @@
-
 Special Scan Modes
 ==================
 

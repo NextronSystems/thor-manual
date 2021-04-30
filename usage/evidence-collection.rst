@@ -73,8 +73,8 @@ single or group scan via the ASGARD management interface.
 
    Collected File Evidence in ASGARD v2
 
-Process Dumps (--dump-procs)
-----------------------------
+Process Memory Dumps (--dump-procs)
+-----------------------------------
 
 Since THOR version 10.5 it supports process dumping to backup volatile
 malware information.

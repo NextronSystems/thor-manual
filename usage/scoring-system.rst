@@ -9,7 +9,7 @@ are prone to false positives.
 
 Only YARA rules and Filename IOCs support a user defined score. But
 since you are able to write YARA rules for almost every module, the
-scoring system is very flexible. (see chapter 22.4.3 for details)
+scoring system is very flexible.
 
 The total score of an element determines the level/severity of the
 resulting log message.
@@ -83,8 +83,8 @@ over 100 has to be 75 or higher. (internally calculated as "alert\_level
 - 25" because the user can adjust the alert level via the "**--alert**"
 parameter)
 
-Exception: Filename IOC Checks
-------------------------------
+Exception: Filename IOC Matches
+-------------------------------
 
 The "Filename IOC Check" is a sub check of the "String Check", which is
 applied to many elements, like Eventlog messages or Registry keys.
@@ -100,9 +100,8 @@ While the "checkKeyword()" sub-check returns each individual match, the
 "checkFilename()" sub check accumulates the score of all matches and
 returns a single total score. It is possible that many different
 filename signatures have matched on that string but only one match with
-a total score is reported. This is an exception to the behavior set out
-in chapter 14.2 that states that only the "FileScan" module accumulates
-scores.
+a total score is reported. This is an exception to the usual behavior 
+where only the "FileScan" module accumulates scores.
 
 Filename IOC Matching in String Check Example
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

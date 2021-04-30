@@ -12,6 +12,23 @@ Place a valid license file into the program folder:
      files. You can specify a certain path with **--licensepath path**.
      See chapter 11 "License Files" for details.
 
+About License Files
+^^^^^^^^^^^^^^^^^^^
+
+THOR processes the program folder and all sub folders in search for a
+valid license file with a "**\*.lic**" extension and picks the first
+valid license he can find.
+
+This change has been made to facilitate the rollout using the new host
+based license model.
+
+You can now generate licenses for a big set of systems, store all the
+licenses as "**thor-system1.lic**", "**this-system2.lic**" and so on in
+a sub folder "**./licenses**" and transfer the THOR program folder with
+the "licenses" sub folder to all the different system for which you have
+generated licenses and just run the "**thor.exe**" executable.
+     
+
 Upgrade THOR and Update The Signatures 
 --------------------------------------
 
@@ -20,6 +37,10 @@ Run the following command to update THOR and its signatures:
 .. code:: batch 
    
    thor-util upgrade
+
+It is **important** that you update THOR after a download from the csutomer 
+portal since the packages do not contain the newest signature files. 
+(caused by internal integrity check processes)
 
 Note: The upgrade requires a valid license for the host that performs the update. 
 If you don't want to use a license for that host, ask us for a **silent license** 
@@ -64,6 +85,12 @@ We offer THOR in different variants.
 * THOR 
 * THOR TechPreview
 * THOR Legacy (limited support, availability)
+
+.. figure:: ../images/techpreview.png
+   :target: ../_images/techpreview.png
+   :alt: THOR Default and TechPreview Differences
+
+   THOR Default and TechPreview Focus
 
 THOR
 ^^^^
