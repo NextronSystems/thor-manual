@@ -72,6 +72,27 @@ This list contains flags often selected and used that should better be avoid unl
      - stability issues due to high memory usage
    * - --dump-procs
      - stability issues, possibly high disk space usage (free disk space checks are implemented but may fail)
+   * - --full-registry
+     - longer runtime, low positive impact
+
+Lesser Known Parameters the Analysts Often Use
+----------------------------------------------
+
+This list contains flags that are often used by analysts to tweak the scan in useful ways.
+
+.. list-table:: 
+   :header-rows: 1
+
+   * - Parameter
+     - Description
+   * - --allreasons
+     - Show all reasons that led to a certain score
+   * - --printshim
+     - Print all available SHIM cache entries into the log
+   * - --utc
+     - Print all timestamps in UTC (helpful when creating timelines)
+   * - --string-context num-chars
+     - Number of characters preceeding and following the string match to show in the output
 
 Help and Debugging
 ------------------

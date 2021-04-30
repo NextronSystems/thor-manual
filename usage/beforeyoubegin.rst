@@ -1,5 +1,5 @@
 
-Before You Start
+Before You Begin
 ================
 
 Add License File
@@ -47,8 +47,8 @@ If you don't want to use a license for that host, ask us for a **silent license*
 that can be used for all kinds of tersting purposes and also allows to update THOR
 and its signatures.  
 
-Antivirus / EDR Exclusions
---------------------------
+Define an Antivirus / EDR Exclusion
+-----------------------------------
 
 Since THOR accesses different process memories and probes for malicious
 Mutex, Named Pipe and Event values, it is recommended to exclude THOR
@@ -130,8 +130,8 @@ The legacy version is not offered in our customer portal. We share it with our c
 
 We only offer limited support for this version, since we cannot guarantee a successful stable scan on platforms that have already been deprecated.
 
-Verify Signatures (optional)
-----------------------------
+Verify Public Key Signatures (optional)
+---------------------------------------
 
 You can verify the executable files in the THOR package via:
 

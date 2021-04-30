@@ -13,7 +13,7 @@ THOR Scanner User Manual
 
    usage/what-is-thor
    usage/requirements
-   usage/beforeyoustart
+   usage/beforeyoubegin
    usage/deployment
    usage/scan
    usage/analysis
