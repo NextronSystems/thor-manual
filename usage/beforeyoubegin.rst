@@ -133,11 +133,11 @@ We only offer limited support for this version, since we cannot guarantee a succ
 Verify Public Key Signatures (optional)
 ---------------------------------------
 
-You can verify the executable files in the THOR package via:
+You can verify the executable files in the THOR package with
 
-* Their digital signature - issued by "Nextron Systems GmbH"
+* their digital signature (PE signature) issued by "Nextron Systems GmbH"
 * thor-util’s “verify” feature
-* using openssl to verify the integrity of executables manually
+* openssl verifying the integrity of executables manually
 
 Find more information on THOR Util in its dedicated `online manual <https://thor-util-manual.nextron-systems.com>`__. 
 
@@ -145,15 +145,13 @@ Note: THOR Util automatically verifies the signatures of the contained
 binaries in an update package and exits if one or more signatures cannot
 be verified. You don't have to check them manually unless you distrust 
 the THOR Util itself. In this case, you can use the public key published
-on our web page:
+on `our web page <https://www.nextron-systems.com/pki/>`__.
 
-https://www.nextron-systems.com/pki/
-
-After downloading the public key the signature can be manually verified with the following command:
+After downloading the public key the signatures can be manually verified with the following command:
 
 .. code:: batch
 
-   openssl dgst -sha256 -verify <Path to public key .pem> -signature <Path to signature -sig> <Path to the executable>
+   openssl dgst -sha256 -verify <Path to public key .pem> -signature <Path to signature .sig> <Path to the executable>
 
    #Example:
    openssl dgst -sha256 -verify nextronCode.pem -signature thor-linux.sig thor-linux
