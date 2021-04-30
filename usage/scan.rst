@@ -4,12 +4,6 @@ Scan
 
 First of all, THOR runs fine with the default settings. The recommended scan options are already active in the default scan. 
 
-Parameters Possibly Relevant for Your User Case
------------------------------------------------
-
-- **-c percentage** : Reduce the average CPU load to the given percentage value (note: THOR already sets the process priority to the lowest possible value). This can be helpful to reduce the load e.g. on server systems with real-time services or reduce the noise produced by fans on user laptops. 
-- **--allhds** : By default THOR scans only the C: partition on Windows machines and other files/folders only in cases in which some reference points to a different partition (e.g. configured web root of IIS is on D:\inetpub, registered service runs from D:\vendor\service)
-
 Often Used Parameters
 ---------------------
 
@@ -17,31 +11,45 @@ Often Used Parameters
 * **--quick** : Perform a :ref:`quick scan<Scan Modes>` (skips Eventlog and checks only the most relevant folders)
 * **-e target-folder** : Write all output files to the given folder
 
+Parameters Possibly Relevant for Your User Case
+-----------------------------------------------
+
+- **-c percentage** : Reduce the average CPU load to the given percentage value (note: THOR already sets the process priority to the lowest possible value). This can be helpful to reduce the load e.g. on server systems with real-time services or reduce the noise produced by fans on user laptops. 
+- **--allhds** : By default THOR scans only the C: partition on Windows machines and other files/folders only in cases in which some reference points to a different partition (e.g. configured web root of IIS is on D:\inetpub, registered service runs from D:\vendor\service)
+- **--lookback days** with **--globallookback** : Only check the elements changed or created during the last X days in all availabe modules (reduces the scan duration significantly) 
+
 Parameters Better Avoided 
 -------------------------
-
-* **--intense** : high runtime, stability issues due to disabled resource control
-* **--c2-in-memory** : many false positives on user workstations (especially browser memory)
-* **--alldrives** : high runtime, stability issues due to scan on network drrives or other remote filesystems 
-* **--mft** : stability issues due to high memory usage 
-
-Help and Debugging
-------------------
 
 .. list-table:: 
    :header-rows: 1
 
    * - Parameter
-     - Values
-     - Function
+     - Description
+   * - --intense
+     - high runtime, stability issues due to disabled resource control
+   * - --c2-in-memory
+     - many false positives on user workstations (especially browser memory)
+   * - --alldrives
+     - high runtime, stability issues due to scan on network drrives or other remote filesystems
+   * - --mft
+     - stability issues due to high memory usage
+
+Help and Debugging
+------------------
+
+You can use the following parameters to 
+
+.. list-table:: 
+   :header-rows: 1
+
+   * - Parameter
+     - Description
    * - --debug
-     - 
      - Get debug information if errors occur
    * - --help
-     -
      - Get a help with the most important scan options
    * - --fullhelp
-     -
      - Get a help with all scan options
 
 Examples
