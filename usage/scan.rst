@@ -2,16 +2,31 @@
 Scan
 ====
 
-THOR operates pretty well when you run it with the default settings.
-This is mainly because THOR automatically adapts the scan speed to the
-performance capabilities of the system.
+First of all, THOR runs fine with the default settings. The recommended scan options are already active in the default scan. 
 
-Most Relevant Parameters
-------------------------
+Parameters Possibly Relevant for Your User Case
+-----------------------------------------------
 
-The following table lists the parameters that are often used and
-relevant for the standard deployment. The recommended options are shaded
-in green.
+- **-c percentage** : Reduce the average CPU load to the given percentage value (note: THOR already sets the process priority to the lowest possible value). This can be helpful to reduce the load e.g. on server systems with real-time services or reduce the noise produced by fans on user laptops. 
+- **--allhds** : By default THOR scans only the C: partition on Windows machines and other files/folders only in cases in which some reference points to a different partition (e.g. configured web root of IIS is on D:\inetpub, registered service runs from D:\vendor\service)
+
+Often Used Parameters
+---------------------
+
+* **--soft** : Reduce CPU usage, skip all checks that can consume a lot of memory (even if only for a few seconds)
+* **--quick** : Perform a :ref:`quick scan<Scan Modes>` (skips Eventlog and checks only the most relevant folders)
+* **-e target-folder** : Write all output files to the given folder
+
+Parameters Better Avoided 
+-------------------------
+
+* **--intense** : high runtime, stability issues due to disabled resource control
+* **--c2-in-memory** : many false positives on user workstations (especially browser memory)
+* **--alldrives** : high runtime, stability issues due to scan on network drrives or other remote filesystems 
+* **--mft** : stability issues due to high memory usage 
+
+Help and Debugging
+------------------
 
 .. list-table:: 
    :header-rows: 1
@@ -19,66 +34,18 @@ in green.
    * - Parameter
      - Values
      - Function
-   * - -t
-     - template-string
-     - Location of scan template file (.yml) with defined scan parameters
-   * - -s
-     - server
-     - Set a SYSLOG target
-   * - -l
-     - log-file
-     - | Location of the text log file.
-       | Use environment variables like %COMPUTERNAME% to generate a
-       | log file with the system name in the file name.
-   * - --nolog
+   * - --debug
      - 
-     - Disables text log output
-   * - -htmlfile
-     - htmlreport-file
-     - | Location of the HTML report file.
-       | Use environment variables like %COMPUTERNAME% to generate a
-       | log file with the system name in the file name.
-   * - --nohtml
-     -
-     - Disables HTML report output
-   * - -o
-     - md5list-files
-     - | Location of the MD5 list file.
-       | Use environment variables like %COMPUTERNAME% to generate a
-       | log file with the system name in the file name.
-   * - --nocsv
-     - location
-     - | Rebase Directory. Set a different path as output location for all 
-       | output files. Instead of setting a new location for all output files 
-       | separately, you can just define a new location by "-e E:\\", which is 
-       | much shorter and less complex. The naming scheme will still be 
-       | "HOSTNAME\_thor\_DATE.ext". Output directories that do not exist, 
-       | will be created.
-   * - -lookback
-     - 1.
-     - | Number of days to look back in the Windows Eventlog. If you
-       | schedule a frequent scan, use this option to limit the Eventlog
-       | analysis to the yet unchecked dates.
-   * - -d
-     - 
-     - Get debug information if errors occur.
+     - Get debug information if errors occur
    * - --help
      -
-     - Get a full help with all options.
+     - Get a help with the most important scan options
+   * - --fullhelp
+     -
+     - Get a help with all scan options
 
-
-Recommended Scan Options
-------------------------
-
-The following scan options are recommended if you plan to deploy THOR as
-described in the previous chapters. We distinguish between the log
-collection on a network share, a central syslog server and the use of
-local log files.
-
-The command line options described in the following sections have to be
-configured in the "**thor\_remote.bat**" or a "**run\_thor.bat**" in
-case of a local scan without network connection to the central log
-collection/syslog server.
+Examples
+--------
 
 Logging to a Network Share
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -91,13 +58,6 @@ access rights on the share.
 
    thor64.exe --nohtml --nocsv -l \\\\sys\\rep\\%COMPUTERNAME%\_thor.txt
 
-If preferably used in the "thor\_remote.bat" use the variable %RESDRIVE%
-instead of the UNC path:
-
-.. code:: batch
-
-   thor64.exe --nohtml --nocsv -l %RESDRIVE%\\%COMPUTERNAME%.txt
-
 Logging to Syslog Server
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -108,20 +68,6 @@ only.
 
    thor64.exe --nohtml --nocsv --nolog -s syslog.server.net
 
-Logging to a Local Log File and Import
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-The following options should be used in a "run\_thor.bat" file in the
-THOR folder of the USB drive. It will generate a TXT log that is written
-at runtime and a HTML report that is generated at the end of the scan.
-
-.. code:: batch
-
-   thor64.exe --nocsv
-
-Often Used Parameters
----------------------
-
 Scan Run on a Single Directory
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -129,6 +75,8 @@ Scan Run on a Single Directory
 
    thor64.exe --lab -p C:\\ProgramData
    thor64.exe --lab -p I:\\mounted\_image\\disk1
+
+IMPORTANT: This feature requires a `forensic lab license <https://www.nextron-systems.com/thor/license-packs/>`__ type which is meant to be used in forensic labs. 
 
 Deactivate all file output - Syslog only
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -160,7 +108,7 @@ written to a network share.
 
 .. code:: batch
 
-   thor64.exe --deepdivecustom -e \\\\server\\thor\_output\_share
+   thor64.exe --deepdivecustom -e \\server\share\thor_output\
 
 Intense Scan and DeepDive on a Mounted Image as Drive Z
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -169,7 +117,13 @@ Intense Scan and DeepDive on a Mounted Image as Drive Z
 
    thor64.exe --lab --deepdive -p Z:\\
 
-IMPORTANT: This feature requires a `forensic lab license <https://www.nextron-systems.com/thor/license-packs/>`_ type which is meant to be used in forensic labs. 
+IMPORTANT: Lab scanning mode requires a `forensic lab license <https://www.nextron-systems.com/thor/license-packs/>`__ type which is meant to be used in forensic labs. 
+
+You can achieve a similar (but not equal) scan using:
+
+.. code:: batch 
+
+   thor64.exe -a Filescan --intense -p C:\path-to-scan
 
 Throttled THOR Run (static throttling value)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -285,7 +239,7 @@ output instead.
 Note: our Github repository contains scripts to convert THOR’s JSON
 output into a CSV with any given field values, see:
 
-https://github.com/NextronSystems/nextron-helper-scripts/tree/master/thor-log-processors
+`https://github.com/NextronSystems/nextron-helper-scripts/tree/master/thor-log-processors <https://github.com/NextronSystems/nextron-helper-scripts/tree/master/thor-log-processors>`__
 
 CSV Stats
 ^^^^^^^^^
