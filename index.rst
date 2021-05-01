@@ -16,19 +16,14 @@ THOR Scanner User Manual
    usage/beforeyoubegin
    usage/deployment
    usage/scan
-   usage/analysis
-   usage/special-scan-modes
-   usage/configuration-files
    usage/scan-modes
-   usage/evidence-collection
-   usage/scoring-system
-   usage/update
+   usage/special-scan-modes
+   usage/analysis
+   usage/configuration
    usage/output-options
-   usage/action-on-match
-   usage/thor-db
-   usage/resource-control
-   usage/exclude-elements
+   usage/update
    usage/custom-signatures
+   usage/other-topics
    usage/analysis-and-info
    usage/links-and-references
 
