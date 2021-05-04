@@ -40,16 +40,16 @@ Parameters Possibly Relevant for Your User Case
 | -c percentage              | | Reduce the average CPU load to the given percentage value              |
 |                            | | note THOR already sets the process priority to the lowest possible     |
 |                            | | value). This can be helpful to reduce the load e.g. on server systems  |
-|                            | | with real-time services or reduce the noise produced by fans on user   |
-|                            | | laptops.                                                               |
+|                            | | with real-time services or reduce the noise produced by fans on    	|
+|                            | | user laptops.                                                          |
 +----------------------------+--------------------------------------------------------------------------+
-| --allhds                   | | By default THOR scans only the C: partition on Windows machines and    |
-|                            | | other files/folders only in cases in which some reference points to a  |
-|                            | | different partition (e.g. configured web root of IIS is on D:\inetpub, |
-|                            | | registered service runs from D:\vendor\service)                        |
+| --allhds                   | | By default THOR scans only the C: partition on Windows machines     	|
+|                            | | and other files/folders only in cases in which some reference points  	|
+|                            | | to adifferent partition (e.g. configured web root of IIS is on  	|
+|                            | | D:\inetpub, registered service runs from D:\vendor\service)            |
 +----------------------------+--------------------------------------------------------------------------+
-| --lookback days            | | Only check the elements changed or created during the last X days in   |
-| --globallookback           | | all availabe modules (reduces the scan duration significantly)         |
+| | --lookback days          | | Only check the elements changed or created during the last X days    	|
+| | --globallookback         | | in all availabe modules (reduces the scan duration significantly)      |
 +----------------------------+--------------------------------------------------------------------------+
 
 Parameters Better Avoided 
@@ -67,11 +67,13 @@ This list contains flags often selected and used that should better be avoid unl
    * - --c2-in-memory
      - many false positives on user workstations (especially browser memory)
    * - --alldrives
-     - long runtime, stability issues due to scan on network drives or other remote filesystems
+     - | long runtime, stability issues due to scan on network drives or other remote 
+       | filesystems
    * - --mft
      - stability issues due to high memory usage
    * - --dump-procs
-     - stability issues, possibly high disk space usage (free disk space checks are implemented but may fail)
+     - | stability issues, possibly high disk space usage (free disk space checks are 
+       | implemented but may fail)
    * - --full-registry
      - longer runtime, low positive impact
 
@@ -92,7 +94,8 @@ This list contains flags that are often used by analysts to tweak the scan in us
    * - --utc
      - Print all timestamps in UTC (helpful when creating timelines)
    * - --string-context num-chars
-     - Number of characters preceeding and following the string match to show in the output
+     - | Number of characters preceeding and following the string match to show 
+       | in the output
 
 Help and Debugging
 ------------------

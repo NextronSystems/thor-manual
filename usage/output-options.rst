@@ -302,8 +302,6 @@ has the CEF format set, e.g.:
 
    thor.exe -s syslog1.server.local:514:CEF
 
-All details on the definition of syslog targets can be found in chapter
-16.1.
 
 Encrypted Output Files
 ----------------------
@@ -325,4 +323,4 @@ decrypt output files encrypted with the default key.
 
    thor-util decrypt file.txt
 
-For more information on "thor-util" see the separate `THOR Util manual <http://thor-util-manual.nextron-systems.com/>`__.
+For more information on "thor-util" see the separate `THOR Util manual <https://thor-util-manual.nextron-systems.com/>`__.

@@ -178,11 +178,10 @@ The following tags are currently supported:
 * "**trusted-hash**" or "**trusted-hashes**" or "**falsepositive-hash**" or "**falsepositive-hashes**" for hashes that you trust (also expects CSV format in the form "**hash;comment**" like the hash IOCs)
 * "**handles**" for malicious Mutex, Event or Named Pipe values
 
-See chapter 0 for more information on files that can be used in the
-**"./custom-signatures**" folder. IOC files must have the extensions
+IOC files must have the extensions
 "**.txt**". Only "**.dat**" extensions are treated differently as THOR
 expects "**.dat**" files to be encrypted (with “thor-util” – see
-separate manual)
+separate `THOR Util manual <https://thor-util-manual.nextron-systems.com/en/latest/>`_)
 
 +------------------------+-------------------------------------+
 | Keyword in File Name   | Example                             |
@@ -223,7 +222,7 @@ by default. This behavior may change in the future.
 Custom Sigma rules have to be placed in the
 **./custom-signatures/sigma** folder and can be encrypted using “THOR
 Util”. You can find details on the encryption in the separate
-"THOR\_Util\_Manual.pdf".
+`THOR Util manual <https://thor-util-manual.nextron-systems.com/en/latest/>`_.
 
 .. figure:: ../images/image31.png
    :target: ../_images/image31.png
@@ -287,7 +286,7 @@ Encrypted STIX IOC Files
 
 THOR Util supports the encryption of the "**.json**" STIX files to
 encrypted files with the "**.jsos**" file extension. See the
-"THOR\_Util\_Manual.pdf" for more information on the "encrypt" feature.
+`THOR Util manual <https://thor-util-manual.nextron-systems.com/en/latest/>`_. for more information on the "encrypt" feature.
 
 YARA
 ----
@@ -310,8 +309,8 @@ Generic YARA Rules
 
 The "Generic" rules are standard YARA rules that are applied to payloads
 of files and memory. Just place any file with "**\*.yar**" extension in
-the "**./custom-signatures/yara**" folder. See chapter “Encrypted Custom
-Signatures” for information on encrypted forms of these signature files
+the "**./custom-signatures/yara**" folder. See :ref:`chapter 12.6 Encrypt Custom
+Signatures <usage/custom-signatures:Encrypt Custom Signatures>` for information on encrypted forms of these signature files
 in cases in which you do not want an adversary to be able to see your
 clear text signature files.
 
@@ -332,7 +331,7 @@ order to select them for application in certain modules only.
 
 * | Registry Keys
   | Keyword: **‘registry’**
-  | Rules are applied to a whole key and all of its values. This means that you can combine several key values in a single YARA rule. (see chapter 22.5.3 for details)
+  | Rules are applied to a whole key and all of its values. This means that you can combine several key values in a single YARA rule. (see :ref:`chapter 12.5.3 THOR YARA Rules for Registry Detection <usage/custom-signatures:Thor Yara Rules for Registry Detection>` for details)
 * | Log Files
   | Keyword: **‘log’**
   | Rules are applied to each log line (or a bigger set of log lines if the aggregator features is active).
@@ -376,9 +375,9 @@ applied to content.
 +------------------------+-----------------------------------------------------------------+---------------------------------+
 
 You can restrict the Specific YARA rules to certain modules to avoid
-false positives. Please check chapter 22.5.5 for details.
+false positives. Please check :ref:`chapter 12.5.4 Restrict Yara Rule Matches in Generic Rules <usage/custom-signatures:Restrict Yara Rule Matches in Generic Rules>`  for details.
 
-Also see the link section in chapter 23 for a YARA rule exporter script
+Also see the link section in :doc:`chapter 14 Analysis and Info <./analysis-and-info>` for a YARA rule exporter script
 that extracts YARA Keyword rules automatically from a MISP threat feed.
 
 Create YARA Rules
@@ -624,7 +623,7 @@ that can’t be used with other scanners, as they would generate to many
 false positives. If you noticed a string that is used in malware as well
 as legitimate files, just assign a low score or combine it with other
 attributes, which are used by THOR to enhance the functionality and are
-described in chapter 22.5.2.
+described in :ref:`chapter 12.5.2 Additional Attributes <usage/custom-signatures:Additional Attributes>`.
 
 Additional Attributes
 ^^^^^^^^^^^^^^^^^^^^^
@@ -970,4 +969,4 @@ Encrypt Custom Signatures
 You can encrypt the YARA signatures and IOC files with the help of
 THOR-util’s "encrypt" feature.
 
-See the separate "THOR\_util\_Manual.pdf" for more details.
+See the separate `THOR Util manual <https://thor-util-manual.nextron-systems.com/en/latest/>`_. for more details.

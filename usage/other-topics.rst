@@ -158,7 +158,7 @@ One of the following conditions activates soft mode:
 
 In Soft mode several checks and features that could risk system’s
 stability or could provoke an Antivirus or HIDS to intervene with the
-scanner are disabled. See chapter “12 Scan Modes” for a complete
+scanner are disabled. See :doc:`chapter 6 Scan Modes <./scan-modes>` for a complete
 overview.
 
 Scoring System
@@ -310,7 +310,7 @@ the keyword signature and 1 "notice" of the filename IOC signatures.
 
 The keyword IOC matches in the "checkKeyword()" sub-check and
 "checkString()" returns a match, that generates a "Warning" level
-message that automatically receives a score of 75 (see chapter 14.3).
+message that automatically receives a score of 75 (see :ref:`chapter 13.3.3 Default Scores <usage/other-topics:Default Scores>`).
 
 The filename IOCs would both match on the string in the
 "checkFilename()" sub-check and both score would be summed up to a total

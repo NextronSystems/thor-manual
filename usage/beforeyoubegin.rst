@@ -10,7 +10,6 @@ Place a valid license file into the program folder:
 * | THOR License File (\*.lic)
   | THOR checks the program folder and all sub folder for valid license
      files. You can specify a certain path with **--licensepath path**.
-     See chapter 11 "License Files" for details.
 
 About License Files
 ^^^^^^^^^^^^^^^^^^^
