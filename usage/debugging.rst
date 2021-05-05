@@ -151,10 +151,22 @@ Tell us which THOR version you are using:
 
 Run **thor --version** and copy the resulting text into the email. 
 
-.. code:: bash 
+On Windows: 
+
+.. code:: batch 
 
    thor64.exe --version 
+
+On Linux: 
+
+.. code:: bash 
+
    ./thor-linux-64 --version 
+
+On Mac OS:
+
+.. code:: bash 
+
    ./thor-macosx --version
 
 This should produce a message like this: 
