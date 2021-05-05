@@ -129,6 +129,13 @@ The legacy version is not offered in our customer portal. We share it with our c
 
 We only offer limited support for this version, since we cannot guarantee a successful stable scan on platforms that have already been deprecated.
 
+Choose The Right Architecture 
+-----------------------------
+
+You will find a 32 and 64 bit version of the executable in the program folder. Never run the 32bit version of THOR named **thor.exe** on 64bit system. The 32bit version has some limitations that the 64bit version doesn't have. (memory usage, sees different folders on disk and registry versions)
+
+Make sure to run the correct binary for your target architecture.
+
 Verify Public Key Signatures (optional)
 ---------------------------------------
 
