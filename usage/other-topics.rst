@@ -386,13 +386,12 @@ Content of 'tmpl-action.yml':
 | | - "\\\\\\\\VBOXSVR\\\\Downloads\\\\restore\_files\\\\%COMPUTERNAME%\_%md5%\_%file%\_%ext%\_%date%"   |
 +--------------------------------------------------------------------------------------------------------+
 
-
 THOR DB
 -------
 
 This simple SQLite database is created by default in the
-"**%ProgramData%\\thor**" directory as "**thor.db**". You can deactivate
-THOR DB and all its features by using the "**--nothordb**" option.
+"**%ProgramData%\\thor**" (Linux, macOS: /var/lib/thor/) directory as "**thor.db**". 
+You can deactivate THOR DB and all its features by using the "**--nothordb**" flag.
 
 It stores persistent information over several scan runs:
 
