@@ -239,8 +239,8 @@ Sometimes errors lead to panics of the executables, which causes the situation
 that the relevant log lines don't appear in the log file. In these cases, please 
 also create a a screenshot of a panic shown in the command line window. 
 
-Provide the THOR DB (Optional) 
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Provide the THOR database (Optional) 
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The :ref:`THOR DB <usage/other-topics:THOR DB>` helps us debug situations in which 
 the THOR scan timed out or didn't complete at all. It contains statistics on the 
