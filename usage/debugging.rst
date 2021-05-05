@@ -202,8 +202,8 @@ when the error occurred.
 
    thor64.exe --quick -e D:\logs -p C:\Windows\System32
 
-Provide a scan log with --debug flag 
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Provide the log of a scan with --debug flag 
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The most important element is a scan log of a scan with set **--debug** 
 flag. 
