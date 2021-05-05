@@ -110,9 +110,9 @@ Usually the three following sources are responsible:
 Insufficient Free Memory
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
-... code::
+.. code::
 
-    fatal error: out of memory
+   fatal error: out of memory
 
 Probable causes: 
 
