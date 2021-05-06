@@ -274,7 +274,7 @@ Activate a higher sensitivity with “\ **--full-proc-integrity**\ ”.
 Multi-Threading
 ---------------
 
-THOR supports scanning a system with multiple threads in parallel,
+THOR 10.6 supports scanning a system with multiple threads in parallel,
 allowing for a significant increase in speed in exchange for a higher
 CPU usage.
 
