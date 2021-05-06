@@ -257,11 +257,11 @@ Provide the THOR database (Optional)
 The :ref:`THOR DB <usage/other-topics:THOR DB>` helps us debug situations in which 
 the THOR scan timed out or didn't complete at all. It contains statistics on the 
 run time of all used modules and the durations of all folders up to the second 
-folder level from the root of a partition. (e.g. C:\Windows\SysWow64). 
+folder level from the root of a partition. (e.g. C:\\Windows\\SysWow64). 
 
 The default location of that file is: 
 
-* Windows: **C:\ProgramData\thor\thor.db** 
+* Windows: **C:\\ProgramData\\thor\\thor.db** 
 * Linux/macOS: **/var/lib/thor/thor.db**
 
 Please provide that file in situations in which: 
