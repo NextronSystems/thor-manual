@@ -158,7 +158,7 @@ One of the following conditions activates soft mode:
 
 In Soft mode several checks and features that could risk system’s
 stability or could provoke an Antivirus or HIDS to intervene with the
-scanner are disabled. See :doc:`chapter 6 Scan Modes <./scan-modes>` for a complete
+scanner are disabled. See :doc:`chapter Scan Modes <./scan-modes>` for a complete
 overview.
 
 Scoring System
@@ -390,7 +390,7 @@ THOR DB
 -------
 
 This simple SQLite database is created by default in the
-"**%ProgramData%\\thor**" (Linux, macOS: /var/lib/thor/) directory as "**thor.db**". 
+"**%ProgramData%\\thor**" (Linux, macOS: **/var/lib/thor/**) directory as "**thor.db**". 
 You can deactivate THOR DB and all its features by using the "**--nothordb**" flag.
 
 It stores persistent information over several scan runs:

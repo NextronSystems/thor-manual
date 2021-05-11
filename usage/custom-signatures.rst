@@ -377,7 +377,7 @@ applied to content.
 You can restrict the Specific YARA rules to certain modules to avoid
 false positives. Please check :ref:`chapter 12.5.4 Restrict Yara Rule Matches in Generic Rules <usage/custom-signatures:Restrict Yara Rule Matches in Generic Rules>`  for details.
 
-Also see the link section in :doc:`chapter 14 Analysis and Info <./analysis-and-info>` for a YARA rule exporter script
+Also see the link section in :doc:`chapter Analysis and Info <./analysis-and-info>` for a YARA rule exporter script
 that extracts YARA Keyword rules automatically from a MISP threat feed.
 
 Create YARA Rules

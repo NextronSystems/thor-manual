@@ -16,12 +16,12 @@ Themed scan modes:
 
 * | **Soft (--soft / force disable with --nosoft)**
   | This mode disables all modules and checks that could be risky for system stability.
-  | It is automatically activated on (more details in :ref:`chapter 13.2.1 Automatic Soft Mode <usage/other-topics:Automatic Soft Mode>`):
+  | It is automatically activated on (more details in :ref:`chapter Automatic Soft Mode <usage/other-topics:Automatic Soft Mode>`):
   | - Systems with only a single CPU core
   | - Systems with less than 1024 MB of RAM
 
 * | **Lab Scan (--lab)**
-  | This mode scan only the filesystem and disable all other modules. (see :doc:`chapter 7 Special Scan Modes <./special-scan-modes>` for more details and flags used in this can mode)
+  | This mode scan only the filesystem and disable all other modules. (see :doc:`chapter Special Scan Modes <./special-scan-modes>` for more details and flags used in this can mode)
   | Example: **./thor64 --lab -p /mnt/image\_c/**
 
 * | **Intense (--intense)**

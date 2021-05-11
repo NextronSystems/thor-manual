@@ -55,7 +55,7 @@ The necessary steps are:
 
    -  set the network share UNC path
 
-   -  set the parameters for the THOR run (see :doc:`chapter 5 Scan <./scan>`)
+   -  set the parameters for the THOR run (see :doc:`chapter Scan <./scan>`)
 
 You should then test the setting like this:
 
@@ -641,7 +641,7 @@ in the help screen.
    THOR Remote Usage
 
 As you can see, a list of target hosts can be provided with the help of
-the new YAML config files. See :doc:`chapter 9 Configuration <./configuration>` for more
+the new YAML config files. See :doc:`chapter Configuration <./configuration>` for more
 details.
 
 A YAML file with a list of hosts looks like this:
