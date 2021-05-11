@@ -94,7 +94,6 @@ scanning mode threatens the scan's and system's stability).
 
 THOR didn't initialize the IOCs or YARA rules with the correct type
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
 It happens very often that users that prepare custom IOCs or YARA rules 
 forget to include the correct keyword in the filename of the IOC or YARA
 rule file.
