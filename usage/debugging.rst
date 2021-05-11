@@ -90,7 +90,34 @@ doesn’t have a relevant file extension (.asp, .vbs, .ps, .ps1, .rar,
 Solution: Use an intense scanning mode for that folder (**--intense**) 
 or add the magic header to **file-type-signatures.cfg** 
 (Warning: this file gets overwritten with an update; Warning: intense 
-scanning mode threatens the scan's and system's stability). 
+scanning mode threatens the scan's and system's stability).
+
+THOR didn't initialize the IOCs or YARA rules with the correct type
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+It happens very often that users that prepare custom IOCs or YARA rules 
+forget to include the correct keyword in the filename of the IOC or YARA
+rule file.
+
+The currect use of keywords is described in :ref:`this chapter <usage/custom-signatures:Initialization Based on Strings in File Names>` for IOCs and 
+:ref:`this chapter <usage/custom-signatures:Specific YARA Rules>` for YARA rules. 
+
+A wrong or missing keyword leads to situations in which a file that contains 
+YARA rules that are meant to be applied to log files, doesn't contain a "log" 
+keyword in it's name. 
+
+You can review a correct initialization in the command line output or log file. 
+
+.. code:: batch 
+
+   Info Adding rule set from my-log-rules.yar as 'log' type
+
+Using the keyword **c2** for C2 IOCs in a filename should result in a line like 
+the following:
+
+.. code:: batch 
+
+   Info Reading iocs from /tmp/thor10/custom-signatures/iocs/my-c2-iocs.txt as 'domains' type
 
 Most Frequent Causes of Failed Scans
 ------------------------------------
