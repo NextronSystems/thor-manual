@@ -136,6 +136,13 @@ You will find a 32 and 64 bit version of the executable in the program folder. N
 
 Make sure to run the correct binary for your target architecture.
 
+Choose The Right Command Line Flags 
+-----------------------------------
+
+The recommended way to run THOR has already been put into the default. So, the recommended way to start a THOR is without any command line flags.
+
+Howevery, special circumstances can lead to different requirements and thus a different set of command line flags. See chapter :doc:`'Scan' <./scan>` for often used flags. 
+
 Verify Public Key Signatures (optional)
 ---------------------------------------
 
