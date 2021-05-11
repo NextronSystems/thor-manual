@@ -87,9 +87,10 @@ doesn’t have a relevant file extension (.asp, .vbs, .ps, .ps1, .rar,
 .ps1xml, .clixml, .psc1, .pssc, .pl, .www, .rdp, .jar, .docm, .ace,
 .job, .temp, .plg, .asm)
 
-Solution: Use lab scanning mode (**--lab**) or add the magic header to
-**file-type-signatures.cfg** (Warning: this file gets overwritten with
-an update)
+Solution: Use an intense scanning mode for that folder (**--intense**) 
+or add the magic header to **file-type-signatures.cfg** 
+(Warning: this file gets overwritten with an update; Warning: intense 
+scanning mode threatens the scan's and system's stability). 
 
 Most Frequent Causes of Failed Scans
 ------------------------------------

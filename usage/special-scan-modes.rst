@@ -18,7 +18,22 @@ options:
 * nodoublecheck (do not check for other THOR instances on the same system and do not interrupt scan if another instance has been found)
 * multi-threading (it automatically sets the number of threads to use to the number of CPU cores found on the workstation)
 
-IMPORTANT: Lab scanning mode requires a `forensic lab license <https://www.nextron-systems.com/thor/license-packs/>`__ type which is meant to be used in forensic labs. You can achieve a similar (but not equal) scan using **-a Filescan --intense -p path-to-scan**
+Forensic Lab License
+^^^^^^^^^^^^^^^^^^^^
+
+Lab scanning mode and its features are usually required in a non-private context. 
+It requires a `forensic lab license <https://www.nextron-systems.com/thor/license-packs/>`__ 
+which is meant to be used in corporate forensic labs. 
+
+You can achieve a similar (but not equal) scan using the following command line flags 
+
+.. code:: batch 
+
+   thor64.exe -a Filescan --intense --norescontrol --nosoft -p path-to-scan
+   
+Without a valid lab license, you cannot use multiple instances of THOR on a single system 
+or switch into multi-threaded scanning. The features mentiond in the following sub chapters
+are also limited.  
 
 Virtual Drive Mapping
 ^^^^^^^^^^^^^^^^^^^^^
@@ -38,7 +53,7 @@ original name. The syntax is as follows:
 
 .. code:: bash
 
-  --virtual-map current-location:original-location
+   --virtual-map current-location:original-location
 
 Some examples:
 
@@ -47,21 +62,21 @@ drive “F:” on the forensic lab workstation:
 
 .. code:: bash
 
-  --virtual-map F:C
+   --virtual-map F:C
 
 A original mount point “/” has been mounted to “/mnt/image1” on a Linux
 forensic lab workstation:
 
 .. code:: bash
 
-  --virtual-map /mnt/image1:/
+   --virtual-map /mnt/image1:/
 
 A Windows image of drive “C:” mounted to “/mnt/image1” on a Linux
 forensic lab workstation:
 
 .. code:: bash
 
-  --virtual-map /mnt/image1:C
+   --virtual-map /mnt/image1:C
 
 IMPORTANT: This feature requires a `forensic lab license <https://www.nextron-systems.com/thor/license-packs/>`__ type which is meant to be used in forensic labs. 
 
@@ -79,7 +94,7 @@ retrieved as the value for that parameter.
 
 .. code:: bash
 
-  -j orig-hostname
+   -j orig-hostname
 
 Examples
 ^^^^^^^^
@@ -89,7 +104,7 @@ look like this:
 
 .. code:: batch
 
-  thor64.exe --lab -p S:\\ --virtual-map S:C –j WKS001 -e C:\\reports
+   thor64.exe --lab -p S:\\ --virtual-map S:C –j WKS001 -e C:\\reports
 
 It instructs THOR to scan the mounted partition S: in lab scanning mode,
 maps the current partition “S:” to a virtual drive “C:”, replaces the
@@ -129,7 +144,7 @@ be used to remove the dropped file once it has been scanned. Example:
 
 .. code:: batch
 
-  thor.exe --dropzone –p C:\\dropzone
+   thor.exe --dropzone –p C:\\dropzone
 
 IMPORTANT: This feature requires a `forensic lab license <https://www.nextron-systems.com/thor/license-packs/>`__ type which is meant to be used in forensic labs. 
 
@@ -153,7 +168,7 @@ YARA signatures placed in the "./custom-signatures/yara" sub folder.
 
 .. code:: batch
 
-  thor.exe –m systemX123.mem –j systemX123 –e C:\\reports
+   thor.exe –m systemX123.mem –j systemX123 –e C:\\reports
 
 IMPORTANT: This feature requires a `forensic lab license <https://www.nextron-systems.com/thor/license-packs/>`__ type which is meant to be used in forensic labs. 
 
@@ -221,7 +236,7 @@ mounted file system image as drive "X:".
 
 .. code:: bash
 
-  thor --lab --deepdive -rd D:\\restore -p X:\\
+   thor --lab --deepdive -rd D:\\restore -p X:\\
 
 Eventlog Analysis (-n)
 ----------------------
@@ -234,7 +249,7 @@ Eventlog’s full name.
 
 .. code:: batch
 
-  thor.exe -a Eventlog –n "Microsoft-Windows-Sysmon/Operational"
+   thor.exe -a Eventlog –n "Microsoft-Windows-Sysmon/Operational"
 
 You can get the full name of a Windows Eventlog by right clicking the
 Eventlog in Windows Event Viewer and selecting "Properties".
@@ -252,7 +267,7 @@ and instructs the Eventlog module to scan only the “Security” and
 
 .. code:: batch
 
- thor.exe -n Security -n System
+   thor.exe -n Security -n System
 
 MFT Analysis (--mft)
 --------------------

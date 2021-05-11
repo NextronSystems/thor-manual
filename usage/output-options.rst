@@ -31,7 +31,7 @@ all platforms.
 
 .. code:: batch
 
-   thor64.exe --lab -p S:\\ -o :hostname:\_:time:.csv
+   thor64.exe -a FileScan -p S:\\ -o :hostname:\_:time:.csv
 
 Log File Output (.txt)
 ^^^^^^^^^^^^^^^^^^^^^^

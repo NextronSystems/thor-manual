@@ -229,7 +229,7 @@ You can start a short test run on a certain directory with:
 
 .. code:: batch
    
-   thor.exe --lab -p C:\\TestDir
+   thor.exe -a FileScan --intense -p C:\\TestDir
 
 Personal Information
 ^^^^^^^^^^^^^^^^^^^^
