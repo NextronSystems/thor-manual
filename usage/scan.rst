@@ -55,7 +55,7 @@ Parameters Possibly Relevant for Your User Case
 Parameters Better Avoided 
 -------------------------
 
-This list contains flags often selected and used that should better be avoid unless you k now exactly what you're doing.
+This list contains flags often selected and used that should better be avoid unless you know exactly what you're doing.
 
 .. list-table:: 
    :header-rows: 1
