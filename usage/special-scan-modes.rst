@@ -29,7 +29,7 @@ You can achieve a similar (but not equal) scan using the following command line 
 
 .. code:: batch 
 
-   thor64.exe -a Filescan --intense --norescontrol --nosoft -p path-to-scan
+   thor64.exe -a Filescan --intense --norescontrol --nosoft --cross-platform -p path-to-scan
    
 Without a valid lab license, you cannot use multiple instances of THOR on a single system 
 or switch into multi-threaded scanning. The features mentiond in the following sub chapters
