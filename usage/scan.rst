@@ -126,7 +126,7 @@ access rights on the share.
 
 .. code:: batch
 
-   thor64.exe --nohtml --nocsv -l \\\\sys\\rep\\%COMPUTERNAME%\_thor.txt
+   thor64.exe --nohtml --nocsv -l \\sys\rep\%COMPUTERNAME%\_thor.txt
 
 Logging to Syslog Server
 ^^^^^^^^^^^^^^^^^^^^^^^^
@@ -143,10 +143,16 @@ Scan Run on a Single Directory
 
 .. code:: batch
 
-   thor64.exe --lab -p C:\\ProgramData
-   thor64.exe --lab -p I:\\mounted\_image\\disk1
+   thor64.exe --lab -p C:\ProgramData
+   thor64.exe --lab -p I:\mounted\_image\disk1
 
 IMPORTANT: This feature requires a `forensic lab license <https://www.nextron-systems.com/thor/license-packs/>`__ type which is meant to be used in forensic labs. 
+
+You can imitate a lab scan without a lab license with these command line flags:
+
+.. code:: batch 
+
+   thor64.exe -a Filescan --intense --norescontrol --nosoft --cross-platform -p C:\ProgramData
 
 Deactivate all file output - Syslog only
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -160,7 +166,7 @@ Save the result files to a different directory
 
 .. code:: batch
 
-   thor64.exe -s 10.1.5.14 -e Z:\\
+   thor64.exe -s 10.1.5.14 -e Z:\
 
 Only scan the last 7 days of the Windows Eventlog and log files on disk 
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -185,7 +191,7 @@ Intense Scan and DeepDive on a Mounted Image as Drive Z
 
 .. code:: batch
 
-   thor64.exe --lab --deepdive -p Z:\\
+   thor64.exe --lab --deepdive -p Z:\
 
 IMPORTANT: Lab scanning mode requires a `forensic lab license <https://www.nextron-systems.com/thor/license-packs/>`__ type which is meant to be used in forensic labs. 
 
