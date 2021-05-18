@@ -11,6 +11,35 @@ Place a valid license file into the program folder:
   | THOR checks the program folder and all sub folder for valid license
      files. You can specify a certain path with **--licensepath path**.
 
+Generate a License 
+^^^^^^^^^^^^^^^^^^
+
+You can generate a valid license in our `customer portal <https://portal.nextron-systems.com/>`__.
+
+On Windows system you should use the computer name as hostname during license creation. 
+
+.. code:: batch 
+
+   echo %COMPUTERNAME%
+
+On Linux use the hostname command:
+
+.. code:: bash 
+
+   hostname
+
+On macOS use the following command: 
+
+.. code:: bash 
+
+   sysctl kern.hostname
+
+Some more remarks regarding the hostname values: 
+
+* Use only the hostname of a FQDN (**master1** of **master1.internal.net**)
+* The casing of the letters doesn't matter (case-insensitive)
+* We do not store the hostnames anywhere in our portal
+
 About License Files
 ^^^^^^^^^^^^^^^^^^^
 
