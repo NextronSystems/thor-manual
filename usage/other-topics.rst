@@ -313,7 +313,7 @@ The keyword IOC matches in the "checkKeyword()" sub-check and
 message that automatically receives a score of 75 (see :ref:`chapter 13.3.3 Default Scores <usage/other-topics:Default Scores>`).
 
 The filename IOCs would both match on the string in the
-"checkFilename()" sub-check and both score would be summed up to a total
+"checkFilename()" sub-check and both scores would be summed up to a total
 score of 40 (70 + (-30) = 40), which would generate a "Notice".
 
 Action on Match
