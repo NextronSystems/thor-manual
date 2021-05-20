@@ -636,7 +636,7 @@ The external variables are:
 * "**filename**" - single file name like "**cmd.exe**"
 * "**filepath**" - file path without file name like "**C:\\temp**"
 * "**extension**" - file extension with a leading "**.**", lower case like "**.exe**"
-* "**filetype**" - type of the file based on the magic header signatures (for a list of valid file types see: "**./signatures/file-type-signatures.cfg**") like "**EXE**" or "**ZIP**"
+* "**filetype**" - type of the file based on the magic header signatures (for a list of valid file types see: "**./signatures/misc/file-type-signatures.cfg**") like "**EXE**" or "**ZIP**"
 * "**timezone**" – the system’s time zone (see https://golang.org/src/time/zoneinfo_abbrs_windows.go for valid values)
 * "**language**" – the systems language settings (see https://docs.microsoft.com/en-us/windows/win32/intl/sort-order-identifiers)
 
