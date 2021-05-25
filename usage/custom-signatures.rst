@@ -341,6 +341,10 @@ order to select them for application in certain modules only.
 * | All String Checks
   | Keyword: **'keyword'**
   | Rules are applied to all string checks in many different modules
+* | Metadata Checks (since THOR 10.6)
+  | Keyword: **'meta'**
+  | Rules are applied to all files without exception, including directories, symlinks and the like, but can only access the THOR specific external variables (see :ref:`Additional Attributes <usage/custom-signatures:Additional Attributes>`) and the first 100 bytes of the file.
+  | Since THOR 10.6.8: If a metadata rule has the special tag DEEPSCAN, THOR will apply the generic YARA rules to this file.
 
 YARA Rule Application
 ^^^^^^^^^^^^^^^^^^^^^
@@ -372,6 +376,8 @@ applied to content.
 | 			 | | ProcessHandles, ServiceCheck, AtJobs,                         |				     | 
 |			 | | LogScan, AmCache, SHIMCache, 				   | 				     |
 |			 | | Registry	   			   			   |                                 |
++------------------------+-----------------------------------------------------------------+---------------------------------+
+| meta                   | Filescan                                                        | meta-rules.yar                  |
 +------------------------+-----------------------------------------------------------------+---------------------------------+
 
 You can restrict the Specific YARA rules to certain modules to avoid
