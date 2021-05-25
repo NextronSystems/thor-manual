@@ -645,9 +645,11 @@ The external variables are:
 * "**filetype**" - type of the file based on the magic header signatures (for a list of valid file types see: "**./signatures/misc/file-type-signatures.cfg**") like "**EXE**" or "**ZIP**"
 * "**timezone**" – the system’s time zone (see https://golang.org/src/time/zoneinfo_abbrs_windows.go for valid values)
 * "**language**" – the systems language settings (see https://docs.microsoft.com/en-us/windows/win32/intl/sort-order-identifiers)
+* "**owner**" - The file owner, e.g. "**NT-AUTHORITY\\SYSTEM**" on Windows or "**root**" on Linux
+* "**group**" (available since THOR 10.6.8) - The file group, e.g. "**root**" on Linux. This variable is empty on Windows.
+* "**filemode**" (available since THOR 10.6) - file mode for this file (see https://man7.org/linux/man-pages/man7/inode.7.html, "The file type and mode"). On Windows, this variable will be an artificial approximation of a file mode since Windows is not POSIX compliant.
 
-The "**filesize**" value is a build-in variable and therefore not
-mentioned as THOR specific external variables.
+The "**filesize**" value contains the file size in bytes. It is provided directly by YARA and is not specific to THOR.
 
 Yara Rule with THOR External Variable: 
 
