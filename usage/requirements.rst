@@ -47,6 +47,7 @@ These versions are scannable with THOR Legacy. Contact us for details on how to 
 * Windows Server 2003 x86 (unsupported)
 * Windows Server 2003 x64 (unsupported)
 * Windows Server 2008 x86
+* Windows Server 2008 x64
 
 Unsupported
 -----------
