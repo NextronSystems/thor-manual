@@ -64,3 +64,4 @@ We have productive setups with our customers involving the file collection from:
 * RHEL Linux 4
 * Citrix Netscaler
 * ICS environments with Windows XP embedded systems (planned)
+* VMWare ESX (see this `blog post <https://www.nextron-systems.com/2021/06/07/analyze-vmware-esx-systems-with-thor-thunderstorm/>`__)
