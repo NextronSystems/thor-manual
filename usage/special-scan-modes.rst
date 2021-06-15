@@ -18,6 +18,8 @@ options:
 * nodoublecheck (do not check for other THOR instances on the same system and do not interrupt scan if another instance has been found)
 * multi-threading (it automatically sets the number of threads to use to the number of CPU cores found on the workstation)
 
+The chapter :doc:`Use Cases <./use-cases>` contains some use cases in which this scan mode is used. You may find the guides useful. 
+
 Forensic Lab License
 ^^^^^^^^^^^^^^^^^^^^
 
