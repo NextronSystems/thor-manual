@@ -23,6 +23,8 @@ The ``--lab`` parameter will apply several internal flags (e.g. enables intense 
 
 You find more information on the scan parameters in the chapter :doc:`Special Scan Modes <./special-scan-modes>`.
 
+This `blog post <https://thinkdfir.com/2021/06/03/you-want-me-to-deal-with-how-many-vmdks/>`__ mentions different ways to use commercial or built-in tools to mount and scan VMDK images. 
+
 Memory Image Analysis with Volatility
 -------------------------------------
 
