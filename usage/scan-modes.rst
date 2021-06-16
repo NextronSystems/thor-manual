@@ -21,7 +21,7 @@ Themed scan modes:
   | - Systems with less than 1024 MB of RAM
 
 * | **Lab Scan (--lab)**
-  | This mode scan only the filesystem and disable all other modules. (see :doc:`chapter Special Scan Modes <./special-scan-modes>` for more details and flags used in this can mode)
+  | This mode scan only the filesystem and disable all other modules. (see :doc:`chapter Special Scan Modes <./special-scan-modes>` for more details and flags used in this scan mode)
   | Example: **./thor64 --lab -p /mnt/image\_c/**
 
 * | **Intense (--intense)**
