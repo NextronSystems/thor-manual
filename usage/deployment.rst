@@ -4,6 +4,208 @@ Deployment
 This chapter lists different ways to deploy THOR in an environment. Most
 of these methods are OS specific.
 
+Licensing
+---------
+
+In almost any method of deployment, the provision of valid licenses for the scanners on the endpoints is a core issue. 
+Every license is limited to a certain host name. The only exception are the rare and relatively expensive "Incident Response" licenses. 
+
+In all other cases, a valid license has to be generated before a scan run. 
+
+There are numerous options to retrieve a valid license for a host.
+
+With ASGARD:
+
+* use an ASGARD Agent
+* download THOR package with license from ASGARD's ``Downloads`` section
+* generate licenses in ASGARD's web GUI under ``Licensing > Generate Licenses``
+* use THOR's ``--asgard`` and ``--asgard-token`` parameters to retrieve a license
+* use ASGARD's API to retrieve a license manually
+
+Without ASGARD: 
+
+* generate a license in the web GUI of the `customer portal <https://portal.nextron-systems.com>`__
+* use THOR's ``--portal-key`` and ``--portal-contracts`` parameters to retrieve a license from the customer portal
+* use the Customer Portal's API to retrieve a license manually
+
+Some of the options are described in more detail in the following two chapters.
+
+Retrieve Valid License From ASGARD
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Use THOR's ``--asgard`` and ``--asgard-token`` parameters
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+In ASGARD 2.5+ you're able to configure a download token to limit the download of THOR packages and licenses to clients with knowledge of this token. The token is a protection that no one without knowledge of that token can intentionally exceed your license quota limit or retrieve a THOR package without authorization.
+
+The download token can be configured in the ``Downloads`` section of you ASGARD server.
+
+.. figure:: ../images/download-token.png
+   :target: ../_images/download-token.png
+   :alt: Downloads > Download Token Configuration
+
+   Downloads > Download Token Configuration
+
+You can retrieve an approriate THOR license at the scan start using the builtin ``--asgard`` and ``--asgard-token`` parameters. 
+
+.. code:: batch 
+
+   thor64.exe --asgard my-asgard.internal
+
+.. code:: batch 
+
+   thor64.exe --asgard my-asgard.internal --asgard-token OCU92GW1CyOJLzaHkGrim1v2O0_ZkHPu0A
+
+If everything works as expected, you'll see an INFO level message in the output that looks like: 
+
+.. code:: batch 
+
+   Info: Init License file found LICENSE: my-asgard.internal OWNER: Master ASGARD: ACME Inc TYPE: Workstation STARTS: 2021/06/18 EXPIRES: 2022/06/18 SCANNER: All Scanners VALID: true REASON:
+
+Use ASGARD's API to retrieve a license manually
+"""""""""""""""""""""""""""""""""""""""""""""""
+
+You can also script the license retrieval from a local ASGARD server by using the API. The help box in ASGARD's ``Licensing > Generate License`` section shows curl requests that can be used to retrieve licenses from your ASGARD server.
+
+.. figure:: ../images/asgard-license-gen.png
+   :target: ../_images/asgard-license-gen.png
+   :alt: Licensing > Generate Licenses
+
+   Licensing > Generate Licenses
+
+All you need are: 
+
+* Hostname 
+* System Type (``server``, ``workstation``)
+
+If there is uncertainty it's recommended to generate ``server`` type licenses which are more expensive but run on bot system types.
+
+For exapmple: To retrieve a valid license for the servers named ``SRV001`` and ``SRV002`` you can use the following command:
+
+.. code:: bash 
+
+   curl -XPOST "https://my-asgard.internal:8443/api/v0/licensing/issue?token=OJCBaTq4VGLjrCes2k4ACCQOzg0AxAoz01" -o licenses.zip -d "type=server" -d "hostnames=SRV001" -d "hostnames=SRV002" ... -d "hostnames=hostnameN"
+
+If you can't use curl and want to retrieve a license as part of a bigger PowerShell script, you can use the following code snippet to help you with the retrieval. 
+
+.. code:: powershell
+
+   # License retrieval script
+   # Florian Roth, June 2021
+
+   # ASGARD URL
+   $AsgardURL = "https://asgard.nextron-systems.com:8443/api/v0/licensing/issue"
+   $Token = "OJCBETq7VGLjrCes4k4ACCQOzg0AeAoz9Q"
+   $LicenseFile = "licenses.zip"
+   $OutputPath = ".\"
+   $ExtractLicenses = $True
+
+   # Config
+   # Ignore Self-signed certificates
+   [System.Net.ServicePointManager]::ServerCertificateValidationCallback = {$true}
+   # Set current working directory for .NET as well
+   [Environment]::CurrentDirectory = (Get-Location -PSProvider FileSystem).ProviderPath
+
+   # Web Client
+   [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+   $WebClient = New-Object System.Net.WebClient 
+   if ( $Token ) {
+      $AsgardURL = [string]::Format("{0}?token={1}", $AsgardURL, $Token)
+   }
+   Write-Host "Using URL: $AsgardURL"
+
+   # Hostname
+   $Hostname = $env:COMPUTERNAME
+
+   # License Type
+   $LicenseType = "server"
+   $OsInfo = Get-CimInstance -ClassName Win32_OperatingSystem
+   if ( $osInfo.ProductType -eq 1 ) { 
+      $LicenseType = "workstation"
+   }
+
+   # Proxy Support
+   $WebClient.Proxy = [System.Net.WebRequest]::DefaultWebProxy
+   $WebClient.Proxy.Credentials = [System.Net.CredentialCache]::DefaultNetworkCredentials
+
+   # Prepare request
+   $postData=New-Object System.Collections.Specialized.NameValueCollection
+   $postData.Add('hostnames',$Hostname)
+   $postData.Add('type',$LicenseType)
+   Write-Host "Requesting license for HOST: $Hostname TYPE: $LicenseType"
+
+   # Request license
+   try {
+      $Response = $WebClient.UploadValues($AsgardURL, $postData)
+   # HTTP Errors
+   } catch [System.Net.WebException] {
+      Write-Host "The following error occurred: $_"
+      $Response = $_.Exception.Response
+      # 403
+      if ( [int]$Response.StatusCode -eq 403 ) { 
+         Write-Host "This can be caused by a missing download token."
+      }
+      break
+   }
+   [System.IO.File]::WriteAllBytes($LicenseFile, $Response);
+
+   # Extract licenses
+   if ( $ExtractLicenses ) {
+      Add-Type -AssemblyName System.IO.Compression.FileSystem
+      try {
+         [System.IO.Compression.ZipFile]::ExtractToDirectory($LicenseFile, $OutputPath)
+      } catch {
+         Write-Host "The following error occurred: $_"
+      }
+      Remove-Item -Path $LicenseFile
+   }
+
+Check the ASGARD helper scripts section in `our Github repo <https://github.com/NextronSystems/nextron-helper-scripts/tree/master/asgard>`__ for more scripts and snippets. 
+
+Retrieve Valid License From Customer Portal
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Use THOR's ``--portal-key`` and ``--portal-contracts`` parameters to retrieve a license
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+To retrieve a licenses from the customer portal, you need an portal key. The portal key (API key) can be configured in the ``User Settings`` section of the `customer portal <https://portal.nextron-systems.com>`__.
+
+.. figure:: ../images/portal-api-key.png
+   :target: ../_images/portal-api-key.png
+   :alt: User Settings > API Key
+
+   User Settings > API Key
+
+You can retrieve an approriate THOR license at the scan start using the builtin ``--portal-key`` and ``--portal-contracts`` parameters. The ``--portal-contracts`` parameter is optional. It can be used to take licenses from a specific contract in case you have more than one and want to use a specific one. If none is set, THOR will automatically retrieve licenses from a contract of the right type. (e.g. retrieve workstation license from the first still valid contract that has workstation licenses available)
+
+.. figure:: ../images/portal-ids.png
+   :target: ../_images/portal-ids.png
+   :alt: Contracts IDs in Customer Portal
+
+   Contract IDs in Customer Portal
+
+You can then use the parameters as shown in the following examples:
+
+.. code:: batch 
+
+   thor64.exe --portal-key IY5Y36thrt7h1775tt1ygfuYIadmGzZJmVk32lXcud4
+
+.. code:: batch 
+
+   thor64.exe --portal-key IY5Y36thrt7h1775tt1ygfuYIadmGzZJmVk32lXcud4 --portal-contracts 13,14
+
+If everything works as expected, you'll see an INFO level message in the output that looks like: 
+
+.. code:: batch 
+
+   Info License file found LICENSE: portal.nextron-systems.com OWNER: ACME Inc TYPE: Workstation STARTS: 2021/06/23 EXPIRES: 2021/06/30 SCANNER: All Scanners VALID: true REASON:
+
+Use the Customer Portal's API to retrieve a license manually
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+NOT POSSIBLE AT THE MOMENT
+
+
 Network Share (Windows)
 -----------------------
 
@@ -469,7 +671,7 @@ Upgrade signatures:
 See the “thor-util” manual for details on how to use these functions.
 
 Thunderstorm Update Script
-~~~~~~~~~~~~~~~~~~~~~~~~~~
+""""""""""""""""""""""""""
 
 The Thunderstorm installer script for Linux automatically places an
 updater script in the PATH of the server system.
@@ -667,8 +869,8 @@ You can then use that file with:
    
    thor64.exe -t targets.yml
 
-Licensing
-^^^^^^^^^
+THOR Remote Licensing
+^^^^^^^^^^^^^^^^^^^^^
 
 Valid licenses for all target systems are required. Place them in the
 program folder or any sub folder within the program directory (e.g.
@@ -703,13 +905,13 @@ Issues
 ^^^^^^
 
 System Error 5 occurred – Access Denied
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+"""""""""""""""""""""""""""""""""""""""
 
 See:
 https://helgeklein.com/blog/2011/08/access-denied-trying-to-connect-to-administrative-shares-on-windows-7/
 
 Running THOR from a Network Share
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+"""""""""""""""""""""""""""""""""
 
 THOR must reside on the local filesystem of the source system. Don’t run
 it from a mounted network share. This could lead to the following error:
@@ -719,7 +921,7 @@ it from a mounted network share. This could lead to the following error:
    CreateFile .: The system cannot find the path specified.
 
 Using Templates and Other Absolute Paths
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+""""""""""""""""""""""""""""""""""""""""
 
 Distribute to Offline Networks / Field Offices
 ----------------------------------------------
