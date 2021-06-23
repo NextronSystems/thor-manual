@@ -203,8 +203,32 @@ If everything works as expected, you'll see an INFO level message in the output 
 Use the Customer Portal's API to retrieve a license manually
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-NOT POSSIBLE AT THE MOMENT
+This is a bit more complicated as we've decided long ago that our customer portal will never contain personal or otherwise relatable information and this includes any kind of hostnames - not even in memory. Therefore it's necessary to generate a HMAC SHA1 hash of the lowercased hostname on the client side and include only the hash in the request to our customer portal.
 
+This command generates a HMAC SHA1 of the current host you're working on. If you'd like to generate a license for a different host, simply replace the first part of the command with ``echo -n "mycustomname"``. 
+
+.. code:: bash
+
+   echo -n "$(hostname -s)" | tr '[:upper:]' '[:lower:]' | openssl dgst -binary -sha1 -mac hmac -macopt hexkey:b190dd4a98456999b6d9c7e4e1ac1f231b978c3e7652898d7db2fcdede34613dbc7909c9fc8b3177bb904871b8b7fc7a30cb1582ce9b0089397836dcc209e2d6 | base64 | tr '/+' '_-' | tr -d '='
+
+The values needed for a successful request are: 
+
+* ``$CONTRACT`` = contract id (set to ``0`` for automatic selection)
+* ``$TYPE`` = [server/client]
+* ``$HASH`` = the hash generated from the hostname in the previous step
+* ``$APIKEY`` = the API from the ``User Settings`` section in the customer portal
+
+.. code:: bash 
+
+   curl -XPOST https://portal.nextron-systems.com/api/public/contracts/issue/$CONTRACT/$TYPE/$HASH?download=1 -H "Authorization: $APIKEY" -o license.lic
+
+A valid license is an encrypted blob of at least 800 bytes. You can check the content of the license for possible error messsage that came back from the server using ``xxd``. 
+
+.. code:: bash 
+
+   xxd license.lic
+
+If you find a ``Error: HTTP-401`` in the file, than you've most likely used an invalid API key. 
 
 Network Share (Windows)
 -----------------------
