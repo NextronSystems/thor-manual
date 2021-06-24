@@ -78,7 +78,7 @@ All you need are:
 * Hostname 
 * System Type (``server``, ``workstation``)
 
-If there is uncertainty it's recommended to generate ``server`` type licenses which are more expensive but run on bot system types.
+If there is uncertainty it's recommended to generate ``server`` type licenses which are more expensive but run on both system types.
 
 For exapmple: To retrieve a valid license for the servers named ``SRV001`` and ``SRV002`` you can use the following command:
 
