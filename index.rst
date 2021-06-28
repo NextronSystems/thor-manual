@@ -24,6 +24,7 @@ THOR Scanner User Manual
    usage/update
    usage/custom-signatures
    usage/other-topics
+   usage/flags
    usage/debugging
    usage/analysis-and-info
    usage/use-cases
