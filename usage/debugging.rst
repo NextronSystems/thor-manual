@@ -125,14 +125,16 @@ External Processes Terminating THOR
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Whenever THOR dies without any traceback or panic message and no error 
-message in the log file, an external process that has killed THOR is 
-the most likely explanation for a failed THOR scan. 
+message in the log file, an external process terminated the THOR process.
 
-Usually the three following sources are responsible:
+Usually the four following sources are responsible (descending order, by frequency):
 
-1. Antivirus killed the THOR process due to findings
+1. Antivirus or EDR killed the THOR process
 2. A user killed the THOR process
 3. A management solution that noticed a high CPU load caused by the THOR process killed it
+4. Attackers killed the THOR process
+
+Note: A process termination that always happens at the same element is a sign for an Antivirus or EDR detection.
 
 Insufficient Free Memory
 ^^^^^^^^^^^^^^^^^^^^^^^^
