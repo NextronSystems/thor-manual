@@ -219,6 +219,9 @@ To activate Sigma scanning, you have to use the **--sigma** command line
 option or perform an **--intense** scan. Sigma scanning is not activated
 by default. This behavior may change in the future.
 
+By default only the results of Sigma rules of level critical and high are shown.
+If called with the **--intense** flag, medium level rules are applied as well.
+
 Custom Sigma rules have to be placed in the
 **./custom-signatures/sigma** folder and can be encrypted using “THOR
 Util”. You can find details on the encryption in the separate
