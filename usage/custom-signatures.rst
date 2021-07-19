@@ -347,7 +347,7 @@ order to select them for application in certain modules only.
 * | Metadata Checks (since THOR 10.6)
   | Keyword: **'meta'**
   | Rules are applied to all files without exception, including directories, symlinks and the like, but can only access the THOR specific external variables (see :ref:`Additional Attributes <usage/custom-signatures:Additional Attributes>`) and the first 100 bytes of the file.
-  | Since THOR 10.6.8: If a metadata rule has the special tag DEEPSCAN, THOR will apply the generic YARA rules to this file.
+  | Since THOR 10.6.8: If a metadata rule has the special tag DEEPSCAN, THOR will apply the generic YARA rules (see :ref:`Generic YARA Rules <usage/custom-signatures:Generic YARA Rules>`) to this file.
 
 YARA Rule Application
 ^^^^^^^^^^^^^^^^^^^^^
