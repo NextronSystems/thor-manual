@@ -41,9 +41,12 @@ While this can also be used to define false positives, or reduce the
 score of well-known files and locations, it gives you all the
 flexibility to add scores according to your needs.
 
+Filename IOCs are case insensitive if they don't use any special regex characters (such as ``*``, ``.``, ``[``, ...).
+Otherwise, they are case sensitive by default, but can be set as case insensitive by using ``(?i)`` anywhere in the regex.
+
 .. figure:: ../images/image29.png
    :target: ../_images/image29.png
-   :alt: File "filename-characterisitcs.txt"
+   :alt: File "filename-characteristics.txt"
 
    File "filename-characteristics.txt"
 
@@ -97,6 +100,8 @@ log lines, Autoruns elements, local user names, at jobs etc.)
 Every line is treated as case-sensitive string. The comment above each
 block is used as reference in the THOR log entries.
 
+Keyword IOCs are case sensitive.
+
 .. figure:: ../images/image30.png
    :target: ../_images/image30.png
    :alt: Keyword IOC Example
@@ -124,11 +129,15 @@ Mutex or Event Values
 Custom mutex or event values can be provided in a file that contains the
 “handles” keyword in its filename. The entries can be string or regular
 expression values. The entries are applied to the processes handles as
-“startswith”, “endswith” and “equals”.
+”equals” if no unescaped special regex characters are used, otherwise
+they are applied as "contains" (though a regex can, of course, specify
+its match position by using ``^`` and/or ``$``).
 
-You can decide if you want to set a scope by using a prefix “Global\\”
-or e.g. “BaseNamedObjects\\”. If you decide to use none, your expression
+You can decide if you want to set a scope by using ``Global\\``
+or ``BaseNamedObjects\\`` as a prefix. If you decide to use none, your expression
 will be applied to any scope.
+
+Mutex and event IOCs are case sensitive.
 
 +--------------------------------------------------------------------------+
 | | Global\\mymaliciousmutex;Operation Fallout – RAT Mutex                 |
@@ -142,11 +151,17 @@ Named Pipes
 
 Custom named pipe values can be provided in a file that contains the
 “pipes” keyword in its filename. The entries should be regular
-expressions that match the malicious named pipes. The "\\\\.\\pipe\\"
+expressions that match the malicious named pipes. The ``\\\\.\\pipe\\``
 prefix should not be part of the entry.
+The IOCs are applied to the pipes as
+”equals” if no unescaped special regex characters are used, otherwise
+they are applied as "contains" (though a regex can, of course, specify
+its match position by using ``^`` and/or ``$``).
 
 Optionally, a score can be added as 2nd field. If none is present, it
 defaults to 100.
+
+Named Pipe IOCs are case insensitive.
 
 +-----------------------------------------------------------------------------+
 | | MyMaliciousNamedPipe;Malicious pipe used by known RAT                     |
@@ -163,7 +178,7 @@ names.
 
 For example, every file that contains the string "**c2**" will be
 initialized as Simple IOC indicators file with C2 server information.
-Internally we use the regex "**[\\W]c2[\\W]**" to detect the
+Internally we use the regex ``[\W]c2[\W]`` to detect the
 tag, so "**mysource-c2-iocs.txt**" and
 "**dec15-batch1-c2-indicators.txt**" would be detected correctly,
 whereas on the contrary "**filenameiocs.txt**" or "**myc2iocs.txt**" would
@@ -176,7 +191,8 @@ The following tags are currently supported:
 * "**hash**" or "**hashes**" for MD5, SHA1, SHA256 hash IOCs
 * "**keyword**" or "**keywords**" for string based keywords
 * "**trusted-hash**" or "**trusted-hashes**" or "**falsepositive-hash**" or "**falsepositive-hashes**" for hashes that you trust (also expects CSV format in the form "**hash;comment**" like the hash IOCs)
-* "**handles**" for malicious Mutex, Event or Named Pipe values
+* "**handles**" for malicious Mutex / Event IOCs
+* "**pipes**" or "**pipe**" for Named Pipe IOCs
 
 IOC files must have the extensions
 "**.txt**". Only "**.dat**" extensions are treated differently as THOR
@@ -192,17 +208,19 @@ separate `THOR Util manual <https://thor-util-manual.nextron-systems.com/en/late
 +------------------------+-------------------------------------+
 | filenames              | Malicious-filenames-unitX.txt       |
 +------------------------+-------------------------------------+
-| hash                   | op-aura-hash-iocs.cfg               |
+| hash                   | op-aura-hash-iocs.txt               |
 +------------------------+-------------------------------------+
 | hashes                 | int-misp-hashes.txt                 |
 +------------------------+-------------------------------------+
 | keyword                | keywords-incident-3389.txt          |
 +------------------------+-------------------------------------+
-| keywords               | Incident-22-keyword.cfg             |
+| keywords               | Incident-22-keyword.txt             |
 +------------------------+-------------------------------------+
 | trusted-hash           | my-trusted-hashes.dat (encrypted)   |
 +------------------------+-------------------------------------+
 | handles                | Operation-fallout-handles.txt       |
++------------------------+-------------------------------------+
+| pipes                  | incident-22-named-pipes.txt         |
 +------------------------+-------------------------------------+
 
 Sigma
