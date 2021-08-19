@@ -272,10 +272,17 @@ for malware masquerading as benevolent processes.
 PE-Sieve can be activated to run on Windows as part of the ProcessCheck
 module and is capable of detecting advanced techniques such as Process
 Doppelganging. When investigating likely infections, you can also raise
-the sensitivity of the integrated PE-Sieve's sensitivity beyond the
-default (at the cost of likely false positives).
+the sensitivity of the integrated PE-Sieve beyond the default with
+**--full-proc-integrity** (at the cost of likely false positives).
 
-Activate a higher sensitivity with “\ **--full-proc-integrity**\ ”.
+THOR reports PE-Sieve results as follows:
+
+ - PE file replaced / Implanted PE file or shellcode: Warning in THOR
+ - Unreachable file / Patched / IAT hooked: Notice in THOR
+ - Otherwise: no message in THOR
+
+See the `PE-Sieve documentation <https://hasherezade.github.io/pe-sieve/structt__report.html>`__
+for more details on these values.
 
 Multi-Threading
 ---------------
