@@ -108,7 +108,7 @@ Keyword IOCs are case sensitive.
 
    Keyword IOC Example
 
-C2 IOCs 
+C2 IOCs
 ^^^^^^^
 
 C2 IOCs support domain names, FQDNs, single IPs and IP address ranges in
@@ -394,7 +394,7 @@ applied to content.
 +------------------------+-----------------------------------------------------------------+---------------------------------+
 | keyword                | | Mutex, Named Pipes, Eventlog, MFT, 			   | misp-3345-keyword-extract.yar   |
 |			 | | ProcessCheck (on all process handles),       		   |				     |
-| 			 | | ProcessHandles, ServiceCheck, AtJobs,                         |				     | 
+| 			 | | ProcessHandles, ServiceCheck, AtJobs,                         |				     |
 |			 | | LogScan, AmCache, SHIMCache, 				   | 				     |
 |			 | | Registry	   			   			   |                                 |
 +------------------------+-----------------------------------------------------------------+---------------------------------+
@@ -626,7 +626,7 @@ Yara Rule with THOR specific attribute "score":
 | meta:                                         |
 |                                               |
 |    description = "Demo Rule"                  |
-|					        | 
+|					        |
 |    score = 80                                 |
 |                                               |
 | strings:                                      |
@@ -672,7 +672,7 @@ The external variables are:
 
 The "**filesize**" value contains the file size in bytes. It is provided directly by YARA and is not specific to THOR.
 
-Yara Rule with THOR External Variable: 
+Yara Rule with THOR External Variable:
 
 +-----------------------------------------------+
 | rule demo\_rule\_enhanced\_attribute\_1 {     |
@@ -826,8 +826,10 @@ placed in the "**./custom-signatures/yara**" folder in order to
 initialize the YARA rule file as registry rule set. (e.g.
 "**registry\_exe\_in\_value.yar**")
 
-Important
-~~~~~~~~~
+Registry scanning uses bulk scanning. See :ref:`below<usage/custom-signatures:Bulk Scanning>` for more details.
+
+Registry Base Names
+~~~~~~~~~~~~~~~~~~~
 
 Please notice that strings like HKEY\_LOCAL\_MACHINE, HKLM, HKCU,
 HKEY\_CURRENT\_CONFIG are not used in the strings that your YARA rules
@@ -836,6 +838,75 @@ the strings that you define in your rules. The strings for the YARA
 matching look like:
 
 \\SOFTWARE\\Microsoft\\GPUPipeline;InstallLocation;Test
+
+THOR YARA Rules for Log Detection
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+YARA Rules for logs are applied as follows:
+
+- For text logs, each line is passed to the YARA rules.
+- For Windows Event Logs, each event is serialized as follows for the YARA rules:
+  ``Key1: Value1  Key2: Value2  ...``
+  where each key / value pair is an entry in EventData or UserData in the XML representation of the event.
+
+
+Log (both text log and event log) scanning uses bulk scanning.
+See :ref:`below<usage/custom-signatures:Bulk Scanning>` for more details.
+
+
+Bulk Scanning
+^^^^^^^^^^^^^
+THOR scans registry and log entries in bulks since each YARA invocation has a
+relatively high overhead. This means that during the scan, the following happens:
+
+- THOR gathers entries that need to be scanned.
+- When sufficiently many entries are gathered, all of them are combined (separated
+  by line breaks) and passed to YARA.
+- If any YARA rule matches, each entry is scanned separately with YARA to determine
+  whether any YARA rule matches for this specific entry.
+
+One potential caveat of this is that false positive strings may prevent a rule from
+ever applying.
+
+For example, consider this rule:
+
+.. code:: yara
+
+        rule FakeMicrosoftStartupEntry {
+                strings:
+                        $s1 = "Microsoft\\SomeRegistryKey;ShouldBeUsedOnlyByMicrosoft;"
+                        $fp = "Windows\\System32"
+                condition:
+                        $s1 and not $fp
+        }
+
+This rule is meant to match if the specified registry key contains some DLL that is not
+in C:\\Windows\\System32. However, the false positive string may inadvertently match on
+other entries in the bulk, like here:
+
+.. code::
+
+        Path\to\Microsoft\SomeRegistryKey;ShouldBeUsedOnlyByMicrosoft;C:\evil.exe
+        ...
+        Path\to\SomeOtherRegistryKey;Entry;C:\Windows\System32\explorer.exe
+        ...
+
+Because the rule does not apply to the bulk, THOR never scans the single elements and
+does not report any match. Therefore, be very careful with false positive strings with log
+or registry YARA rules.
+
+A possible workaround for this issue is to define the false positive strings in ways that
+they can't match anywhere else, e.g. like this:
+
+.. code:: yara
+
+        rule FakeMicrosoftStartupEntry {
+                strings:
+                        $s1 = "Microsoft\\SomeRegistryKey;ShouldBeUsedOnlyByMicrosoft;"
+                        $fp = /Microsoft\\SomeRegistryKey;ShouldBeUsedOnlyByMicrosoft;[^\n]{0,40}Windows\\System32/
+                condition:
+                        $s1 and not $fp
+        }
 
 Restrict Yara Rule Matches in Generic Rules
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -860,7 +931,7 @@ Apply rule in-memory only:
 |    type = "memory"                      |
 |                                         |
 | strings:                                |
-|                                         | 
+|                                         |
 |    $s1 = "evilstring-inmemory-only"     |
 |                                         |
 | condition:                              |
