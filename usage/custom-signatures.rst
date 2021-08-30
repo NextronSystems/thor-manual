@@ -870,7 +870,7 @@ ever applying.
 
 For example, consider this rule:
 
-.. code:: yara
+.. code::
 
         rule FakeMicrosoftStartupEntry {
                 strings:
@@ -898,7 +898,7 @@ or registry YARA rules.
 A possible workaround for this issue is to define the false positive strings in ways that
 they can't match anywhere else, e.g. like this:
 
-.. code:: yara
+.. code::
 
         rule FakeMicrosoftStartupEntry {
                 strings:

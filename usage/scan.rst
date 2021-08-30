@@ -266,20 +266,32 @@ Run the Eventlog and file system scan:
 PE-Sieve Integration
 --------------------
 
-THOR integrates PE-Sieve, an open-source tool by @hasherezade to check
-for malware masquerading as benevolent processes.
+THOR integrates `PE-Sieve <https://github.com/hasherezade/pe-sieve>`__, 
+an open-source tool by @hasherezade to check for malware masquerading 
+as benevolent processes.
 
-PE-Sieve can be activated to run on Windows as part of the ProcessCheck
-module and is capable of detecting advanced techniques such as Process
-Doppelganging. When investigating likely infections, you can also raise
+PE-Sieve can be activated by using the **--processintegrity** flag to 
+run on  Windows as part of the ProcessCheck module and is capable of 
+detecting advanced techniques such as Process Doppelganging.
+
+When investigating likely infections, you can also raise 
 the sensitivity of the integrated PE-Sieve beyond the default with
 **--full-proc-integrity** (at the cost of likely false positives).
 
 THOR reports PE-Sieve results as follows:
 
- - PE file replaced / Implanted PE file or shellcode: Warning in THOR
- - Unreachable file / Patched / IAT hooked: Notice in THOR
- - Otherwise: no message in THOR
++--------------------+--------------------------------------------+
+| Findings           | THOR's Reporting Level                     |
++====================+============================================+
+|| Replaced PE File  || Warning                                   |
+|| Implanted PE File ||                                           |
++--------------------+--------------------------------------------+
+|| Unreachable File  || Notice                                    |
+|| Patched           ||                                           |
+|| IAT Hooked        ||                                           |
++--------------------+--------------------------------------------+
+|| Others            || No Output in THOR                         |
++--------------------+--------------------------------------------+
 
 See the `PE-Sieve documentation <https://hasherezade.github.io/pe-sieve/structt__report.html>`__
 for more details on these values.
