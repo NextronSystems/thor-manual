@@ -23,8 +23,10 @@ Supported
 * Windows 10
 * Windows Server 2016
 * Windows Server 2019
+* Windows Server 2022
 * RHEL/CentOS 6
 * RHEL/CentOS 7
+* RHEL/CentOS 8
 * SuSE SLES 11
 * SuSE SLES 12
 * SuSE SLES 15
@@ -35,7 +37,10 @@ Supported
 * Debian 8
 * Debian 9
 * Debian 10
-* macOS 10
+* Debian 11
+* macOS 10.14
+* macOS 10.15
+* macOS 11
 
 Limited Support
 ---------------
