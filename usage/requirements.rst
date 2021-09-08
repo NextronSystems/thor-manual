@@ -30,11 +30,9 @@ Supported
 * SuSE SLES 11
 * SuSE SLES 12
 * SuSE SLES 15
-* Ubuntu 14 LTS
 * Ubuntu 16 LTS
 * Ubuntu 18 LTS
 * Ubuntu 20 LTS
-* Debian 8
 * Debian 9
 * Debian 10
 * Debian 11
