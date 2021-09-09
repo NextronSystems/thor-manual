@@ -447,8 +447,7 @@ The best practice steps to generate a custom rule are:
 
    b. Give a description that you want to see when the signature matches
 
-   c. Define an appropriate score (optional but useful in THOR, default
-      is 50)
+   c. Define an appropriate score (optional but useful in THOR, default is 75)
 
 3. Check your rule by scanning the malware with the "Yara Binary" from
    the project’s website to verify a positive match
