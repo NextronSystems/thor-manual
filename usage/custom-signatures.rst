@@ -2,189 +2,38 @@
 Custom Signatures
 =================
 
-There are several ways to integrate your own IOCs and rule sets in THOR.
-
-Simple IOCs
------------
-
-Simple IOC files are basically CSV files that include the IOC and
-comments. The simple IOC config files can be found in the folder
-**./custom-signatures/iocs**. The folder contains a sub folder
-**./custom-signatures/iocs/templates** that contains template files from
-which you can create your own IOC files.
-
-Hashes
-^^^^^^
-
-Files with the keyword "**hash**" or "**hashes**" in their name
-get initialized as hash IOC sets. Every match with one of these hashes
-receives a sub score of 100.
-
-You can add MD5, SHA1 or SHA256 hashes and add a comment in a second
-column, which is separated by a semicolon.
-
-.. figure:: ../images/image28.png
-   :target: ../_images/image28.png
-   :alt: Example hash IOC file
-
-   Example hash IOC file
-
-File Name Characteristics
-^^^^^^^^^^^^^^^^^^^^^^^^^
-
-In the "**custom-filename-iocs.txt**" you are able to define IOCs based
-on file name and path using regular expressions. You can add or reduce
-the total score of a file element during the scan with a positive (e.g.
-"40") or negative score (e.g. "-30").
-
-While this can also be used to define false positives, or reduce the
-score of well-known files and locations, it gives you all the
-flexibility to add scores according to your needs.
-
-Filename IOCs are case insensitive if they don't use any special regex characters (such as ``*``, ``.``, ``[``, ...).
-Otherwise, they are case sensitive by default, but can be set as case insensitive by using ``(?i)`` anywhere in the regex.
-
-.. figure:: ../images/image29.png
-   :target: ../_images/image29.png
-   :alt: File "filename-characteristics.txt"
-
-   File "filename-characteristics.txt"
-
-For example, if you know that administrators in your organization use
-"PsExec.exe" in a folder "Sysinternals" and any other location should be
-reported as suspicious you could define the following statements:
-
-+------------------------------------------+
-| | \\\\PsExec\\.exe;60                    |
-| | \\\\SysInternals\\\\PsExec\\.exe;-60   |
-+------------------------------------------+
-
-This following example represents the 3\ :sup:`rd` generation filename
-IOC format introduced with THOR version 8.30 and SPARK version 1.5,
-which is now the recommended form to define such signatures.
-
-It contains three fields:
-
-* Column 1: Regex
-* Column 2: Score
-* Column 3: False Positive Regex
-
-The False Positive Regex statement is only evaluated if the Regex
-statement in column 1 matched.
-
-+--------------------------------------------+
-| \\\\PsExec\\.exe;60;\\\\SysInternals\\\\   |
-+--------------------------------------------+
-
-We use this new format internally to describe abnormal locations of
-system files like
-
-+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| ([C-Zc-z]:\|\\\\\\\\).{1,40}\\\\svchost\\.exe;65;(?i)(HKCR\\\\Applications\|System32\|system32\|SYSTEM32\|winsxs\|WinSxS\|SysWOW64\|SysWow64\|syswow64\|SYSNATIVE\|Sysnative\|dllcache\|WINXP\|WINDOWS\|i386\|%system32%)\\\\   |
-+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-
-You could also score down directories with many false positives reported
-as "Notices" or "Warnings" like this:
-
-+-------------------------------------------------------+
-| \\\\directory\_with\_many\_false\_positives\\\\;-30   |
-+-------------------------------------------------------+
-
-Keyword IOCs
-^^^^^^^^^^^^
-
-The keyword-based IOC files contain plain strings that are matched
-against the output lines of almost every module (e.g. Eventlog entries,
-log lines, Autoruns elements, local user names, at jobs etc.)
-
-Every line is treated as case-sensitive string. The comment above each
-block is used as reference in the THOR log entries.
-
-Keyword IOCs are case sensitive.
-
-.. figure:: ../images/image30.png
-   :target: ../_images/image30.png
-   :alt: Keyword IOC Example
-
-   Keyword IOC Example
-
-C2 IOCs
-^^^^^^^
-
-C2 IOCs support domain names, FQDNs, single IPs and IP address ranges in
-CIDR notation.
-
-+--------------------------+
-| # OpMuhadib C2 servers   |
-|                          |
-| | 182.34.23.10           |
-| | update1.usul.ru        |
-| | usul-updates.info      |
-| | 182.34.23.0/24         |
-+--------------------------+
-
-Mutex or Event Values
-^^^^^^^^^^^^^^^^^^^^^
-
-Custom mutex or event values can be provided in a file that contains the
-“handles” keyword in its filename. The entries can be string or regular
-expression values. The entries are applied to the processes handles as
-”equals” if no unescaped special regex characters are used, otherwise
-they are applied as "contains" (though a regex can, of course, specify
-its match position by using ``^`` and/or ``$``).
-
-You can decide if you want to set a scope by using ``Global\\``
-or ``BaseNamedObjects\\`` as a prefix. If you decide to use none, your expression
-will be applied to any scope.
-
-Mutex and event IOCs are case sensitive.
-
-+--------------------------------------------------------------------------+
-| | Global\\mymaliciousmutex;Operation Fallout – RAT Mutex                 |
-| | Global\\WMI\_CONNECTION\_RECV;Flame Event https://bit.ly/2KjUTuP       |
-| | Dwm-[a-f0-9]{4}-ApiPort-[a-f0-9]{4};Chinese campaign malware June 19   |
-+--------------------------------------------------------------------------+
-
-
-Named Pipes
-^^^^^^^^^^^
-
-Custom named pipe values can be provided in a file that contains the
-“pipes” keyword in its filename. The entries should be regular
-expressions that match the malicious named pipes. The ``\\\\.\\pipe\\``
-prefix should not be part of the entry.
-The IOCs are applied to the pipes as
-”equals” if no unescaped special regex characters are used, otherwise
-they are applied as "contains" (though a regex can, of course, specify
-its match position by using ``^`` and/or ``$``).
-
-Optionally, a score can be added as 2nd field. If none is present, it
-defaults to 100.
-
-Named Pipe IOCs are case insensitive.
-
-+-----------------------------------------------------------------------------+
-| | MyMaliciousNamedPipe;Malicious pipe used by known RAT                     |
-| | MyInteresting[a-z]+Pipe;50;Interesting pipe we have seen in new malware   |
-+-----------------------------------------------------------------------------+
-
-
-Initialization Based on Strings in File Names
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
 THOR checks the contents of the "**./custom-signatures**" folder and
-processes every file in this folder based on string tags in the file
-names.
+processes every file in this folder. The extension determines the type
+of signature (e.g. a simple IOC file, a YARA rule, a Sigma rule, ...).
+For some signature types, string tags in the file names are used to
+further distinguish the signatures.
 
-For example, every file that contains the string "**c2**" will be
-initialized as Simple IOC indicators file with C2 server information.
-Internally we use the regex ``[\W]c2[\W]`` to detect the
+For example, a **my-c2-iocs.txt** file will be
+initialized as a file containing simple IOC indicators with
+C2 server information.
+
+Internally the regex ``\Wc2\W`` is used to detect the
 tag, so "**mysource-c2-iocs.txt**" and
 "**dec15-batch1-c2-indicators.txt**" would be detected correctly,
 whereas on the contrary "**filenameiocs.txt**" or "**myc2iocs.txt**" would
 not.
 
-The following tags are currently supported:
+If you do not wish to place your custom IOCs on potentially compromised systems
+during an engagements, you can use thor-util to encrypting custom signatures.
+This is described in detail in the
+`THOR Util manual <https://thor-util-manual.nextron-systems.com/en/latest/>`_
+
+Simple IOCs
+-----------
+
+Simple IOC files are basically CSV files that include the IOC and
+comments. The folder **./custom-signatures/iocs/templates** contains
+template files from which you can create your own IOC files.
+
+Simple IOC files must have the extension"**.txt**".
+Encrypted simple IOC files must have the extension "**.dat**".
+
+The following tags for simple IOCs are currently supported:
 
 * "**c2**" or "**domains**" for C2 server IOCs like IPs and host names
 * "**filename**" or "**filenames**" for file name IOCs
@@ -193,11 +42,6 @@ The following tags are currently supported:
 * "**trusted-hash**" or "**trusted-hashes**" or "**falsepositive-hash**" or "**falsepositive-hashes**" for hashes that you trust (also expects CSV format in the form "**hash;comment**" like the hash IOCs)
 * "**handles**" for malicious Mutex / Event IOCs
 * "**pipes**" or "**pipe**" for Named Pipe IOCs
-
-IOC files must have the extensions
-"**.txt**". Only "**.dat**" extensions are treated differently as THOR
-expects "**.dat**" files to be encrypted (with “thor-util” – see
-separate `THOR Util manual <https://thor-util-manual.nextron-systems.com/en/latest/>`_)
 
 +------------------------+-------------------------------------+
 | Keyword in File Name   | Example                             |
@@ -223,15 +67,190 @@ separate `THOR Util manual <https://thor-util-manual.nextron-systems.com/en/late
 | pipes                  | incident-22-named-pipes.txt         |
 +------------------------+-------------------------------------+
 
-Sigma
------
+Hashes
+^^^^^^
+
+Files with the keyword "**hash**" or "**hashes**" in their name
+get initialized as hash IOC sets. Every match with one of these hashes
+receives a sub score of 100.
+
+You can add MD5, SHA1 or SHA256 hashes and add a comment in a second
+column, which is separated by a semicolon.
+
+.. figure:: ../images/image28.png
+   :target: ../_images/image28.png
+   :alt: Example hash IOC file
+
+   Example hash IOC file
+
+File Name IOCs
+^^^^^^^^^^^^^^
+
+Filename IOC files allow you to define IOCs based on file name and path
+using regular expressions. You can add or reduce
+the total score of a file element during the scan with a positive (e.g.
+"40") or negative score (e.g. "-30").
+
+While this can also be used to define false positives, or reduce the
+score of well-known files and locations, it gives you all the
+flexibility to add scores according to your needs.
+
+Filename IOCs are case insensitive if they don't use any special regex characters (such as ``*``, ``.``, ``[``, ...).
+Otherwise, they are case sensitive by default, but can be set as case insensitive by using ``(?i)`` anywhere in the regex.
+
+.. figure:: ../images/image29.png
+   :target: ../_images/image29.png
+   :alt: File "filename-iocs.txt"
+
+   File "filename-iocs.txt"
+
+For example, if you know that administrators in your organization use
+"PsExec.exe" in a folder "Sysinternals" and any other location should be
+reported as suspicious you could define the following statements:
+
+.. code-block::
+
+        \\\\PsExec\\.exe;60
+        \\\\SysInternals\\\\PsExec\\.exe;-60
+
+This following example represents the 3\ :sup:`rd` generation filename
+IOC format introduced with THOR version 8.30 and SPARK version 1.5,
+which is now the recommended form to define such signatures.
+
+It contains three fields:
+
+* Column 1: Regex
+* Column 2: Score
+* Column 3: False Positive Regex
+
+The False Positive Regex statement is only evaluated if the Regex
+statement in column 1 matched.
+
+.. code-block::
+
+        \\\\PsExec\\.exe;60;\\\\SysInternals\\\\
+
+We use this new format internally to describe abnormal locations of
+system files like
+
+.. code-block::
+
+        ([C-Zc-z]:\|\\\\\\\\).{1,40}\\\\svchost\\.exe;65;(?i)(HKCR\\\\Applications\|System32\|system32\|SYSTEM32\|winsxs\|WinSxS\|SysWOW64\|SysWow64\|syswow64\|SYSNATIVE\|Sysnative\|dllcache\|WINXP\|WINDOWS\|i386\|%system32%)\\\\
+
+You could also score down directories with many false positives reported
+as "Notices" or "Warnings" like this:
+
+.. code-block::
+
+        \\\\directory\_with\_many\_false\_positives\\\\;-30
+
+Keyword IOCs
+^^^^^^^^^^^^
+
+The keyword-based IOC files contain plain strings that are matched
+against the output lines of almost every module (e.g. Eventlog entries,
+log lines, Autoruns elements, local user names, at jobs etc.)
+
+Every line is treated as case-sensitive string.
+A comment can be specified with a line starting with a ``#``
+and applies to all following IOCs until another comment is encountered.
+
+Keyword IOCs are case sensitive.
+
+.. figure:: ../images/image30.png
+   :target: ../_images/image30.png
+   :alt: Keyword IOC Example
+
+   Keyword IOC Example
+
+C2 IOCs
+^^^^^^^
+
+C2 IOC files specify remote servers which are known to be malicious.
+This can include:
+
+ - Domain names
+ - FQDNs
+ - Single IPs
+ - IP address ranges in CIDR notation
+
+These IOCs are applied to the connections of examined processes
+and can optionally be used to search process memory.
+
+Each IOC must be placed on a single line.
+A comment can be specified with a line starting with a ``#``
+and applies to all following IOCs until another comment is encountered.
+A score for the IOC can optionally be specified after the IOC,
+separated by a ``;``, it defaults to 100 if none is specified.
+
+.. code-block::
+
+        # OpMuhadib C2 servers
+        182.34.23.10;90
+        update1.usul.ru
+        usul-updates.info
+        182.34.23.0/24
+
+*Example for custom C2 IOCs*
+
+Mutex or Event Values
+^^^^^^^^^^^^^^^^^^^^^
+
+Custom mutex or event values can be provided in a file that contains the
+“handles” keyword in its filename. The entries can be string or regular
+expression values. The entries are applied to the processes handles as
+”equals” if no unescaped special regex characters are used, otherwise
+they are applied as "contains" (though a regex can, of course, specify
+its match position by using ``^`` and/or ``$``).
+
+You can decide if you want to set a scope by using ``Global\\``
+or ``BaseNamedObjects\\`` as a prefix. If you decide to use none, your expression
+will be applied to any scope.
+
+Mutex and event IOCs are case sensitive.
+
+.. code-block::
+
+        Global\\mymaliciousmutex;Operation Fallout – RAT Mutex
+        Global\\WMI\_CONNECTION\_RECV;Flame Event https://bit.ly/2KjUTuP
+        Dwm-[a-f0-9]{4}-ApiPort-[a-f0-9]{4};Chinese campaign malware June 19
+
+*Example for custom Mutex IOCs*
+
+
+Named Pipes
+^^^^^^^^^^^
+
+Custom named pipe values can be provided in a file that contains the
+“pipes” keyword in its filename. The entries should be regular
+expressions that match the malicious named pipes. The ``\\\\.\\pipe\\``
+prefix should not be part of the entry.
+The IOCs are applied to the pipes as
+”equals” if no unescaped special regex characters are used, otherwise
+they are applied as "contains" (though a regex can, of course, specify
+its match position by using ``^`` and/or ``$``).
+
+Optionally, a score can be added as 2nd field. If none is present, it
+defaults to 100.
+
+Named Pipe IOCs are case insensitive.
+
+.. code-block::
+
+        MyMaliciousNamedPipe;Malicious pipe used by known RAT
+        MyInteresting[a-z]+Pipe;50;Interesting pipe we have seen in new malware
+
+*Example for custom Named Pipe IOCs*
+
+Sigma Rules
+-----------
 
 Sigma is a generic rule format for detections on log data. Sigma is for
 log data, as Snort is for network packets and YARA is for files.
 
 THOR applies Sigma rules to Windows Eventlogs and log files on disk
 (\*.log). By default, THOR ships with the public Sigma rule set, which
-is maintained by the community on Github.
+is maintained by the community at `<https://github.com/SigmaHQ/sigma>`.
 
 To activate Sigma scanning, you have to use the **--sigma** command line
 option or perform an **--intense** scan. Sigma scanning is not activated
@@ -240,10 +259,8 @@ by default. This behavior may change in the future.
 By default only the results of Sigma rules of level critical and high are shown.
 If called with the **--intense** flag, medium level rules are applied as well.
 
-Custom Sigma rules have to be placed in the
-**./custom-signatures/sigma** folder and can be encrypted using “THOR
-Util”. You can find details on the encryption in the separate
-`THOR Util manual <https://thor-util-manual.nextron-systems.com/en/latest/>`_.
+Custom Sigma rules must have the **.yml** extension for unencrypted sigma rules
+and the **.yms** extension for encrypted sigma rules.
 
 .. figure:: ../images/image31.png
    :target: ../_images/image31.png
@@ -268,12 +285,12 @@ LogScan) only
 
    thor64 -a Filesystem -p /var/log –sigma
 
-STIX
-----
+STIX IOCs
+---------
 
-THOR can read and apply IOCs provided in STIXv2 JSON files by placing
-them with the “.json” file extension in the “./custom-signatures/stix”
-folder.
+THOR can read and apply IOCs provided in STIXv2 JSON files.
+They must have the **.json** extension for unencrypted STIXv2 files
+and the **.jsos** extension for encrypted STIXv2 files.
 
 .. figure:: ../images/image32.png
    :target: ../_images/image32.png
@@ -302,73 +319,32 @@ STIX v1
 
 STIX version 1 is not supported.
 
-Encrypted STIX IOC Files
-^^^^^^^^^^^^^^^^^^^^^^^^
 
-THOR Util supports the encryption of the "**.json**" STIX files to
-encrypted files with the "**.jsos**" file extension. See the
-`THOR Util manual <https://thor-util-manual.nextron-systems.com/en/latest/>`_. for more information on the "encrypt" feature.
-
-YARA
-----
+YARA Rules
+----------
 
 THOR offers an interface to include own rules based on the YARA format.
-Just place valid rule files with the Extension "**.yar**" in the custom
-signature folder ("**/custom-signatures/yara**").
+YARA rules must have the **.yar** extension for unencrypted YARA rules
+and the **.yas** extension for encrypted YARA rules.
 
-Yara rules are widely used in THOR.
+There are two custom YARA rule types that you can define in THOR:
 
-There are basically two custom YARA rule types that you can define in
-THOR:
-
-1. Generic Rules
-
-2. Specific Rules
+- Generic Rules
+- Specific Rules
 
 Generic YARA Rules
 ^^^^^^^^^^^^^^^^^^
 
-The "Generic" rules are standard YARA rules that are applied to payloads
-of files and memory. Just place any file with "**\*.yar**" extension in
-the "**./custom-signatures/yara**" folder. See :ref:`chapter 12.6 Encrypt Custom
-Signatures <usage/custom-signatures:Encrypt Custom Signatures>` for information on encrypted forms of these signature files
-in cases in which you do not want an adversary to be able to see your
-clear text signature files.
+All YARA rules which do not contain any specific tag (see :ref:`Specific YARA Rules <usage/custom-signatures:Specific YARA Rules>`) are considered generic YARA rules.
 
-Generic rules are applied to the following elements:
+The generic YARA rules are applied to the following elements:
 
 * | Files
-  | THOR applies the Yara rules to all files that are smaller than the size limit set in the **thor.yml**. It extends the standard conditions by THOR specific extensions (see below).
+  | THOR applies the Yara rules to all files that are smaller than the size limit set in the **thor.yml** and matches specific rules. :ref:`Additional Attributes <usage/custom-signatures:Additional Attributes>` are avaiable.
 * | Process Memory
-  | THOR also uses the process memory scan function of the Yara python module. It carefully selects only processes with a working set memory size of a certain limit that can be altered by the "**--maxpmemsize**" parameter.
+  | THOR scans the process memory of all processes with a working set memory size up to a certain limit. This limit can be altered by the "**--max_process_size**" parameter.
 * | Data Chunks
-  | The rules are applied to the data chunks read during the DeepDive scan. DeepDive only reports and restores chunks if the score level of the rule is high enough. (Warning Level)
-
-Specific YARA Rules
-^^^^^^^^^^^^^^^^^^^
-
-The specific YARA rules contain certain keywords in their filename in
-order to select them for application in certain modules only.
-
-* | Registry Keys
-  | Keyword: **‘registry’**
-  | Rules are applied to a whole key and all of its values. This means that you can combine several key values in a single YARA rule. (see :ref:`chapter 12.5.3 THOR YARA Rules for Registry Detection <usage/custom-signatures:Thor Yara Rules for Registry Detection>` for details)
-* | Log Files
-  | Keyword: **‘log’**
-  | Rules are applied to each log line (or a bigger set of log lines if the aggregator features is active).
-* | Process Memory
-  | Keyword: **'process'** or **‘memory’**
-  | Rules are applied to process memory only
-* | All String Checks
-  | Keyword: **'keyword'**
-  | Rules are applied to all string checks in many different modules
-* | Metadata Checks (since THOR 10.6)
-  | Keyword: **'meta'**
-  | Rules are applied to all files without exception, including directories, symlinks and the like, but can only access the THOR specific external variables (see :ref:`Additional Attributes <usage/custom-signatures:Additional Attributes>`) and the first 100 bytes of the file.
-  | Since THOR 10.6.8: If a metadata rule has the special tag DEEPSCAN, THOR will apply the generic YARA rules (see :ref:`Generic YARA Rules <usage/custom-signatures:Generic YARA Rules>`) to this file.
-
-YARA Rule Application
-^^^^^^^^^^^^^^^^^^^^^
+  | The rules are applied to the data chunks read during the DeepDive scan. DeepDive only reports and restores chunks if the score level of the rule is high enough to cause at least a warning.
 
 The following table shows in which modules the Generic YARA rules are
 applied to content.
@@ -380,15 +356,38 @@ applied to content.
 |                                    | | misp-3345-samples.yar   |
 +------------------------------------+---------------------------+
 
-The following table shows in which modules the Specific YARA rules are
+Specific YARA Rules
+^^^^^^^^^^^^^^^^^^^
+
+The specific YARA rules contain certain tags in their filename to
+differentiate them further:
+
+* | Registry Keys
+  | Tag: **‘registry’**
+  | Rules are applied to a whole key with all of its values. See :ref:`yara-registry-rules` for more details.
+* | Log Files
+  | Tag: **‘log’**
+  | Rules are applied to each log entry. See :ref:`yara-log-rules` for more details.
+* | Process Memory
+  | Tag: **'process'** or **‘memory’**
+  | Rules are applied to process memory only.
+* | All String Checks
+  | Tag: **'keyword'**
+  | Rules are applied to all string checks in many different modules.
+* | Metadata Checks (since THOR 10.6)
+  | Tag: **'meta'**
+  | Rules are applied to all files wthout exception, including directories, symlinks and the like, but can only access the THOR specific external variables (see :ref:`Additional Attributes <usage/custom-signatures:Additional Attributes>`) and the first 100 bytes of the file.
+  | Since THOR 10.6.8: If a metadata rule has the special tag DEEPSCAN, THOR will apply the generic YARA rules (see :ref:`Generic YARA Rules <usage/custom-signatures:Generic YARA Rules>`) to this file.
+
+The following table shows in which modules the specific YARA rules are
 applied to content.
 
 +------------------------+-----------------------------------------------------------------+---------------------------------+
-| Keyword in File Name   | Applied in Module                                               | Examples                        |
+| Tag in File Name       | Applied in Module                                               | Examples                        |
 +========================+=================================================================+=================================+
-| registry               | Registry                                                        | incident-feb17-registry.yar     |
+| registry               | RegistryChecks, RegistryHive                                    | incident-feb17-registry.yar     |
 +------------------------+-----------------------------------------------------------------+---------------------------------+
-| log                    | Eventlog, Logscan                                               | general-log-strings.yar         |
+| log                    | Eventlog, Logscan, EVTX                                         | general-log-strings.yar         |
 +------------------------+-----------------------------------------------------------------+---------------------------------+
 | process                | ProcessCheck (only on process memory)                           | case-a23-process-rules.yar      |
 +------------------------+-----------------------------------------------------------------+---------------------------------+
@@ -401,14 +400,81 @@ applied to content.
 | meta                   | Filescan                                                        | meta-rules.yar                  |
 +------------------------+-----------------------------------------------------------------+---------------------------------+
 
-You can restrict the Specific YARA rules to certain modules to avoid
-false positives. Please check :ref:`chapter 12.5.4 Restrict Yara Rule Matches in Generic Rules <usage/custom-signatures:Restrict Yara Rule Matches in Generic Rules>`  for details.
+.. _yara-registry-rules:
 
-Also see the link section in :doc:`chapter Analysis and Info <./analysis-and-info>` for a YARA rule exporter script
-that extracts YARA Keyword rules automatically from a MISP threat feed.
+THOR YARA Rules for Registry Detection
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Create YARA Rules
-^^^^^^^^^^^^^^^^^
+THOR allows checking a complete registry path key/value pairs with Yara
+rules. To accomplish this, he composes a string from the key/value pairs
+of a registry key path and formats them as shown in the following
+screenshot.
+
+.. figure:: ../images/image33.png
+   :target: ../_images/image33.png
+   :alt: Composed strings from registry key/value pairs
+
+   Composed strings from registry key/value pairs
+
+The composed format is:
+
+| **KEYPATH;KEY;VALUE\\n**
+| **KEYPATH;KEY;VALUE\\n**
+| **KEYPATH;KEY;VALUE\\n**
+
+**Registry Base Names**
+
+Please notice that strings like HKEY\_LOCAL\_MACHINE, HKLM, HKCU,
+HKEY\_CURRENT\_CONFIG are **not** part of the key path that your YARA rules
+are applied to. They depend on the analyzed hive and should not be in
+the strings that you define in your rules.
+
+Values are formatted as follows:
+
+ - REG\_BINARY values are hex encoded with upper case.
+ - REG\_MULTI\_SZ values are printed with ``\\0`` separating the multiple strings.
+ - Numeric values are printed normally (with base 10).
+ - String values are printed normally.
+
+This means that you can write a Yara rule that looks like this (remember
+to escape all backslashes):
+
+.. code-block::
+
+        rule Registry_DarkComet {
+                meta:
+                        description = "DarkComet Registry Keys"
+                strings:
+                        $a1 = "LEGACY_MY_DRIVERLINKNAME_TEST;NextInstance"
+                        $a2 = "\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run;MicroUpdate"
+                        $a3 = "Path;Value;4D5A00000001" # REG_BINARY value
+                        $a4 = "Shell\\Open;Command;explorer.exe\\0comet.exe" # REG_MULTI_SZ value
+                condition:
+                        1 of them
+        }
+
+Remember that you have to use the keyword ‘\ **registry’** in the file name in order to
+initialize the YARA rule file as registry rule set (e.g. "**registry\_exe\_in\_value.yar**").
+
+Registry scanning uses bulk scanning. See :ref:`Bulk Scanning<usage/custom-signatures:Bulk Scanning>` for more details.
+
+.. _yara-log-rules:
+
+THOR YARA Rules for Log Detection
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+YARA Rules for logs are applied as follows:
+
+- For text logs, each line is passed to the YARA rules.
+- For Windows Event Logs, each event is serialized as follows for the YARA rules:
+  ``Key1: Value1  Key2: Value2  ...``
+  where each key / value pair is an entry in EventData or UserData in the XML representation of the event.
+
+Log (both text log and event log) scanning uses bulk scanning.
+See :ref:`Bulk Scanning<usage/custom-signatures:Bulk Scanning>` for more details.
+
+How to Create YARA Rules
+^^^^^^^^^^^^^^^^^^^^^^^^
 
 Using the UNIX "string" command on Linux systems or in a CYGWIN
 environment enables you to extract specific strings from your sample
@@ -430,11 +496,7 @@ that family. (https://github.com/Xen0ph0n/YaraGenerator)
 We recommend testing the Yara rule with the "yara" binary before
 including it into THOR because THOR does not provide a useful debugging
 mechanism for Yara rules. The Yara binary can be downloaded from the
-developer's website (https://code.google.com/p/yara-project/).
-
-The options for the Yara tool are listed below. The most useful options
-are "**-r**" to recursively scan a path and "**-s**" to show all
-matching strings.
+developers' website (https://github.com/VirusTotal/yara).
 
 The best practice steps to generate a custom rule are:
 
@@ -443,17 +505,17 @@ The best practice steps to generate a custom rule are:
 
 2. Create a new Yara rule file. It is important to:
 
-   a. Define a unique rule name – duplicates lead to severe errors
+   a. Define a unique rule name – duplicates lead to errors
 
    b. Give a description that you want to see when the signature matches
 
    c. Define an appropriate score (optional but useful in THOR, default is 75)
 
-3. Check your rule by scanning the malware with the "Yara Binary" from
+3. Check your rule by scanning the malware with the Yara binary from
    the project’s website to verify a positive match
 
 4. Check your rule by scanning the "Windows" or "Program Files"
-   directory with the "Yara Binary" from the project’s website to detect
+   directory with the Yara binary from the project’s website to detect
    possible false positives
 
 5. Copy the file to the "/custom-signatures/yara" folder of THOR and
@@ -483,36 +545,25 @@ and everything works fine.
 
 AlientVault APT1 Rule:
 
-+----------------------------------------------------------+
-| rule APT1\_WEBC2\_TABLE {                                |
-|                                                          |
-| meta:                                                    |
-|                                                          |
-|    author = "AlienVault Labs"                            |
-|                                                          |
-| strings:                                                 |
-|                                                          |
-|    $msg1 = "Fail To Execute The Command" wide ascii      |
-|                                                          |
-|    $msg2 = "Execute The Command Successfully" wide ascii |
-|                                                          |
-|    $gif1 = /\\w+\\.gif/                                  |
-|                                                          |
-|    $gif2 = "GIF89" wide ascii                            |
-|                                                          |
-| condition:                                               |
-|                                                          |
-|    3 of them                                             |
-|                                                          |
-| }                                                        |
-+----------------------------------------------------------+
+.. code-block::
+
+        rule APT1_WEBC2_TABLE {
+                meta:
+                        author = "AlienVault Labs"
+                strings:
+                        $msg1 = "Fail To Execute The Command" wide ascii
+                        $msg2 = "Execute The Command Successfully" wide
+                        $gif1 = /\w+\.gif/
+                        $gif2 = "GIF89" wide ascii
+                condition:
+                        3 of them
+        }
+
 
 Copying your rule to the signatures directory may cause THOR to fail
-during rule initialization as shown in the following screenshot. In the
-current state of development, the error trace back is not as verbose as
-desired but gives the reason why the rule compiler failed. If this
-happens you should check your rule again with the Yara binary. Usually
-this is caused by a duplicate rule name or syntactical errors.
+during rule initialization. If this happens you should check your rule
+again with the Yara binary. Usually this is caused by a duplicate rule
+name or syntactical errors.
 
 YARA Rule Performance
 ^^^^^^^^^^^^^^^^^^^^^
@@ -542,54 +593,36 @@ like "not" or "all of them".
 
 Simple Yara Rule:
 
-+-----------------------------------------------+
-| rule simple\_demo\_rule\_1 {                  |
-|                                               |
-| meta:                                         |
-|                                               |
-|    description = "Demo Rule"                  |
-|                                               |
-| strings:                                      |
-|                                               |
-|    $a1 = "EICAR-STANDARD-ANTIVIRUS-TEST-FILE" |
-|                                               |
-| condition:                                    |
-|                                               |
-|    $a1                                        |
-|                                               |
-| }                                             |
-+-----------------------------------------------+
+.. code-block::
+
+        rule simple_demo_rule_1 {
+                meta:
+                        description = "Demo Rule"
+                strings:
+                        $a1 = "EICAR-STANDARD-ANTIVIRUS-TEST-FILE"
+                condition:
+                        $a1
+        }
 
 The following listing shows a more complex rule that includes a lot of
 keywords used in typical rules included in the rule set.
 
 Complex Yara Rule:
 
-+-----------------------------------------------+
-| rule complex\_demo\_rule\_1 {                 |
-|                                               |
-| meta:                                         |
-|                                               |
-|    description = "Demo Rule"                  |
-|                                               |
-| strings:                                      |
-|                                               |
-|    $a1 = "EICAR-STANDARD-ANTIVIRUS-TEST-FILE" |
-|                                               |
-|    $a2 = "li0n" fullword                      |
-|                                               |
-|    $a3 = /msupdate\\.(exe\|dll)/ nocase       |
-|                                               |
-|    $a4 = { 00 45 9A ?? 00 00 00 AA }          |
-|                                               |
-|    $fp = "MSWORD"                             |
-|                                               |
-| condition:                                    |
-|                                               |
-|    1 of ($a\*) and not $fp                    |
-|                                               |
-| }                                             |
-+-----------------------------------------------+
+.. code-block::
+
+        rule complex_demo_rule_1 {
+                meta:
+                        description = "Demo Rule"
+                strings:
+                        $a1 = "EICAR-STANDARD-ANTIVIRUS-TEST-FILE"
+                        $a2 = "li0n" fullword
+                        $a3 = /msupdate\\.(exe\|dll)/ nocase
+                        $a4 = { 00 45 9A ?? 00 00 00 AA }
+                        $fp = "MSWORD"
+                condition:
+                        1 of ($a*) and not $fp
+        }
 
 The example above shows the most common keywords used in our THOR rule
 set. These keywords are included in the YARA standard. The rule does not
@@ -619,27 +652,18 @@ to the total score of an object.
 
 Yara Rule with THOR specific attribute "score":
 
-+-----------------------------------------------+
-| rule demo\_rule\_score {                      |
-|                                               |
-| meta:                                         |
-|                                               |
-|    description = "Demo Rule"                  |
-|					        |
-|    score = 80                                 |
-|                                               |
-| strings:                                      |
-|                                               |
-|    $a1 = "EICAR-STANDARD-ANTIVIRUS-TEST-FILE" |
-|                                               |
-|    $a2 = "honkers" fullword                   |
-|                                               |
-| condition:                                    |
-|                                               |
-|    1 of them                                  |
-|                                               |
-| }                                             |
-+-----------------------------------------------+
+.. code-block::
+
+        rule demo_rule_score {
+                meta:
+                        description = "Demo Rule"
+                        score = 80
+                strings:
+                        $a1 = "EICAR-STANDARD-ANTIVIRUS-TEST-FILE"
+                        $a2 = "honkers" fullword
+                condition:
+                        1 of them
+        }
 
 Feel free to set your own "score" values in rules you create. If you
 don’t define a "score" the rule gets a default score of 75.
@@ -654,10 +678,9 @@ described in :ref:`chapter 12.5.2 Additional Attributes <usage/custom-signatures
 Additional Attributes
 ^^^^^^^^^^^^^^^^^^^^^
 
-THOR allows using certain external variables in you rules. They are
-passed to the "match" function and evaluated during matching.
+THOR allows using certain external variables in your generic and meta YARA rules.
 
-The external variables are:
+These external variables are:
 
 * "**filename**" - single file name like "**cmd.exe**"
 * "**filepath**" - file path without file name like "**C:\\temp**"
@@ -673,23 +696,16 @@ The "**filesize**" value contains the file size in bytes. It is provided directl
 
 Yara Rule with THOR External Variable:
 
-+-----------------------------------------------+
-| rule demo\_rule\_enhanced\_attribute\_1 {     |
-|                                               |
-| meta:                                         |
-|                                               |
-|    description = "Demo Rule - Eicar"          |
-|                                               |
-| strings:                                      |
-|                                               |
-|    $a1 = "EICAR-STANDARD-ANTIVIRUS-TEST-FILE" |
-|                                               |
-| condition:                                    |
-|                                               |
-|    $a1 and filename matches /eicar.com/       |
-|                                               |
-| }                                             |
-+-----------------------------------------------+
+.. code-block::
+
+        rule demo_rule_enhanced_attribute_1 {
+                meta:
+                        description = "Demo Rule - Eicar"
+                strings:
+                        $a1 = "EICAR-STANDARD-ANTIVIRUS-TEST-FILE"
+                condition:
+                        $a1 and filename matches /eicar.com/
+        }
 
 A more complex rule using several of the THOR external variables would
 look like the one in the following listing.
@@ -700,23 +716,17 @@ smaller 100byte.
 
 Yara Rule with more complex THOR Enhanced Attributes.
 
-+--------------------------------------------------------------------------+
-| rule demo\_rule\_enhanced\_attribute\_2 {                                |
-|                                                                          |
-| meta:                                                                    |
-|                                                                          |
-|    author = "F.Roth"                                                     |
-|                                                                          |
-| strings:                                                                 |
-|                                                                          |
-|    $a1 = "EICAR-STANDARD-ANTIVIRUS-TEST-FILE"                            |
-|                                                                          |
-| condition:                                                               |
-|                                                                          |
-|    $a1 and filename matches /eicar\\.(com\|dll\|exe)/ and filesize < 100 |
-|                                                                          |
-| }                                                                        |
-+--------------------------------------------------------------------------+
+.. code-block::
+
+        rule demo_rule_enhanced_attribute_2 {
+                meta:
+                        author = "F.Roth"
+                strings:
+                        $a1 = "EICAR-STANDARD-ANTIVIRUS-TEST-FILE"
+                condition:
+                        $a1 and filename matches /eicar\.(com|dll|exe)/ and filesize < 100
+        }
+
 
 The following YARA rule shows a typical combination used in one of the
 client specific rule sets, which are integrated in THOR. The rule
@@ -727,131 +737,17 @@ only to a special type of extension.
 
 Real Life Yara Rule:
 
-+---------------------------------------------------------+
-| rule HvS\_Client\_2\_APT\_Java\_IDX\_Content\_hard {    |
-|                                                         |
-| meta:                                                   |
-|                                                         |
-|    description = "VNCViewer.jar Entry in Java IDX file" |
-|                                                         |
-| strings:                                                |
-|                                                         |
-|    $a1 = "vncviewer.jar"                                |
-|                                                         |
-|    $a2 = "vncviewer/VNCViewer.class"                    |
-|                                                         |
-| condition:                                              |
-|                                                         |
-|    1 of ($a\*) and extension matches /\\.idx/           |
-|                                                         |
-| }                                                       |
-+---------------------------------------------------------+
+.. code-block::
 
-THOR YARA Rules for Registry Detection
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-THOR allows checking a complete registry path key/value pairs with Yara
-rules. To accomplish this, he composes a string from the key/value pairs
-of a registry key path and formats them as shown in the following
-screenshot.
-
-.. figure:: ../images/image33.png
-   :target: ../_images/image33.png
-   :alt: Composed strings from registry key/value pairs
-
-   Composed strings from registry key/value pairs
-
-The composed format is:
-
-| **KEYPATH;KEY;VALUE\\n**
-| **KEYPATH;KEY;VALUE\\n**
-| **KEYPATH;KEY;VALUE\\n**
-
-This means that you can write a Yara rule that looks like this (remember
-to escape all back slashes):
-
-Registry Yara Rule Example:
-
-+----------------------------------------------------------+
-| rule Registry\_DarkComet {                               |
-|                                                          |
-| meta:                                                    |
-|                                                          |
-|    description = "DarkComet Registry Keys"               |
-|                                                          |
-| strings:                                                 |
-|                                                          |
-|    $a1 = "LEGACY\_MY\_DRIVERLINKNAME\_TEST;NextInstance" |
-|                                                          |
-|    $a2 = "CurrentVersion\\\\Run;MicroUpdate"             |
-|                                                          |
-| condition:                                               |
-|                                                          |
-|    1 of them                                             |
-|                                                          |
-| }                                                        |
-+----------------------------------------------------------+
-
-Since version 7.25.5 THOR is even able to apply these rules to non-DWORD
-registry values. This means that e.g. a REG\_BINARY value contains an
-executable as in the following example, you can write a YARA rule to
-detect this binary value in Registry as shown below.
-
-**REG\_BINARY = 4d 5a 00 00 00 01 .. ..**
-
-Corresponding YARA rule to detect executables in Registry values:
-
-+-----------------------------------------------------------+
-| rule registry\_binary\_exe {                              |
-|                                                           |
-| meta:                                                     |
-|                                                           |
-|    description = "Detects executables in Registry values" |
-|                                                           |
-| strings:                                                  |
-|                                                           |
-|    $a1 = "Path;Value;4D5A00000001"                        |
-|                                                           |
-| condition:                                                |
-|                                                           |
-|    1 of them                                              |
-|                                                           |
-| }                                                         |
-+-----------------------------------------------------------+
-
-The letters in the expression have to be all uppercase. Remember that
-you have to use the keyword ‘\ **registry’** in the file name that is
-placed in the "**./custom-signatures/yara**" folder in order to
-initialize the YARA rule file as registry rule set. (e.g.
-"**registry\_exe\_in\_value.yar**")
-
-Registry scanning uses bulk scanning. See :ref:`below<usage/custom-signatures:Bulk Scanning>` for more details.
-
-Registry Base Names
-~~~~~~~~~~~~~~~~~~~
-
-Please notice that strings like HKEY\_LOCAL\_MACHINE, HKLM, HKCU,
-HKEY\_CURRENT\_CONFIG are not used in the strings that your YARA rules
-are applied to. They depend on the analyzed hive and should not be in
-the strings that you define in your rules. The strings for the YARA
-matching look like:
-
-\\SOFTWARE\\Microsoft\\GPUPipeline;InstallLocation;Test
-
-THOR YARA Rules for Log Detection
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-YARA Rules for logs are applied as follows:
-
-- For text logs, each line is passed to the YARA rules.
-- For Windows Event Logs, each event is serialized as follows for the YARA rules:
-  ``Key1: Value1  Key2: Value2  ...``
-  where each key / value pair is an entry in EventData or UserData in the XML representation of the event.
-
-
-Log (both text log and event log) scanning uses bulk scanning.
-See :ref:`below<usage/custom-signatures:Bulk Scanning>` for more details.
-
+        rule HvS_Client_2_APT_Java_IDX_Content_hard {
+                meta:
+                        description = "VNCViewer.jar Entry in Java IDX file"
+                strings:
+                        $a1 = "vncviewer.jar"
+                        $a2 = "vncviewer/VNCViewer.class"
+                condition:
+                        1 of ($a*) and extension matches /\.idx/
+        }
 
 Bulk Scanning
 ^^^^^^^^^^^^^
@@ -907,8 +803,8 @@ they can't match anywhere else, e.g. like this:
                         $s1 and not $fp
         }
 
-Restrict Yara Rule Matches in Generic Rules
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Restrict Yara Rule Matches
+^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 On top of the keyword based initialization you can restrict Yara rules
 to match on certain objects only. It is sometimes necessary to restrict
@@ -917,78 +813,49 @@ object detection only. Use the meta attribute "type" to define if the
 rule should apply to file objects or process memory only.
 
 Apply rule in-memory only:
+.. code-block::
 
-+-----------------------------------------+
-| rule Malware\_in\_memory {              |
-|                                         |
-| meta:                                   |
-|                                         |
-|    author = "Florian Roth"              |
-|                                         |
-|    description = " Think Tank Campaign" |
-|                                         |
-|    type = "memory"                      |
-|                                         |
-| strings:                                |
-|                                         |
-|    $s1 = "evilstring-inmemory-only"     |
-|                                         |
-| condition:                              |
-|                                         |
-|    1 of them                            |
-|                                         |
-| }                                       |
-+-----------------------------------------+
+        rule Malware_in_memory {
+                meta:
+                        author = "Florian Roth"
+                        description = "Think Tank Campaign"
+                        type = "memory"
+                strings:
+                        $s1 = "evilstring-inmemory-only"
+                condition:
+                        1 of them
+        }
 
 Apply rule on file objects only:
 
-+----------------------------------------+
-| rule Malware\_in\_fileobject {         |
-|                                        |
-| meta:                                  |
-|                                        |
-|    description = "Think Tank Campaign" |
-|                                        |
-|    type = "file"                       |
-|                                        |
-| strings:                               |
-|                                        |
-|    $s1 = "evilstring-infile-only"      |
-|                                        |
-| condition:                             |
-|                                        |
-|    1 of them                           |
-|                                        |
-| }                                      |
-+----------------------------------------+
+.. code-block::
+
+        rule Malware_in_fileobject {
+                meta:
+                        description = "Think Tank Campaign"
+                        type = "file"
+                strings:
+                        $s1 = "evilstring-infile-only"
+                condition:
+                        1 of them
+        }
 
 You can also decide if a rule should not match in "DeepDive" module by
 setting the "nodeepdive" attribute to "1".
 
 Avoid DeepDive application:
 
-+----------------------------------------+
-| rule Malware\_avoid\_DeepDive {        |
-|                                        |
-| meta:                                  |
-|                                        |
-|    description = "Think Tank Campaign" |
-|                                        |
-|    nodeepdive = 1                      |
-|                                        |
-| strings:                               |
-|                                        |
-|    $s1 = "evilstring-not-deepdive"     |
-|                                        |
-| condition:                             |
-|                                        |
-|    1 of them                           |
-|                                        |
-| }                                      |
-+----------------------------------------+
+.. code-block::
 
-Restrict Yara Rule Matches in Specific Rules
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        rule Malware_avoid_DeepDive {
+                meta:
+                        description = "Think Tank Campaign"
+                        nodeepdive = 1
+                strings:
+                        $s1 = "evilstring-not-deepdive"
+                condition:
+                        1 of them
+        }
 
 If you have problems with false positives caused by the specific YARA
 rules, try using the "limit" modifier in the meta data section of your
@@ -1006,25 +873,18 @@ meta data section of the YARA rule.
 
 Limits detection to the "Mutex" module:
 
-+-------------------------------------------------+
-| rule Malicious\_Mutex\_Evtx {                   |
-|                                                 |
-| meta:                                           |
-|                                                 |
-|    description = "Detects malicious mutex EVTX" |
-|                                                 |
-|    limit = "Mutex"                              |
-|                                                 |
-| strings:                                        |
-|                                                 |
-|    $s1 = "\_evtx\_"                             |
-|                                                 |
-| condition:                                      |
-|                                                 |
-|    1 of them                                    |
-|                                                 |
-| }                                               |
-+-------------------------------------------------+
+.. code-block::
+
+        rule Malicious_Mutex_Evtx {
+                meta:
+                        description = "Detects malicious mutex EVTX"
+                        limit = "Mutex"
+                strings:
+                        $s1 = "_evtx_"
+                condition:
+                        1 of them
+        }
+
 
 Notes:
 
@@ -1040,32 +900,15 @@ attribute. Do not use a negative score value in YARA rules.
 
 False Positive Rule:
 
-+------------------------------------------------------+
-| rule FalsePositive\_AVSig1 {                         |
-|                                                      |
-| meta:                                                |
-|                                                      |
-|    description = "Match on McAfee Signature Files"   |
-|                                                      |
-|    falsepositive = 1                                 |
-|                                                      |
-|    score = 50                                        |
-|                                                      |
-| strings:                                             |
-|                                                      |
-|    $s1 = "%%%McAfee-Signature%%%"                    |
-|                                                      |
-| condition:                                           |
-|                                                      |
-|    1 of them                                         |
-|                                                      |
-| }                                                    |
-+------------------------------------------------------+
+.. code-block::
 
-Encrypt Custom Signatures
--------------------------
-
-You can encrypt the YARA signatures and IOC files with the help of
-THOR-util’s "encrypt" feature.
-
-See the separate `THOR Util manual <https://thor-util-manual.nextron-systems.com/en/latest/>`_. for more details.
+        rule FalsePositive_AVSig1 {
+                meta:
+                        description = "Match on McAfee Signature Files"
+                        falsepositive = 1
+                        score = 50
+                strings:
+                        $s1 = "%%%McAfee-Signature%%%"
+                condition:
+                        1 of them
+        }
