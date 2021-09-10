@@ -44,7 +44,7 @@ The following tags for simple IOCs are currently supported:
 * "**pipes**" or "**pipe**" for Named Pipe IOCs
 
 +------------------------+-------------------------------------+
-| Keyword in File Name   | Example                             |
+| Tag in File Name       | Example                             |
 +========================+=====================================+
 | c2                     | misp-c2-domains-iocs.txt            |
 +------------------------+-------------------------------------+
@@ -70,7 +70,7 @@ The following tags for simple IOCs are currently supported:
 Hashes
 ^^^^^^
 
-Files with the keyword "**hash**" or "**hashes**" in their name
+Files with the tag "**hash**" or "**hashes**" in their name
 get initialized as hash IOC sets. Every match with one of these hashes
 receives a sub score of 100.
 
