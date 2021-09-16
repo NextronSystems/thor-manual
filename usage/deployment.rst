@@ -409,7 +409,7 @@ of parallel executions is five and can be configured using the -f or
 Execute Thor using Ansible
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The following section will show how to use a Ansible playbook to execute
+The following section will show how to use an Ansible playbook to execute
 Thor on multiple Linux systems.
 
 It will perform following steps on each system:
