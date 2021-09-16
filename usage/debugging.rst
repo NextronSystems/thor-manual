@@ -278,7 +278,7 @@ Provide a Screenshot (Optional)
 
 Sometimes errors lead to panics of the executables, which causes the situation 
 that the relevant log lines don't appear in the log file. In these cases, please 
-also create a a screenshot of a panic shown in the command line window. 
+also create a screenshot of a panic shown in the command line window.
 
 Provide the THOR database (Optional) 
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
