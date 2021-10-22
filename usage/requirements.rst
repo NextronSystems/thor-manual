@@ -38,7 +38,8 @@ Supported
 * Debian 11
 * macOS 10.14
 * macOS 10.15
-* macOS 11
+* macOS 11 (Intel)
+* macOS 11 (ARM, Apple M1)
 
 Limited Support
 ---------------
