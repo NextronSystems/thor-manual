@@ -98,7 +98,7 @@ It happens very often that users that prepare custom IOCs or YARA rules
 forget to include the correct keyword in the filename of the IOC or YARA
 rule file.
 
-The currect use of keywords is described in :ref:`this chapter <usage/custom-signatures:Initialization Based on Strings in File Names>` for IOCs and 
+The currect use of keywords is described in :ref:`this chapter <usage/custom-signatures:Simple IOCs>` for IOCs and 
 :ref:`this chapter <usage/custom-signatures:Specific YARA Rules>` for YARA rules. 
 
 A wrong or missing keyword leads to situations in which a file that contains 

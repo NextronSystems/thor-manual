@@ -31,7 +31,6 @@ THOR Scanner User Manual
    usage/links-and-references
 
 
-
 Indices and tables
 ==================
 
