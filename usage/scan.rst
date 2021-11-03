@@ -152,7 +152,7 @@ You can imitate a lab scan without a lab license with these command line flags:
 
 .. code:: batch 
 
-   thor64.exe -a Filescan --intense --norescontrol --nosoft --cross-platform -p C:\ProgramData
+   thor64.exe -a Filescan --intense --norescontrol --nosoft --cross-platform --alldrives -p C:\ProgramData
 
 Deactivate all file output - Syslog only
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
