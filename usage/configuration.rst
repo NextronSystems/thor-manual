@@ -96,6 +96,26 @@ get overwritten by an update or upgrade.
 Special scan features like the EVTX or Memory Dump scan ignore these
 limits.
 
+Features that obey the file size limit:
+
+- YARA Matching
+- Hash calculation
+- STIX IOC application
+- ArchiveScan 
+
+Features that ignore the file size limit: 
+
+- LogScan
+- RegistryHive scanning 
+- EVTX scanning 
+- DeepDive on memory dumps (selected by .dmp and magic headers)
+- Filename IOCs 
+- YARA meta rules (only check the first 100 bytes of a file and all meta data)
+
+If the ``--intense`` flag is used, a different file size limit is applied. 
+
+The only exception is ``ArchiveScan`` (e.g. ZIP file analysis) that has no file size limit in intense scan. 
+
 Chunk Size in DeepDive
 ^^^^^^^^^^^^^^^^^^^^^^
 
