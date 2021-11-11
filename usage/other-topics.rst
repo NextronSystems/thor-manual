@@ -459,3 +459,14 @@ check:
   | The comparison detects new service entries and reports them.
 * | Hosts
   | New or changed entries in the "hosts" file could indicate system manipulations by attackers to block certain security functions or intercept connections.
+
+Archive Scan 
+^^^^^^^^^^^^
+
+The ``ArchiveScan`` feature supports the following archive types: 
+
+- ZIP
+- RAR
+- TAR
+- TAR + GZIP (.tar.gz)
+- TAR + BZIP2 (.tar.bz2)
