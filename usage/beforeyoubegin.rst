@@ -103,7 +103,19 @@ PowerShell:
 
    Add-MpPreference -ExclusionProcess 'c:\temp\thor\thor64.exe'
 
-For more information visit `this link <https://docs.microsoft.com/en-us/microsoft-365/security/defender-endpoint/configure-process-opened-file-exclusions-microsoft-defender-antivirus?view=o365-worldwide>`__. 
+For more information visit `this link <https://docs.microsoft.com/en-us/microsoft-365/security/defender-endpoint/configure-process-opened-file-exclusions-microsoft-defender-antivirus?view=o365-worldwide>`__.
+
+A Note on SentinelOne
+^^^^^^^^^^^^^^^^^^^^^
+
+The process memory of systems running SentinelOne is polluted with suspicious strings. The most prevalent false positive is related to the keyword "ReflectiveLoader", but any other rule can match as well.
+
+It is unclear what SentinelOne does to the process memory of many system processes. We cannot exclude these signatures from the scan. Be aware that the results from the "ProcessCheck" module on a system running SentinelOne can contain many false positives.
+
+A Note on McAfee
+^^^^^^^^^^^^^^^^
+
+It is not an easy task to define exclusions for THOR in all the different services when running McAfee products. You have to exclude the process in different sections (AV, EDR, On-Access). We've compiled a list of exclusions for our ASGARD customers, which you can find `here <https://asgard-manual.nextron-systems.com/en/latest/usage/requirements.html#mcafee-edr-exclusions>`__.
 
 Choose The Right THOR Variant 
 -----------------------------
