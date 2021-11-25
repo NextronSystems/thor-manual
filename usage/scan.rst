@@ -274,9 +274,9 @@ PE-Sieve can be activated by using the **--processintegrity** flag. It
 runs on Windows as part of the ProcessCheck module and is capable of 
 detecting advanced techniques such as Process Doppelganging.
 
-When investigating likely infections, you can also raise 
+When investigating infections, you can also raise 
 the sensitivity of the integrated PE-Sieve beyond the default with
-**--full-proc-integrity** (at the cost of likely false positives).
+**--full-proc-integrity** (at the cost of possible false positives).
 
 THOR reports PE-Sieve results as follows:
 
