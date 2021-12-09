@@ -813,6 +813,7 @@ object detection only. Use the meta attribute "type" to define if the
 rule should apply to file objects or process memory only.
 
 Apply rule in-memory only:
+
 .. code-block::
 
         rule Malware_in_memory {

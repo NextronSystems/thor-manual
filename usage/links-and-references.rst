@@ -44,6 +44,7 @@ golang.org
 | Copyright (c) 2009 The Go Authors
 | Licensed under BSD-3 License
 | 
+
 OpenSSL
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -96,7 +97,7 @@ Copyright (c) 2018 Samuel Melrose
 | Licensed under MIT License
 
 Copyright (c) 2011, Evan Shaw <edsrzf@gmail.com>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 | github.com/Codehardt/mmap-go
 | github.com/ncw/mmap-go
@@ -149,7 +150,7 @@ github.com/dustin/go-humanize
 | Licensed under MIT License
 
 Copyright (c) 2014-2020 Elasticsearch BV
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 | github.com/elastic/beats
 | github.com/elastic/go-ucfg
@@ -208,7 +209,7 @@ github.com/golang/snappy
 | Licensed under BSD-3 License
 
 Copyright (c) 2010-2012 The w32 Authors
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 | github.com/gonutz/w32
 | github.com/shirou/w32
@@ -216,7 +217,7 @@ Copyright (c) 2010-2012 The w32 Authors
 | Licensed under MIT License
 
 Licensed under Mozilla Public License 2.0
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 | github.com/hashicorp/go-multierror
 | github.com/hashicorp/golang-lru
@@ -230,7 +231,7 @@ github.com/hillu/go-yara/v4
 | Licensed under BSD-2 License
 
 github.com/inconshreveable/mousetrap
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 | Copyright (c) 2014 Alan Shreve
 | Licensed under Apache License 2.0
@@ -254,7 +255,7 @@ github.com/marcsauter/single
 | Licensed under MIT License
 
 Copyright (c) Yasuhiro MATSUMOTO <mattn.jp@gmail.com>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 | github.com/mattn/go-colorable
 | github.com/mattn/go-isatty
@@ -294,7 +295,7 @@ github.com/pierrec/lz4
 | Licensed under BSD-3 License
 
 Copyright (c) Dave Cheney <dave@cheney.net>
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 | github.com/pkg/errors
 | github.com/pkg/profile
@@ -320,7 +321,7 @@ github.com/shirou/gopsutil
 | Licensed under BSD License
 
 Copyright (c) 2016 SmartyStreets, LLC
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 | github.com/smartystreets/goconvey
 | github.com/smartystreets/assertions
@@ -351,7 +352,7 @@ github.com/xi2/xz
 | (no license and copyright notes found)
 
 Copyright (c) 2016-2017 Uber Technologies, Inc.
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 | go.uber.org/atomic
 | go.uber.org/multierr
@@ -405,7 +406,7 @@ howett.net/plist
 | Licensed under BSD-3 License
 
 github.com/williballenthin/shellbags
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 | (no copyright notes found)
 | Licensed under Apache License 2.0
@@ -437,7 +438,7 @@ github.com/ianlancetaylor/demangle
 | Licensed under BSD-3 License
 
 github.com/jstemmer/go-junit-report
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 | Copyright (c) 2012 Joel Stemmer
 | Licensed under MIT License
@@ -472,13 +473,13 @@ github.com/google/go-cmp
 | Licensed under BSD-3 License
 
 https://github.com/hasherezade/pe-sieve
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 | Copyright (c) 2017-2020, @hasherezade
 | Licensed under BSD 2-Clause License
 
 https://github.com/hasherezade/libpeconv
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 | Copyright (c) 2017-2019, hasherezade (@hasherezade)
 | Licensed under BSD 2-Clause License
@@ -490,7 +491,7 @@ https://github.com/parsiya/golnk
 | Licensed under Apache License 2.0
 
 https://github.com/olekukonko/tablewriter
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 | Copyright (C) 2014 by Oleku Konko
 | Licensed under MIT License
@@ -578,7 +579,7 @@ github.com/sirupsen/logrus
 | Licensed under MIT License
 
 github.com/Workiva/go-datastructures
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 | (no copyright notes found)
 | Licensed under Apache License 2.0
@@ -602,7 +603,7 @@ github.com/magefile/mage
 | Licensed under Apache License 2.0
 
 github.com/secDre4mer/go-parseflags
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 | (no copyright notes found)
 | Licensed under BSD 3-Clause "New" License
