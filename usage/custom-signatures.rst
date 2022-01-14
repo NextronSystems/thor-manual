@@ -110,8 +110,8 @@ reported as suspicious you could define the following statements:
 
 .. code-block::
 
-        \\\\PsExec\\.exe;60
-        \\\\SysInternals\\\\PsExec\\.exe;-60
+        \\PsExec\.exe;60
+        \\SysInternals\\PsExec\.exe;-60
 
 This following example represents the 3\ :sup:`rd` generation filename
 IOC format introduced with THOR version 8.30 and SPARK version 1.5,
@@ -128,21 +128,21 @@ statement in column 1 matched.
 
 .. code-block::
 
-        \\\\PsExec\\.exe;60;\\\\SysInternals\\\\
+        \\PsExec\.exe;60;\\SysInternals\\
 
 We use this new format internally to describe abnormal locations of
 system files like
 
 .. code-block::
 
-        ([C-Zc-z]:\|\\\\\\\\).{1,40}\\\\svchost\\.exe;65;(?i)(HKCR\\\\Applications\|System32\|system32\|SYSTEM32\|winsxs\|WinSxS\|SysWOW64\|SysWow64\|syswow64\|SYSNATIVE\|Sysnative\|dllcache\|WINXP\|WINDOWS\|i386\|%system32%)\\\\
+        ([C-Zc-z]:\\|\\\\).{1,40}\\svchost\.exe;65;(?i)(HKCR\\Applications|System32|system32|SYSTEM32|winsxs|WinSxS|SysWOW64|SysWow64|syswow64|SYSNATIVE|Sysnative|dllcache|WINXP|WINDOWS|i386|%system32%)\\
 
 You could also score down directories with many false positives reported
 as "Notices" or "Warnings" like this:
 
 .. code-block::
 
-        \\\\directory\_with\_many\_false\_positives\\\\;-30
+        \\directory_with_many_false_positives\\;-30
 
 Keyword IOCs
 ^^^^^^^^^^^^
@@ -212,7 +212,7 @@ Mutex and event IOCs are case sensitive.
 .. code-block::
 
         Global\\mymaliciousmutex;Operation Fallout – RAT Mutex
-        Global\\WMI\_CONNECTION\_RECV;Flame Event https://bit.ly/2KjUTuP
+        Global\\WMI_CONNECTION_RECV;Flame Event https://bit.ly/2KjUTuP
         Dwm-[a-f0-9]{4}-ApiPort-[a-f0-9]{4};Chinese campaign malware June 19
 
 *Example for custom Mutex IOCs*
@@ -617,7 +617,7 @@ Complex Yara Rule:
                 strings:
                         $a1 = "EICAR-STANDARD-ANTIVIRUS-TEST-FILE"
                         $a2 = "li0n" fullword
-                        $a3 = /msupdate\\.(exe\|dll)/ nocase
+                        $a3 = /msupdate\.(exe|dll)/ nocase
                         $a4 = { 00 45 9A ?? 00 00 00 AA }
                         $fp = "MSWORD"
                 condition:
