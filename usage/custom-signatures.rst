@@ -340,7 +340,7 @@ All YARA rules which do not contain any specific tag (see :ref:`Specific YARA Ru
 The generic YARA rules are applied to the following elements:
 
 * | Files
-  | THOR applies the Yara rules to all files that are smaller than the size limit set in the **thor.yml** and matches specific rules. :ref:`Additional Attributes <usage/custom-signatures:Additional Attributes>` are avaiable.
+  | THOR applies the Yara rules to all files that are smaller than the size limit set in the **thor.yml** and matches specific rules. :ref:`Additional Attributes <usage/custom-signatures:Additional Attributes>` are available.
 * | Process Memory
   | THOR scans the process memory of all processes with a working set memory size up to a certain limit. This limit can be altered by the "**--max_process_size**" parameter.
 * | Data Chunks
@@ -376,7 +376,7 @@ differentiate them further:
   | Rules are applied to all string checks in many different modules.
 * | Metadata Checks (since THOR 10.6)
   | Tag: **'meta'**
-  | Rules are applied to all files wthout exception, including directories, symlinks and the like, but can only access the THOR specific external variables (see :ref:`Additional Attributes <usage/custom-signatures:Additional Attributes>`) and the first 100 bytes of the file.
+  | Rules are applied to all files without exception, including directories, symlinks and the like, but can only access the THOR specific external variables (see :ref:`Additional Attributes <usage/custom-signatures:Additional Attributes>`) and the first 100 bytes of the file.
   | Since THOR 10.6.8: If a metadata rule has the special tag DEEPSCAN, THOR will perform a YARA scan on the full file with the default rule set (see :ref:`Generic YARA Rules <usage/custom-signatures:Generic YARA Rules>`).
 
 The following table shows in which modules the specific YARA rules are
