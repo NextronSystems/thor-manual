@@ -39,7 +39,7 @@ To find out why a certain file couldn't be detected, use
    thor64.exe -a Filescan -p C:\testfolder --debug --printall --intense
 
 If it has been detected in **intense mode** but not in default mode, 
-the file extension or the magic header is most likely the problem. 
+the file extension or the magic header is most likely the problem.
 You can adjust **max_file_size** in **./config/thor.yml** or add a 
 magic header in **./signatures/misc/file-type-signatures.cfg**.
 
@@ -76,7 +76,7 @@ THOR didn’t scan the file due to a skipped deeper inspection
 
 This can be caused by two reasons:
 
-the magic header of that file is not in the list of interesting magic
+The magic header of that file is not in the list of interesting magic
 headers (see **./signatures/misc/file-type-signatures.cfg**) AND file
 doesn’t have a relevant file extension (.asp, .vbs, .ps, .ps1, .rar,
 .tmp, .bas, .bat, .chm, .cmd, .com, .cpl, .crt, .dll, .exe, .hta, .js,
@@ -98,14 +98,14 @@ It happens very often that users that prepare custom IOCs or YARA rules
 forget to include the correct keyword in the filename of the IOC or YARA
 rule file.
 
-The currect use of keywords is described in :ref:`this chapter <usage/custom-signatures:Simple IOCs>` for IOCs and 
-:ref:`this chapter <usage/custom-signatures:Specific YARA Rules>` for YARA rules. 
+The correct use of keywords is described in :ref:`this chapter <usage/custom-signatures:Simple IOCs>` for IOCs and
+:ref:`this chapter <usage/custom-signatures:Specific YARA Rules>` for YARA rules.
 
 A wrong or missing keyword leads to situations in which a file that contains 
 YARA rules that are meant to be applied to log files, doesn't contain a "log" 
-keyword in it's name. 
+keyword in it's name.
 
-You can review a correct initialization in the command line output or log file. 
+You can review a correct initialization in the command line output or log file.
 
 .. code:: batch 
 
@@ -148,7 +148,7 @@ Solution: Review all possible exclusions in your AV / EDR and add the THOR folde
 Windows Quick Edit Mode 
 ^^^^^^^^^^^^^^^^^^^^^^^
 
-Since Windows 10, the Windows command line window has the so-called "Quick Edit Mode" enabled by default. This mode causes a behaviour that can lead to a paused THOR scan process. Whenever a user switches the active windows from the cmd.exe to a different application, e.g. Windows Explorer, and clicks back into the command line window, the running process automatically gets suspended. A user has to press "Enter" to resume the suspended process. As the progress indicator of THOR isn't always changing, this could lead to the impression that the scan paused by itself. 
+Since Windows 10, the Windows command line window has the so-called "Quick Edit Mode" enabled by default. This mode causes a behaviour that can lead to a paused THOR scan process. Whenever a user switches the active windows from the cmd.exe to a different application, e.g. Windows Explorer, and clicks back into the command line window, the running process automatically gets suspended. A user has to press "Enter" to resume the suspended process. As the progress indicator of THOR isn't always changing, this could lead to the impression that the scan paused by itself.
 
 See `this <https://stackoverflow.com/questions/30418886/how-and-why-does-quickedit-mode-in-command-prompt-freeze-applications`_ StackOverflow post for more details.
 
@@ -157,14 +157,14 @@ Solution: Press "Enter" in the command line window
 Constant High System Load 
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Since THOR automatically sets a low process priority a scan can slow down to a level that appears to be paused or suspended on systems that are under a contant high load. 
+Since THOR automatically sets a low process priority a scan can slow down to a level that appears to be paused or suspended on systems that are under a constant high load.
 
-Solution: You can avoid this behaviour by using the ``--nolowprio`` flag. Be aware that scans on a system with a contant high CPU load take longer than on other systems and could slow down the processes that would otherwise take all the CPU capacity.
+Solution: You can avoid this behaviour by using the ``--nolowprio`` flag. Be aware that scans on a system with a constant high CPU load take longer than on other systems and could slow down the processes that would otherwise take all the CPU capacity.
 
 The Sensation of a Stalled Scan
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Under certain circumstances the scan may appear stalled but is still running. You can always interrupt a scan using CTRL+C that brings THOR into the interrupt menu in which you can see the currently scanned element. In case of the "FileScan" module, this is a file or folder. In case of the "EventLog" module, this is an event with an ID. If you resume the scan by pressing "C" and interrupt it again a few minutes later, you should see another element in the interrupt menu. 
+Under certain circumstances the scan may appear stalled but is still running. You can always interrupt a scan using CTRL+C that brings THOR into the interrupt menu in which you can see the currently scanned element. In case of the "FileScan" module, this is a file or folder. In case of the "EventLog" module, this is an event with an ID. If you resume the scan by pressing "C" and interrupt it again a few minutes later, you should see another element in the interrupt menu.
 
 If THOR still processes the same element for several hours, we recommend checking that element (size, format, access rights, location).
 
@@ -205,10 +205,10 @@ Probable causes:
 
 Whenever THOR recognizes a low amount of free memory, THOR checks the 
 top 3 memory consumers on the system and includes them in the log message
-that it writes before exiting. 
+that it writes before exiting.
 
 You could try running THOR in Soft Mode (--soft) in which modules and 
-features that require a lot of memory are deactivated. 
+features that require a lot of memory are deactivated.
 
 Using the 32bit binary of thor named **thor.exe** on a 64bit system 
 can lead to interrupted scans with this error message. The 32bit binary
@@ -231,19 +231,19 @@ Help Us With The Debugging
 --------------------------
 
 If you cannot find the source of a problem, please contact us using the 
-support@nextron-systems.com email address. 
+support@nextron-systems.com email address.
 
 You can help us find and debug the problem as quickly as possible by 
-providing the following information. 
+providing the following information.
 
 Which THOR version do you use?
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 Tell us which THOR version you are using: 
 
-1. for which operating system (Windows, Linux, macOS, AIX) 
-2. for which architecure (32bit, 64bit)
+1. For which operating system (Windows, Linux, macOS, AIX)
+2. For which architecture (32bit, 64bit)
 
-Run **thor --version** and copy the resulting text into the email. 
+Run **thor --version** and copy the resulting text into the email.
 
 On Windows: 
 
@@ -302,7 +302,7 @@ Which command line arguments do you use?
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Please provide a complete list of command line arguments that you've used 
-when the error occurred. 
+when the error occurred.
 
 .. code:: batch 
 
@@ -312,12 +312,12 @@ Provide the log of a scan with --debug flag
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The most important element is a scan log of a scan with set **--debug** 
-flag. 
+flag.
 
 The easiest way is to run the scan exactly as you've run it when the 
-problem occured adding the **--debug** command line flag. 
+problem occurred adding the **--debug** command line flag.
 
-e.g. 
+E.g.
 
 .. code:: batch 
 
@@ -336,7 +336,7 @@ It is okay to replace confidential information like the hostname or IP addresses
 Note: The debug log files can be pretty big, so please compress the file before 
 submitting it to us. Normal log files have a size between 1 and 4 MB. Scans started 
 with the --debug flag typically have sizes of 30-200 MB. The compression ratio is 
-typically between 2-4%, so a compressed file shouldn't be larger than 10 MB. 
+typically between 2-4%, so a compressed file shouldn't be larger than 10 MB.
 
 Provide a Screenshot (Optional)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -351,7 +351,7 @@ Provide the THOR database (Optional)
 The :ref:`THOR DB <usage/other-topics:THOR DB>` helps us debug situations in which 
 the THOR scan timed out or didn't complete at all. It contains statistics on the 
 run time of all used modules and the durations of all folders up to the second 
-folder level from the root of a partition. (e.g. C:\\Windows\\SysWow64). 
+folder level from the root of a partition. (e.g. C:\\Windows\\SysWow64).
 
 The default location of that file is: 
 

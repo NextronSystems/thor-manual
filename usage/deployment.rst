@@ -7,10 +7,10 @@ of these methods are OS specific.
 Licensing
 ---------
 
-In almost any method of deployment, the provision of valid licenses for the scanners on the endpoints is a core issue. 
-Every license is limited to a certain host name. The only exception are the rare and relatively expensive "Incident Response" licenses. 
+In almost any method of deployment, the provision of valid licenses for the scanners on the endpoints is a core issue.
+Every license is limited to a certain host name. The only exception are the rare and relatively expensive "Incident Response" licenses.
 
-In all other cases, a valid license has to be generated before a scan run. 
+In all other cases, a valid license has to be generated before a scan run.
 
 There are numerous options to retrieve a valid license for a host.
 
@@ -46,7 +46,7 @@ The download token can be configured in the ``Downloads`` section of you ASGARD 
 
    Downloads > Download Token Configuration
 
-You can retrieve an approriate THOR license at the scan start using the builtin ``--asgard`` and ``--asgard-token`` parameters. 
+You can retrieve an appropriate THOR license at the scan start using the built-in ``--asgard`` and ``--asgard-token`` parameters.
 
 .. code:: batch 
 
@@ -80,13 +80,13 @@ All you need are:
 
 If there is uncertainty it's recommended to generate ``server`` type licenses which are more expensive but run on both system types.
 
-For exapmple: To retrieve a valid license for the servers named ``SRV001`` and ``SRV002`` you can use the following command:
+For example: To retrieve a valid license for the servers named ``SRV001`` and ``SRV002`` you can use the following command:
 
 .. code:: bash 
 
    curl -XPOST "https://my-asgard.internal:8443/api/v0/licensing/issue?token=OJCBaTq4VGLjrCes2k4ACCQOzg0AxAoz01" -o licenses.zip -d "type=server" -d "hostnames=SRV001" -d "hostnames=SRV002" ... -d "hostnames=hostnameN"
 
-If you can't use curl and want to retrieve a license as part of a bigger PowerShell script, you can use the following code snippet to help you with the retrieval. 
+If you can't use curl and want to retrieve a license as part of a bigger PowerShell script, you can use the following code snippet to help you with the retrieval.
 
 .. code:: powershell
 
@@ -160,7 +160,7 @@ If you can't use curl and want to retrieve a license as part of a bigger PowerSh
       Remove-Item -Path $LicenseFile
    }
 
-Check the ASGARD helper scripts section in `our Github repo <https://github.com/NextronSystems/nextron-helper-scripts/tree/master/asgard>`__ for more scripts and snippets. 
+Check the ASGARD helper scripts section in `our Github repo <https://github.com/NextronSystems/nextron-helper-scripts/tree/master/asgard>`__ for more scripts and snippets.
 
 Retrieve Valid License From Customer Portal
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -176,7 +176,7 @@ To retrieve a licenses from the customer portal, you need an portal key. The por
 
    User Settings > API Key
 
-You can retrieve an approriate THOR license at the scan start using the builtin ``--portal-key`` and ``--portal-contracts`` parameters. The ``--portal-contracts`` parameter is optional. It can be used to take licenses from a specific contract in case you have more than one and want to use a specific one. If none is set, THOR will automatically retrieve licenses from a contract of the right type. (e.g. retrieve workstation license from the first still valid contract that has workstation licenses available)
+You can retrieve an appropriate THOR license at the scan start using the built-in ``--portal-key`` and ``--portal-contracts`` parameters. The ``--portal-contracts`` parameter is optional. It can be used to take licenses from a specific contract in case you have more than one and want to use a specific one. If none is set, THOR will automatically retrieve licenses from a contract of the right type. (e.g. retrieve workstation license from the first still valid contract that has workstation licenses available)
 
 .. figure:: ../images/portal-ids.png
    :target: ../_images/portal-ids.png
@@ -205,7 +205,7 @@ Use the Customer Portal's API to retrieve a license manually
 
 This is a bit more complicated as we've decided long ago that our customer portal will never contain personal or otherwise relatable information and this includes any kind of hostnames - not even in memory. Therefore it's necessary to generate a HMAC SHA1 hash of the lowercased hostname on the client side and include only the hash in the request to our customer portal.
 
-This command generates a HMAC SHA1 of the current host you're working on. If you'd like to generate a license for a different host, simply replace the first part of the command with ``echo -n "mycustomname"``. 
+This command generates a HMAC SHA1 of the current host you're working on. If you'd like to generate a license for a different host, simply replace the first part of the command with ``echo -n "mycustomname"``.
 
 .. code:: bash
 
@@ -222,13 +222,13 @@ The values needed for a successful request are:
 
    curl -XPOST https://portal.nextron-systems.com/api/public/contracts/issue/$CONTRACT/$TYPE/$HASH?download=1 -H "Authorization: $APIKEY" -o license.lic
 
-A valid license is an encrypted blob of at least 800 bytes. You can check the content of the license for possible error messsage that came back from the server using ``xxd``. 
+A valid license is an encrypted blob of at least 800 bytes. You can check the content of the license for possible error message that came back from the server using ``xxd``.
 
 .. code:: bash 
 
    xxd license.lic
 
-If you find a ``Error: HTTP-401`` in the file, than you've most likely used an invalid API key. 
+If you find a ``Error: HTTP-401`` in the file, than you've most likely used an invalid API key.
 
 Network Share (Windows)
 -----------------------
@@ -415,7 +415,7 @@ Thor on multiple Linux systems.
 It will perform following steps on each system:
 
 * Create a temporary folder
-* Mount a RAM drive using the folder as mountpoint
+* Mount a RAM drive using the folder as mount point
 * Copy Thor to this RAM drive
 * Execute Thor
 * Unmount the RAM drive
@@ -839,8 +839,8 @@ Requirements:
 
 * Administrative Domain Windows user account with access rights on the target systems
 * | Reachability of the target systems (Windows Ports)
-  | 135/tcp für SCM (Service Management)
-  | 445/tcp für SMB (Mounting)
+  | 135/tcp for SCM (Service Management)
+  | 445/tcp for SMB (Mounting)
 * A list of target systems
 
 Advantages:
@@ -937,7 +937,7 @@ https://helgeklein.com/blog/2011/08/access-denied-trying-to-connect-to-administr
 Running THOR from a Network Share
 """""""""""""""""""""""""""""""""
 
-THOR must reside on the local filesystem of the source system. Don’t run
+THOR must reside on the local file system of the source system. Don’t run
 it from a mounted network share. This could lead to the following error:
 
 .. code:: bash

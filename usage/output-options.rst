@@ -131,7 +131,7 @@ There are three different Key Value Pair Formatting flags:
   | Print key/value pairs in the command line (e.g. used with Splunk
      scripted input)
 * | **-s [syslogtarget]:[port]:SYSLOGKV**
-  | Send syslog messages with propper key/value formatting
+  | Send syslog messages with proper key/value formatting
 
 +---------------------------------------------------------------------------------------------------------------+
 | Default - Without "--keyval" parameter									|

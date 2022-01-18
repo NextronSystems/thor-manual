@@ -45,11 +45,11 @@ Parameters Possibly Relevant for Your User Case
 +----------------------------+--------------------------------------------------------------------------+
 | --allhds                   | | By default THOR scans only the C: partition on Windows machines     	|
 |                            | | and other files/folders only in cases in which some reference points  	|
-|                            | | to adifferent partition (e.g. configured web root of IIS is on  	|
+|                            | | to a different partition (e.g. configured web root of IIS is on  	|
 |                            | | D:\inetpub, registered service runs from D:\vendor\service)            |
 +----------------------------+--------------------------------------------------------------------------+
 | | --lookback days          | | Only check the elements changed or created during the last X days    	|
-| | --globallookback         | | in all availabe modules (reduces the scan duration significantly)      |
+| | --globallookback         | | in all available modules (reduces the scan duration significantly)     |
 +----------------------------+--------------------------------------------------------------------------+
 
 Parameters Better Avoided 
@@ -304,7 +304,7 @@ allowing for a significant increase in speed in exchange for a higher
 CPU usage.
 
 To use this feature, use the **--threads** flag which allows you to
-specify THORs number of parallel threads.
+specify THOR's number of parallel threads.
 
 When using the **--lab** (Lab Scanning), **--dropzone** (sample drop
 zone) or **--thunderstorm** (Thunderstorm) command line flags, THOR will
