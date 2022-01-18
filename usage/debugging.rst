@@ -197,10 +197,11 @@ Insufficient Free Memory
 
 Probable causes: 
 
-1. Other processes consume a lot of memory 
+1. Other processes consume a lot of memory
 2. THOR's scanning of certain elements requires a lot of memory
-3. You are using the wrong THOR version for your architecture 
-4. You've actvated a feature that consumes a lot of memory (e.g. --mft or --intense)
+3. You've set ulimit values that are too restrictive
+4. You are using the wrong THOR version for your architecture
+5. You've activated a feature that consumes a lot of memory (e.g. --mft or --intense)
 
 Whenever THOR recognizes a low amount of free memory, THOR checks the 
 top 3 memory consumers on the system and includes them in the log message
@@ -213,6 +214,18 @@ Using the 32bit binary of thor named **thor.exe** on a 64bit system
 can lead to interrupted scans with this error message. The 32bit binary
 isn't able to address as much memory as the 64bit version. Always make 
 sure to use the correct THOR version for the respective architecture.
+
+Several ulimits might cause THOR to terminate if they are too restrictive, including:
+
+ - locked-in-memory size
+ - address space
+ - number of open file descriptors
+ - maximum data size
+
+ If you are certain your machine has sufficient RAM, check your ulimits with ``ulimit -a``
+ and try to rerun the scan with increased limits, if necessary.
+ The `man page <https://www.man7.org/linux/man-pages/man5/limits.conf.5.html>`_ for the ulimits
+ configuration size gives a full overview over the limits and how to persistently modify them.
 
 Help Us With The Debugging
 --------------------------
