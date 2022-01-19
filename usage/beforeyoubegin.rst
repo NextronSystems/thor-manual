@@ -66,13 +66,13 @@ Run the following command to update THOR and its signatures:
    
    thor-util upgrade
 
-It is **important** that you update THOR after a download from the csutomer 
+It is **important** that you update THOR after a download from the customer
 portal since the packages do not contain the newest signature files. 
 (caused by internal integrity check processes)
 
 Note: The upgrade requires a valid license for the host that performs the update. 
 If you don't want to use a license for that host, ask us for a **silent license** 
-that can be used for all kinds of tersting purposes and also allows to update THOR
+that can be used for all kinds of testing purposes and also allows to update THOR
 and its signatures.  
 
 Define an Antivirus / EDR Exclusion
@@ -140,7 +140,7 @@ The default version of THOR is the most stable version, intensively tested and w
 The default version should be used for: 
 
 * Scan sweeps on many hundreds or thousands of systems
-* Continous compromise assessments on hundreds or thousands of systems 
+* Continuous compromise assessments on hundreds or thousands of systems
 * Systems with high requirements on stability
 
 THOR TechPreview 
@@ -182,7 +182,7 @@ Choose The Right Command Line Flags
 
 The recommended way to run THOR has already been put into the default. So, the recommended way to start a THOR is without any command line flags.
 
-Howevery, special circumstances can lead to different requirements and thus a different set of command line flags. See chapter :doc:`'Scan' <./scan>` for often used flags. 
+However, special circumstances can lead to different requirements and thus a different set of command line flags. See chapter :doc:`'Scan' <./scan>` for often used flags.
 
 Verify Public Key Signatures (optional)
 ---------------------------------------

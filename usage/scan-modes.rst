@@ -21,7 +21,7 @@ Themed scan modes:
   | - Systems with less than 1024 MB of RAM
 
 * | **Lab Scan (--lab)**
-  | This mode scan only the filesystem and disable all other modules. (see :doc:`chapter Special Scan Modes <./special-scan-modes>` for more details and flags used in this scan mode)
+  | This mode scans only the file system and disables all other modules. (see :doc:`chapter Special Scan Modes <./special-scan-modes>` for more details and flags used in this scan mode)
   | Example: **./thor64 --lab -p /mnt/image\_c/**
 
 * | **Intense (--intense)**
@@ -257,7 +257,7 @@ Feature Scan Mode Overview
 Feature caller list
 ^^^^^^^^^^^^^^^^^^^
 
-The following table gives an overview of THORs features and
+The following table gives an overview of THOR's features and
 how they are called by the different modules and other features.
 
 +--------------------------------+--------------------------------+

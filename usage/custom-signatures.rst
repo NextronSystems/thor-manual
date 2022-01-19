@@ -110,8 +110,8 @@ reported as suspicious you could define the following statements:
 
 .. code-block::
 
-        \\\\PsExec\\.exe;60
-        \\\\SysInternals\\\\PsExec\\.exe;-60
+        \\PsExec\.exe;60
+        \\SysInternals\\PsExec\.exe;-60
 
 This following example represents the 3\ :sup:`rd` generation filename
 IOC format introduced with THOR version 8.30 and SPARK version 1.5,
@@ -128,21 +128,21 @@ statement in column 1 matched.
 
 .. code-block::
 
-        \\\\PsExec\\.exe;60;\\\\SysInternals\\\\
+        \\PsExec\.exe;60;\\SysInternals\\
 
 We use this new format internally to describe abnormal locations of
 system files like
 
 .. code-block::
 
-        ([C-Zc-z]:\|\\\\\\\\).{1,40}\\\\svchost\\.exe;65;(?i)(HKCR\\\\Applications\|System32\|system32\|SYSTEM32\|winsxs\|WinSxS\|SysWOW64\|SysWow64\|syswow64\|SYSNATIVE\|Sysnative\|dllcache\|WINXP\|WINDOWS\|i386\|%system32%)\\\\
+        ([C-Zc-z]:\\|\\\\).{1,40}\\svchost\.exe;65;(?i)(HKCR\\Applications|System32|system32|SYSTEM32|winsxs|WinSxS|SysWOW64|SysWow64|syswow64|SYSNATIVE|Sysnative|dllcache|WINXP|WINDOWS|i386|%system32%)\\
 
 You could also score down directories with many false positives reported
 as "Notices" or "Warnings" like this:
 
 .. code-block::
 
-        \\\\directory\_with\_many\_false\_positives\\\\;-30
+        \\directory_with_many_false_positives\\;-30
 
 Keyword IOCs
 ^^^^^^^^^^^^
@@ -212,7 +212,7 @@ Mutex and event IOCs are case sensitive.
 .. code-block::
 
         Global\\mymaliciousmutex;Operation Fallout – RAT Mutex
-        Global\\WMI\_CONNECTION\_RECV;Flame Event https://bit.ly/2KjUTuP
+        Global\\WMI_CONNECTION_RECV;Flame Event https://bit.ly/2KjUTuP
         Dwm-[a-f0-9]{4}-ApiPort-[a-f0-9]{4};Chinese campaign malware June 19
 
 *Example for custom Mutex IOCs*
@@ -340,7 +340,7 @@ All YARA rules which do not contain any specific tag (see :ref:`Specific YARA Ru
 The generic YARA rules are applied to the following elements:
 
 * | Files
-  | THOR applies the Yara rules to all files that are smaller than the size limit set in the **thor.yml** and matches specific rules. :ref:`Additional Attributes <usage/custom-signatures:Additional Attributes>` are avaiable.
+  | THOR applies the Yara rules to all files that are smaller than the size limit set in the **thor.yml** and matches specific rules. :ref:`Additional Attributes <usage/custom-signatures:Additional Attributes>` are available.
 * | Process Memory
   | THOR scans the process memory of all processes with a working set memory size up to a certain limit. This limit can be altered by the "**--max_process_size**" parameter.
 * | Data Chunks
@@ -376,7 +376,7 @@ differentiate them further:
   | Rules are applied to all string checks in many different modules.
 * | Metadata Checks (since THOR 10.6)
   | Tag: **'meta'**
-  | Rules are applied to all files wthout exception, including directories, symlinks and the like, but can only access the THOR specific external variables (see :ref:`Additional Attributes <usage/custom-signatures:Additional Attributes>`) and the first 100 bytes of the file.
+  | Rules are applied to all files without exception, including directories, symlinks and the like, but can only access the THOR specific external variables (see :ref:`Additional Attributes <usage/custom-signatures:Additional Attributes>`) and the first 100 bytes of the file.
   | Since THOR 10.6.8: If a metadata rule has the special tag DEEPSCAN, THOR will perform a YARA scan on the full file with the default rule set (see :ref:`Generic YARA Rules <usage/custom-signatures:Generic YARA Rules>`).
 
 The following table shows in which modules the specific YARA rules are
@@ -620,7 +620,7 @@ Complex Yara Rule:
                 strings:
                         $a1 = "EICAR-STANDARD-ANTIVIRUS-TEST-FILE"
                         $a2 = "li0n" fullword
-                        $a3 = /msupdate\\.(exe\|dll)/ nocase
+                        $a3 = /msupdate\.(exe|dll)/ nocase
                         $a4 = { 00 45 9A ?? 00 00 00 AA }
                         $fp = "MSWORD"
                 condition:
@@ -816,6 +816,7 @@ object detection only. Use the meta attribute "type" to define if the
 rule should apply to file objects or process memory only.
 
 Apply rule in-memory only:
+
 .. code-block::
 
         rule Malware_in_memory {

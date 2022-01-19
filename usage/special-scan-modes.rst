@@ -34,7 +34,7 @@ You can achieve a similar (but not equal) scan using the following command line 
    thor64.exe -a Filescan --intense --norescontrol --nosoft --cross-platform --alldrives -p path-to-scan
    
 Without a valid lab license, you cannot use multiple instances of THOR on a single system 
-or switch into multi-threaded scanning. The features mentiond in the following sub chapters
+or switch into multi-threaded scanning. The features mentioned in the following sub chapters
 are also limited.  
 
 Virtual Drive Mapping

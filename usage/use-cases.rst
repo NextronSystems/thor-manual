@@ -11,7 +11,7 @@ THOR, as a scanner, does not mount disk images to a certain driver on your foren
 
 In case you plan to use an automated setup in which you use scripts to automatically process images, you could try to use the old `command line versions of FTKimager <https://accessdata.com/product-download#past-versions>`__.
 
-So, first you mount the image to a certain drive and then use THOR in lab scanning mode to analyze the mounted image. To benefit from all features of this mode, you have to aquire and use a so-called **forensic lab** or **lab** license.
+So, first you mount the image to a certain drive and then use THOR in lab scanning mode to analyze the mounted image. To benefit from all features of this mode, you have to acquire and use a so-called **forensic lab** or **lab** license.
 
 The following example shows a recommended set of parameters, scanning a mounted image of a host named ``WKS0001`` on drive ``S:\`` of your forensic Windows workstation. 
 

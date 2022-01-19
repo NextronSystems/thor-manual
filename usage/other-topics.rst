@@ -58,16 +58,16 @@ connections but you can use any port you like.
 
 Usage is:
 
-usage: bifrost-server.py [-h] [-d out-dir] [-i ip] [-p port]
+.. code:: bash
 
-Bifrost
+    usage: bifrost-server.py [-h] [-d out-dir] [-i ip] [-p port]
 
-optional arguments:
+    Bifrost optional arguments:
 
-* -h, --help show this help message and exit
-* -d out-dir Quarantine directory
-* -i ip IP address to bind to
-* -p port Port to bind to (tcp, default 1400)
+    -h, --help  show this help message and exit
+    -d out-dir  Quarantine directory
+    -i ip       IP address to bind to
+    -p port     Port to bind to (tcp, default 1400)
 
 You can run the server script with:
 
@@ -90,7 +90,7 @@ look like this:
    thor64.exe --bifrostServer myserver --bifrost-port 8080 --bifrostLevel 80
 
 THOR will then try to submit all samples with score equal or higher than
-80 to a Bifrost service running on myserver port 8080/tcp.
+80 to a Bifrost service running on ``myserver`` port 8080/tcp.
 
 Bifrost v2 with ASGARD
 """"""""""""""""""""""
@@ -189,17 +189,17 @@ resulting log message.
 Scoring per Signature Type Match
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-+--------------------------+----------------------------------------------------------------------------------+
-| Type                     | Score                                                                            |
-+==========================+==================================================================================+
-| YARA match               | Defined in the meta data of the YARA rule as integer value (e.g. "score = 50")   |
-+--------------------------+----------------------------------------------------------------------------------+
-| Filename IOC match       | Defined in the 2\ :sup:`nd` field of the CSV (e.g. "\\\\evil.exe;80")            |
-+--------------------------+----------------------------------------------------------------------------------+
-| Keyword IOC match  	   | "warning" level messages, see 14.3 "Default Scores"                              |
-+--------------------------+----------------------------------------------------------------------------------+
-| C2 IOC match             | "warning" and "alert" level massages, see 14.3 "Default Scores"                  |
-+--------------------------+----------------------------------------------------------------------------------+
++--------------------------+-------------------------------------------------------------------------------------------------------------+
+| Type                     | Score                                                                                                       |
++==========================+=============================================================================================================+
+| YARA match               | Defined in the meta data of the YARA rule as integer value (e.g. "score = 50")                              |
++--------------------------+-------------------------------------------------------------------------------------------------------------+
+| Filename IOC match       | Defined in the 2\ :sup:`nd` field of the CSV (e.g. "\\\\evil.exe;80")                                       |
++--------------------------+-------------------------------------------------------------------------------------------------------------+
+| Keyword IOC match        | "warning" level messages, see :ref:`section Default Scores <usage/other-topics:Default Scores>`             |
++--------------------------+-------------------------------------------------------------------------------------------------------------+
+| C2 IOC match             | "warning" and "alert" level massages, see :ref:`section Default Scores <usage/other-topics:Default Scores>` |
++--------------------------+-------------------------------------------------------------------------------------------------------------+
 
 Accumulated Score by Module
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -212,7 +212,7 @@ Accumulated Score by Module
 | | Archive Scan      |			  | | filename IOCs, other anomalies) 								   |                   
 | | DeepDive          | 	          | | Note 1: Only positive scores are shown by default                                            |              
 | | Prefetch          |                   | | Note 2: Only the top 2 reasons are shown by default (use     				   |
-| | WER		      |			  | | –allreasons to show all positive scores)						           |
+| | WER		      |			  | | --allreasons to show all positive scores)						           |
 +---------------------+-------------------+------------------------------------------------------------------------------------------------+
 | | All Other         | No                | | Individual score of each signature match (YARA, filename IOC, 			  	   |
 | | Modules           |			  | | keywords, C2)                  								   |
@@ -251,15 +251,15 @@ Exception: Filename IOC Matches
 The "Filename IOC Check" is a sub check of the "String Check", which is
 applied to many elements, like Eventlog messages or Registry keys.
 
-The function "checkString()" receives a string as input and returns
+The function ``checkString()`` receives a string as input and returns
 possible matches.
 
 The string is checked in multiple sub-checks against different signature
-lists. The most important sub-checks are "checkKeyword()" and
-"checkFilename()".
+lists. The most important sub-checks are ``checkKeyword()`` and
+``checkFilename()``.
 
-While the "checkKeyword()" sub-check returns each individual match, the
-"checkFilename()" sub check accumulates the score of all matches and
+While the ``checkKeyword()`` sub-check returns each individual match, the
+``checkFilename()`` sub check accumulates the score of all matches and
 returns a single total score. It is possible that many different
 filename signatures have matched on that string but only one match with
 a total score is reported. This is an exception to the usual behavior 
@@ -281,7 +281,7 @@ and the following Keyword signature:
 |nmap.exe |
 +---------+
 
-The "checkString()" function receives the following string from the
+The ``checkString()`` function receives the following string from the
 Eventlog scan module (here: a Sysmon Eventlog entry):
 
 +-----------------------------------------------------------------------------------------------+
@@ -305,15 +305,15 @@ Eventlog scan module (here: a Sysmon Eventlog entry):
 | | ParentCommandLine: C:\\Windows\\Explorer.EXE						|
 +-----------------------------------------------------------------------------------------------+
 
-The "checkString()" function would create two messages: 1 "warning" for
+The ``checkString()`` function would create two messages: 1 "warning" for
 the keyword signature and 1 "notice" of the filename IOC signatures.
 
-The keyword IOC matches in the "checkKeyword()" sub-check and
-"checkString()" returns a match, that generates a "Warning" level
-message that automatically receives a score of 75 (see :ref:`chapter 13.3.3 Default Scores <usage/other-topics:Default Scores>`).
+The keyword IOC matches in the ``checkKeyword()`` sub-check and
+``checkString()`` returns a match, that generates a "Warning" level
+message that automatically receives a score of 75 (see :ref:`section Default Scores <usage/other-topics:Default Scores>`).
 
 The filename IOCs would both match on the string in the
-"checkFilename()" sub-check and both scores would be summed up to a total
+``checkFilename()`` sub-check and both scores would be summed up to a total
 score of 40 (70 + (-30) = 40), which would generate a "Notice".
 
 Action on Match
@@ -430,11 +430,11 @@ going to resume the interrupted scan.
 
 It will only resume the previous scan if
 
-1. you have started the scan with **--resume**
+1. You have started the scan with **--resume**
 
-2. the argument list is exactly the same as in the first scan attempt
+2. The argument list is exactly the same as in the first scan attempt
 
-3. you haven’t used the flag **--nothordb**
+3. You haven’t used the flag **--nothordb**
 
 4. | scan state information is still available
    | (could have been cleared by running THOR a second time without the

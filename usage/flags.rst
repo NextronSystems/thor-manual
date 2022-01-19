@@ -70,7 +70,7 @@ Resource Options
       --norescontrol                    Do not check whether the system is running out of resources. Use this option to enforce scans that have been canceled due to resource scarcity. (use with care!)
       --minmem uint                     Cancel the running scan if the amount of free physical memory drops below this value (in MB) 
       --lowprio                         Reduce the priority of the THOR process to a lower level
-      --verylowprio                     Reduce the pirority of the THOR process to a very low level
+      --verylowprio                     Reduce the priority of the THOR process to a very low level
       --nolowprio                       Do not reduce the priority of the THOR process to a lower level due to soft mode (see --soft)
       --nolockthread                    Do not lock calls to C libraries to main thread (this may increase performance at the cost of memory usage)
       --yara-stack-size int             Allocate this number of slots for the YARA stack. Default: 16384. Increasing this limit will allow you to use larger rules, albeit with more memory overhead. 
