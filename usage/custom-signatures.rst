@@ -453,7 +453,7 @@ to escape all backslashes):
                         1 of them
         }
 
-Remember that you have to use the keyword ‘\ **registry’** in the file name in order to
+Remember that you have to use the keyword **registry** in the file name in order to
 initialize the YARA rule file as registry rule set (e.g. "**registry\_exe\_in\_value.yar**").
 
 Registry scanning uses bulk scanning. See :ref:`Bulk Scanning<usage/custom-signatures:Bulk Scanning>` for more details.
@@ -472,6 +472,9 @@ YARA Rules for logs are applied as follows:
 
 Log (both text log and event log) scanning uses bulk scanning.
 See :ref:`Bulk Scanning<usage/custom-signatures:Bulk Scanning>` for more details.
+
+Remember that you have to use the keyword **log** in the file name in order to
+initialize the YARA rule file as registry rule set (e.g. "**my\_log\_rule.yar**").
 
 How to Create YARA Rules
 ^^^^^^^^^^^^^^^^^^^^^^^^
