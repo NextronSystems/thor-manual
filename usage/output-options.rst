@@ -305,7 +305,7 @@ has the CEF format set, e.g.:
 Local Syslog
 ^^^^^^^^^^^^
 
-If your Linux system is already being configured to forward syslog messages, you might just want to write to your local syslog and use the existing system configuration to forward the events. This can be achieved by using the ``--local-syslog`` flag.
+If your Linux system has already been configured to forward syslog messages, you might just want to write to your local syslog and use the existing system configuration to forward the events. This can be achieved by using the ``--local-syslog`` flag.
 
 THOR logs to the ``local0`` facility that is not being written to a file by default on every Linux distribution. By default Debian derivatives log it to ``/var/log/syslog``; Others such as Red Hat do not. To enable writing ``local0`` messages to a file a syslog configuration for rsyslog (e.g. ``/etc/rsyslog.conf``) could look like:
 
