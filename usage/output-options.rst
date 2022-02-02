@@ -314,7 +314,7 @@ THOR logs to the ``local0`` facility that is not being written to a file by defa
     # THOR --local-syslog destination
     local0.*        -/var/log/thor
 
-Do not forget to restart the syslog daemon (e.g. ``systemctl restart rsyslog.service``)
+Do not forget to restart the syslog daemon (e.g. ``systemctl restart rsyslog.service``).
 
 You then either add that file in your syslog forwarding configuration or write to a file that is already forwarded instead.
 
