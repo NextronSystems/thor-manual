@@ -470,3 +470,7 @@ The ``ArchiveScan`` feature supports the following archive types:
 - TAR
 - TAR + GZIP (.tar.gz)
 - TAR + BZIP2 (.tar.bz2)
+
+When scanning a file within any of these files, THOR will append the path within the archive to the archive's own path 
+for scan purposes (like filename IOCs or YARA rules). E.g., an archive ``C:\temp\test.zip`` containing a file ``path/in/zip.txt``
+will cause the simulated path to be ``C:\temp\test.zip\path\in\zip.txt``.
