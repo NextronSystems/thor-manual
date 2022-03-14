@@ -311,6 +311,8 @@ zone) or **--thunderstorm** (Thunderstorm) command line flags, THOR will
 default to using as many threads as the system has CPU cores; otherwise,
 THOR will still default to running with a single thread.
 
+Note: This mode is only available with the "Lab", "Thunderstorm" and "Incident Response" license type.
+
 Enabled Modules
 ^^^^^^^^^^^^^^^
 
