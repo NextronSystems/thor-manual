@@ -34,6 +34,7 @@ Supported
 * Ubuntu 16 LTS
 * Ubuntu 18 LTS
 * Ubuntu 20 LTS
+* Ubuntu 21
 * Debian 9
 * Debian 10
 * Debian 11
@@ -53,6 +54,11 @@ These versions are scannable with THOR Legacy. Contact us for details on how to 
 * Windows Server 2003 x64 (unsupported)
 * Windows Server 2008 x86
 * Windows Server 2008 x64
+
+Special Versions
+----------------
+
+We offer a special version for AIX. Only a few architectures are supported. 
 
 Unsupported
 -----------
