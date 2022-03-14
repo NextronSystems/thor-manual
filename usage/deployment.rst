@@ -200,6 +200,10 @@ If everything works as expected, you'll see an INFO level message in the output 
 
    Info License file found LICENSE: portal.nextron-systems.com OWNER: ACME Inc TYPE: Workstation STARTS: 2021/06/23 EXPIRES: 2021/06/30 SCANNER: All Scanners VALID: true REASON:
 
+You can specify a proxy by setting the ``HTTP_PROXY`` and ``HTTPS_PROXY`` environment variables, e.g. to ``my-proxy.internal:3000``.
+
+Username and password can be specified as part of the proxy URL as ``http://username:password@host:port/``.
+
 Use the Customer Portal's API to retrieve a license manually
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 

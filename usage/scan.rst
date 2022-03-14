@@ -37,11 +37,13 @@ Parameters Possibly Relevant for Your User Case
 +----------------------------+--------------------------------------------------------------------------+
 | Parameter                  | Description                                                              |
 +============================+==========================================================================+
-| -c percentage              | | Reduce the average CPU load to the given percentage value              |
-|                            | | note THOR already sets the process priority to the lowest possible     |
-|                            | | value). This can be helpful to reduce the load e.g. on server systems  |
-|                            | | with real-time services or reduce the noise produced by fans on    	|
+| -c, --cpulimit percentage  | | Reduce the average CPU load to the given percentage value.             |
+|                            | | This can be helpful to reduce the load e.g. on server systems          |
+|                            | | with real-time services or reduce the noise produced by fans on        |
 |                            | | user laptops.                                                          |
+|                            | | The specified value is a percentage value for the complete CPU.        |
+|                            | | For example, ``--cpulimit 50`` on a quad-core system limits THOR to    |
+|                            | | using at most 50% of the available CPU time, which would be 2 cores.   |
 +----------------------------+--------------------------------------------------------------------------+
 | --allhds                   | | By default THOR scans only the C: partition on Windows machines     	|
 |                            | | and other files/folders only in cases in which some reference points  	|
