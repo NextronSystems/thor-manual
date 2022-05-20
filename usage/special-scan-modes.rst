@@ -174,18 +174,16 @@ YARA signatures placed in the "./custom-signatures/yara" sub folder.
 
 IMPORTANT: This feature requires a `forensic lab license <https://www.nextron-systems.com/thor/license-packs/>`__ type which is meant to be used in forensic labs. 
 
-DeepDive (--deepdive)
+DeepDive (--image_file)
 ---------------------
 
-The DeepDive module allows a surface scan of a given drive.
+The DeepDive module allows a surface scan of a given memory dump.
 
-This check processes every byte of the whole hard drive including the
-free space. This enables THOR to detect deleted files that have not been
-wiped by the attackers.
+This check processes every byte of the memory dump.
 
 DeepDive is not recommended for triage sweeps in a whole network as it
 generates more false positives than a normal file system scan. This is
-mainly caused by the fact that chunks of data read from the disk are
+mainly caused by the fact that chunks of data read from the dump are
 processed regardless of their corresponding file’s type, name or
 extension. It processes Antivirus signatures, pagefile contents and
 other data that may trigger an alert.
@@ -216,29 +214,18 @@ As a side effect of this dissection all the embedded executables in
 other file formats like RTF or PDF are detected regardless of their way
 of concealment.
 
-To perform a surface scan, use the "**- a deepdive**" option. To restore
+To perform a surface scan, use the "**--image_file**" option. To restore
 all detected files to a restore directory additionally use the "**-r
 directory**" option.
 
 +----------------+---------------------------------------------------------------------------------------------------------+
 | Option         | Description                                                                                             |
 +================+=========================================================================================================+
-| -a deepdive    | | Activate DeepDive for the File System Scan. Only applicable if scan target is a drive		   |
-|                | | – default or with selected drive root, i.e. "-p D:\\"   					   	   |
+| --image_file   | | Activate DeepDive for a specific image file,                                                          |
+|                | | i.e. "--image_file C:\\tmp\memory.hdmp"                                                               |
 +----------------+---------------------------------------------------------------------------------------------------------+
 | -r directory   | Recovery directory for files found by DeepDive                                                          |
 +----------------+---------------------------------------------------------------------------------------------------------+
-
-While the DeepDive detects suspicious files regardless of their master
-file table reference the default file system scan that is executed
-afterwards may detect the same file twice.
-
-The following example for the use of the DeepDive shows how to scan a
-mounted file system image as drive "X:".
-
-.. code:: bash
-
-   thor --lab --deepdive -rd D:\\restore -p X:\\
 
 Eventlog Analysis (-n)
 ----------------------
