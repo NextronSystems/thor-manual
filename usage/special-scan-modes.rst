@@ -20,6 +20,12 @@ options:
 
 The chapter :doc:`Use Cases <./use-cases>` contains some use cases in which this scan mode is used. You may find the guides useful. 
 
+.. note::
+
+   If you run multiple THOR scans with multi-threading on a single system, resource usage will rise quickly since it scales per thread.
+
+   Consider using **--threads** to reduce the number of threads that each THOR scan uses, e.g. **--threads 4** if running 4 scans on a 16 core system.
+
 Forensic Lab License
 ^^^^^^^^^^^^^^^^^^^^
 
@@ -148,6 +154,15 @@ be used to remove the dropped file once it has been scanned. Example:
 
    thor.exe --dropzone –p C:\\dropzone
 
+.. warning::
+
+    If another process writes a file to the drop zone, this is prone to
+    a race condition: THOR might read the file when no or not all data
+    has been written yet.
+
+    For consistent scan results, move files from another folder to the
+    dropzone.
+
 IMPORTANT: This feature requires a `forensic lab license <https://www.nextron-systems.com/thor/license-packs/>`__ type which is meant to be used in forensic labs. 
 
 Image File Scan Mode (-m)
@@ -175,7 +190,7 @@ YARA signatures placed in the "./custom-signatures/yara" sub folder.
 IMPORTANT: This feature requires a `forensic lab license <https://www.nextron-systems.com/thor/license-packs/>`__ type which is meant to be used in forensic labs. 
 
 DeepDive (--image_file)
----------------------
+-----------------------
 
 The DeepDive module allows a surface scan of a given memory dump.
 
