@@ -142,8 +142,7 @@ Files and Directories
 You may use the file "**directory-excludes.cfg**" to exclude directories
 and files(! The name of the config file is misleading) from the scan.
 
-THOR will not scan the contents of these directories but it will still
-perform some basic checks on file names in these directories. This
+THOR will not scan the contents of these directories. This
 "**directory-excludes.cfg**" config is meant to avoid scanning
 sensitive files like databases or directories with a lot of content. If
 you want to suppress false positives that are generated in these
