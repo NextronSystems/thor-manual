@@ -57,13 +57,13 @@ Finding Bottlenecks
 You may get the error message "**MODULE: RuntimeWatcher MESSAGE: Maximum runtime has exceeded, killing THOR**" or encounter very slow
 or never-ending scans.
 
-You can check the statistics table in "**thor.db**" on that end
+You can check the statistics table in "**thor10.db**" on that end
 system after a scan to determine the last element or elements that took
 a long time to process.
 
 We recommend using: https://sqlitebrowser.org/
 
-The THOR DB is located at: **C:\\ProgramData\\thor\\thor.db**
+The THOR DB is located at: **C:\\ProgramData\\thor\\thor10.db**
 
 .. figure:: ../images/image13.png
    :target: ../_images/image13.png
@@ -363,8 +363,8 @@ folder level from the root of a partition. (e.g. C:\\Windows\\SysWow64).
 
 The default location of that file is: 
 
-* Windows: **C:\\ProgramData\\thor\\thor.db** 
-* Linux/macOS: **/var/lib/thor/thor.db**
+* Windows: **C:\\ProgramData\\thor\\thor10.db** 
+* Linux/macOS: **/var/lib/thor/thor10.db**
 
 Please provide that file in situations in which: 
 
