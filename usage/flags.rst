@@ -248,7 +248,7 @@ Output Options
 
 ThorDB
 ----------------------------------------------------------------------
-      --dbfile string   Location of the thor.db file 
+      --dbfile string   Location of the thor10.db file 
       --resumeonly      Don't start a new scan, only finish an interrupted one. If no interrupted scan exists, nothing is done.
       --resume          Store information while running that allows to resume an interrupted scan later. If a previous scan was interrupted, resume it instead of starting a new one.
 

@@ -20,6 +20,12 @@ options:
 
 The chapter :doc:`Use Cases <./use-cases>` contains some use cases in which this scan mode is used. You may find the guides useful. 
 
+.. note::
+
+   If you run multiple THOR scans with multi-threading on a single system, resource usage will rise quickly since it scales per thread.
+
+   Consider using **--threads** to reduce the number of threads that each THOR scan uses, e.g. **--threads 4** if running 4 scans on a 16 core system.
+
 Forensic Lab License
 ^^^^^^^^^^^^^^^^^^^^
 
@@ -148,6 +154,15 @@ be used to remove the dropped file once it has been scanned. Example:
 
    thor.exe --dropzone –p C:\\dropzone
 
+.. warning::
+
+    If another process writes a file to the drop zone, this is prone to
+    a race condition: THOR might read the file when no or not all data
+    has been written yet.
+
+    For consistent scan results, move files from another folder to the
+    dropzone.
+
 IMPORTANT: This feature requires a `forensic lab license <https://www.nextron-systems.com/thor/license-packs/>`__ type which is meant to be used in forensic labs. 
 
 Image File Scan Mode (-m)
@@ -174,18 +189,16 @@ YARA signatures placed in the "./custom-signatures/yara" sub folder.
 
 IMPORTANT: This feature requires a `forensic lab license <https://www.nextron-systems.com/thor/license-packs/>`__ type which is meant to be used in forensic labs. 
 
-DeepDive (--deepdive)
----------------------
+DeepDive (--image_file)
+-----------------------
 
-The DeepDive module allows a surface scan of a given drive.
+The DeepDive module allows a surface scan of a given memory dump.
 
-This check processes every byte of the whole hard drive including the
-free space. This enables THOR to detect deleted files that have not been
-wiped by the attackers.
+This check processes every byte of the memory dump.
 
 DeepDive is not recommended for triage sweeps in a whole network as it
 generates more false positives than a normal file system scan. This is
-mainly caused by the fact that chunks of data read from the disk are
+mainly caused by the fact that chunks of data read from the dump are
 processed regardless of their corresponding file’s type, name or
 extension. It processes Antivirus signatures, pagefile contents and
 other data that may trigger an alert.
@@ -216,29 +229,18 @@ As a side effect of this dissection all the embedded executables in
 other file formats like RTF or PDF are detected regardless of their way
 of concealment.
 
-To perform a surface scan, use the "**- a deepdive**" option. To restore
+To perform a surface scan, use the "**--image_file**" option. To restore
 all detected files to a restore directory additionally use the "**-r
 directory**" option.
 
 +----------------+---------------------------------------------------------------------------------------------------------+
 | Option         | Description                                                                                             |
 +================+=========================================================================================================+
-| -a deepdive    | | Activate DeepDive for the File System Scan. Only applicable if scan target is a drive		   |
-|                | | – default or with selected drive root, i.e. "-p D:\\"   					   	   |
+| --image_file   | | Activate DeepDive for a specific image file,                                                          |
+|                | | i.e. "--image_file C:\\tmp\memory.hdmp"                                                               |
 +----------------+---------------------------------------------------------------------------------------------------------+
 | -r directory   | Recovery directory for files found by DeepDive                                                          |
 +----------------+---------------------------------------------------------------------------------------------------------+
-
-While the DeepDive detects suspicious files regardless of their master
-file table reference the default file system scan that is executed
-afterwards may detect the same file twice.
-
-The following example for the use of the DeepDive shows how to scan a
-mounted file system image as drive "X:".
-
-.. code:: bash
-
-   thor --lab --deepdive -rd D:\\restore -p X:\\
 
 Eventlog Analysis (-n)
 ----------------------

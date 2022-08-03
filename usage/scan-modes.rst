@@ -30,6 +30,7 @@ Themed scan modes:
 * | **Difference (--diff)**
   | The Diff Mode looks for a last scan and last finished modules in the local THOR DB and scans only elements on disk that have been changed or created since the last scan start. This mode applies short-cuts to the “Filesystem”, “Eventlog” and “Registry” modules. Diff scans are typically the shortest scans but require a completed previous scan. This scan mode is also susceptible to the so-called “Timestomping”.
 
+These scan modes can also be combined, e.g. for `--soft --diff`, though not all combinations may make sense (e.g. `--soft --intense`).
 
 The following tables give an overview on the active modules and features
 in the different scan modes. The ‘modules’ section lists all available

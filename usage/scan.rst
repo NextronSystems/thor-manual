@@ -188,12 +188,22 @@ written to a network share.
 
    thor64.exe --deepdivecustom -e \\server\share\thor_output\
 
-Intense Scan and DeepDive on a Mounted Image as Drive Z
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Intense Scan and DeepDive on a Mounted Image
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Mounted as Drive Z
+~~~~~~~~~~~~~~~~~~
 
 .. code:: batch
 
    thor64.exe --lab --deepdive -p Z:\
+
+Mounted as /mnt
+~~~~~~~~~~~~~~~
+
+.. code:: batch
+
+   thor64.exe --lab --deepdive -p /mnt
 
 IMPORTANT: Lab scanning mode requires a `forensic lab license <https://www.nextron-systems.com/thor/license-packs/>`__ type which is meant to be used in forensic labs. 
 

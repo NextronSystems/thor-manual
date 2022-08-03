@@ -390,7 +390,7 @@ THOR DB
 -------
 
 This simple SQLite database is created by default in the
-"**%ProgramData%\\thor**" (Linux, macOS: **/var/lib/thor/**) directory as "**thor.db**". 
+"**%ProgramData%\\thor**" (Linux, macOS: **/var/lib/thor/**) directory as "**thor10.db**". 
 You can deactivate THOR DB and all its features by using the "**--nothordb**" flag.
 
 It stores persistent information over several scan runs:
@@ -408,7 +408,7 @@ The THOR DB related command line options are:
 | --nothordb		| Disables THOR DB completely. All related features will be disabled as well.	|
 +-----------------------+-------------------------------------------------------------------------------+
 | --dbfile [string] 	| | Allows to define a location of the THOR database file. File names or path 	|
-|			| | names are allowed. If a path is given, the database file ‘thor.db’ will be 	|
+|			| | names are allowed. If a path is given, the database file ‘thor10.db’ will be|
 |			| | created in the directory. Environment variables are expanded.		|
 +-----------------------+-------------------------------------------------------------------------------+
 | --resume 		| | Resumes a previous scan (if scan state information is still available and 	|
