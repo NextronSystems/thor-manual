@@ -64,7 +64,7 @@ Scan Modes
 
 Resource Options
 ----------------------------------------------------------------------
-      -c, --cpulimit float                  Limit CPU usage to this level (in percent). Minimum is 15% 
+      -c, --cpulimit float                  Limit CPU usage to this level (in percent). Minimum is 15%. Default is 95%.
       --nocpulimit                      Disable cpulimit check
       --nosoft                          Disable automatic activation of soft mode (see --soft)
       --norescontrol                    Do not check whether the system is running out of resources. Use this option to enforce scans that have been canceled due to resource scarcity. (use with care!)
