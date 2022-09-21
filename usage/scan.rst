@@ -148,7 +148,7 @@ Scan Run on a Single Directory
    thor64.exe --lab -p C:\ProgramData
    thor64.exe --lab -p I:\mounted\_image\disk1
 
-IMPORTANT: This feature requires a `forensic lab license https://www.nextron-systems.com/2020/11/11/thor-forensic-lab-license-features/`__ type which is meant to be used in forensic labs. 
+IMPORTANT: This feature requires a `forensic lab license <https://www.nextron-systems.com/2020/11/11/thor-forensic-lab-license-features/>`__ type which is meant to be used in forensic labs. 
 
 You can imitate a lab scan without a lab license with these command line flags:
 
@@ -205,7 +205,7 @@ Mounted as /mnt
 
    thor64.exe --lab --deepdive -p /mnt
 
-IMPORTANT: Lab scanning mode requires a `forensic lab license https://www.nextron-systems.com/2020/11/11/thor-forensic-lab-license-features/`__ type which is meant to be used in forensic labs. 
+IMPORTANT: Lab scanning mode requires a `forensic lab license <https://www.nextron-systems.com/2020/11/11/thor-forensic-lab-license-features/>`__ type which is meant to be used in forensic labs. 
 
 Scanning a Folder or Drive without a Forensic Lab License
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
