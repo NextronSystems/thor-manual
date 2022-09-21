@@ -207,18 +207,21 @@ Mounted as /mnt
 
 IMPORTANT: Lab scanning mode requires a `forensic lab license https://www.nextron-systems.com/2020/11/11/thor-forensic-lab-license-features/`__ type which is meant to be used in forensic labs. 
 
-You can achieve a similar (but not equal) scan using a standard license and the following command line:
+Scanning a Folder or Drive without a Forensic Lab License
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+You can achieve a similar (but not an equal) scan using a standard license and the following command line:
 
 .. code:: batch 
 
-   thor64.exe -a Filescan --intense --norescontrol --cross-platform --alldrives -p path-to-scan
+   thor64.exe -a Filescan --intense --norescontrol --cross-platform --alldrives -p E:\
 
 You can find more information on the advantages of a THOR Forensic Lab license `here <https://www.nextron-systems.com/2020/11/11/thor-forensic-lab-license-features/>`__.
 
 Throttled THOR Run (static throttling value)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Will restrict THOR’s CPU usage in the long running modules “FileScan”,
+Will restrict THOR's CPU usage in the long running modules “FileScan”,
 “Eventlog”, “LogScan” and “Registry” to 60%. Note that THOR
 automatically applies certain restrictions in automatic soft mode.
 
