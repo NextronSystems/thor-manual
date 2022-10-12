@@ -86,7 +86,10 @@ forensic lab workstation:
 
    --virtual-map /mnt/image1:C
 
-IMPORTANT: This feature requires a `forensic lab license <https://www.nextron-systems.com/2020/11/11/thor-forensic-lab-license-features/>`__ type which is meant to be used in forensic labs. 
+
+.. note::
+
+    This feature requires a `forensic lab license <https://www.nextron-systems.com/2020/11/11/thor-forensic-lab-license-features/>`__ type which is meant to be used in forensic labs. 
 
 Hostname Replacement in Logs
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -119,7 +122,9 @@ maps the current partition “S:” to a virtual drive “C:”, replaces the
 hostname with “WKS001” in the outputs and saves every output file (text
 log, HTML, CSV) to a reports folder named “C:\\reports”.
 
-IMPORTANT: This feature requires a `forensic lab license <https://www.nextron-systems.com/2020/11/11/thor-forensic-lab-license-features/>`__ type which is meant to be used in forensic labs. 
+.. note::
+
+    This feature requires a `forensic lab license <https://www.nextron-systems.com/2020/11/11/thor-forensic-lab-license-features/>`__ type which is meant to be used in forensic labs. 
 
 Lookback Mode (--lookback --all-module-lookback)
 ------------------------------------------------
@@ -163,7 +168,10 @@ be used to remove the dropped file once it has been scanned. Example:
     For consistent scan results, move files from another folder to the
     dropzone.
 
-IMPORTANT: This feature requires a `forensic lab license <https://www.nextron-systems.com/2020/11/11/thor-forensic-lab-license-features/>`__ type which is meant to be used in forensic labs. 
+.. note::
+
+    This feature requires a `forensic lab license <https://www.nextron-systems.com/2020/11/11/thor-forensic-lab-license-features/>`__
+    or `Thunderstorm license <https://www.nextron-systems.com/thor/license-packs/>`__ which are meant to be used in forensic labs.
 
 Image File Scan Mode (-m)
 -------------------------
@@ -187,7 +195,9 @@ YARA signatures placed in the "./custom-signatures/yara" sub folder.
 
    thor.exe –m systemX123.mem –j systemX123 –e C:\\reports
 
-IMPORTANT: This feature requires a `forensic lab license <https://www.nextron-systems.com/2020/11/11/thor-forensic-lab-license-features/>`__ type which is meant to be used in forensic labs. 
+.. note::
+
+    This feature requires a `forensic lab license <https://www.nextron-systems.com/2020/11/11/thor-forensic-lab-license-features/>`__ type which is meant to be used in forensic labs. 
 
 DeepDive (--image_file)
 -----------------------
