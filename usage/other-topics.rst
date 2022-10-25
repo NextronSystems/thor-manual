@@ -183,7 +183,7 @@ resulting log message.
 +---------+-----------+----------------------------------------+
 | 60      | Warning   |                                        |
 +---------+-----------+----------------------------------------+
-| 100     | Alert     | At least 1 sub score of 75 or higher   |
+| 100     | Alert     | At least 1 sub score more than 75      |
 +---------+-----------+----------------------------------------+
 
 Scoring per Signature Type Match
@@ -231,7 +231,7 @@ Exception: High total score with low sub scores
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 "Alerts" on file system elements are only generated if one of the sub
-scores is at least 75.
+scores is more than 75.
 
 Before that change, multiple low scoring reasons had led to a score
 higher 100 and caused an "Alert" level message although not a single
@@ -241,7 +241,7 @@ executables through tight mail filters, and a suspicious location, e.g.
 "**C:\\Temp\\funprog.txt**" caused an "Alert" level message.
 
 Since version 8.27.2, one of the sub scores that pushes the total score
-over 100 has to be 75 or higher. (internally calculated as "alert\_level
+over 100 has to be more than 75. (internally calculated as "alert\_level
 - 25" because the user can adjust the alert level via the "**--alert**"
 parameter)
 
