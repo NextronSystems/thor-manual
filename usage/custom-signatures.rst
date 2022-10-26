@@ -77,6 +77,8 @@ receives a sub score of 100.
 You can add MD5, SHA1 or SHA256 hashes and add a comment in a second
 column, which is separated by a semicolon.
 
+Hashes are applied case-insensitively.
+
 .. figure:: ../images/image28.png
    :target: ../_images/image28.png
    :alt: Example hash IOC file
