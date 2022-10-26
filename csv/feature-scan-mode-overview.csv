@@ -1,0 +1,27 @@
+Feature;Normal;Quick;Soft;Intense
+Sigma Scan;Disabled;Disabled;Disabled;Enabled
+EXE Decompression;Enabled [5]_;Enabled;Disabled;Enabled
+Archive Scan;Enabled;Enabled;Enabled;Enabled
+Double Pulsar Check;Enabled [5]_;Enabled;Disabled;Enabled
+Groups XML Analysis;Enabled;Enabled;Enabled;Enabled
+Vulnerability Check;Enabled;Enabled;Enabled;Enabled
+Web Server Dir Scan;Enabled;Disabled;Enabled;Enabled
+WMI Persistence;Enabled;Enabled;Enabled;Enabled
+Registry Hive Scan;Enabled [4]_;Enabled;Enabled;Enabled
+AmCache Analysis;Enabled;Enabled;Enabled;Enabled
+Process Handle Check;Enabled;Enabled;Enabled;Enabled
+Process Connections Check;Enabled;Enabled;Enabled;Enabled
+Windows Error Report (WER);Enabled;Enabled;Enabled;Enabled
+Windows At Job File Analysis;Enabled;Enabled;Enabled;Enabled
+EVTX File Scanning;Enabled;Disabled;Enabled;Enabled
+Prefetch Library Scanning;Enabled;Enabled;Enabled;Enabled
+Memory Dump DeepDive;Disabled;Disabled;Disabled;Enabled
+Text Log File Scanning;Enabled;Disabled;Enabled;Enabled
+Shellbag Entry Analysis;Enabled;Enabled;Enabled;Enabled
+Authorized Key File Analysis;Enabled;Enabled;Enabled;Enabled
+Bifrost File Upload;Enabled;Enabled;Enabled;Enabled
+Malicious Domain Check;Enabled;Enabled;Enabled;Enabled
+File Scan;Enabled;Enabled;Enabled;Enabled
+Cobalt Strike Beacon Parsing;Enabled;Enabled;Enabled;Enabled
+Process Integrity Check;Disabled;Disabled;Disabled;Enabled [5]_
+SHIM Cache Analysis;Enabled;Enabled;Enabled;Enabled

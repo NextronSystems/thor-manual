@@ -1,0 +1,30 @@
+Module;Normal;Quick;Soft;Intense   
+File System Scan;;Reduced;
+Registry Scan;;;
+SHIM Cache Scan;;;
+Mutex Check;;;Disabled
+Named Pipes Check;;;
+DNS Cache Check;;;
+Hotfix Check;;Disabled;
+Hosts File Check;;;Disabled
+Firewall Config Check;;Disabled;Disabled
+Network Share Check;;;Disabled
+Logged In Check;Enabled [2]_;;Disabled
+Process Check;;;Reduced [3]_
+Service Check;;;
+Autoruns Check;;;
+Rootkit Check;;;
+LSA Sessions Analysis;;;Disabled
+User Account Check;Enabled [2]_;;
+User Profile Check;Enabled [2]_;Disabled;
+Network Sessions Check;Enabled [2]_;;Disabled
+Scheduled Tasks Analysis;;;
+WMI Startup Check;;;
+At Entries Check;;;
+MFT Analysis;Disabled;Disabled;Disabled;Enabled   
+Eventlog Analysis;;Disabled;
+KnowledgeDB Check;;;
+Environment Variables Check;;;
+Crontab Check;;;
+Integrity Check;;;
+Event Check;;;
