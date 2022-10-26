@@ -176,49 +176,73 @@ scoring system is very flexible.
 The total score of an element determines the level/severity of the
 resulting log message.
 
-+---------+-----------+----------------------------------------+
-| Score   | Level     | Condition                              |
-+=========+===========+========================================+
-| 40      | Notice    |                                        |
-+---------+-----------+----------------------------------------+
-| 60      | Warning   |                                        |
-+---------+-----------+----------------------------------------+
-| 100     | Alert     | At least 1 sub score more than 75      |
-+---------+-----------+----------------------------------------+
+.. list-table::
+   :header-rows: 1
+   :widths: 20, 20, 60
+
+   * - Score
+     - Level
+     - Condition
+   * - 40
+     - Notice
+     - 
+   * - 60
+     - Warning
+     - 
+   * - 100
+     - Alert
+     - At least 1 sub score more than 75
 
 Scoring per Signature Type Match
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-+--------------------------+-------------------------------------------------------------------------------------------------------------+
-| Type                     | Score                                                                                                       |
-+==========================+=============================================================================================================+
-| YARA match               | Defined in the meta data of the YARA rule as integer value (e.g. "score = 50")                              |
-+--------------------------+-------------------------------------------------------------------------------------------------------------+
-| Filename IOC match       | Defined in the 2\ :sup:`nd` field of the CSV (e.g. "\\\\evil.exe;80")                                       |
-+--------------------------+-------------------------------------------------------------------------------------------------------------+
-| Keyword IOC match        | "warning" level messages, see :ref:`section Default Scores <usage/other-topics:Default Scores>`             |
-+--------------------------+-------------------------------------------------------------------------------------------------------------+
-| C2 IOC match             | "warning" and "alert" level massages, see :ref:`section Default Scores <usage/other-topics:Default Scores>` |
-+--------------------------+-------------------------------------------------------------------------------------------------------------+
+.. list-table::
+   :header-rows: 1
+   :widths: 25, 75
+
+   * - Type
+     - Score
+   * - YARA match
+     - Defined in the meta data of the YARA rule as integer value (e.g. "score = 50")
+   * - Filename IOC match
+     - Defined in the 2\ :sup:`nd` field of the CSV (e.g. "\\\\evil.exe;80")
+   * - Keyword IOC match
+     - "warning" level messages, see :ref:`section Default Scores <usage/other-topics:Default Scores>`
+   * - C2 IOC match
+     - "warning" and "alert" level massages, see :ref:`section Default Scores <usage/other-topics:Default Scores>`
 
 Accumulated Score by Module
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-+---------------------+-------------------+------------------------------------------------------------------------------------------------+
-| | Module            | | Cumulated       | | Scoring                                                                                      |
-|		      | | Score		  |												   |
-+=====================+===================+================================================================================================+
-| | Filescan          | Yes               | | Score is a sum of the scores of all "REASON"s (YARA matches, 				   |
-| | Archive Scan      |			  | | filename IOCs, other anomalies) 								   |                   
-| | DeepDive          | 	          | | Note 1: Only positive scores are shown by default                                            |              
-| | Prefetch          |                   | | Note 2: Only the top 2 reasons are shown by default (use     				   |
-| | WER		      |			  | | --allreasons to show all positive scores)						           |
-+---------------------+-------------------+------------------------------------------------------------------------------------------------+
-| | All Other         | No                | | Individual score of each signature match (YARA, filename IOC, 			  	   |
-| | Modules           |			  | | keywords, C2)                  								   |
-|                     |                   | | Note 1: This means that multiple matches for a single element are 			   |
-|		      |			  | | possible								             	    	   |
-+---------------------+-------------------+------------------------------------------------------------------------------------------------+
+.. list-table::
+   :header-rows: 1
+   :widths: 20, 20, 60
+
+   * - Module
+     - Cumulated
+
+       Scoring
+     - Score
+   * - Filescan
+
+       Archive Scan
+
+       DeepDive
+
+       Prefetch
+
+       WER
+     - Yes
+     - Score is a sum of the scores of all "REASON"s (YARA matches, filename IOCs, other anomalies)
+
+       **Note 1**: Only positive scores are shown by default
+
+       **Note 2**: Only the top 2 reasons are shown by default (use ``--allreasons`` to show all positive scores)
+   * - All Other Modules
+     - No
+     - Individual score of each signature match (YARA, filename IOC, keywords, C2)
+
+       **Note 1**: This means that multiple matches for a single element are possible
 
 Default Scores
 ^^^^^^^^^^^^^^

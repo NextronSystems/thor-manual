@@ -354,12 +354,17 @@ The generic YARA rules are applied to the following elements:
 The following table shows in which modules the Generic YARA rules are
 applied to content.
 
-+------------------------------------+---------------------------+
-| Applied in Module                  | Examples                  |
-+====================================+===========================+
-| Filescan, ProcessCheck, DeepDive   | | incident-feb17.yar      |
-|                                    | | misp-3345-samples.yar   |
-+------------------------------------+---------------------------+
+.. list-table::
+   :header-rows: 1
+   :widths: 55, 45
+
+   * - Applied in Module
+     - Examples
+   * - Filescan, ProcessCheck, DeepDive
+     - incident-feb17.yar
+       
+       misp-3345-samples.yar
+
 
 Specific YARA Rules
 ^^^^^^^^^^^^^^^^^^^
@@ -387,23 +392,28 @@ differentiate them further:
 The following table shows in which modules the specific YARA rules are
 applied to content.
 
-+------------------------+-----------------------------------------------------------------+---------------------------------+
-| Tag in File Name       | Applied in Module                                               | Examples                        |
-+========================+=================================================================+=================================+
-| registry               | RegistryChecks, RegistryHive                                    | incident-feb17-registry.yar     |
-+------------------------+-----------------------------------------------------------------+---------------------------------+
-| log                    | Eventlog, Logscan, EVTX                                         | general-log-strings.yar         |
-+------------------------+-----------------------------------------------------------------+---------------------------------+
-| process                | ProcessCheck (only on process memory)                           | case-a23-process-rules.yar      |
-+------------------------+-----------------------------------------------------------------+---------------------------------+
-| keyword                | | Mutex, Named Pipes, Eventlog, MFT, 			   | misp-3345-keyword-extract.yar   |
-|			 | | ProcessCheck (on all process handles),       		   |				     |
-| 			 | | ProcessHandles, ServiceCheck, AtJobs,                         |				     |
-|			 | | LogScan, AmCache, SHIMCache, 				   | 				     |
-|			 | | Registry	   			   			   |                                 |
-+------------------------+-----------------------------------------------------------------+---------------------------------+
-| meta                   | Filescan                                                        | meta-rules.yar                  |
-+------------------------+-----------------------------------------------------------------+---------------------------------+
+.. list-table::
+  :header-rows: 1
+  :widths: 20, 45, 35
+
+  * - Tag in File Name
+    - Applied in Module
+    - Examples
+  * - registry
+    - RegistryChecks, RegistryHive
+    - incident-feb17-registry.yar
+  * - log
+    - Eventlog, Logscan, EVTX
+    - general-log-strings.yar
+  * - process
+    - ProcessCheck (only on process memory)
+    - case-a23-process-rules.yar
+  * - keyword
+    - Mutex, Named Pipes, Eventlog, MFT, ProcessCheck (on all process handles), ProcessHandles, ServiceCheck, AtJobs, LogScan, AmCache, SHIMCache, Registry
+    - misp-3345-keyword-extract.yar
+  * - meta
+    - Filescan
+    - meta-rules.yar
 
 .. _yara-registry-rules:
 
