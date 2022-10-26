@@ -160,17 +160,20 @@ As the configured exclusions are treated as regular expressions, special
 characters must be masqueraded by backslash. This applies at least for:
 **[]\\^$.\|?\*+()-**
 
-+-------------------------------------------------------------+---------------------------------------+
-| Element to exclude                                          | Possible solution                     |
-+=============================================================+=======================================+
-| C:\\IBM\\temp\_tools\\custom.exe                            | C:\\\\IBM\\\\temp\_tools\\\\          |
-+-------------------------------------------------------------+---------------------------------------+
-| Log folder of the tool "hpsm" regardless on the partition   | \\\\HPSM\\\\log\\\\                   |
-+-------------------------------------------------------------+---------------------------------------+
-| Every file with the extension .nsf                          | \\.nsf$                               |
-+-------------------------------------------------------------+---------------------------------------+
-| THOR custom signatures                                      | \\\\THOR\\\\custom\\-signatures\\\\   |
-+-------------------------------------------------------------+---------------------------------------+
+.. list-table::
+   :header-rows: 1
+   :widths: 60, 40
+
+   * - Element to exclude 
+     - Possible solution 
+   * - C:\\IBM\\temp\_tools\\custom.exe  
+     - C:\\\\IBM\\\\temp\_tools\\\\ 
+   * - Log folder of the tool "hpsm" regardless on the partition
+     - \\\\HPSM\\\\log\\\\
+   * - Every file with the extension .nsf
+     - \\.nsf$
+   * - THOR custom signatures  
+     - \\\\THOR\\\\custom\\-signatures\\\\
 
 Eventlogs
 ^^^^^^^^^
@@ -178,15 +181,18 @@ Eventlogs
 Eventlog sources can be excluded as whole in
 "**eventlog-excludes.cfg**". The file holds one expression per line
 and applies them as regular expression on the name of the Eventlog.
-(e.g. “Microsoft-Windows-Windows Defender/Operational“)
+(e.g. ``Microsoft-Windows-Windows Defender/Operational``)
 
-+--------------------------------------------------+----------------------+
-| Element to exclude                               | Possible solution    |
-+==================================================+======================+
-| Windows PowerShell                               | Windows PowerShell   |
-+--------------------------------------------------+----------------------+
-| Microsoft-Windows-Windows Defender/Operational   | Windows Defender     |
-+--------------------------------------------------+----------------------+
+.. list-table::
+   :header-rows: 1
+   :widths: 60, 40
+
+   * - Element to exclude 
+     - Possible solution 
+   * - Windows PowerShell 
+     - Windows PowerShell 
+   * - Microsoft-Windows-Windows Defender/Operational
+     - Windows Defender
 
 Registry
 ^^^^^^^^
@@ -196,13 +202,14 @@ The file holds one expression per line and applies them as regular
 expression on each registry key. (e.g. “Software\\WOW6432Node“). Don’t
 include the root of the key, e.g. HKLM.
 
-+---------------------------------------+--------------------------------------------------+
-| Element to Exclude                    | Exclude Definition                               |
-+=======================================+==================================================+
-| | HKEY\_LOCAL\_MACHINE\\Software\\ ⏎  | Symantec Endpoint Protection\\AV\\Exclusions     |
-| | Wow6432Node\\Symantec\\Symantec ⏎   |                                                  |
-| | Endpoint Protection\\AV\\Exclusions |                                                  |
-+---------------------------------------+--------------------------------------------------+
+.. list-table::
+   :header-rows: 1
+   :widths: 50, 50
+
+   * - Element to exclude 
+     - Exclude Definition 
+   * - HKEY\_LOCAL\_MACHINE\\Software\\⏎ Wow6432Node\\Symantec\\Symantec Endpoint⏎ Protection\\AV\\Exclusions
+     - Symantec Endpoint Protection\\AV\\Exclusions 
 
 False Positives
 ^^^^^^^^^^^^^^^

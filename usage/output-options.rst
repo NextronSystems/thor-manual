@@ -133,21 +133,17 @@ There are three different Key Value Pair Formatting flags:
 * | **-s [syslogtarget]:[port]:SYSLOGKV**
   | Send syslog messages with proper key/value formatting
 
-+---------------------------------------------------------------------------------------------------------------+
-| Default - Without "--keyval" parameter									|
-+===============================================================================================================+
-| | Jul 10 09:08:47 PROMETHEUS/10.0.2.15 THOR: Alert: MODULE: SHIMCache MESSAGE: Malware 	                |
-| | name found in Shim Cache Entry ENTRY: C:\\Users\\neo\\Desktop\\ncat.exe KEYWORD: \\\\ncat\\.exe           	|
-| | DATE: 07/29/13 05:16:04 TYPE: system HIVEFILE: None EXTRAS: N/A N/A True					|
-+---------------------------------------------------------------------------------------------------------------+
+.. list-table::
+   :header-rows: 1
 
-+---------------------------------------------------------------------------------------------------------------+
-| Key/Value Pairs - With "--keyval" parameter									|
-+===============================================================================================================+
-| | Jul 10 09:07:59 PROMETHEUS/10.0.2.15 THOR : Alert: MODULE="SHIMCache" MESSAGE="Malware  	                |
-| | name found in Shim Cache Entry" ENTRY="C:\\Users\\neo\\Desktop\\ncat.exe" KEYWORD="\\\\ncat\\.exe" 	        |
-| | DATE="07/29/13 05:16:04" TYPE="system" HIVEFILE="None" EXTRAS="N/A N/A True"				|
-+---------------------------------------------------------------------------------------------------------------+
+   * - Default - Without "--keyval" parameter
+   * - Jul 10 09:08:47 PROMETHEUS/10.0.2.15 THOR: Alert: MODULE: SHIMCache MESSAGE: Malware name found in Shim Cache Entry ENTRY: C:\\Users\\neo\\Desktop\\ncat.exe KEYWORD: \\\\ncat\\.exe DATE: 07/29/13 05:16:04 TYPE: system HIVEFILE: None EXTRAS: N/A N/A True
+
+.. list-table::
+   :header-rows: 1
+
+   * - Key/Value Pairs - With "--keyval" parameter
+   * - Jul 10 09:07:59 PROMETHEUS/10.0.2.15 THOR : Alert: MODULE="SHIMCache" MESSAGE="Malware name found in Shim Cache Entry" ENTRY="C:\\Users\\neo\\Desktop\\ncat.exe" KEYWORD="\\\\ncat\\.exe" DATE="07/29/13 05:16:04" TYPE="system" HIVEFILE="None" EXTRAS="N/A N/A True"
 
 Timestamps
 ^^^^^^^^^^

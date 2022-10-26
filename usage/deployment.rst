@@ -540,70 +540,11 @@ It is recommended to use “pure-yara” mode in cases in which:
 The following table contains all THOR Thunderstorm related command line
 flags:
 
-.. list-table:: 
-   :header-rows: 1
-  
-   * - Parameter
-     - Values 
-     - Function
-   * - --thunderstorm
-     - 
-     - | Watch and scan all files sent to a specific port (see
-       | --server-port). Disables resource checks and quick    
-       | mode, activate intense mode, disable ThorDB and 
-       | apply IOCs platform independently 	
-   * - --server-host
-     - ip-address
-     - | IP address that THOR's server should bind to 
-       | (default "127.0.0.1")
-   * - --server-port 
-     - port number
-     - | TCP port that THOR's server should bind to 
-       | (default 8080)
-   * - --server-cert
-     - .crt location
-     - | TLS certificate that THOR's server should use. If
-       | left empty, TLS is not used
-   * - --server-key
-     - .key location
-     - | Private key for the TLS certificate that THOR's 
-       | server should use. Required if --server-cert is 
-       | specified
-   * - --pure-yara 
-     - 
-     - | Apply only YARA signatures (no IOCs or other
-       | programmatical checks)
-   * - --server-upload-dir 
-     - upload-directory
-     - | Path to a temporary directory where THOR drops
-       | uploaded files. Only relevant for Windows and 
-       | MacOS; on Linux, THOR stores files in in-memory 
-       | files. (default "/tmp/thor-uploads")
-   * - --server-result-cache-size
-     - number of results
-     - | Size of the cache that is used to store results of
-       | asynchronous requests temporarily. If set to 0, the 
-       | cache is disabled and asynchronous results are not
-       | stored. (default 10000)
-   * - --server-store-samples
-     - all/malicious/none
-     - | Sets whether samples should be stored 
-       | permanently in the folder specified with 
-       | --server-upload-dir. Specify "all" to store all 
-       | samples, or "malicious" to store only samples that
-       | generated a warning or an alert. (default "none")
-   * - --sync-only-threads
-     - number of threads
-     - | Number of threads reserved for synchronous 
-       | requests (only needed in environments in which 
-       | users use both synchronous and asynchronous 
-       | mode of transmission)
-   * - --threads
-     - number of threads
-     - | Number of threads that the Thunderstorm service 
-       | should use (default: number of detected CPU 
-       | cores)
-
+.. csv-table::
+  :file: ../csv/thunderstorm.csv
+  :widths: 30, 25, 45
+  :delim: ;
+  :header-rows: 1
 
 Service License Type
 ^^^^^^^^^^^^^^^^^^^^
@@ -752,27 +693,26 @@ used to query the service at a later point in time. This mode is best
 for use cases in which the submitter doesn’t need to know the scan
 results and batch submission should be as fast as possible.
 
-.. list-table:: 
+.. list-table::
    :header-rows: 1
+   :widths: 30, 30, 40
 
-   * -
+   * - 
      - Synchronous
      - Asynchronous
    * - Server API Endpoint
      - /api/check
      - /api/checkAsync
-   * - | ThunderstormAPI Client
-       | Parameter
+   * - ThunderstormAPI Client Parameter
      -
      - --asyn
    * - Advantage
      - Returns Scan Result
      - Faster submission
    * - Disadvantage
-     - | Client waits for result of each
-       | sample
-     - | No immediate scan result on the
-       | client side
+     - Client waits for result of each sample
+     - No immediate scan result on the client side
+
 
 In asynchronous mode, the Thunderstorm service keeps the samples in a
 queue on disk and processes them one by one as soon as a thread has time
@@ -801,15 +741,22 @@ In asynchronous mode, the sample transmission takes much less time, but
 the processing on the server takes a bit longer, since the sever caches
 the samples on disk.
 
-+-----------------------+---------------+----------------+
-|                       | Synchronous   | Asynchronous   |
-+=======================+===============+================+
-| Client Transmission   | 40min         | 18min          |
-+-----------------------+---------------+----------------+
-| Server Processing     |               | 46min          |
-+-----------------------+---------------+----------------+
-| Total Time            | 40min         | 46min          |
-+-----------------------+---------------+----------------+
+.. list-table::
+   :header-rows: 1
+   :widths: 40, 30, 30
+
+   * - 
+     - Synchronous
+     - Asynchronous
+   * - Client Transmission
+     - 40 minutes
+     - 18 minutes
+   * - Server Processing
+     -
+     - 46 minutes
+   * - Total time
+     - 40 minutes
+     - 46 minutes
 
 SSL/TLS
 ^^^^^^^

@@ -19,102 +19,99 @@ Follow these steps to complete your first THOR scan
 Often Used Parameters
 ---------------------
 
-+----------------------------+--------------------------------------------------------------------------+
-| Parameter                  | Description                                                              |
-+============================+==========================================================================+
-| --soft                     | | Reduce CPU usage, skip all checks that can consume a lot of memory     |
-|                            | | (even if only for a few seconds)                                       |
-+----------------------------+--------------------------------------------------------------------------+
-| --quick                    | | Perform a :doc:`quick scan<./scan-modes>` (skips Eventlog and checks   |
-|                            | | only the most relevant folders)                                        |
-+----------------------------+--------------------------------------------------------------------------+
-| -e target-folder           | | Write all output files to the given folder                             |
-+----------------------------+--------------------------------------------------------------------------+
+.. list-table::
+  :header-rows: 1
+  :widths: 30, 70
+
+  * - Parameter
+    - Description
+  * - **--soft**
+    - Reduce CPU usage, skip all checks that can consume a lot of memory (even if only for a few seconds)
+  * - **--quick**
+    - Perform a :doc:`quick scan<./scan-modes>` (skips Eventlog and checks only the most relevant folders)
+  * - **-e target-folder**
+    - Write all output files to the given folder
 
 Parameters Possibly Relevant for Your User Case
 -----------------------------------------------
 
-+----------------------------+--------------------------------------------------------------------------+
-| Parameter                  | Description                                                              |
-+============================+==========================================================================+
-| -c, --cpulimit percentage  | | Reduce the average CPU load to the given percentage value.             |
-|                            | | This can be helpful to reduce the load e.g. on server systems          |
-|                            | | with real-time services or reduce the noise produced by fans on        |
-|                            | | user laptops.                                                          |
-|                            | | The specified value is a percentage value for the complete CPU.        |
-|                            | | For example, ``--cpulimit 50`` on a quad-core system limits THOR to    |
-|                            | | using at most 50% of the available CPU time, which would be 2 cores.   |
-+----------------------------+--------------------------------------------------------------------------+
-| --allhds                   | | By default THOR scans only the C: partition on Windows machines     	|
-|                            | | and other files/folders only in cases in which some reference points  	|
-|                            | | to a different partition (e.g. configured web root of IIS is on  	|
-|                            | | D:\inetpub, registered service runs from D:\vendor\service)            |
-+----------------------------+--------------------------------------------------------------------------+
-| | --lookback days          | | Only check the elements changed or created during the last X days    	|
-| | --globallookback         | | in all available modules (reduces the scan duration significantly)     |
-+----------------------------+--------------------------------------------------------------------------+
+.. list-table::
+  :header-rows: 1
+  :widths: 30, 70
+
+  * - Parameter
+    - Description
+  * - **-c, --cpulimit percentage**
+    - Reduce the average CPU load to the given percentage value. This can be helpful to reduce the load e.g. on server systems with real-time services or reduce the noise produced by fans on user laptops.
+
+      The specified value is a percentage value for the complete CPU. For example, ``--cpulimit 50`` on a quad-core system limits THOR to using at most 50% of the available CPU time, which would be 2 cores.
+  * - **--allhds**
+    - By default THOR scans only the C: partition on Windows machines and other files/folders only in cases in which some reference points to a different partition (e.g. configured web root of IIS is on ``D:\inetpub``, registered service runs from ``D:\vendor\service``)
+  * - **--lookback days**
+      **--globallookback**
+    - Only check the elements changed or created during the last X days in all available modules (reduces the scan duration significantly)
 
 Parameters Better Avoided 
 -------------------------
 
 This list contains flags often selected and used that should better be avoid unless you know exactly what you're doing.
 
-.. list-table:: 
-   :header-rows: 1
+.. list-table::
+  :header-rows: 1
+  :widths: 30, 70
 
-   * - Parameter
-     - Description
-   * - --intense
-     - long runtime, stability issues due to disabled resource control
-   * - --c2-in-memory
-     - many false positives on user workstations (especially browser memory)
-   * - --alldrives
-     - | long runtime, stability issues due to scan on network drives or other remote 
-       | filesystems
-   * - --mft
-     - stability issues due to high memory usage
-   * - --dump-procs
-     - | stability issues, possibly high disk space usage (free disk space checks are 
-       | implemented but may fail)
-   * - --full-registry
-     - longer runtime, low positive impact
+  * - Parameter
+    - Description
+  * - **--intense**
+    - long runtime, stability issues due to disabled resource control
+  * - **--c2-in-memory**
+    - many false positives on user workstations (especially browser memory)
+  * - **--alldrives**
+    - long runtime, stability issues due to scan on network drives or other remote filesystems
+  * - **--mft**
+    - stability issues due to high memory usage
+  * - **--dump-procs**
+    - stability issues, possibly high disk space usage (free disk space checks are implemented but may fail)
+  * - **--full-registry**
+    - longer runtime, low positive impact
 
 Lesser Known Parameters the Analysts Often Use
 ----------------------------------------------
 
 This list contains flags that are often used by analysts to tweak the scan in useful ways.
 
-.. list-table:: 
-   :header-rows: 1
+.. list-table::
+  :header-rows: 1
+  :widths: 30, 70
 
-   * - Parameter
-     - Description
-   * - --allreasons
-     - Show all reasons that led to a certain score
-   * - --printshim
-     - Print all available SHIM cache entries into the log
-   * - --utc
-     - Print all timestamps in UTC (helpful when creating timelines)
-   * - --string-context num-chars
-     - | Number of characters preceeding and following the string match to show 
-       | in the output
+  * - Parameter
+    - Description
+  * - **--allreasons**
+    - Show all reasons that led to a certain score
+  * - **--printshim**
+    - Print all available SHIM cache entries into the log
+  * - **--utc**
+    - Print all timestamps in UTC (helpful when creating timelines)
+  * - **--string-context num-chars**
+    - Number of characters preceeding and following the string match to show in the output
 
 Help and Debugging
 ------------------
 
 You can use the following parameters to 
 
-.. list-table:: 
-   :header-rows: 1
+.. list-table::
+  :header-rows: 1
+  :widths: 30, 70
 
-   * - Parameter
-     - Description
-   * - --debug
-     - Get debug information if errors occur
-   * - --help
-     - Get a help with the most important scan options
-   * - --fullhelp
-     - Get a help with all scan options
+  * - Parameter
+    - Description
+  * - **--debug**
+    - Get debug information if errors occur
+  * - **--help**
+    - Get a help with the most important scan options
+  * - **--fullhelp**
+    - Get a help with all scan options
 
 Examples
 --------
@@ -297,18 +294,24 @@ the sensitivity of the integrated PE-Sieve beyond the default with
 
 THOR reports PE-Sieve results as follows:
 
-+--------------------+--------------------------------------------+
-| Findings           | THOR's Reporting Level                     |
-+====================+============================================+
-|| Replaced PE File  || Warning                                   |
-|| Implanted PE File ||                                           |
-+--------------------+--------------------------------------------+
-|| Unreachable File  || Notice                                    |
-|| Patched           ||                                           |
-|| IAT Hooked        ||                                           |
-+--------------------+--------------------------------------------+
-|| Others            || No Output in THOR                         |
-+--------------------+--------------------------------------------+
+.. list-table::
+  :header-rows: 1
+  :widths: 50, 50
+
+  * - Findings
+    - THOR's Reporting Level 
+  * - Replaced PE File
+    - Warning
+  * - Implanted PE File
+    - Warning
+  * - Unreachable File
+    - Notice
+  * - Patched
+    - Notice
+  * - IAT Hooked
+    - Notice
+  * - Others
+    - No Output in THOR   
 
 See the `PE-Sieve documentation <https://hasherezade.github.io/pe-sieve/structt__report.html>`__
 for more details on these values.

@@ -43,29 +43,32 @@ The following tags for simple IOCs are currently supported:
 * "**handles**" for malicious Mutex / Event IOCs
 * "**pipes**" or "**pipe**" for Named Pipe IOCs
 
-+------------------------+-------------------------------------+
-| Tag in File Name       | Example                             |
-+========================+=====================================+
-| c2                     | misp-c2-domains-iocs.txt            |
-+------------------------+-------------------------------------+
-| filename               | Case-UX22-filename-iocs.txt         |
-+------------------------+-------------------------------------+
-| filenames              | Malicious-filenames-unitX.txt       |
-+------------------------+-------------------------------------+
-| hash                   | op-aura-hash-iocs.txt               |
-+------------------------+-------------------------------------+
-| hashes                 | int-misp-hashes.txt                 |
-+------------------------+-------------------------------------+
-| keyword                | keywords-incident-3389.txt          |
-+------------------------+-------------------------------------+
-| keywords               | Incident-22-keyword.txt             |
-+------------------------+-------------------------------------+
-| trusted-hash           | my-trusted-hashes.dat (encrypted)   |
-+------------------------+-------------------------------------+
-| handles                | Operation-fallout-handles.txt       |
-+------------------------+-------------------------------------+
-| pipes                  | incident-22-named-pipes.txt         |
-+------------------------+-------------------------------------+
+.. list-table::
+   :header-rows: 1
+   :widths: 37, 63
+
+   * - Tag in File Name
+     - Example
+   * - c2
+     - misp-c2-domains-iocs.txt
+   * - filename
+     - Case-UX22-filename-iocs.txt
+   * - filenames
+     - Malicious-filenames-unitX.txt
+   * - hash
+     - op-aura-hash-iocs.txt
+   * - hashes
+     - int-misp-hashes.txt
+   * - keyword
+     - keywords-incident-3389.txt
+   * - keywords
+     - Incident-22-keyword.txt
+   * - trusted-hash
+     - my-trusted-hashes.dat (encrypted)
+   * - handles
+     - Operation-fallout-handles.txt
+   * - pipes
+     - incident-22-named-pipes.txt
 
 Hashes
 ^^^^^^
