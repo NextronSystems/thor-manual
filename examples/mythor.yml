@@ -1,0 +1,7 @@
+resume: true
+cpulimit: 40
+intense: true
+max_file_size: 7500000
+syslog:
+   - foo.nextron
+   - bar.nextron:514:TCP

@@ -55,20 +55,9 @@ file hash, file path and score.
 
 CSV File Output:
 
-+-----------------------------------------------------------------------+
-| ﻿c926bf384319e40506e3d6e409dc856e,C:\\PowerZure.ps1,140               |
-|                                                                       |
-| 62160f1a71507e35ebf104a660d92794,C:\\f.bat,180                        |
-|                                                                       |
-| c926bf384319e40506e3d6e409dc856e,C:\\ntds.dit,50                      |
-|                                                                       |
-| c926bf384319e40506e3d6e409dc856e,C:\\temp\\ntds.zip\|ntds.dit,140     |
-|                                                                       |
-| 36a93511fc0e2e967bc5ced6a5bc36a6,C:\\temp\\ntds.zip,50                |
-|                                                                       |
-| 44b34aac3135dcb03ababac5f7767a55,C:\\temp\\windows-hardening.bat,60   |
-+-----------------------------------------------------------------------+
-
+.. literalinclude:: ../examples/csv-example.csv
+   :language: none
+   :linenos:
 
 Be aware that archives with matches show up as
 “archive.zip\|file-with-finding.js” (pipe separator) in the second
@@ -150,10 +139,10 @@ Timestamps
 
 Timestamp in all modules use the ANSIC standard, which looks like:
 
-+----------------------------+
-| | Mon Jan 2 15:04:05 2006  |
-| | Mon Mar 19 09:04:05 2018 |
-+----------------------------+
+.. code:: none
+
+   Mon Jan 2 15:04:05 2006
+   Mon Mar 19 09:04:05 2018
 
 https://flaviocopes.com/go-date-time-format
 
@@ -205,13 +194,12 @@ Examples:
 
 In a log line, it looks like:
 
-+---------------------------------------------------------------------------------------------------------------+
-| | Jul 10 09:08:47 PROMETHEUS/10.0.2.15 THOR: Alert: MODULE: SHIMCache					  	|
-| | SCANID: S-r4GhEhEiIRg MESSAGE: Malware name found in Shim Cache Entry ENTRY: 				|
-| | C:\\Users\\neo\\Desktop\\ncat.exe KEYWORD: \\\\ncat\\.exe DATE: 07/29/13 05:16:04 TYPE: system 		|
-| | HIVEFILE: None EXTRAS: N/A N/A True 									|
-+---------------------------------------------------------------------------------------------------------------+
+.. code:: none
 
+   Jul 10 09:08:47 PROMETHEUS/10.0.2.15 THOR: Alert: MODULE: SHIMCache
+   SCANID: S-r4GhEhEiIRg MESSAGE: Malware name found in Shim Cache Entry ENTRY:
+   C:\Users\neo\Desktop\ncat.exe KEYWORD: \\ncat\.exe DATE: 07/29/13 05:16:04 TYPE: system
+   HIVEFILE: None EXTRAS: N/A N/A True
 
 Custom Scan ID Prefix
 ~~~~~~~~~~~~~~~~~~~~~
@@ -253,11 +241,22 @@ The available options for each element are:
 
 The available type field values require an explication:
 
-* DEFAULT: standard THOR log format
-* CEF: Common Event Format (ArcSight)
-* JSON: Raw JSON
-* SYSLOGJSON: encoded and escaped single line JSON
-* SYSLOGKV: syslog messages that contain strict key/value pairs
+.. list-table::
+   :header-rows: 1
+   :widths: 40, 60
+
+   * - Option
+     - Format
+   * - DEFAULT
+     - standard THOR log format
+   * - CEF
+     - Common Event Format (ArcSight)
+   * - JSON
+     - Raw JSON
+   * - SYSLOGJSON
+     - encoded and escaped single line JSON
+   * - SYSLOGKV
+     - syslog messages that contain strict key/value pairs
 
 There are default values, which do not have to be defined explicitly:
 

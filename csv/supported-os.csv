@@ -1,0 +1,14 @@
+Linux;Windows;macOS
+RHEL/CentOS 6;Windows 7 x86 / x64;macOS 10.14
+RHEL/CentOS 7;Windows Server 2008 R2 x64;macOS 10.15
+RHEL/CentOS 8;Windows 8.1;macOS 11 (Intel)
+SuSE SLES 11;Windows Server 2012;macOS 11 (ARM, Apple M1)
+SuSE SLES 12;Windows Server 2012 R2;
+SuSE SLES 15;Windows 10;
+Ubuntu 16 LTS;Windows 11;
+Ubuntu 18 LTS;Windows Server 2016;
+Ubuntu 20 LTS;Windows Server 2019;
+Ubuntu 21;Windows Server 2022;
+Debian 9;;
+Debian 10;;
+Debian 11;;

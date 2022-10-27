@@ -35,37 +35,17 @@ Example Templates
 The default config **thor.yml** in the **./config** folder has the
 following content.
 
-Content of THOR's Default Config 'thor.yml':
+Content of THOR's Default Config ``thor.yml``:
 
-.. code:: yaml 
+.. literalinclude:: ../examples/thor.yml
+   :language: yaml
+   :linenos:
 
-   # This is the default config for THOR
-   # Terminate THOR if he runs longer than 72 hours
-   max_runtime: 72
-   # Minimum score to report is 40
-   min: 40
-   # Skip files bigger than 12000000 bytes
-   max_file_size: 12000000
-   # Skip files bigger than 30000000 bytes in intense mode (--fsonly, --intense)
-   max_file_size_intense: 30000000
-   # Limit THOR's CPU usage to 95%
-   cpulimit: 95
-   # The minimum amount of free physical memory to proceed (in MB)
-   minmem: 50
-   # Truncate THOR's field values after 2048 characters
-   truncate: 2048
+Content of Config File ``mythor.yml``:
 
-Content of Config File ‘mythor.yml':
-
-.. code:: yaml 
-
-   resume: true
-   cpulimit: 40
-   intense: true
-   max_file_size: 7500000
-   syslog:
-      - foo.nextron
-      - bar.nextron:514:TCP
+.. literalinclude:: ../examples/mythor.yml
+   :language: yaml
+   :linenos:
 
 The default scan template is always applied first. Custom templates can
 then overwrite settings in the default template. In the example above,
