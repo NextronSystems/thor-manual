@@ -67,7 +67,7 @@ Maximum File Size
 -----------------
 
 The default maximum file size for deeper investigations (hash
-calculation and YARA scanning) is 20 MB. The maximum file size for the
+calculation and YARA scanning) is 30 MB. The maximum file size for the
 "**intense**" scan mode is 100 MB.
 
 You can adjust the values in "**./config/thor.yml**". This file does not
