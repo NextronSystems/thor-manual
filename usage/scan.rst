@@ -54,10 +54,10 @@ Parameters Possibly Relevant for Your User Case
 | | --globallookback         | | in all available modules (reduces the scan duration significantly)     |
 +----------------------------+--------------------------------------------------------------------------+
 
-Parameters Better Avoided 
--------------------------
+Risky Flags
+-----------
 
-This list contains flags often selected and used that should better be avoid unless you know exactly what you're doing.
+This list contains flags that should better be avoided unless you know exactly what you're doing.
 
 .. list-table:: 
    :header-rows: 1
@@ -79,8 +79,8 @@ This list contains flags often selected and used that should better be avoid unl
    * - --full-registry
      - longer runtime, low positive impact
 
-Lesser Known Parameters the Analysts Often Use
-----------------------------------------------
+Lesser Known But Useful Flags
+-----------------------------
 
 This list contains flags that are often used by analysts to tweak the scan in useful ways.
 
