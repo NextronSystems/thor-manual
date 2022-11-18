@@ -35,37 +35,17 @@ Example Templates
 The default config **thor.yml** in the **./config** folder has the
 following content.
 
-Content of THOR's Default Config 'thor.yml':
+Content of THOR's Default Config ``thor.yml``:
 
-.. code:: yaml 
+.. literalinclude:: ../examples/thor.yml
+   :language: yaml
+   :linenos:
 
-   # This is the default config for THOR
-   # Terminate THOR if he runs longer than 72 hours
-   max_runtime: 72
-   # Minimum score to report is 40
-   min: 40
-   # Skip files bigger than 12000000 bytes
-   max_file_size: 12000000
-   # Skip files bigger than 30000000 bytes in intense mode (--fsonly, --intense)
-   max_file_size_intense: 30000000
-   # Limit THOR's CPU usage to 95%
-   cpulimit: 95
-   # The minimum amount of free physical memory to proceed (in MB)
-   minmem: 50
-   # Truncate THOR's field values after 2048 characters
-   truncate: 2048
+Content of Config File ``mythor.yml``:
 
-Content of Config File ‘mythor.yml':
-
-.. code:: yaml 
-
-   resume: true
-   cpulimit: 40
-   intense: true
-   max_file_size: 7500000
-   syslog:
-      - foo.nextron
-      - bar.nextron:514:TCP
+.. literalinclude:: ../examples/mythor.yml
+   :language: yaml
+   :linenos:
 
 The default scan template is always applied first. Custom templates can
 then overwrite settings in the default template. In the example above,
@@ -87,7 +67,7 @@ Maximum File Size
 -----------------
 
 The default maximum file size for deeper investigations (hash
-calculation and YARA scanning) is 20 MB. The maximum file size for the
+calculation and YARA scanning) is 30 MB. The maximum file size for the
 "**intense**" scan mode is 100 MB.
 
 You can adjust the values in "**./config/thor.yml**". This file does not
@@ -160,17 +140,20 @@ As the configured exclusions are treated as regular expressions, special
 characters must be masqueraded by backslash. This applies at least for:
 **[]\\^$.\|?\*+()-**
 
-+-------------------------------------------------------------+---------------------------------------+
-| Element to exclude                                          | Possible solution                     |
-+=============================================================+=======================================+
-| C:\\IBM\\temp\_tools\\custom.exe                            | C:\\\\IBM\\\\temp\_tools\\\\          |
-+-------------------------------------------------------------+---------------------------------------+
-| Log folder of the tool "hpsm" regardless on the partition   | \\\\HPSM\\\\log\\\\                   |
-+-------------------------------------------------------------+---------------------------------------+
-| Every file with the extension .nsf                          | \\.nsf$                               |
-+-------------------------------------------------------------+---------------------------------------+
-| THOR custom signatures                                      | \\\\THOR\\\\custom\\-signatures\\\\   |
-+-------------------------------------------------------------+---------------------------------------+
+.. list-table::
+   :header-rows: 1
+   :widths: 60, 40
+
+   * - Element to exclude 
+     - Possible solution 
+   * - C:\\IBM\\temp\_tools\\custom.exe  
+     - C:\\\\IBM\\\\temp\_tools\\\\ 
+   * - Log folder of the tool "hpsm" regardless on the partition
+     - \\\\HPSM\\\\log\\\\
+   * - Every file with the extension .nsf
+     - \\.nsf$
+   * - THOR custom signatures  
+     - \\\\THOR\\\\custom\\-signatures\\\\
 
 Eventlogs
 ^^^^^^^^^
@@ -178,15 +161,18 @@ Eventlogs
 Eventlog sources can be excluded as whole in
 "**eventlog-excludes.cfg**". The file holds one expression per line
 and applies them as regular expression on the name of the Eventlog.
-(e.g. “Microsoft-Windows-Windows Defender/Operational“)
+(e.g. ``Microsoft-Windows-Windows Defender/Operational``)
 
-+--------------------------------------------------+----------------------+
-| Element to exclude                               | Possible solution    |
-+==================================================+======================+
-| Windows PowerShell                               | Windows PowerShell   |
-+--------------------------------------------------+----------------------+
-| Microsoft-Windows-Windows Defender/Operational   | Windows Defender     |
-+--------------------------------------------------+----------------------+
+.. list-table::
+   :header-rows: 1
+   :widths: 60, 40
+
+   * - Element to exclude 
+     - Possible solution 
+   * - Windows PowerShell 
+     - Windows PowerShell 
+   * - Microsoft-Windows-Windows Defender/Operational
+     - Windows Defender
 
 Registry
 ^^^^^^^^
@@ -196,13 +182,14 @@ The file holds one expression per line and applies them as regular
 expression on each registry key. (e.g. “Software\\WOW6432Node“). Don’t
 include the root of the key, e.g. HKLM.
 
-+---------------------------------------+--------------------------------------------------+
-| Element to Exclude                    | Exclude Definition                               |
-+=======================================+==================================================+
-| | HKEY\_LOCAL\_MACHINE\\Software\\ ⏎  | Symantec Endpoint Protection\\AV\\Exclusions     |
-| | Wow6432Node\\Symantec\\Symantec ⏎   |                                                  |
-| | Endpoint Protection\\AV\\Exclusions |                                                  |
-+---------------------------------------+--------------------------------------------------+
+.. list-table::
+   :header-rows: 1
+   :widths: 50, 50
+
+   * - Element to exclude 
+     - Exclude Definition 
+   * - HKEY\_LOCAL\_MACHINE\\Software\\⏎ Wow6432Node\\Symantec\\Symantec Endpoint⏎ Protection\\AV\\Exclusions
+     - Symantec Endpoint Protection\\AV\\Exclusions 
 
 False Positives
 ^^^^^^^^^^^^^^^

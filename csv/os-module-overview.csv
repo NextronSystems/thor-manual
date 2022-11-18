@@ -1,0 +1,30 @@
+Module;Windows;Linux;MacOS
+File System Scan;Supported;Supported;Supported
+Registry Scan;Supported;Not Supported;Not Supported
+SHIM Cache Scan;Supported;Not Supported;Not Supported
+Mutex Check;Supported;Not Supported;Not Supported
+Named Pipes Check;Supported;Not Supported;Not Supported
+DNS Cache Check;Supported;Supported;Supported
+Hotfix Check;Supported;Not Supported;Not Supported
+Hosts File Check;Supported;Supported;Supported
+Firewall Config Check;Supported;Supported;Not Supported
+Network Share Check;Supported;Not Supported;Not Supported
+Logged In Check;Supported;Supported;Supported
+Process Check;Supported;Supported [1]_;Supported [1]_
+Service Check;Supported;Supported;Not Supported
+Autoruns Check;Supported;Supported;Supported
+Rootkit Check;Supported;Supported;Not Supported
+LSA Sessions Analysis;Supported;Not Supported;Not Supported
+User Account Check;Supported;Supported;Supported
+User Profile Check;Supported;Supported;Supported
+Network Sessions Check;Supported;Not Supported;Not Supported
+Scheduled Tasks Analysis;Supported;Not Supported;Not Supported
+WMI Startup Check;Supported;Not Supported;Not Supported
+At Entries Check;Supported;Not Supported;Not Supported
+MFT Analysis;Supported;Not Supported;Not Supported
+Eventlog Analysis;Supported;Not Supported;Not Supported
+KnowledgeDB Check;Not Supported;Not Supported;Supported
+Environment Variables Check;Supported;Supported;Supported
+Crontab Check;Not Supported;Supported;Not Supported
+Integrity Check;Not Supported;Supported;Not Supported
+Event Check;Supported;Not Supported;Not Supported

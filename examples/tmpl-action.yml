@@ -1,0 +1,16 @@
+# Action to perform if file has been detected with a score more than the defined 'action_level'
+# You may use all environment variables that are available on the system, i.e. %COMPUTERNAME%.
+# Further available meta vars are:
+# %score% = Score
+# %file% = Filename without extension
+# %filename% = Basename
+# %filepath% = Full path
+# %ext% = Extension without dot
+# %md5% = MD5 value
+# %date% = Detection time stamp
+
+action_level: 35
+action_command: "copy"
+action_args:
+- "%filepath%"
+- "\\\\VBOXSVR\\Downloads\\restore_files\\%COMPUTERNAME%_%md5%_%file%_%ext%_%date%"

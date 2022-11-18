@@ -88,77 +88,9 @@ For example: To retrieve a valid license for the servers named ``SRV001`` and ``
 
 If you can't use curl and want to retrieve a license as part of a bigger PowerShell script, you can use the following code snippet to help you with the retrieval.
 
-.. code:: powershell
-
-   # License retrieval script
-   # Florian Roth, June 2021
-
-   # ASGARD URL
-   $AsgardURL = "https://asgard.nextron-systems.com:8443/api/v0/licensing/issue"
-   $Token = "OJCBETq7VGLjrCes4k4ACCQOzg0AeAoz9Q"
-   $LicenseFile = "licenses.zip"
-   $OutputPath = ".\"
-   $ExtractLicenses = $True
-
-   # Config
-   # Ignore Self-signed certificates
-   [System.Net.ServicePointManager]::ServerCertificateValidationCallback = {$true}
-   # Set current working directory for .NET as well
-   [Environment]::CurrentDirectory = (Get-Location -PSProvider FileSystem).ProviderPath
-
-   # Web Client
-   [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
-   $WebClient = New-Object System.Net.WebClient 
-   if ( $Token ) {
-      $AsgardURL = [string]::Format("{0}?token={1}", $AsgardURL, $Token)
-   }
-   Write-Host "Using URL: $AsgardURL"
-
-   # Hostname
-   $Hostname = $env:COMPUTERNAME
-
-   # License Type
-   $LicenseType = "server"
-   $OsInfo = Get-CimInstance -ClassName Win32_OperatingSystem
-   if ( $osInfo.ProductType -eq 1 ) { 
-      $LicenseType = "workstation"
-   }
-
-   # Proxy Support
-   $WebClient.Proxy = [System.Net.WebRequest]::DefaultWebProxy
-   $WebClient.Proxy.Credentials = [System.Net.CredentialCache]::DefaultNetworkCredentials
-
-   # Prepare request
-   $postData=New-Object System.Collections.Specialized.NameValueCollection
-   $postData.Add('hostnames',$Hostname)
-   $postData.Add('type',$LicenseType)
-   Write-Host "Requesting license for HOST: $Hostname TYPE: $LicenseType"
-
-   # Request license
-   try {
-      $Response = $WebClient.UploadValues($AsgardURL, $postData)
-   # HTTP Errors
-   } catch [System.Net.WebException] {
-      Write-Host "The following error occurred: $_"
-      $Response = $_.Exception.Response
-      # 403
-      if ( [int]$Response.StatusCode -eq 403 ) { 
-         Write-Host "This can be caused by a missing download token."
-      }
-      break
-   }
-   [System.IO.File]::WriteAllBytes($LicenseFile, $Response);
-
-   # Extract licenses
-   if ( $ExtractLicenses ) {
-      Add-Type -AssemblyName System.IO.Compression.FileSystem
-      try {
-         [System.IO.Compression.ZipFile]::ExtractToDirectory($LicenseFile, $OutputPath)
-      } catch {
-         Write-Host "The following error occurred: $_"
-      }
-      Remove-Item -Path $LicenseFile
-   }
+.. literalinclude:: ../examples/asgard-license-gen.ps1
+   :language: powershell
+   :linenos:
 
 Check the ASGARD helper scripts section in `our Github repo <https://github.com/NextronSystems/nextron-helper-scripts/tree/master/asgard>`__ for more scripts and snippets.
 
@@ -253,7 +185,7 @@ We often recommend triggering the scan via "Scheduled Task" distributed
 to the systems via GPO or PsExec. The servers access the file share at a
 given time, pull THOR into memory and start the scan process. You can
 either mount the network share and run THOR from there or access it
-directly via its UNC path (e.g. \\\\server\\share\\thor.exe or \\\\server\\share\\thor64.exe).
+directly via its UNC path (e.g. ``\\server\share\thor.exe`` or ``\\server\share\thor64.exe``).
 
 .. figure:: ../images/image4.png
    :target: ../_images/image4.png
@@ -449,31 +381,9 @@ https://docs.ansible.com/ansible/latest/user_guide/intro_inventory.html
 Ansible Playbook Template
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
-.. code:: bash
-   
-   ---                                                                                                  
-   - hosts: all  
-   #remote\_user: root become: true tasks: 
-   - name: Create folder for temporary RAM drive command: mkdir /mnt/temp\_ram creates=/mnt/temp\_ram 
-   - name: Create Thor RAM drive on target                                  
-   command: mount -t ramfs -o size=60M ramfs /mnt/temp\_ram/ ignore\_warnings: true                 
-   -  name: Copy Thor to RAM drive                                                        
-   copy: src=../thor-linux-pack/ dest=/mnt/temp\_ram/ ignore\_warnings: true     
-   -  name: Make Thor Executeable                                                 
-   file: path=/mnt/temp\_ram/thor-x64 state=touch                
-   mode="0555"  
-   - name: Execute Thor                                                                               
-   command: /mnt/temp\_ram/thor64 -l /mnt/temp\_ram/thor.txt creates=/mnt/temp\_ram/thor.html         
-   - name: Fetch Log file                                           
-   fetch: src=/mnt/temp\_ram/thor.txt dest=../thoransible-      
-   output/{{inventory\_hostname}}/thor.txt flat=true                   
-   -  name: Unmount temporary RAM drive mount:   
-   path: /mnt/temp\_ram        
-   state: unmounted        
-   -  name: check Mount  
-   command: mount   
-   -  name: Delete folder for temporary RAM drive   
-   command: rmdir /mnt/temp\_ram/
+.. literalinclude:: ../examples/ansible-template.yml
+   :language: yaml
+   :linenos:
 
 Usage of Thor´s Ansible playbook
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -540,70 +450,11 @@ It is recommended to use “pure-yara” mode in cases in which:
 The following table contains all THOR Thunderstorm related command line
 flags:
 
-.. list-table:: 
-   :header-rows: 1
-  
-   * - Parameter
-     - Values 
-     - Function
-   * - --thunderstorm
-     - 
-     - | Watch and scan all files sent to a specific port (see
-       | --server-port). Disables resource checks and quick    
-       | mode, activate intense mode, disable ThorDB and 
-       | apply IOCs platform independently 	
-   * - --server-host
-     - ip-address
-     - | IP address that THOR's server should bind to 
-       | (default "127.0.0.1")
-   * - --server-port 
-     - port number
-     - | TCP port that THOR's server should bind to 
-       | (default 8080)
-   * - --server-cert
-     - .crt location
-     - | TLS certificate that THOR's server should use. If
-       | left empty, TLS is not used
-   * - --server-key
-     - .key location
-     - | Private key for the TLS certificate that THOR's 
-       | server should use. Required if --server-cert is 
-       | specified
-   * - --pure-yara 
-     - 
-     - | Apply only YARA signatures (no IOCs or other
-       | programmatical checks)
-   * - --server-upload-dir 
-     - upload-directory
-     - | Path to a temporary directory where THOR drops
-       | uploaded files. Only relevant for Windows and 
-       | MacOS; on Linux, THOR stores files in in-memory 
-       | files. (default "/tmp/thor-uploads")
-   * - --server-result-cache-size
-     - number of results
-     - | Size of the cache that is used to store results of
-       | asynchronous requests temporarily. If set to 0, the 
-       | cache is disabled and asynchronous results are not
-       | stored. (default 10000)
-   * - --server-store-samples
-     - all/malicious/none
-     - | Sets whether samples should be stored 
-       | permanently in the folder specified with 
-       | --server-upload-dir. Specify "all" to store all 
-       | samples, or "malicious" to store only samples that
-       | generated a warning or an alert. (default "none")
-   * - --sync-only-threads
-     - number of threads
-     - | Number of threads reserved for synchronous 
-       | requests (only needed in environments in which 
-       | users use both synchronous and asynchronous 
-       | mode of transmission)
-   * - --threads
-     - number of threads
-     - | Number of threads that the Thunderstorm service 
-       | should use (default: number of detected CPU 
-       | cores)
-
+.. csv-table::
+  :file: ../csv/thunderstorm.csv
+  :widths: 30, 25, 45
+  :delim: ;
+  :header-rows: 1
 
 Service License Type
 ^^^^^^^^^^^^^^^^^^^^
@@ -752,27 +603,26 @@ used to query the service at a later point in time. This mode is best
 for use cases in which the submitter doesn’t need to know the scan
 results and batch submission should be as fast as possible.
 
-.. list-table:: 
+.. list-table::
    :header-rows: 1
+   :widths: 30, 30, 40
 
-   * -
+   * - 
      - Synchronous
      - Asynchronous
    * - Server API Endpoint
      - /api/check
      - /api/checkAsync
-   * - | ThunderstormAPI Client
-       | Parameter
+   * - ThunderstormAPI Client Parameter
      -
      - --asyn
    * - Advantage
      - Returns Scan Result
      - Faster submission
    * - Disadvantage
-     - | Client waits for result of each
-       | sample
-     - | No immediate scan result on the
-       | client side
+     - Client waits for result of each sample
+     - No immediate scan result on the client side
+
 
 In asynchronous mode, the Thunderstorm service keeps the samples in a
 queue on disk and processes them one by one as soon as a thread has time
@@ -801,15 +651,22 @@ In asynchronous mode, the sample transmission takes much less time, but
 the processing on the server takes a bit longer, since the sever caches
 the samples on disk.
 
-+-----------------------+---------------+----------------+
-|                       | Synchronous   | Asynchronous   |
-+=======================+===============+================+
-| Client Transmission   | 40min         | 18min          |
-+-----------------------+---------------+----------------+
-| Server Processing     |               | 46min          |
-+-----------------------+---------------+----------------+
-| Total Time            | 40min         | 46min          |
-+-----------------------+---------------+----------------+
+.. list-table::
+   :header-rows: 1
+   :widths: 40, 30, 30
+
+   * - 
+     - Synchronous
+     - Asynchronous
+   * - Client Transmission
+     - 40 minutes
+     - 18 minutes
+   * - Server Processing
+     -
+     - 46 minutes
+   * - Total time
+     - 40 minutes
+     - 46 minutes
 
 SSL/TLS
 ^^^^^^^
@@ -876,13 +733,12 @@ details.
 
 A YAML file with a list of hosts looks like this:
 
-+------------------------+
-| remote:                |
-| - winatl001.dom.int    |
-| - winatl002.dom.int    |
-| - winnyk001.dom2.int   |
-+------------------------+
-
+.. code:: yaml
+   
+   remote:
+   - winatl001.dom.int
+   - winatl002.dom.int
+   - winnyk001.dom2.int
 
 We recommend using a text editor that supports multi-line editing like
 Atom or Sublime.

@@ -58,7 +58,7 @@ connections but you can use any port you like.
 
 Usage is:
 
-.. code:: bash
+.. code:: none
 
     usage: bifrost-server.py [-h] [-d out-dir] [-i ip] [-p port]
 
@@ -176,49 +176,73 @@ scoring system is very flexible.
 The total score of an element determines the level/severity of the
 resulting log message.
 
-+---------+-----------+----------------------------------------+
-| Score   | Level     | Condition                              |
-+=========+===========+========================================+
-| 40      | Notice    |                                        |
-+---------+-----------+----------------------------------------+
-| 60      | Warning   |                                        |
-+---------+-----------+----------------------------------------+
-| 100     | Alert     | At least 1 sub score of 75 or higher   |
-+---------+-----------+----------------------------------------+
+.. list-table::
+   :header-rows: 1
+   :widths: 20, 20, 60
+
+   * - Score
+     - Level
+     - Condition
+   * - 40
+     - Notice
+     - 
+   * - 60
+     - Warning
+     - 
+   * - 100
+     - Alert
+     - At least 1 sub score more than 75
 
 Scoring per Signature Type Match
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-+--------------------------+-------------------------------------------------------------------------------------------------------------+
-| Type                     | Score                                                                                                       |
-+==========================+=============================================================================================================+
-| YARA match               | Defined in the meta data of the YARA rule as integer value (e.g. "score = 50")                              |
-+--------------------------+-------------------------------------------------------------------------------------------------------------+
-| Filename IOC match       | Defined in the 2\ :sup:`nd` field of the CSV (e.g. "\\\\evil.exe;80")                                       |
-+--------------------------+-------------------------------------------------------------------------------------------------------------+
-| Keyword IOC match        | "warning" level messages, see :ref:`section Default Scores <usage/other-topics:Default Scores>`             |
-+--------------------------+-------------------------------------------------------------------------------------------------------------+
-| C2 IOC match             | "warning" and "alert" level massages, see :ref:`section Default Scores <usage/other-topics:Default Scores>` |
-+--------------------------+-------------------------------------------------------------------------------------------------------------+
+.. list-table::
+   :header-rows: 1
+   :widths: 25, 75
+
+   * - Type
+     - Score
+   * - YARA match
+     - Defined in the meta data of the YARA rule as integer value (e.g. "score = 50")
+   * - Filename IOC match
+     - Defined in the 2\ :sup:`nd` field of the CSV (e.g. "\\\\evil.exe;80")
+   * - Keyword IOC match
+     - "warning" level messages, see :ref:`section Default Scores <usage/other-topics:Default Scores>`
+   * - C2 IOC match
+     - "warning" and "alert" level massages, see :ref:`section Default Scores <usage/other-topics:Default Scores>`
 
 Accumulated Score by Module
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-+---------------------+-------------------+------------------------------------------------------------------------------------------------+
-| | Module            | | Cumulated       | | Scoring                                                                                      |
-|		      | | Score		  |												   |
-+=====================+===================+================================================================================================+
-| | Filescan          | Yes               | | Score is a sum of the scores of all "REASON"s (YARA matches, 				   |
-| | Archive Scan      |			  | | filename IOCs, other anomalies) 								   |                   
-| | DeepDive          | 	          | | Note 1: Only positive scores are shown by default                                            |              
-| | Prefetch          |                   | | Note 2: Only the top 2 reasons are shown by default (use     				   |
-| | WER		      |			  | | --allreasons to show all positive scores)						           |
-+---------------------+-------------------+------------------------------------------------------------------------------------------------+
-| | All Other         | No                | | Individual score of each signature match (YARA, filename IOC, 			  	   |
-| | Modules           |			  | | keywords, C2)                  								   |
-|                     |                   | | Note 1: This means that multiple matches for a single element are 			   |
-|		      |			  | | possible								             	    	   |
-+---------------------+-------------------+------------------------------------------------------------------------------------------------+
+.. list-table::
+   :header-rows: 1
+   :widths: 20, 20, 60
+
+   * - Module
+     - Cumulated
+
+       Scoring
+     - Score
+   * - Filescan
+
+       Archive Scan
+
+       DeepDive
+
+       Prefetch
+
+       WER
+     - Yes
+     - Score is a sum of the scores of all "REASON"s (YARA matches, filename IOCs, other anomalies)
+
+       **Note 1**: Only positive scores are shown by default
+
+       **Note 2**: Only the top 2 reasons are shown by default (use ``--allreasons`` to show all positive scores)
+   * - All Other Modules
+     - No
+     - Individual score of each signature match (YARA, filename IOC, keywords, C2)
+
+       **Note 1**: This means that multiple matches for a single element are possible
 
 Default Scores
 ^^^^^^^^^^^^^^
@@ -231,7 +255,7 @@ Exception: High total score with low sub scores
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 "Alerts" on file system elements are only generated if one of the sub
-scores is at least 75.
+scores is more than 75.
 
 Before that change, multiple low scoring reasons had led to a score
 higher 100 and caused an "Alert" level message although not a single
@@ -241,7 +265,7 @@ executables through tight mail filters, and a suspicious location, e.g.
 "**C:\\Temp\\funprog.txt**" caused an "Alert" level message.
 
 Since version 8.27.2, one of the sub scores that pushes the total score
-over 100 has to be 75 or higher. (internally calculated as "alert\_level
+over 100 has to be more than 75. (internally calculated as "alert\_level
 - 25" because the user can adjust the alert level via the "**--alert**"
 parameter)
 
@@ -270,40 +294,39 @@ Filename IOC Matching in String Check Example
 
 Imagine the following filename IOC signatures:
 
-+----------------------------+
-| | \\\\nmap.exe;70	     |
-| | \\\\bin\\\\nmap.exe;-30  |
-+----------------------------+
+.. code:: none
+
+   \\\\nmap.exe;70
+   \\\\bin\\\\nmap.exe;-30
 
 and the following Keyword signature:
 
-+---------+
-|nmap.exe |
-+---------+
+.. code:: none
+
+   nmap.exe
 
 The ``checkString()`` function receives the following string from the
 Eventlog scan module (here: a Sysmon Eventlog entry):
 
-+-----------------------------------------------------------------------------------------------+
-| | Process Create:										|		
-| | UtcTime: 2018-01-10 10:22:25.277								|
-| | ProcessGuid: {c1b49677-e961-5a55-0000-0010bbc80702}						|
-| | ProcessId: 3912										|
-| | Image: C:\\Program Files\\Nmap\\bin\\nmap.exe						|
-| | CommandLine: nmap.exe									|
-| | CurrentDirectory: C:\\Windows\\system32\\							|
-| | User: PROMETHEUS\\user1									|
-| | LogonGuid: {c1b49677-1d72-5a53-0000-0020d4232500}						|	
-| | LogonId: 0x2523d4										|
-| | TerminalSessionId: 1									|
-| | IntegrityLevel: High									|
-| | Hashes: SHA1=F5DC12D658402900A2B01AF2F018D113619B96B8,					|
-| |         MD5=9FEA051A9585F2A303D55745B4BF63AA						|
-| | ParentProcessGuid: {c1b49677-1d74-5a53-0000-001057452500}					|
-| | ParentProcessId: 1036									|
-| | ParentImage: C:\\Windows\\explorer.exe							|
-| | ParentCommandLine: C:\\Windows\\Explorer.EXE						|
-+-----------------------------------------------------------------------------------------------+
+.. code:: none
+
+   Process Create:
+   UtcTime: 20180110 10:22:25.277
+   ProcessGuid: {c1b49677e9615a5500000010bbc80702}
+   ProcessId: 3912
+   Image: C:\\Program Files\\Nmap\\bin\\nmap.exe
+   CommandLine: nmap.exe
+   CurrentDirectory: C:\\Windows\\system32\\
+   User: PROMETHEUS\\user1
+   LogonGuid: {c1b496771d725a5300000020d4232500}
+   LogonId: 0x2523d4
+   TerminalSessionId: 1
+   IntegrityLevel: High
+   Hashes: SHA1=F5DC12D658402900A2B01AF2F018D113619B96B8, MD5=9FEA051A9585F2A303D55745B4BF63AA
+   ParentProcessGuid: {c1b496771d745a530000001057452500}
+   ParentProcessId: 1036
+   ParentImage: C:\\Windows\\explorer.exe
+   ParentCommandLine: C:\\Windows\\Explorer.EXE
 
 The ``checkString()`` function would create two messages: 1 "warning" for
 the keyword signature and 1 "notice" of the filename IOC signatures.
@@ -329,20 +352,18 @@ The most popular use case for the action command is sample collection.
 Action Flags
 ^^^^^^^^^^^^
 
-+----------------------------+--------------------------------------------------------------------------+
-| Parameter                  | Description 								|
-+============================+==========================================================================+
-| --action\_command string   | | Run this command for each file that has a score greater than the score |
-|			     | | from --action\_level                                                   |
-+----------------------------+--------------------------------------------------------------------------+
-| ---action\_args strings    | | Arguments to pass to the command specified via --action\_command. The 	|
-|			     | | placeholders %filename%, %filepath%, %file%, %ext%, %md5%, %score%     |
-|			     | | and %date% are replaced at execution time   				|
-+----------------------------+--------------------------------------------------------------------------+
-| --action\_level int        | | Only run the command from --action\_command for files with at least 	|
-|			     | | this score (default 40)                           			|
-+----------------------------+--------------------------------------------------------------------------+
+.. list-table::
+   :header-rows: 1
+   :widths: 30, 70
 
+   * - Parameter
+     - Description
+   * - **--action\_command string**
+     - Run this command for each file that has a score greater than the score from ``--action_level``
+   * - **--action\_args strings**
+     - Arguments to pass to the command specified via ``--action_command``. The placeholders %filename%, %filepath%, %file%, %ext%, %md5%, %score% and %date% are replaced at execution time
+   * - **--action\_level int**
+     - Only run the command from ``--action_command`` for files with at least this score (default ``40``)
 
 Command Line Use
 ^^^^^^^^^^^^^^^^
@@ -367,24 +388,9 @@ the action commands.
 
 Content of 'tmpl-action.yml':
 
-+--------------------------------------------------------------------------------------------------------+
-| | # Action to perform if file has been detected with a score more than the defined 'action\_level'     |
-| | # You may use all environment variables that are available on the system, i.e. %COMPUTERNAME%.       |
-| | # Further available meta vars are:                                                                   |
-| | # %score% = Score                                                                                    |
-| | # %file% = Filename without extension                                                                |
-| | # %filename% = Basename                                                                              |
-| | # %filepath% = Full path                                                                             |
-| | # %ext% = Extension without dot                                                                      |
-| | # %md5% = MD5 value                                                                                  |
-| | # %date% = Detection time stamp                                                                      |
-| |                                                                                                      |
-| | action\_level: 35                                                                                    |
-| | action\_command: "copy"                                                                              |
-| | action\_args:                                                                                        |
-| | - "%filepath%"                                                                                       |
-| | - "\\\\\\\\VBOXSVR\\\\Downloads\\\\restore\_files\\\\%COMPUTERNAME%\_%md5%\_%file%\_%ext%\_%date%"   |
-+--------------------------------------------------------------------------------------------------------+
+.. literalinclude:: ../examples/tmpl-action.yml
+   :language: yaml
+   :linenos:
 
 THOR DB
 -------
@@ -402,21 +408,20 @@ It stores persistent information over several scan runs:
 
 The THOR DB related command line options are:
 
-+-----------------------+-------------------------------------------------------------------------------+
-| Parameter		| Description									|
-+=======================+===============================================================================+
-| --nothordb		| Disables THOR DB completely. All related features will be disabled as well.	|
-+-----------------------+-------------------------------------------------------------------------------+
-| --dbfile [string] 	| | Allows to define a location of the THOR database file. File names or path 	|
-|			| | names are allowed. If a path is given, the database file ‘thor10.db’ will be|
-|			| | created in the directory. Environment variables are expanded.		|
-+-----------------------+-------------------------------------------------------------------------------+
-| --resume 		| | Resumes a previous scan (if scan state information is still available and 	|
-|			| | the exact same command line arguments are used)				|
-+-----------------------+-------------------------------------------------------------------------------+
-| --resumeonly		| | Only resume a scan if a scan state is available. Do not run a full scan if	|
-|			| | no scan state can be found.							|
-+-----------------------+-------------------------------------------------------------------------------+
+.. list-table::
+   :header-rows: 1
+   :widths: 25, 75
+
+   * - Parameter
+     - Description
+   * - **--nothordb**
+     - Disables THOR DB completely. All related features will be disabled as well.
+   * - **--dbfile [string]**
+     - Allows to define a location of the THOR database file. File names or path names are allowed. If a path is given, the database file ``thor10.db`` will be created in the directory. Environment variables are expanded.
+   * - **--resume**
+     - Resumes a previous scan (if scan state information is still available and the exact same command line arguments are used)
+   * - **--resumeonly**
+     - Only resume a scan if a scan state is available. Do not run a full scan if no scan state can be found.
 
 Scan Resume
 ^^^^^^^^^^^

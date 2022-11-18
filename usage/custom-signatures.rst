@@ -43,29 +43,32 @@ The following tags for simple IOCs are currently supported:
 * "**handles**" for malicious Mutex / Event IOCs
 * "**pipes**" or "**pipe**" for Named Pipe IOCs
 
-+------------------------+-------------------------------------+
-| Tag in File Name       | Example                             |
-+========================+=====================================+
-| c2                     | misp-c2-domains-iocs.txt            |
-+------------------------+-------------------------------------+
-| filename               | Case-UX22-filename-iocs.txt         |
-+------------------------+-------------------------------------+
-| filenames              | Malicious-filenames-unitX.txt       |
-+------------------------+-------------------------------------+
-| hash                   | op-aura-hash-iocs.txt               |
-+------------------------+-------------------------------------+
-| hashes                 | int-misp-hashes.txt                 |
-+------------------------+-------------------------------------+
-| keyword                | keywords-incident-3389.txt          |
-+------------------------+-------------------------------------+
-| keywords               | Incident-22-keyword.txt             |
-+------------------------+-------------------------------------+
-| trusted-hash           | my-trusted-hashes.dat (encrypted)   |
-+------------------------+-------------------------------------+
-| handles                | Operation-fallout-handles.txt       |
-+------------------------+-------------------------------------+
-| pipes                  | incident-22-named-pipes.txt         |
-+------------------------+-------------------------------------+
+.. list-table::
+   :header-rows: 1
+   :widths: 37, 63
+
+   * - Tag in File Name
+     - Example
+   * - c2
+     - misp-c2-domains-iocs.txt
+   * - filename
+     - Case-UX22-filename-iocs.txt
+   * - filenames
+     - Malicious-filenames-unitX.txt
+   * - hash
+     - op-aura-hash-iocs.txt
+   * - hashes
+     - int-misp-hashes.txt
+   * - keyword
+     - keywords-incident-3389.txt
+   * - keywords
+     - Incident-22-keyword.txt
+   * - trusted-hash
+     - my-trusted-hashes.dat (encrypted)
+   * - handles
+     - Operation-fallout-handles.txt
+   * - pipes
+     - incident-22-named-pipes.txt
 
 Hashes
 ^^^^^^
@@ -76,6 +79,8 @@ receives a sub score of 100.
 
 You can add MD5, SHA1 or SHA256 hashes and add a comment in a second
 column, which is separated by a semicolon.
+
+Hashes are applied case-insensitively.
 
 .. figure:: ../images/image28.png
    :target: ../_images/image28.png
@@ -183,7 +188,7 @@ and applies to all following IOCs until another comment is encountered.
 A score for the IOC can optionally be specified after the IOC,
 separated by a ``;``, it defaults to 100 if none is specified.
 
-.. code-block::
+.. code-block:: none
 
         # OpMuhadib C2 servers
         182.34.23.10;90
@@ -209,7 +214,7 @@ will be applied to any scope.
 
 Mutex and event IOCs are case sensitive.
 
-.. code-block::
+.. code-block:: none
 
         Global\\mymaliciousmutex;Operation Fallout – RAT Mutex
         Global\\WMI_CONNECTION_RECV;Flame Event https://bit.ly/2KjUTuP
@@ -235,7 +240,7 @@ defaults to 100.
 
 Named Pipe IOCs are case insensitive.
 
-.. code-block::
+.. code-block:: none
 
         MyMaliciousNamedPipe;Malicious pipe used by known RAT
         MyInteresting[a-z]+Pipe;50;Interesting pipe we have seen in new malware
@@ -300,19 +305,19 @@ and the **.jsos** extension for encrypted STIXv2 files.
 
 The following observables are supported.
 
-* file:name with = != LIKE and MATCHES
-* file:parent\_directory\_ref.path with = != LIKE and MATCHES
-* file:hashes.sha-256 / file:hashes.sha256 with = and !=
-* file:hashes.sha-1 / file:hashes.sha1 with = and !=
-* file:hashes.md-5 / file:hashes.md5 with = and !=
-* file:size with < <= > >= = !=
-* file:created with < <= > >= = !=
-* file:modified with < <= > >= = !=
-* file:accessed with < <= > >= = !=
-* win-registry-key:key with = != LIKE and MATCHES
-* win-registry-key:values.name with = != LIKE and MATCHES
-* win-registry-key:values.data with = != LIKE and MATCHES
-* win-registry-key:values.modified\_time with < <= > >= = !=
+* ``file:name`` with **=**   **!=**   **LIKE** and **MATCHES**
+* ``file:parent_directory_ref.path`` with **=**   **!=**   **LIKE** and **MATCHES**
+* ``file:hashes.sha-256`` / ``file:hashes.sha256`` with **=** and  **!=**
+* ``file:hashes.sha-1`` / ``file:hashes.sha1`` with **=** and **!=**
+* ``file:hashes.md-5`` / ``file:hashes.md5`` with **=** and **!=**
+* ``file:size with`` **<**   **<=**   **>**   **>=**   **=** and **!=**
+* ``file:created`` with **<**   **<=**   **>**   **>=**   **=** and **!=**
+* ``file:modified`` with **<**   **<=**   **>**   **>=**   **=** and **!=**
+* ``file:accessed`` with **<**   **<=**   **>**   **>=**   **=** and **!=**
+* ``win-registry-key:key`` with **=**   **!=**   **LIKE** and **MATCHES**
+* ``win-registry-key:values.name`` with **=**   **!=**   **LIKE** and **MATCHES**
+* ``win-registry-key:values.data with`` with **=**   **!=**   **LIKE** and **MATCHES**
+* ``win-registry-key:values.modified_time`` with **<**   **<=**   **>**   **>=**   **=** and **!=**
 
 STIX v1
 ^^^^^^^
@@ -349,12 +354,17 @@ The generic YARA rules are applied to the following elements:
 The following table shows in which modules the Generic YARA rules are
 applied to content.
 
-+------------------------------------+---------------------------+
-| Applied in Module                  | Examples                  |
-+====================================+===========================+
-| Filescan, ProcessCheck, DeepDive   | | incident-feb17.yar      |
-|                                    | | misp-3345-samples.yar   |
-+------------------------------------+---------------------------+
+.. list-table::
+   :header-rows: 1
+   :widths: 55, 45
+
+   * - Applied in Module
+     - Examples
+   * - Filescan, ProcessCheck, DeepDive
+     - incident-feb17.yar
+       
+       misp-3345-samples.yar
+
 
 Specific YARA Rules
 ^^^^^^^^^^^^^^^^^^^
@@ -382,23 +392,28 @@ differentiate them further:
 The following table shows in which modules the specific YARA rules are
 applied to content.
 
-+------------------------+-----------------------------------------------------------------+---------------------------------+
-| Tag in File Name       | Applied in Module                                               | Examples                        |
-+========================+=================================================================+=================================+
-| registry               | RegistryChecks, RegistryHive                                    | incident-feb17-registry.yar     |
-+------------------------+-----------------------------------------------------------------+---------------------------------+
-| log                    | Eventlog, Logscan, EVTX                                         | general-log-strings.yar         |
-+------------------------+-----------------------------------------------------------------+---------------------------------+
-| process                | ProcessCheck (only on process memory)                           | case-a23-process-rules.yar      |
-+------------------------+-----------------------------------------------------------------+---------------------------------+
-| keyword                | | Mutex, Named Pipes, Eventlog, MFT, 			   | misp-3345-keyword-extract.yar   |
-|			 | | ProcessCheck (on all process handles),       		   |				     |
-| 			 | | ProcessHandles, ServiceCheck, AtJobs,                         |				     |
-|			 | | LogScan, AmCache, SHIMCache, 				   | 				     |
-|			 | | Registry	   			   			   |                                 |
-+------------------------+-----------------------------------------------------------------+---------------------------------+
-| meta                   | Filescan                                                        | meta-rules.yar                  |
-+------------------------+-----------------------------------------------------------------+---------------------------------+
+.. list-table::
+  :header-rows: 1
+  :widths: 20, 45, 35
+
+  * - Tag in File Name
+    - Applied in Module
+    - Examples
+  * - registry
+    - RegistryChecks, RegistryHive
+    - incident-feb17-registry.yar
+  * - log
+    - Eventlog, Logscan, EVTX
+    - general-log-strings.yar
+  * - process
+    - ProcessCheck (only on process memory)
+    - case-a23-process-rules.yar
+  * - keyword
+    - Mutex, Named Pipes, Eventlog, MFT, ProcessCheck (on all process handles), ProcessHandles, ServiceCheck, AtJobs, LogScan, AmCache, SHIMCache, Registry
+    - misp-3345-keyword-extract.yar
+  * - meta
+    - Filescan
+    - meta-rules.yar
 
 .. _yara-registry-rules:
 

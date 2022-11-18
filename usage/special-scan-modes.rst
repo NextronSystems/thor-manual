@@ -86,7 +86,10 @@ forensic lab workstation:
 
    --virtual-map /mnt/image1:C
 
-IMPORTANT: This feature requires a `forensic lab license <https://www.nextron-systems.com/2020/11/11/thor-forensic-lab-license-features/>`__ type which is meant to be used in forensic labs. 
+
+.. note::
+
+    This feature requires a `forensic lab license <https://www.nextron-systems.com/2020/11/11/thor-forensic-lab-license-features/>`__ type which is meant to be used in forensic labs. 
 
 Hostname Replacement in Logs
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -119,7 +122,9 @@ maps the current partition “S:” to a virtual drive “C:”, replaces the
 hostname with “WKS001” in the outputs and saves every output file (text
 log, HTML, CSV) to a reports folder named “C:\\reports”.
 
-IMPORTANT: This feature requires a `forensic lab license <https://www.nextron-systems.com/2020/11/11/thor-forensic-lab-license-features/>`__ type which is meant to be used in forensic labs. 
+.. note::
+
+    This feature requires a `forensic lab license <https://www.nextron-systems.com/2020/11/11/thor-forensic-lab-license-features/>`__ type which is meant to be used in forensic labs. 
 
 Lookback Mode (--lookback --all-module-lookback)
 ------------------------------------------------
@@ -163,7 +168,10 @@ be used to remove the dropped file once it has been scanned. Example:
     For consistent scan results, move files from another folder to the
     dropzone.
 
-IMPORTANT: This feature requires a `forensic lab license <https://www.nextron-systems.com/2020/11/11/thor-forensic-lab-license-features/>`__ type which is meant to be used in forensic labs. 
+.. note::
+
+    This feature requires a `forensic lab license <https://www.nextron-systems.com/2020/11/11/thor-forensic-lab-license-features/>`__
+    or `Thunderstorm license <https://www.nextron-systems.com/thor/license-packs/>`__ which are meant to be used in forensic labs.
 
 Image File Scan Mode (-m)
 -------------------------
@@ -187,7 +195,9 @@ YARA signatures placed in the "./custom-signatures/yara" sub folder.
 
    thor.exe –m systemX123.mem –j systemX123 –e C:\\reports
 
-IMPORTANT: This feature requires a `forensic lab license <https://www.nextron-systems.com/2020/11/11/thor-forensic-lab-license-features/>`__ type which is meant to be used in forensic labs. 
+.. note::
+
+    This feature requires a `forensic lab license <https://www.nextron-systems.com/2020/11/11/thor-forensic-lab-license-features/>`__ type which is meant to be used in forensic labs. 
 
 DeepDive (--image_file)
 -----------------------
@@ -233,14 +243,16 @@ To perform a surface scan, use the "**--image_file**" option. To restore
 all detected files to a restore directory additionally use the "**-r
 directory**" option.
 
-+----------------+---------------------------------------------------------------------------------------------------------+
-| Option         | Description                                                                                             |
-+================+=========================================================================================================+
-| --image_file   | | Activate DeepDive for a specific image file,                                                          |
-|                | | i.e. "--image_file C:\\tmp\memory.hdmp"                                                               |
-+----------------+---------------------------------------------------------------------------------------------------------+
-| -r directory   | Recovery directory for files found by DeepDive                                                          |
-+----------------+---------------------------------------------------------------------------------------------------------+
+.. list-table::
+  :header-rows: 1
+  :widths: 20, 80
+
+  * - Option
+    - Description
+  * - **--image_file**
+    - Activate DeepDive for a specific image file, i.e. ``--image_file C:\\tmp\memory.hdmp``
+  * - **-r directory**
+    - Recovery directory for files found by DeepDive 
 
 Eventlog Analysis (-n)
 ----------------------
@@ -285,14 +297,15 @@ You can activate MFT analysis in any mode by using **--mft**.
 The way THOR handles the MFT Analysis can be influenced by the following
 parameters:
 
-+-------------------+------------------------------------------------------------------------------------------+
-| Option            | Description                                                                              |
-+===================+==========================================================================================+
-| --mft             | Activate MFT analysis                                                                    |
-+-------------------+------------------------------------------------------------------------------------------+
-| --nomft           | | Do not perform any MFT analysis whatsoever (only useful in combination with   	       |
-|		    | | --intense) 									       |
-+-------------------+------------------------------------------------------------------------------------------+
-| --maxmftsize MB   | The maximum MFT size in Megabytes to process (default: 200 MB)                           |
-+-------------------+------------------------------------------------------------------------------------------+
+.. list-table::
+  :header-rows: 1
+  :widths: 25, 75
 
+  * - Option
+    - Description
+  * - **--mft**
+    - Activate MFT analysis
+  * - **--nomft**
+    - Do not perform any MFT analysis whatsoever (only useful in combination with ``--intense``)
+  * - **--maxmftsize MB**
+    - The maximum MFT size in Megabytes to process (default: 200 MB)

@@ -9,39 +9,17 @@ further requirements. Everything needed is already included in the
 program package.
 
 For best results, it is necessary to run THOR with administrative
-privileges or LOCAL\_SYSTEM on Windows and “root” on Linux/macOS
+privileges or ``LOCAL_SYSTEM`` on Windows and ``root`` on Linux/macOS
 systems.
 
 Supported
 ---------
 
-* Windows 7 x86 / x64
-* Windows Server 2008 R2 x64
-* Windows 8.1
-* Windows Server 2012
-* Windows Server 2012 R2
-* Windows 10
-* Windows 11
-* Windows Server 2016
-* Windows Server 2019
-* Windows Server 2022
-* RHEL/CentOS 6
-* RHEL/CentOS 7
-* RHEL/CentOS 8
-* SuSE SLES 11
-* SuSE SLES 12
-* SuSE SLES 15
-* Ubuntu 16 LTS
-* Ubuntu 18 LTS
-* Ubuntu 20 LTS
-* Ubuntu 21
-* Debian 9
-* Debian 10
-* Debian 11
-* macOS 10.14
-* macOS 10.15
-* macOS 11 (Intel)
-* macOS 11 (ARM, Apple M1)
+.. csv-table::
+  :file: ../csv/supported-os.csv
+  :widths: 30, 30, 40
+  :delim: ;
+  :header-rows: 1
 
 Limited Support
 ---------------
