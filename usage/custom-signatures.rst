@@ -1,4 +1,3 @@
-
 Custom Signatures
 =================
 
@@ -279,16 +278,16 @@ Sigma Examples
 Perform a scan with the Sigma rules on the different local Windows
 Eventlogs (-a Eventlog)
 
-.. code:: batch
+.. code-block:: doscon
 
-   thor64.exe -a Eventlog --sigma
+   C:\tools\thor>thor64.exe -a Eventlog --sigma
 
 Perform a scan with the Sigma rules on logs of Linux systems (-a
 LogScan) only
 
-.. code:: batch
+.. code-block:: doscon
 
-   thor64 -a Filesystem -p /var/log –sigma
+   C:\tools\thor>thor64 -a Filesystem -p /var/log –sigma
 
 STIX IOCs
 ---------
@@ -340,12 +339,12 @@ There are two custom YARA rule types that you can define in THOR:
 Generic YARA Rules
 ^^^^^^^^^^^^^^^^^^
 
-All YARA rules which do not contain any specific tag (see :ref:`Specific YARA Rules <usage/custom-signatures:Specific YARA Rules>`) are considered generic YARA rules.
+All YARA rules which do not contain any specific tag (see :ref:`usage/custom-signatures:Specific YARA Rules`) are considered generic YARA rules.
 
 The generic YARA rules are applied to the following elements:
 
 * | Files
-  | THOR applies the Yara rules to all files that are smaller than the size limit set in the **thor.yml** and matches specific rules. :ref:`Additional Attributes <usage/custom-signatures:Additional Attributes>` are available.
+  | THOR applies the Yara rules to all files that are smaller than the size limit set in the **thor.yml** and matches specific rules. :ref:`usage/custom-signatures:Additional Attributes` are available.
 * | Process Memory
   | THOR scans the process memory of all processes with a working set memory size up to a certain limit. This limit can be altered by the "**--max_process_size**" parameter.
 * | Data Chunks
@@ -374,10 +373,10 @@ differentiate them further:
 
 * | Registry Keys
   | Tag: **‘registry’**
-  | Rules are applied to a whole key with all of its values. See :ref:`yara-registry-rules` for more details.
+  | Rules are applied to a whole key with all of its values. See :ref:`usage/custom-signatures:THOR YARA Rules for Registry Detection` for more details.
 * | Log Files
   | Tag: **‘log’**
-  | Rules are applied to each log entry. See :ref:`yara-log-rules` for more details.
+  | Rules are applied to each log entry. See :ref:`usage/custom-signatures:THOR YARA Rules for Log Detection` for more details.
 * | Process Memory
   | Tag: **'process'** or **‘memory’**
   | Rules are applied to process memory only.
@@ -386,8 +385,8 @@ differentiate them further:
   | Rules are applied to all string checks in many different modules.
 * | Metadata Checks (since THOR 10.6)
   | Tag: **'meta'**
-  | Rules are applied to all files without exception, including directories, symlinks and the like, but can only access the THOR specific external variables (see :ref:`Additional Attributes <usage/custom-signatures:Additional Attributes>`) and the first 100 bytes of the file.
-  | Since THOR 10.6.8: If a metadata rule has the special tag DEEPSCAN, THOR will perform a YARA scan on the full file with the default rule set (see :ref:`Generic YARA Rules <usage/custom-signatures:Generic YARA Rules>`).
+  | Rules are applied to all files without exception, including directories, symlinks and the like, but can only access the THOR specific external variables (see :ref:`usage/custom-signatures:Additional Attributes`) and the first 100 bytes of the file.
+  | Since THOR 10.6.8: If a metadata rule has the special tag DEEPSCAN, THOR will perform a YARA scan on the full file with the default rule set (see :ref:`usage/custom-signatures:Generic YARA Rules`).
 
 The following table shows in which modules the specific YARA rules are
 applied to content.
@@ -415,13 +414,11 @@ applied to content.
     - Filescan
     - meta-rules.yar
 
-.. _yara-registry-rules:
-
 THOR YARA Rules for Registry Detection
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 THOR allows checking a complete registry path key/value pairs with Yara
-rules. To accomplish this, he composes a string from the key/value pairs
+rules. To accomplish this, THOR composes a string from the key/value pairs
 of a registry key path and formats them as shown in the following
 screenshot.
 
@@ -472,9 +469,7 @@ to escape all backslashes):
 Remember that you have to use the keyword **registry** in the file name in order to
 initialize the YARA rule file as registry rule set (e.g. "**registry\_exe\_in\_value.yar**").
 
-Registry scanning uses bulk scanning. See :ref:`Bulk Scanning<usage/custom-signatures:Bulk Scanning>` for more details.
-
-.. _yara-log-rules:
+Registry scanning uses bulk scanning. See :ref:`usage/custom-signatures:Bulk Scanning` for more details.
 
 THOR YARA Rules for Log Detection
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -487,7 +482,7 @@ YARA Rules for logs are applied as follows:
   where each key / value pair is an entry in EventData or UserData in the XML representation of the event.
 
 Log (both text log and event log) scanning uses bulk scanning.
-See :ref:`Bulk Scanning<usage/custom-signatures:Bulk Scanning>` for more details.
+See :ref:`usage/custom-signatures:Bulk Scanning` for more details.
 
 Remember that you have to use the keyword **log** in the file name in order to
 initialize the YARA rule file as registry rule set (e.g. "**my\_log\_rule.yar**").
@@ -692,7 +687,7 @@ that can’t be used with other scanners, as they would generate to many
 false positives. If you noticed a string that is used in malware as well
 as legitimate files, just assign a low score or combine it with other
 attributes, which are used by THOR to enhance the functionality and are
-described in :ref:`chapter 12.5.2 Additional Attributes <usage/custom-signatures:Additional Attributes>`.
+described in :ref:`usage/custom-signatures:Additional Attributes`.
 
 Additional Attributes
 ^^^^^^^^^^^^^^^^^^^^^

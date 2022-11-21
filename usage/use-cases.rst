@@ -21,7 +21,7 @@ The following example shows a recommended set of parameters, scanning a mounted 
 
 The ``--lab`` parameter will apply several internal flags (e.g. enables intense mode scanning every file, enables multi-threading, disables resource control, removes all limitations). The ``--virtual-map`` parameter maps every file found in elements of that image to the original drive letter and allows the message enrichment to work correctly. The ``-j HOSTNAME`` parameter can be used to write every log line with the hostname of the original system and not with that of the forensic workstation.
 
-You find more information on the scan parameters in the chapter :doc:`Special Scan Modes <./special-scan-modes>`.
+You find more information on the scan parameters in the chapter :doc:`/usage/special-scan-modes`.
 
 This `blog post <https://thinkdfir.com/2021/06/03/you-want-me-to-deal-with-how-many-vmdks/>`__ mentions different ways to use commercial or built-in tools to mount and scan VMDK images. 
 
@@ -94,7 +94,7 @@ Using THOR we can now scan the extracted process memory images.
 
     ./thor-linux-64 ---lab -p /mnt/mem-dumps/procs/
 
-Without a valid lab license, we can simulate that behaviour using the following command (see :doc:`chapter Special Scan Modes <./special-scan-modes>` for more details and flags used in lab scan mode):
+Without a valid lab license, we can simulate that behaviour using the following command (see :doc:`/usage/special-scan-modes` for more details and flags used in lab scan mode):
 
 .. code:: sh 
 

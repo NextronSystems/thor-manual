@@ -106,8 +106,8 @@ It happens very often that users that prepare custom IOCs or YARA rules
 forget to include the correct keyword in the filename of the IOC or YARA
 rule file.
 
-The correct use of keywords is described in :ref:`this chapter <usage/custom-signatures:Simple IOCs>` for IOCs and
-:ref:`this chapter <usage/custom-signatures:Specific YARA Rules>` for YARA rules.
+The correct use of keywords is described in the chapters :ref:`usage/custom-signatures:Simple IOCs` for IOCs and
+:ref:`usage/custom-signatures:Specific YARA Rules` for YARA rules.
 
 A wrong or missing keyword leads to situations in which a file that contains 
 YARA rules that are meant to be applied to log files, doesn't contain a "log" 
@@ -356,7 +356,7 @@ also create a screenshot of a panic shown in the command line window.
 Provide the THOR database (Optional) 
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The :ref:`THOR DB <usage/other-topics:THOR DB>` helps us debug situations in which 
+The :ref:`usage/other-topics:THOR DB` helps us debug situations in which 
 the THOR scan timed out or didn't complete at all. It contains statistics on the 
 run time of all used modules and the durations of all folders up to the second 
 folder level from the root of a partition. (e.g. C:\\Windows\\SysWow64).

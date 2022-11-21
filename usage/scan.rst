@@ -9,7 +9,7 @@ Quick Start
 
 Follow these steps to complete your first THOR scan
 
-1. Make sure you've read the :doc:`Before You Begin<./beforeyoubegin>` guide
+1. Make sure you've read the :doc:`/usage/beforeyoubegin` guide
 2. Open a command line (cmd.exe) as Administrator
 3. Navigate to the folder in which you've extracted the THOR package and placed the license file(s)
 4. Start THOR with **thor64.exe** (macOS: **thor-macos**, Linux: **thor-linux-64**)
@@ -28,7 +28,7 @@ Often Used Parameters
   * - **--soft**
     - Reduce CPU usage, skip all checks that can consume a lot of memory (even if only for a few seconds)
   * - **--quick**
-    - Perform a :doc:`quick scan<./scan-modes>` (skips Eventlog and checks only the most relevant folders)
+    - Perform a :doc:`/usage/scan-modes` (skips Eventlog and checks only the most relevant folders)
   * - **-e target-folder**
     - Write all output files to the given folder
 
