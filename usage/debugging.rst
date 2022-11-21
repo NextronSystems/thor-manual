@@ -255,26 +255,22 @@ Run **thor --version** and copy the resulting text into the email.
 
 On Windows: 
 
-.. code:: batch 
+.. code-block:: doscon 
 
-   thor64.exe --version 
+   C:\thor>thor64.exe --version
+   THOR 10.6.6
+   Build bea8066 (2021-04-27 14:32:40)
+   YARA 4.0.5
+   PE-Sieve 0.2.8.5
+   OpenSSL 1.1.1j
+   Signature Database 2021/05/03-150936
+   Sigma Database 0.19.1-1749-g2f12c5c5 
 
 On Linux: 
 
-.. code:: bash 
+.. code-block:: console 
 
-   ./thor-linux-64 --version 
-
-On Mac OS:
-
-.. code:: bash 
-
-   ./thor-macosx --version
-
-This should produce a message like this: 
-
-.. code::
-
+   user@desktop:~$ ./thor-linux-64 --version
    THOR 10.6.6
    Build bea8066 (2021-04-27 14:32:40)
    YARA 4.0.5
@@ -283,6 +279,21 @@ This should produce a message like this:
    Signature Database 2021/05/03-150936
    Sigma Database 0.19.1-1749-g2f12c5c5
 
+On Mac OS:
+
+.. code-block:: console 
+
+   user@macos:~$ ./thor-macosx --version
+   THOR 10.6.6
+   Build bea8066 (2021-04-27 14:32:40)
+   YARA 4.0.5
+   PE-Sieve 0.2.8.5
+   OpenSSL 1.1.1j
+   Signature Database 2021/05/03-150936
+   Sigma Database 0.19.1-1749-g2f12c5c5
+
+This should produce a message like this: 
+
 What is the target platform that THOR fails on? 
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -290,21 +301,21 @@ Please provide the output of the following commands.
 
 On Windows: 
 
-.. code:: batch 
+.. code-block:: doscon 
 
-   systeminfo > systeminfo.txt 
+   C:\Users\user>systeminfo > systeminfo.txt 
 
 On Linux: 
 
-.. code:: bash 
+.. code-block:: console 
 
-   uname -a 
+   user@desktop:~$ uname -a 
 
 On Mac OS:
 
-.. code:: bash 
+.. code-block:: console 
 
-   system_profiler -detailLevel mini > system_profile.txt
+   user@macos:~$ system_profiler -detailLevel mini > system_profile.txt
 
 Which command line arguments do you use?
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -312,9 +323,9 @@ Which command line arguments do you use?
 Please provide a complete list of command line arguments that you've used 
 when the error occurred.
 
-.. code:: batch 
+.. code-block:: doscon 
 
-   thor64.exe --quick -e D:\logs -p C:\Windows\System32
+   C:\thor>thor64.exe --quick -e D:\logs -p C:\Windows\System32
 
 Provide the log of a scan with --debug flag 
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -327,16 +338,16 @@ problem occurred adding the **--debug** command line flag.
 
 E.g.
 
-.. code:: batch 
+.. code-block:: doscon 
 
-   thor64.exe --quick -e D:\logs -p C:\Windows\System32 --debug
+   C:\thor>thor64.exe --quick -e D:\logs -p C:\Windows\System32 --debug
 
 If you're able to pinpoint the error to a certain module, you could limit 
 the scan to that module to get to the problematic element more quickly, e.g.
 
-.. code:: batch 
+.. code-block:: doscon 
 
-   thor64.exe -a Rootkit --debug
+   C:\thor>thor64.exe -a Rootkit --debug
 
 After the scan you will find the normal text log (\*.txt) in the program folder.
 It is okay to replace confidential information like the hostname or IP addresses.

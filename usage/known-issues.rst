@@ -37,9 +37,9 @@ THOR#002: Workaround
 
 You have to add the ``--alldrives`` flag on your own. E.g.
 
-.. code:: none
+.. code-block:: doscon
 
-    thor64.exe --lab -p Z:\myshare --alldrives
+    C:\thor>thor64.exe --lab -p Z:\myshare --alldrives
 
 THOR#002: Status
 ~~~~~~~~~~~~~~~~
