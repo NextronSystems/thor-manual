@@ -35,7 +35,7 @@ which is meant to be used in corporate forensic labs.
 
 You can achieve a similar (but not equal) scan using the following command line flags 
 
-.. code:: batch 
+.. code-block:: batch 
 
    thor64.exe -a Filescan --intense --norescontrol --cross-platform --alldrives -p path-to-scan
    
@@ -59,7 +59,7 @@ the forensic lab workstation.
 Virtual drive mapping allows you to virtually map that drive to its
 original name. The syntax is as follows:
 
-.. code:: bash
+.. code-block:: bash
 
    --virtual-map current-location:original-location
 
@@ -68,21 +68,21 @@ Some examples:
 A original partition “C:” from the source system has been mounted to
 drive “F:” on the forensic lab workstation:
 
-.. code:: bash
+.. code-block:: bash
 
    --virtual-map F:C
 
 A original mount point “/” has been mounted to “/mnt/image1” on a Linux
 forensic lab workstation:
 
-.. code:: bash
+.. code-block:: bash
 
    --virtual-map /mnt/image1:/
 
 A Windows image of drive “C:” mounted to “/mnt/image1” on a Linux
 forensic lab workstation:
 
-.. code:: bash
+.. code-block:: bash
 
    --virtual-map /mnt/image1:C
 
@@ -103,7 +103,7 @@ forensic lab workstation as the source.
 You should use the name of the host from which the image has been
 retrieved as the value for that parameter.
 
-.. code:: bash
+.. code-block:: bash
 
    -j orig-hostname
 
@@ -113,9 +113,9 @@ Examples
 A full command line of a THOR scan started in a lab environment would
 look like this:
 
-.. code:: batch
+.. code-block:: doscon
 
-   thor64.exe --lab -p S:\\ --virtual-map S:C –j WKS001 -e C:\\reports
+   C:\thor>thor64.exe --lab -p S:\\ --virtual-map S:C –j WKS001 -e C:\\reports
 
 It instructs THOR to scan the mounted partition S: in lab scanning mode,
 maps the current partition “S:” to a virtual drive “C:”, replaces the
@@ -155,9 +155,9 @@ folder, THOR scans this file and writes a log message if suspicious
 indicators have been found. The optional parameter **--dropdelete** can
 be used to remove the dropped file once it has been scanned. Example:
 
-.. code:: batch
+.. code-block:: doscon
 
-   thor.exe --dropzone –p C:\\dropzone
+   C:\thor>thor64.exe --dropzone –p C:\dropzone
 
 .. warning::
 
@@ -172,6 +172,26 @@ be used to remove the dropped file once it has been scanned. Example:
 
     This feature requires a `forensic lab license <https://www.nextron-systems.com/2020/11/11/thor-forensic-lab-license-features/>`__
     or `Thunderstorm license <https://www.nextron-systems.com/thor/license-packs/>`__ which are meant to be used in forensic labs.
+
+Drop Zone Mode Output
+^^^^^^^^^^^^^^^^^^^^^
+
+We designed the drop zone mode to show only relevant output (Notice, Warning or Alert)
+after the initialization to reduce clutter on the screen. This might look like no files
+are being scanned, which is actually not the case. To see if files are being scanned,
+you can do one of the following two options.
+
+You can drop the `EICAR test file <https://www.eicar.org/download-anti-malware-testfile/>`_ into the defined dropzone to test if findings are shown properly:
+
+.. figure:: ../images/thor_dropzone_mode_example1.png
+   :target: ../_images/thor_dropzone_mode_example1.png
+   :alt: Example of a THOR Drop Zone Mode finding
+
+Or you can print all output with ``--printall`` - this might clutter the output:
+
+.. figure:: ../images/thor_dropzone_mode_example2.png
+   :target: ../_images/thor_dropzone_mode_example2.png
+   :alt: Example of a THOR Drop Zone Mode finding
 
 Image File Scan Mode (-m)
 -------------------------
@@ -191,7 +211,7 @@ only (including custom YARA signatures).
 The only suitable use case is the scan of a memory dump using your own
 YARA signatures placed in the "./custom-signatures/yara" sub folder.
 
-.. code:: batch
+.. code-block:: batch
 
    thor.exe –m systemX123.mem –j systemX123 –e C:\\reports
 
@@ -263,7 +283,7 @@ The parameter **-n** works like the **-p** parameter in the Filesystem
 module. It takes the target Eventlog as parameter, which is the Windows
 Eventlog’s full name.
 
-.. code:: batch
+.. code-block:: batch
 
    thor.exe -a Eventlog –n "Microsoft-Windows-Sysmon/Operational"
 
@@ -281,7 +301,7 @@ certain Eventlogs. The following command will start a default THOR scan
 and instructs the Eventlog module to scan only the “Security” and
 “System” Eventlog.
 
-.. code:: batch
+.. code-block:: batch
 
    thor.exe -n Security -n System
 
