@@ -4,26 +4,62 @@ Use Cases
 
 This chapter contains use cases that users often asked for.
 
-Disk Image Analysis with FTKImager
-----------------------------------
+Disk Image Analysis
+-------------------
 
-THOR, as a scanner, does not mount disk images to a certain driver on your forensic workstation. You have to use 3rd party tools for that task. We recommend using `FTKImager <https://accessdata.com/product-download#digital-forever>`__.
+THOR, as a scanner, does not mount disk images to a certain driver
+on your forensic workstation. You have to use 3rd party tools for
+that task. Please see :ref:`usage/use-cases:arsenal image mounter (aim)`
+and :ref:`usage/use-cases:ftkimager` below to get an overview of
+potential tools to use.
 
-In case you plan to use an automated setup in which you use scripts to automatically process images, you could try to use the old `command line versions of FTKimager <https://accessdata.com/product-download#past-versions>`__.
+First, you mount the image to a certain drive with your prefered tool.
+Afterwards you can use THOR in the lab scanning mode to analyze the
+mounted image. To benefit from all features of this mode, you have to
+acquire and use a so-called **forensic lab** or **lab** license.
 
-So, first you mount the image to a certain drive and then use THOR in lab scanning mode to analyze the mounted image. To benefit from all features of this mode, you have to acquire and use a so-called **forensic lab** or **lab** license.
-
-The following example shows a recommended set of parameters, scanning a mounted image of a host named ``WKS0001`` on drive ``S:\`` of your forensic Windows workstation. 
+The following example shows a recommended set of parameters, scanning
+a mounted image of a host named ``WKS0001`` on drive ``S:\`` of
+your forensic Windows workstation. 
 
 .. code-block:: doscon
 
     C:\thor>thor64.exe --lab --virtual-map S:C -j WKS0001 -p S:\
 
-The ``--lab`` parameter will apply several internal flags (e.g. enables intense mode scanning every file, enables multi-threading, disables resource control, removes all limitations). The ``--virtual-map`` parameter maps every file found in elements of that image to the original drive letter and allows the message enrichment to work correctly. The ``-j HOSTNAME`` parameter can be used to write every log line with the hostname of the original system and not with that of the forensic workstation.
+The ``--lab`` parameter will apply several internal flags (e.g. enables
+intense mode scanning every file, enables multi-threading, disables
+resource control, removes all limitations). The ``--virtual-map``
+parameter maps every file found in elements of that image to the
+original drive letter and allows the message enrichment to work
+correctly. The ``-j HOSTNAME`` parameter can be used to write every
+log line with the hostname of the original system and not with that
+of the forensic workstation.
 
 You find more information on the scan parameters in the chapter :doc:`/usage/special-scan-modes`.
 
-This `blog post <https://thinkdfir.com/2021/06/03/you-want-me-to-deal-with-how-many-vmdks/>`__ mentions different ways to use commercial or built-in tools to mount and scan VMDK images. 
+This `blog post <https://thinkdfir.com/2021/06/03/you-want-me-to-deal-with-how-many-vmdks/>`__
+mentions different ways to use commercial or built-in tools to mount and scan VMDK images.
+
+Arsenal Image Mounter (AIM)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+We recommend using `Arsenal Image Mounter <https://arsenalrecon.com/products/arsenal-image-mounter>`_.
+
+In case you plan to use an automated setup in which you use scripts
+to automatically process images, you could try to use the command-line
+of AIM, please see the ``aim_cli.exe`` within the program folder for more help.
+
+FTKImager
+^^^^^^^^^
+
+Alternatively, you can use the tool `FTKImager <https://accessdata.com/product-download#digital-forever>`_
+to mount your image. In case you plan to use an automated setup in which
+you use scripts to automatically process images, you could try to use
+the old `command line versions of FTKimager <https://accessdata.com/product-download#past-versions>`__.
+
+.. note:: 
+    We recommend using Arsenal Image Mounter to mount your images, since we observed better performance
+    during our internal tests.
 
 Memory Image Analysis with Volatility
 -------------------------------------
