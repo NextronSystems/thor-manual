@@ -33,6 +33,7 @@ On macOS use the following command:
 .. code-block:: console 
 
    MacBook:~ nextron$ sysctl kern.hostname
+   MacBook
 
 Some more remarks regarding the hostname values: 
 
