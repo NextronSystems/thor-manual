@@ -29,7 +29,7 @@ the use of parameter on different operating systems.
 These can be used in command line parameters and scan templates across
 all platforms.
 
-.. code:: batch
+.. code-block:: batch
 
    thor64.exe -a FileScan -p S:\\ -o :hostname:\_:time:.csv
 
@@ -66,7 +66,7 @@ column.
 If you need more columns in that CSV, consider processing the JSON
 output instead.
 
-Note: our Github repository contains scripts to convert THOR’s JSON
+Note: our Github repository contains scripts to convert THOR's JSON
 output into a CSV with any given field values, see:
 
 `https://github.com/NextronSystems/nextron-helper-scripts/tree/master/thor-log-processors <https://github.com/NextronSystems/nextron-helper-scripts/tree/master/thor-log-processors>`__
@@ -84,7 +84,7 @@ errors
 CSV Stats Output:
 
 +-------------------------------------------------------------------------------------------------------------------------------+
-| ﻿HYPERION,2021-02-17 17:01:25,2021-02-17 17:01:28,10.6.2,--lab -p C:\\temp -o HYPERION\_test\_:time:.csv --csvstats,5,2,3,0   |
+| HYPERION,2021-02-17 17:01:25,2021-02-17 17:01:28,10.6.2,--lab -p C:\\temp -o HYPERION\_test\_:time:.csv --csvstats,5,2,3,0    |
 +-------------------------------------------------------------------------------------------------------------------------------+
 
 JSON Output (.json)
@@ -139,7 +139,7 @@ Timestamps
 
 Timestamp in all modules use the ANSIC standard, which looks like:
 
-.. code:: none
+.. code-block:: none
 
    Mon Jan 2 15:04:05 2006
    Mon Mar 19 09:04:05 2018
@@ -149,12 +149,12 @@ https://flaviocopes.com/go-date-time-format
 UTC
 ~~~
 
-The **--utc** parameter allows to use UTC in all timestamps.
+The ``--utc`` parameter allows to use UTC in all timestamps.
 
 RFC3339 Time Stamps
 ~~~~~~~~~~~~~~~~~~~
 
-The parameter **--rfc3339** generates time stamps for UTC time in the
+The parameter ``--rfc3339`` generates time stamps for UTC time in the
 format described in RFC 3339. In contrast to the default time stamps RFC
 3339 timestamps include a year and look like this:
 
@@ -180,7 +180,7 @@ If no parameter is set, THOR will automatically generate a random scan
 ID, which starts with an “\ **S-**\ “ and contains the following
 characters: **a-zA-Z0-9\_-**
 
-Users can overwrite the scan ID with “-i myscanid” to assign the logs of
+Users can overwrite the scan ID with ``-i myscanid`` to assign the logs of
 multiple scan runs to a single logical scan, e.g. if multiple partitions
 of a system get scanned in the lab in different scan runs, but should be
 shown as a single scan in Analysis Cockpit or your SIEM of choice.
@@ -194,7 +194,7 @@ Examples:
 
 In a log line, it looks like:
 
-.. code:: none
+.. code-block:: none
 
    Jul 10 09:08:47 PROMETHEUS/10.0.2.15 THOR: Alert: MODULE: SHIMCache
    SCANID: S-r4GhEhEiIRg MESSAGE: Malware name found in Shim Cache Entry ENTRY:
@@ -205,7 +205,7 @@ Custom Scan ID Prefix
 ~~~~~~~~~~~~~~~~~~~~~
 
 Since version 10.5 you are able to set you custom prefix by using
-**--scanid-prefix**. The fixed character “S” can be replaced with any
+``--scanid-prefix``. The fixed character "S" can be replaced with any
 custom string. This allows users to set an identifier for a group of
 scans that can be grouped together in a SIEM or Analysis Cockpit.
 
@@ -223,9 +223,9 @@ For example, if you want to send the THOR log entries to a Syslog server
 and an ArcSight SIEM at the same time, you just have to define two log
 targets with different formats.
 
-.. code:: batch
+.. code-block:: doscon
    
-   thor.exe -s syslog1.server.net -s arsight.server.net:514:CEF
+   C:\nextron\thor>thor.exe -s syslog1.server.net -s arsight.server.net:514:CEF
 
 The definition consists of 4 elements:
 
@@ -235,7 +235,7 @@ The definition consists of 4 elements:
 
 The available options for each element are:
 
-.. code:: bash
+.. code-block:: bash
 
    (target ip):(target port):(DEFAULT/CEF/JSON/SYSLOGJSON/SYSLOGKV):(UDP/TCP/TCPTLS)
 
@@ -260,21 +260,21 @@ The available type field values require an explication:
 
 There are default values, which do not have to be defined explicitly:
 
-.. code:: bash
+.. code-block:: bash
 
    (your target system ip):514:DEFAULT:UDP
 
 Sending Syslog to a target on a port that differs from the default port
 514/udp looks like this:
 
-.. code:: bash
+.. code-block:: bash
 
    -s 10.0.0.4:2514
 
 Sending Syslog to a receiving server using an SSL/TLS encrypted TCP
 connection:
 
-.. code:: bash
+.. code-block:: bash
 
    -s 10.0.0.4:6514:DEFAULT:TCPTLS
 
@@ -282,7 +282,7 @@ You can define as many targets as you like.
 
 An often used combination sends JSON formatted messages to a certain UDP port:
 
-.. code:: bash 
+.. code-block:: bash 
 
    -s 10.0.0.4:5444:JSON:UDP
 
@@ -293,18 +293,23 @@ THOR supports the CEF format for easy integration into ArcSight SIEM
 systems. The CEF mapping is applied to a log line if the syslog target
 has the CEF format set, e.g.:
 
-.. code:: batch
+.. code-block:: doscon
 
-   thor.exe -s syslog1.server.local:514:CEF
+   C:\nextron\thor>thor.exe -s syslog1.server.local:514:CEF
 
 Local Syslog
 ^^^^^^^^^^^^
 
-If your Linux system is already configured to forward syslog messages, you might just want to write to your local syslog and use the existing system configuration to forward the events. This can be achieved by using the ``--local-syslog`` flag.
+If your Linux system is already configured to forward syslog messages, you might just want to write
+to your local syslog and use the existing system configuration to forward the events. This can be
+achieved by using the ``--local-syslog`` flag.
 
-THOR logs to the ``local0`` facility that is not being written to a file by default on every Linux distribution. By default Debian derivatives log it to ``/var/log/syslog``; Others such as Red Hat do not. To enable writing ``local0`` messages to a file a syslog configuration for rsyslog (e.g. ``/etc/rsyslog.conf``) could look like:
+THOR logs to the ``local0`` facility that is not being written to a file by default on every
+Linux distribution. By default Debian derivatives log it to ``/var/log/syslog``; Others such
+as Red Hat do not. To enable writing ``local0`` messages to a file a syslog configuration for
+rsyslog (e.g. ``/etc/rsyslog.conf``) could look like:
 
-.. code::
+.. code-block::
 
     # THOR --local-syslog destination
     local0.*        -/var/log/thor
@@ -317,20 +322,20 @@ Encrypted Output Files
 ----------------------
 
 THOR allows to encrypt the output files of each scan using the
-**--encrypt** parameter. A second parameter **--pubkey** can be used to
+``--encrypt`` parameter. A second parameter ``--pubkey`` can be used to
 specify a public key to use. The public key must be a RSA key of 1024,
 2048 or 4096 bit size in PEM format.
 
-.. code:: batch
+.. code-block:: doscon
  
-   thor64.exe --encrypt --pubkey mykey.pub
+   C:\nextron\thor>thor64.exe --encrypt --pubkey mykey.pub
 
-If you don’t specify a public key, THOR uses a default key. The private
+If you don't specify a public key, THOR uses a default key. The private
 key for this default key is stored in "thor-util", which can be used to
 decrypt output files encrypted with the default key.
 
-.. code:: bash
+.. code-block:: console
 
-   thor-util decrypt file.txt
+   nextron@unix:~$ thor-util decrypt file.txt
 
 For more information on "thor-util" see the separate `THOR Util manual <https://thor-util-manual.nextron-systems.com/>`__.

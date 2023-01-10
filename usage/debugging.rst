@@ -2,11 +2,11 @@
 Debugging
 =========
 
-Most unexpected behavior can be debugged by using the parameter **--debug**.
+Most unexpected behavior can be debugged by using the parameter ``--debug``.
 
 If you ever encounter a situation in which:
 
-* THOR doesn’t produce an alert on a known malicious element
+* THOR doesn't produce an alert on a known malicious element
 * THOR exits with an error
 * THOR takes a long time or unexpected short time on elements
 
@@ -21,49 +21,49 @@ or if THOR exits unexpectedly. More detail can be found in the
 Debugging Examples 
 ------------------
 
-Then try scanning that specific element with the **--debug** parameter set.
+Then try scanning that specific element with the ``--debug`` parameter set.
 
 To run only a certain module use: 
 
-.. code:: batch 
+.. code-block:: doscon 
    
-   thor64.exe -a Mutex
-   thor64.exe -a FileScan 
-   thor64.exe -a Eventlog
+   C:\nextron\thor>thor64.exe -a Mutex
+   C:\nextron\thor>thor64.exe -a FileScan 
+   C:\nextron\thor>thor64.exe -a Eventlog
 
 You can try to reduce the scope of a module even further by using lookbacks
 
-.. code:: batch
+.. code-block:: doscon
 
-   thor64.exe -a Eventlog --lookback 3
-   thor64.exe -a FileScan -p C:\Windows\System32 --globallookback --lookback 1
+   C:\nextron\thor>thor64.exe -a Eventlog --lookback 3
+   C:\nextron\thor>thor64.exe -a FileScan -p C:\Windows\System32 --globallookback --lookback 1
 
 To find out why a certain file couldn't be detected, use 
-**--debug** with **--printall** and try to switch into **intense mode**.  
+``--debug`` with ``--printall`` and try to switch into ``--intense`` mode.  
 
-.. code:: batch
+.. code-block:: doscon
 
-   thor64.exe -a Filescan -p C:\testfolder --debug --printall 
-   thor64.exe -a Filescan -p C:\testfolder --debug --printall --intense
+   C:\nextron\thor>thor64.exe -a Filescan -p C:\testfolder --debug --printall 
+   C:\nextron\thor>thor64.exe -a Filescan -p C:\testfolder --debug --printall --intense
 
-If it has been detected in **intense mode** but not in default mode, 
+If it has been detected in ``--intense`` mode but not in default mode, 
 the file extension or the magic header is most likely the problem.
-You can adjust **max_file_size** in **./config/thor.yml** or add a 
-magic header in **./signatures/misc/file-type-signatures.cfg**.
+You can adjust ``max_file_size`` in ``./config/thor.yml`` or add a 
+magic header in ``./signatures/misc/file-type-signatures.cfg``.
 
 Finding Bottlenecks 
 -------------------
 
-You may get the error message "**MODULE: RuntimeWatcher MESSAGE: Maximum runtime has exceeded, killing THOR**" or encounter very slow
-or never-ending scans.
+You may get the error message ``MODULE: RuntimeWatcher MESSAGE: Maximum runtime has exceeded, killing THOR``
+or encounter very slow or never-ending scans.
 
-You can check the statistics table in "**thor10.db**" on that end
+You can check the statistics table in ``thor10.db`` on that end
 system after a scan to determine the last element or elements that took
 a long time to process.
 
 We recommend using: https://sqlitebrowser.org/
 
-The THOR DB is located at: **C:\\ProgramData\\thor\\thor10.db**
+The THOR DB is located at: ``C:\ProgramData\thor\thor10.db``.
 
 .. figure:: ../images/image13.png
    :target: ../_images/image13.png
@@ -72,12 +72,12 @@ The THOR DB is located at: **C:\\ProgramData\\thor\\thor10.db**
 Most Frequent Causes of Missing Alerts
 --------------------------------------
 
-THOR didn’t scan file due to file size restrictions
+THOR didn't scan file due to file size restrictions
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Solution: Use **--max\_file\_size** parameter or set permanently in
-config file  "**./config/thor.yml**". Also note that in lab scanning
-mode the default value is much bigger (**--max\_file\_size\_intense**)
+Solution: Use ``--max_file_size`` parameter or set permanently in
+config file  ``./config/thor.yml``. Also note that in lab scanning
+mode the default value is much bigger (``--max_file_size_intense``)
 
 THOR didn’t scan the file due to a skipped deeper inspection
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -85,8 +85,8 @@ THOR didn’t scan the file due to a skipped deeper inspection
 This can be caused by two reasons:
 
 The magic header of that file is not in the list of interesting magic
-headers (see **./signatures/misc/file-type-signatures.cfg**) AND file
-doesn’t have a relevant file extension (.asp, .vbs, .ps, .ps1, .rar,
+headers (see ``./signatures/misc/file-type-signatures.cfg``) AND file
+doesn't have a relevant file extension (.asp, .vbs, .ps, .ps1, .rar,
 .tmp, .bas, .bat, .chm, .cmd, .com, .cpl, .crt, .dll, .exe, .hta, .js,
 .lnk, .msc, .ocx, .pcd, .pif, .pot, .pdf, .reg, .scr, .sct, .sys, .url,
 .vb, .vbe, .vbs, .wsc, .wsf, .wsh, .ct, .t, .input, .war, .jsp, .php,
@@ -95,8 +95,8 @@ doesn’t have a relevant file extension (.asp, .vbs, .ps, .ps1, .rar,
 .ps1xml, .clixml, .psc1, .pssc, .pl, .www, .rdp, .jar, .docm, .ace,
 .job, .temp, .plg, .asm)
 
-Solution: Use an intense scanning mode for that folder (**--intense**) 
-or add the magic header to **file-type-signatures.cfg** 
+Solution: Use an intense scanning mode for that folder (``--intense``) 
+or add the magic header to ``file-type-signatures.cfg``
 (Warning: this file gets overwritten with an update; Warning: intense 
 scanning mode threatens the scan's and system's stability).
 
@@ -106,8 +106,8 @@ It happens very often that users that prepare custom IOCs or YARA rules
 forget to include the correct keyword in the filename of the IOC or YARA
 rule file.
 
-The correct use of keywords is described in the chapters :ref:`usage/custom-signatures:Simple IOCs` for IOCs and
-:ref:`usage/custom-signatures:Specific YARA Rules` for YARA rules.
+The correct use of keywords is described in the chapters :ref:`usage/custom-signatures:Simple IOCs`
+for IOCs and :ref:`usage/custom-signatures:Specific YARA Rules` for YARA rules.
 
 A wrong or missing keyword leads to situations in which a file that contains 
 YARA rules that are meant to be applied to log files, doesn't contain a "log" 
@@ -115,14 +115,14 @@ keyword in it's name.
 
 You can review a correct initialization in the command line output or log file.
 
-.. code:: batch 
+.. code-block:: batch 
 
    Info Adding rule set from my-log-rules.yar as 'log' type
 
 Using the keyword **c2** for C2 IOCs in a filename should result in a line like 
 the following:
 
-.. code:: batch 
+.. code-block:: batch 
 
    Info Reading iocs from /tmp/thor10/custom-signatures/iocs/my-c2-iocs.txt as 'domains' type
 
@@ -141,7 +141,10 @@ Usually the following sources are responsible (descending order, by frequency):
 Antivirus or EDR suspends THOR
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-In more than 95% and more of the cases, an Antivirus or EDR is responsible for a stalled process. Especially McAfee AV/EDR is a well-known source of issues. This is caused by the different dialogues in which exceptions have to be defined and the fact the certain kinds of blocks cannot be found in any logs.
+In more than 95% and more of the cases, an Antivirus or EDR is responsible for a
+stalled process. Especially McAfee AV/EDR is a well-known source of issues. This
+is caused by the different dialogues in which exceptions have to be defined and
+the fact the certain kinds of blocks cannot be found in any logs.
 
 If a THOR scans stalls in one of these modules, a Antivirus or EDR interaction is highly likely: 
 
@@ -151,32 +154,47 @@ If a THOR scans stalls in one of these modules, a Antivirus or EDR interaction i
 - ShimCache
 - ProcessCheck
 
-Solution: Review all possible exclusions in your AV / EDR and add the THOR folder to the exclusion list
+**Solution**: Review all possible exclusions in your AV / EDR and add the THOR folder to the exclusion list
 
 Windows Quick Edit Mode 
 ^^^^^^^^^^^^^^^^^^^^^^^
 
-Since Windows 10, the Windows command line window has the so-called "Quick Edit Mode" enabled by default. This mode causes a behaviour that can lead to a paused THOR scan process. Whenever a user switches the active windows from the cmd.exe to a different application, e.g. Windows Explorer, and clicks back into the command line window, the running process automatically gets suspended. A user has to press "Enter" to resume the suspended process. As the progress indicator of THOR isn't always changing, this could lead to the impression that the scan paused by itself.
+Since Windows 10, the Windows command line window has the so-called "Quick Edit Mode"
+enabled by default. This mode causes a behavior that can lead to a paused THOR scan
+process. Whenever a user switches the active windows from the cmd.exe to a different
+application, e.g. Windows Explorer, and clicks back into the command line window, the
+running process automatically gets suspended. A user has to press "Enter" to resume
+the suspended process. As the progress indicator of THOR isn't always changing, this
+could lead to the impression that the scan paused by itself.
 
 See `this StackOverflow post <https://stackoverflow.com/questions/30418886/how-and-why-does-quickedit-mode-in-command-prompt-freeze-applications>`_ for more details.
 
-Solution: Press "Enter" in the command line window
+**Solution**: Press "Enter" in the command line window
 
 Constant High System Load 
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Since THOR automatically sets a low process priority a scan can slow down to a level that appears to be paused or suspended on systems that are under a constant high load.
+Since THOR automatically sets a low process priority a scan can slow down to a level
+that appears to be paused or suspended on systems that are under a constant high load.
 
-Solution: You can avoid this behaviour by using the ``--nolowprio`` flag. Be aware that scans on a system with a constant high CPU load take longer than on other systems and could slow down the processes that would otherwise take all the CPU capacity.
+**Solution**: You can avoid this behaviour by using the ``--nolowprio`` flag. Be aware
+that scans on a system with a constant high CPU load take longer than on other systems
+and could slow down the processes that would otherwise take all the CPU capacity.
 
 The Sensation of a Stalled Scan
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Under certain circumstances the scan may appear stalled but is still running. You can always interrupt a scan using CTRL+C that brings THOR into the interrupt menu in which you can see the currently scanned element. In case of the "FileScan" module, this is a file or folder. In case of the "EventLog" module, this is an event with an ID. If you resume the scan by pressing "C" and interrupt it again a few minutes later, you should see another element in the interrupt menu.
+Under certain circumstances the scan may appear stalled but is still running.
+You can always interrupt a scan using CTRL+C that brings THOR into the interrupt
+menu in which you can see the currently scanned element. In case of the "FileScan"
+module, this is a file or folder. In case of the "EventLog" module, this is an
+event with an ID. If you resume the scan by pressing "C" and interrupt it again
+a few minutes later, you should see another element in the interrupt menu.
 
-If THOR still processes the same element for several hours, we recommend checking that element (size, format, access rights, location).
+If THOR still processes the same element for several hours, we recommend checking
+that element (size, format, access rights, location).
 
-Solution: Check progress using the interrupt menu (CTRL+C)
+**Solution**: Check progress using the interrupt menu (CTRL+C)
 
 Most Frequent Causes of Failed Scans
 ------------------------------------
@@ -199,7 +217,7 @@ Note: A process termination that always happens at the same element is a sign fo
 Insufficient Free Memory
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
-.. code::
+.. code-block::
 
    fatal error: out of memory
 
@@ -209,16 +227,16 @@ Probable causes:
 2. THOR's scanning of certain elements requires a lot of memory
 3. You've set ulimit values that are too restrictive
 4. You are using the wrong THOR version for your architecture
-5. You've activated a feature that consumes a lot of memory (e.g. --mft or --intense)
+5. You've activated a feature that consumes a lot of memory (e.g. ``--mft`` or ``--intense``)
 
 Whenever THOR recognizes a low amount of free memory, THOR checks the 
 top 3 memory consumers on the system and includes them in the log message
 that it writes before exiting.
 
-You could try running THOR in Soft Mode (--soft) in which modules and 
+You could try running THOR in Soft Mode (``--soft``) in which modules and 
 features that require a lot of memory are deactivated.
 
-Using the 32bit binary of thor named **thor.exe** on a 64bit system 
+Using the 32bit binary of thor named ``thor.exe`` on a 64bit system 
 can lead to interrupted scans with this error message. The 32bit binary
 isn't able to address as much memory as the 64bit version. Always make 
 sure to use the correct THOR version for the respective architecture.
@@ -251,7 +269,7 @@ Tell us which THOR version you are using:
 1. For which operating system (Windows, Linux, macOS, AIX)
 2. For which architecture (32bit, 64bit)
 
-Run **thor --version** and copy the resulting text into the email.
+Run ``thor --version`` and copy the resulting text into the email.
 
 On Windows: 
 
@@ -330,11 +348,11 @@ when the error occurred.
 Provide the log of a scan with --debug flag 
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The most important element is a scan log of a scan with set **--debug** 
+The most important element is a scan log of a scan with set ``--debug`` 
 flag.
 
 The easiest way is to run the scan exactly as you've run it when the 
-problem occurred adding the **--debug** command line flag.
+problem occurred adding the ``--debug`` command line flag.
 
 E.g.
 
@@ -370,12 +388,12 @@ Provide the THOR database (Optional)
 The :ref:`usage/other-topics:THOR DB` helps us debug situations in which 
 the THOR scan timed out or didn't complete at all. It contains statistics on the 
 run time of all used modules and the durations of all folders up to the second 
-folder level from the root of a partition. (e.g. C:\\Windows\\SysWow64).
+folder level from the root of a partition. (e.g. ``C:\Windows\SysWow64``).
 
 The default location of that file is: 
 
-* Windows: **C:\\ProgramData\\thor\\thor10.db** 
-* Linux/macOS: **/var/lib/thor/thor10.db**
+* Windows: ``C:\ProgramData\thor\thor10.db``
+* Linux/macOS: ``/var/lib/thor/thor10.db``
 
 Please provide that file in situations in which: 
 
@@ -386,5 +404,7 @@ Please provide that file in situations in which:
 Further Notes 
 ^^^^^^^^^^^^^
 
-* If the files are too big to send, even after compression, please contact us and you'll receive a file upload link that you can use 
-* If a certain file or element (eventlog, registry hive) caused the issue, please check if you can provide that file or element for our analysis
+* If the files are too big to send, even after compression, please contact
+  us and you'll receive a file upload link that you can use 
+* If a certain file or element (eventlog, registry hive) caused the issue,
+  please check if you can provide that file or element for our analysis

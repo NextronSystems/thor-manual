@@ -15,7 +15,7 @@ THOR on Windows creates a process dump of any process that is considered
 malicious. Maliciousness is determined as anything that triggers a
 warning or an alert.
 
-Activate process memory dumping with "**--dump-procs**".
+Activate process memory dumping with ``--dump-procs``.
 
 This process dump can then be analyzed with standard tools later on to
 examine the found malware.
@@ -48,9 +48,9 @@ File Collection (Bifrost)
 Bifrost v1 with Script-Based Server
 """""""""""""""""""""""""""""""""""
 
-The **./tools** folder in the program directory contains a simple Python
+The ``./tools`` folder in the program directory contains a simple Python
 based file collection server named Bifrost. The script is named
-**bifrost-server.py**.
+``bifrost-server.py``.
 
 You can run that script on any internal system with a Python script
 interpreter installed. By default, it uses port 1400/tcp for incoming
@@ -58,36 +58,37 @@ connections but you can use any port you like.
 
 Usage is:
 
-.. code:: none
+.. code-block:: console
 
-    usage: bifrost-server.py [-h] [-d out-dir] [-i ip] [-p port]
-
-    Bifrost optional arguments:
-
-    -h, --help  show this help message and exit
-    -d out-dir  Quarantine directory
-    -i ip       IP address to bind to
-    -p port     Port to bind to (tcp, default 1400)
+   nextron@unix:~$ python ./bifrost-server.py -h
+   usage: bifrost-server.py [-h] [-d out-dir] [-i ip] [-p port]
+  
+   Bifrost optional arguments:
+  
+   -h, --help  show this help message and exit
+   -d out-dir  Quarantine directory
+   -i ip       IP address to bind to
+   -p port     Port to bind to (tcp, default 1400)
 
 You can run the server script with:
 
-.. code:: bash
+.. code-block:: console
    
-   python ./bifrost-server.py
+  nextron@unix:~$ python ./bifrost-server.py
 
 In order to send suspicious file to that server, you have to set some
 command line flags when running THOR, e.g.
 
-.. code:: batch
+.. code-block:: doscon
    
-   thor64.exe --bifrostServer myserver
+  C:\nextron\thor>thor64.exe --bifrostServer myserver
 
 A more complex statement setting a minimum score and custom port would
 look like this:
 
-.. code:: batch
+.. code-block:: doscon
    
-   thor64.exe --bifrostServer myserver --bifrost-port 8080 --bifrostLevel 80
+  C:\nextron\thor>thor64.exe --bifrostServer myserver --bifrost-port 8080 --bifrostLevel 80
 
 THOR will then try to submit all samples with score equal or higher than
 80 to a Bifrost service running on ``myserver`` port 8080/tcp.
@@ -116,7 +117,7 @@ single or group scan via the ASGARD management interface.
 Resource Control
 ----------------
 
-THOR’s internal resource control feature puts the system’s stability and
+THOR's internal resource control feature puts the system's stability and
 the responsiveness of running services first.
 
 Resource control is active by default. You can deactivate it using
@@ -143,7 +144,7 @@ that could have caused the memory exhaustion.
    Resource Control Scan Termination
 
 Warning: Deactivating Resource Control on systems with exhausted
-resources can put the system’s stability at risk.
+resources can put the system's stability at risk.
 
 Automatic Soft Mode
 ^^^^^^^^^^^^^^^^^^^
@@ -156,10 +157,11 @@ One of the following conditions activates soft mode:
 * Less than 2 CPU cores
 * Less than 1024 MB of RAM
 
-In Soft mode several checks and features that could risk system’s
+In Soft mode several checks and features that could risk system's
 stability or could provoke an Antivirus or HIDS to intervene with the
-scanner are disabled. See :doc:`chapter Scan Modes <./scan-modes>` for a complete
+scanner are disabled. See :ref:`usage/scan-modes:scan modes` for a complete
 overview.
+
 
 Scoring System
 --------------
@@ -205,7 +207,7 @@ Scoring per Signature Type Match
    * - YARA match
      - Defined in the meta data of the YARA rule as integer value (e.g. "score = 50")
    * - Filename IOC match
-     - Defined in the 2\ :sup:`nd` field of the CSV (e.g. "\\\\evil.exe;80")
+     - Defined in the 2\ :sup:`nd` field of the CSV (e.g. ``\\evil.exe;80``)
    * - Keyword IOC match
      - "warning" level messages, see :ref:`usage/other-topics:Default Scores`
    * - C2 IOC match
@@ -260,13 +262,13 @@ scores is more than 75.
 Before that change, multiple low scoring reasons had led to a score
 higher 100 and caused an "Alert" level message although not a single
 hard match was included in the "Reasons". A wrong extension, e.g.
-"**.txt**" for an executable, which is often used by employees to hand
+``.txt`` for an executable, which is often used by employees to hand
 executables through tight mail filters, and a suspicious location, e.g.
-"**C:\\Temp\\funprog.txt**" caused an "Alert" level message.
+``C:\Temp\funprog.txt`` caused an "Alert" level message.
 
 Since version 8.27.2, one of the sub scores that pushes the total score
 over 100 has to be more than 75. (internally calculated as "alert\_level
-- 25" because the user can adjust the alert level via the "**--alert**"
+- 25" because the user can adjust the alert level via the ``--alert``
 parameter)
 
 Exception: Filename IOC Matches
@@ -294,21 +296,21 @@ Filename IOC Matching in String Check Example
 
 Imagine the following filename IOC signatures:
 
-.. code:: none
+.. code-block:: none
 
-   \\\\nmap.exe;70
-   \\\\bin\\\\nmap.exe;-30
+   \\nmap.exe;70
+   \\bin\\nmap.exe;-30
 
 and the following Keyword signature:
 
-.. code:: none
+.. code-block:: none
 
    nmap.exe
 
 The ``checkString()`` function receives the following string from the
 Eventlog scan module (here: a Sysmon Eventlog entry):
 
-.. code:: none
+.. code-block:: none
 
    Process Create:
    UtcTime: 20180110 10:22:25.277
@@ -370,15 +372,15 @@ Command Line Use
 
 A typical use would be e.g. to copy a sample to a network share:
 
-.. code:: bash
+.. code-block:: doscon
    
-   copy %filepath% \\\\server\\share1
+  C:\Users\nextron>copy %filepath% \\\\server\\share1
 
 To instruct THOR to run this command, you need
 
-.. code:: batch
+.. code-block:: doscon
    
-   thor64.exe --action\_command copy --action\_args %filepath% --action\_args \\\\server\\share1
+  C:\nextron\thor>thor64.exe --action_command copy --action_args %filepath% --action_args \\server\share1
 
 Use in a Config File
 ^^^^^^^^^^^^^^^^^^^^
@@ -397,7 +399,7 @@ THOR DB
 
 This simple SQLite database is created by default in the
 "**%ProgramData%\\thor**" (Linux, macOS: **/var/lib/thor/**) directory as "**thor10.db**". 
-You can deactivate THOR DB and all its features by using the "**--nothordb**" flag.
+You can deactivate THOR DB and all its features by using the ``--nothordb`` flag.
 
 It stores persistent information over several scan runs:
 
@@ -426,27 +428,27 @@ The THOR DB related command line options are:
 Scan Resume
 ^^^^^^^^^^^
 
-THOR tries to resume a scan when you set the **--resume** parameter.
-Since THOR version 10.5 the resume state doesn’t get tracked by default
+THOR tries to resume a scan when you set the ``--resume`` parameter.
+Since THOR version 10.5 the resume state doesn't get tracked by default
 due to its significant performance implications. If you want to be able
-to resume a scan, you have to start scans with the **--resume** flag. If
+to resume a scan, you have to start scans with the ``--resume`` flag. If
 you start a scan and a previous resume state is present, then THOR is
 going to resume the interrupted scan.
 
 It will only resume the previous scan if
 
-1. You have started the scan with **--resume**
+1. You have started the scan with ``--resume``
 
 2. The argument list is exactly the same as in the first scan attempt
 
-3. You haven’t used the flag **--nothordb**
+3. You haven't used the flag ``--nothordb``
 
 4. | scan state information is still available
    | (could have been cleared by running THOR a second time without the
-     **--resume** parameter)
+     ``--resume`` parameter)
 
 You can always clear the resume state and discard an old state by
-running thor.exe once without using the **--resume** parameter.
+running thor.exe once without using the ``--resume`` parameter.
 
 Delta Comparison
 ^^^^^^^^^^^^^^^^

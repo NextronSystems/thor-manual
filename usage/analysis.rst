@@ -72,7 +72,7 @@ https://splunkbase.splunk.com/app/3718/
 THOR Util Report Feature
 ------------------------
 
-THOR Util provides a feature called “report” that creates HTML reports
+THOR Util provides a feature called "report" that creates HTML reports
 from text logs of one or more scanned systems.
 
 .. figure:: ../images/image17.png
@@ -89,7 +89,7 @@ https://www.nextron-systems.com/2018/06/20/thor-util-with-html-report-generation
 Log Analysis Manual
 -------------------
 
-The Customer Portal contains a log analysis manual in the “Downloads”
+The Customer Portal contains a log analysis manual in the "Downloads"
 section.
 
 .. figure:: ../images/image18.png
