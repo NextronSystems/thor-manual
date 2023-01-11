@@ -9,7 +9,7 @@ You can select between 6 different scan modes in THOR:
   | There's a special "Lab Scanning" (**--lab**) method described in section 9.1 that disables many limitations and allows to scan mounted images in a Lab scenario, even with multiple THOR instances on a single Workstation.
 
 -  | **Quick (--quick)**
-   | This mode is the fastest one and oriented on the "Pareto Principe", covering 80% of the modules and check in 20% of the normal scan time. In "quick" mode, THOR skips elements that have not been created or modified within the last 2 days in the "Eventlog", “Registry” and "Filescan" modules. A set of 40+ directories will still be checked completely (e.g. AppData, Recycler, System32). "Quick" mode is known to be the "preventive" scan mode – less intense and very fast.
+   | This mode is the fastest one and oriented on the "Pareto Principle", covering 80% of the modules and check in 20% of the normal scan time. In "quick" mode, THOR skips elements that have not been created or modified within the last 2 days in the "Eventlog", “Registry” and "Filescan" modules. A set of 40+ directories will still be checked completely (e.g. AppData, Recycler, System32). "Quick" mode is known to be the "preventive" scan mode – less intense and very fast.
 
 Themed scan modes:
 
