@@ -328,9 +328,11 @@ STIX version 1 is not supported.
 YARA Rules
 ----------
 
-THOR offers an interface to include own rules based on the YARA format.
-YARA rules must have the **.yar** extension for unencrypted YARA rules
-and the **.yas** extension for encrypted YARA rules.
+THOR allows you include your own custom YARA rules.
+YARA rules must have the **.yar** extension for plain text YARA rules
+and the **.yas** extension for encrypted YARA rules. (the rules can be encrypted using THOR Util)
+
+Custom YARA rules have to be saved to the ``.\custom-signatures\yara`` folder. In order to apply only custom YARA rules and IOCs, use the ``--customonly`` flag. 
 
 There are two custom YARA rule types that you can define in THOR:
 
