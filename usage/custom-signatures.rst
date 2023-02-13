@@ -1,21 +1,20 @@
-
 Custom Signatures
 =================
 
-THOR checks the contents of the "**./custom-signatures**" folder and
+THOR checks the contents of the ``./custom-signatures`` folder and
 processes every file in this folder. The extension determines the type
 of signature (e.g. a simple IOC file, a YARA rule, a Sigma rule, ...).
 For some signature types, string tags in the file names are used to
 further distinguish the signatures.
 
-For example, a **my-c2-iocs.txt** file will be
+For example, a ``my-c2-iocs.txt`` file will be
 initialized as a file containing simple IOC indicators with
 C2 server information.
 
 Internally the regex ``\Wc2\W`` is used to detect the
-tag, so "**mysource-c2-iocs.txt**" and
-"**dec15-batch1-c2-indicators.txt**" would be detected correctly,
-whereas on the contrary "**filenameiocs.txt**" or "**myc2iocs.txt**" would
+tag, so ``mysource-c2-iocs.txt`` and
+``dec15-batch1-c2-indicators.txt`` would be detected correctly,
+whereas on the contrary ``filenameiocs.txt`` or ``myc2iocs.txt`` would
 not.
 
 If you do not wish to place your custom IOCs on potentially compromised systems
@@ -27,11 +26,11 @@ Simple IOCs
 -----------
 
 Simple IOC files are basically CSV files that include the IOC and
-comments. The folder **./custom-signatures/iocs/templates** contains
+comments. The folder ``./custom-signatures/iocs/templates`` contains
 template files from which you can create your own IOC files.
 
-Simple IOC files must have the extension"**.txt**".
-Encrypted simple IOC files must have the extension "**.dat**".
+Simple IOC files must have the extension ``.txt``.
+Encrypted simple IOC files must have the extension ``.dat``.
 
 The following tags for simple IOCs are currently supported:
 
@@ -39,7 +38,9 @@ The following tags for simple IOCs are currently supported:
 * "**filename**" or "**filenames**" for file name IOCs
 * "**hash**" or "**hashes**" for MD5, SHA1, SHA256 hash IOCs
 * "**keyword**" or "**keywords**" for string based keywords
-* "**trusted-hash**" or "**trusted-hashes**" or "**falsepositive-hash**" or "**falsepositive-hashes**" for hashes that you trust (also expects CSV format in the form "**hash;comment**" like the hash IOCs)
+* "**trusted-hash**" or "**trusted-hashes**" or "**falsepositive-hash**" or
+  "**falsepositive-hashes**" for hashes that you trust (also expects CSV
+  format in the form "**hash;comment**" like the hash IOCs)
 * "**handles**" for malicious Mutex / Event IOCs
 * "**pipes**" or "**pipe**" for Named Pipe IOCs
 
@@ -73,7 +74,7 @@ The following tags for simple IOCs are currently supported:
 Hashes
 ^^^^^^
 
-Files with the tag "**hash**" or "**hashes**" in their name
+Files with the tag ``hash`` or ``hashes`` in their name
 get initialized as hash IOC sets. Every match with one of these hashes
 receives a sub score of 100.
 
@@ -113,7 +114,7 @@ For example, if you know that administrators in your organization use
 "PsExec.exe" in a folder "Sysinternals" and any other location should be
 reported as suspicious you could define the following statements:
 
-.. code-block::
+.. code-block:: 
 
         \\PsExec\.exe;60
         \\SysInternals\\PsExec\.exe;-60
@@ -227,11 +228,11 @@ Named Pipes
 ^^^^^^^^^^^
 
 Custom named pipe values can be provided in a file that contains the
-“pipes” keyword in its filename. The entries should be regular
+"pipes" keyword in its filename. The entries should be regular
 expressions that match the malicious named pipes. The ``\\\\.\\pipe\\``
 prefix should not be part of the entry.
 The IOCs are applied to the pipes as
-”equals” if no unescaped special regex characters are used, otherwise
+"equals" if no unescaped special regex characters are used, otherwise
 they are applied as "contains" (though a regex can, of course, specify
 its match position by using ``^`` and/or ``$``).
 
@@ -254,18 +255,18 @@ Sigma is a generic rule format for detections on log data. Sigma is for
 log data, as Snort is for network packets and YARA is for files.
 
 THOR applies Sigma rules to Windows Eventlogs and log files on disk
-(\*.log). By default, THOR ships with the public Sigma rule set, which
+(``.log``). By default, THOR ships with the public Sigma rule set, which
 is maintained by the community at `<https://github.com/SigmaHQ/sigma>`.
 
-To activate Sigma scanning, you have to use the **--sigma** command line
-option or perform an **--intense** scan. Sigma scanning is not activated
+To activate Sigma scanning, you have to use the ``--sigma`` command line
+option or perform an ``--intense`` scan. Sigma scanning is not activated
 by default. This behavior may change in the future.
 
 By default only the results of Sigma rules of level critical and high are shown.
-If called with the **--intense** flag, medium level rules are applied as well.
+If called with the ``--intense`` flag, medium level rules are applied as well.
 
-Custom Sigma rules must have the **.yml** extension for unencrypted sigma rules
-and the **.yms** extension for encrypted sigma rules.
+Custom Sigma rules must have the ``.yml`` extension for unencrypted sigma rules
+and the ``.yms`` extension for encrypted sigma rules.
 
 .. figure:: ../images/image31.png
    :target: ../_images/image31.png
@@ -277,25 +278,25 @@ Sigma Examples
 ^^^^^^^^^^^^^^
 
 Perform a scan with the Sigma rules on the different local Windows
-Eventlogs (-a Eventlog)
+Eventlogs (``-a Eventlog``)
 
-.. code:: batch
+.. code-block:: doscon
 
-   thor64.exe -a Eventlog --sigma
+   C:\tools\thor>thor64.exe -a Eventlog --sigma
 
 Perform a scan with the Sigma rules on logs of Linux systems (-a
 LogScan) only
 
-.. code:: batch
+.. code-block:: doscon
 
-   thor64 -a Filesystem -p /var/log –sigma
+   C:\tools\thor>thor64 -a Filesystem -p /var/log –sigma
 
 STIX IOCs
 ---------
 
 THOR can read and apply IOCs provided in STIXv2 JSON files.
-They must have the **.json** extension for unencrypted STIXv2 files
-and the **.jsos** extension for encrypted STIXv2 files.
+They must have the ``.json`` extension for unencrypted STIXv2 files
+and the ``.jsos`` extension for encrypted STIXv2 files.
 
 .. figure:: ../images/image32.png
    :target: ../_images/image32.png
@@ -342,12 +343,13 @@ There are two custom YARA rule types that you can define in THOR:
 Generic YARA Rules
 ^^^^^^^^^^^^^^^^^^
 
-All YARA rules which do not contain any specific tag (see :ref:`Specific YARA Rules <usage/custom-signatures:Specific YARA Rules>`) are considered generic YARA rules.
+All YARA rules which do not contain any specific tag (see :ref:`usage/custom-signatures:Specific YARA Rules`)
+are considered generic YARA rules.
 
 The generic YARA rules are applied to the following elements:
 
 * | Files
-  | THOR applies the Yara rules to all files that are smaller than the size limit set in the **thor.yml** and matches specific rules. :ref:`Additional Attributes <usage/custom-signatures:Additional Attributes>` are available.
+  | THOR applies the Yara rules to all files that are smaller than the size limit set in the **thor.yml** and matches specific rules. :ref:`usage/custom-signatures:Additional Attributes` are available.
 * | Process Memory
   | THOR scans the process memory of all processes with a working set memory size up to a certain limit. This limit can be altered by the "**--max_process_size**" parameter.
 * | Data Chunks
@@ -375,21 +377,21 @@ The specific YARA rules contain certain tags in their filename to
 differentiate them further:
 
 * | Registry Keys
-  | Tag: **‘registry’**
-  | Rules are applied to a whole key with all of its values. See :ref:`yara-registry-rules` for more details.
+  | Tag: **'registry'**
+  | Rules are applied to a whole key with all of its values. See :ref:`usage/custom-signatures:THOR YARA Rules for Registry Detection` for more details.
 * | Log Files
-  | Tag: **‘log’**
-  | Rules are applied to each log entry. See :ref:`yara-log-rules` for more details.
+  | Tag: **'log'**
+  | Rules are applied to each log entry. See :ref:`usage/custom-signatures:THOR YARA Rules for Log Detection` for more details.
 * | Process Memory
-  | Tag: **'process'** or **‘memory’**
+  | Tag: **'process'** or **'memory'**
   | Rules are applied to process memory only.
 * | All String Checks
   | Tag: **'keyword'**
   | Rules are applied to all string checks in many different modules.
 * | Metadata Checks (since THOR 10.6)
   | Tag: **'meta'**
-  | Rules are applied to all files without exception, including directories, symlinks and the like, but can only access the THOR specific external variables (see :ref:`Additional Attributes <usage/custom-signatures:Additional Attributes>`) and the first 100 bytes of the file.
-  | Since THOR 10.6.8: If a metadata rule has the special tag DEEPSCAN, THOR will perform a YARA scan on the full file with the default rule set (see :ref:`Generic YARA Rules <usage/custom-signatures:Generic YARA Rules>`).
+  | Rules are applied to all files without exception, including directories, symlinks and the like, but can only access the THOR specific external variables (see :ref:`usage/custom-signatures:Additional Attributes`) and the first 100 bytes of the file.
+  | Since THOR 10.6.8: If a metadata rule has the special tag DEEPSCAN, THOR will perform a YARA scan on the full file with the default rule set (see :ref:`usage/custom-signatures:Generic YARA Rules`).
 
 The following table shows in which modules the specific YARA rules are
 applied to content.
@@ -417,13 +419,11 @@ applied to content.
     - Filescan
     - meta-rules.yar
 
-.. _yara-registry-rules:
-
 THOR YARA Rules for Registry Detection
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 THOR allows checking a complete registry path key/value pairs with Yara
-rules. To accomplish this, he composes a string from the key/value pairs
+rules. To accomplish this, THOR composes a string from the key/value pairs
 of a registry key path and formats them as shown in the following
 screenshot.
 
@@ -474,9 +474,7 @@ to escape all backslashes):
 Remember that you have to use the keyword **registry** in the file name in order to
 initialize the YARA rule file as registry rule set (e.g. "**registry\_exe\_in\_value.yar**").
 
-Registry scanning uses bulk scanning. See :ref:`Bulk Scanning<usage/custom-signatures:Bulk Scanning>` for more details.
-
-.. _yara-log-rules:
+Registry scanning uses bulk scanning. See :ref:`usage/custom-signatures:Bulk Scanning` for more details.
 
 THOR YARA Rules for Log Detection
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -489,10 +487,10 @@ YARA Rules for logs are applied as follows:
   where each key / value pair is an entry in EventData or UserData in the XML representation of the event.
 
 Log (both text log and event log) scanning uses bulk scanning.
-See :ref:`Bulk Scanning<usage/custom-signatures:Bulk Scanning>` for more details.
+See :ref:`usage/custom-signatures:Bulk Scanning` for more details.
 
 Remember that you have to use the keyword **log** in the file name in order to
-initialize the YARA rule file as registry rule set (e.g. "**my\_log\_rule.yar**").
+initialize the YARA rule file as registry rule set (e.g. ``my_log_rule.yar``).
 
 How to Create YARA Rules
 ^^^^^^^^^^^^^^^^^^^^^^^^
@@ -533,10 +531,10 @@ The best practice steps to generate a custom rule are:
    c. Define an appropriate score (optional but useful in THOR, default is 75)
 
 3. Check your rule by scanning the malware with the Yara binary from
-   the project’s website to verify a positive match
+   the project's website to verify a positive match
 
 4. Check your rule by scanning the "Windows" or "Program Files"
-   directory with the Yara binary from the project’s website to detect
+   directory with the Yara binary from the project's website to detect
    possible false positives
 
 5. Copy the file to the "/custom-signatures/yara" folder of THOR and
@@ -600,7 +598,7 @@ Enhance YARA Rules with THOR Specific Attributes
 
 The following listing shows a typical YARA rule with the three main
 sections "meta", "strings" and "condition". The YARA Rule Manual which
-can be downloaded as PDF from the developer’s website and is bundled
+can be downloaded as PDF from the developer's website and is bundled
 with the THOR binary is a very useful guide and reference to get a
 function and keyword overview and build your own rules based on the YARA
 standard.
@@ -651,7 +649,7 @@ contain any THOR specific expressions.
 
 Yara provides a lot of functionality but lacks some mayor attributes
 that are required to describe an indicator of compromise (IOC) defined
-in other standards as i.e. OpenIOC entirely. Yara’s signature
+in other standards as i.e. OpenIOC entirely. Yara's signature
 description aims to detect any kind of string or byte code within a file
 but is not able to match on meta data attributes like file names, file
 path, extensions and so on.
@@ -687,14 +685,14 @@ Yara Rule with THOR specific attribute "score":
         }
 
 Feel free to set your own "score" values in rules you create. If you
-don’t define a "score" the rule gets a default score of 75.
+don't define a "score" the rule gets a default score of 75.
 
 The scoring system allows you to include ambiguous, low scoring rules
-that can’t be used with other scanners, as they would generate to many
+that can't be used with other scanners, as they would generate to many
 false positives. If you noticed a string that is used in malware as well
 as legitimate files, just assign a low score or combine it with other
 attributes, which are used by THOR to enhance the functionality and are
-described in :ref:`chapter 12.5.2 Additional Attributes <usage/custom-signatures:Additional Attributes>`.
+described in :ref:`usage/custom-signatures:Additional Attributes`.
 
 Additional Attributes
 ^^^^^^^^^^^^^^^^^^^^^
@@ -707,7 +705,7 @@ These external variables are:
 * "**filepath**" - file path without file name like "**C:\\temp**"
 * "**extension**" - file extension with a leading "**.**", lower case like "**.exe**"
 * "**filetype**" - type of the file based on the magic header signatures (for a list of valid file types see: "**./signatures/misc/file-type-signatures.cfg**") like "**EXE**" or "**ZIP**"
-* "**timezone**" – the system’s time zone (see https://golang.org/src/time/zoneinfo_abbrs_windows.go for valid values)
+* "**timezone**" – the system's time zone (see https://golang.org/src/time/zoneinfo_abbrs_windows.go for valid values)
 * "**language**" – the systems language settings (see https://docs.microsoft.com/en-us/windows/win32/intl/sort-order-identifiers)
 * "**owner**" - The file owner, e.g. "**NT-AUTHORITY\\SYSTEM**" on Windows or "**root**" on Linux
 * "**group**" (available since THOR 10.6.8) - The file group, e.g. "**root**" on Linux. This variable is empty on Windows.
@@ -753,7 +751,7 @@ The following YARA rule shows a typical combination used in one of the
 client specific rule sets, which are integrated in THOR. The rule
 matches on "**.idx**" files that contain strings used in the Java
 Version of the VNC remote access tool. Without the enhancements made
-this wouldn’t be possible as there would be no way to apply the rule
+this wouldn't be possible as there would be no way to apply the rule
 only to a special type of extension.
 
 Real Life Yara Rule:

@@ -2,9 +2,9 @@
 Update
 ======
 
-You can download updates for THOR with “thor-util”. 
+You can download updates for THOR with "thor-util". 
 
-Running "**thor-util --help**" shows two options that look very similar:
+Running ``thor-util --help`` shows two options that look very similar:
 
 - **upgrade** : program and signature updates
 - **update** : signature updates only

@@ -4,26 +4,62 @@ Use Cases
 
 This chapter contains use cases that users often asked for.
 
-Disk Image Analysis with FTKImager
-----------------------------------
+Disk Image Analysis
+-------------------
 
-THOR, as a scanner, does not mount disk images to a certain driver on your forensic workstation. You have to use 3rd party tools for that task. We recommend using `FTKImager <https://accessdata.com/product-download#digital-forever>`__.
+THOR, as a scanner, does not mount disk images to a certain driver
+on your forensic workstation. You have to use 3rd party tools for
+that task. Please see :ref:`usage/use-cases:arsenal image mounter (aim)`
+and :ref:`usage/use-cases:ftkimager` below to get an overview of
+potential tools to use.
 
-In case you plan to use an automated setup in which you use scripts to automatically process images, you could try to use the old `command line versions of FTKimager <https://accessdata.com/product-download#past-versions>`__.
+First, you mount the image to a certain drive with your prefered tool.
+Afterwards you can use THOR in the lab scanning mode to analyze the
+mounted image. To benefit from all features of this mode, you have to
+acquire and use a so-called **forensic lab** or **lab** license.
 
-So, first you mount the image to a certain drive and then use THOR in lab scanning mode to analyze the mounted image. To benefit from all features of this mode, you have to acquire and use a so-called **forensic lab** or **lab** license.
+The following example shows a recommended set of parameters, scanning
+a mounted image of a host named ``WKS0001`` on drive ``S:\`` of
+your forensic Windows workstation. 
 
-The following example shows a recommended set of parameters, scanning a mounted image of a host named ``WKS0001`` on drive ``S:\`` of your forensic Windows workstation. 
+.. code-block:: doscon
 
-.. code:: batch
+    C:\thor>thor64.exe --lab --virtual-map S:C -j WKS0001 -p S:\
 
-    thor64.exe --lab --virtual-map S:C -j WKS0001 -p S:\
+The ``--lab`` parameter will apply several internal flags (e.g. enables
+intense mode scanning every file, enables multi-threading, disables
+resource control, removes all limitations). The ``--virtual-map``
+parameter maps every file found in elements of that image to the
+original drive letter and allows the message enrichment to work
+correctly. The ``-j HOSTNAME`` parameter can be used to write every
+log line with the hostname of the original system and not with that
+of the forensic workstation.
 
-The ``--lab`` parameter will apply several internal flags (e.g. enables intense mode scanning every file, enables multi-threading, disables resource control, removes all limitations). The ``--virtual-map`` parameter maps every file found in elements of that image to the original drive letter and allows the message enrichment to work correctly. The ``-j HOSTNAME`` parameter can be used to write every log line with the hostname of the original system and not with that of the forensic workstation.
+You find more information on the scan parameters in the chapter :doc:`/usage/special-scan-modes`.
 
-You find more information on the scan parameters in the chapter :doc:`Special Scan Modes <./special-scan-modes>`.
+This `blog post <https://thinkdfir.com/2021/06/03/you-want-me-to-deal-with-how-many-vmdks/>`__
+mentions different ways to use commercial or built-in tools to mount and scan VMDK images.
 
-This `blog post <https://thinkdfir.com/2021/06/03/you-want-me-to-deal-with-how-many-vmdks/>`__ mentions different ways to use commercial or built-in tools to mount and scan VMDK images. 
+Arsenal Image Mounter (AIM)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+We recommend using `Arsenal Image Mounter <https://arsenalrecon.com/products/arsenal-image-mounter>`_.
+
+In case you plan to use an automated setup in which you use scripts
+to automatically process images, you could try to use the command-line
+of AIM, please see the ``aim_cli.exe`` within the program folder for more help.
+
+FTKImager
+^^^^^^^^^
+
+Alternatively, you can use the tool `FTKImager <https://accessdata.com/product-download#digital-forever>`_
+to mount your image. In case you plan to use an automated setup in which
+you use scripts to automatically process images, you could try to use
+the old `command line versions of FTKimager <https://accessdata.com/product-download#past-versions>`__.
+
+.. note:: 
+    We recommend using Arsenal Image Mounter to mount your images, since we observed better performance
+    during our internal tests.
 
 Memory Image Analysis with Volatility
 -------------------------------------
@@ -32,12 +68,12 @@ In this use case, we show a way to run a THOR scan on a full memory image of a t
 
 In volatility, we first evaluate the right profile for a memory image. You can use the ``imageinfo`` command or select one manually from the list that is show when you run ``vol.py --info``.
 
-.. code:: sh
+.. code-block:: console
 
-    vol.py -f win10-lab1.mem imageinfo
+    user@desktop:~$ vol.py -f win10-lab1.mem imageinfo
 
     Volatility Foundation Volatility Framework 2.6.1
-    INFO    : volatility.debug    : Determining profile based on KDBG search...
+    INFO     : volatility.debug    : Determining profile based on KDBG search...
               Suggested Profile(s) : Win10x64_19041
                          AS Layer1 : SkipDuplicatesAMD64PagedMemory (Kernel AS)
                          AS Layer2 : FileAddressSpace (/mnt/downloads/mem-dumps/win10-lab1.mem)
@@ -54,15 +90,15 @@ In volatility, we first evaluate the right profile for a memory image. You can u
     
 We then create a directory that will store all our process memory images. 
 
-.. code:: sh
+.. code-block:: console
 
-    mkdir procs
+    user@desktop:~$ mkdir procs
 
 Now we can extract all process memory images and save them to the new directory. 
 
-.. code:: sh
+.. code-block:: console
 
-    vol.py -f win10-lab1.mem --profile=Win10x64_19041 memdump -D procs/
+    user@desktop:~$ vol.py -f win10-lab1.mem --profile=Win10x64_19041 memdump -D procs/
 
     Volatility Foundation Volatility Framework 2.6.1
     ************************************************************************
@@ -90,19 +126,19 @@ We recommend saving that output for mapping purposes, since THOR will only repor
 
 Using THOR we can now scan the extracted process memory images.
 
-.. code:: sh 
+.. code-block:: console 
 
-    ./thor-linux-64 ---lab -p /mnt/mem-dumps/procs/
+    user@desktop:~$ ./thor-linux-64 ---lab -p /mnt/mem-dumps/procs/
 
-Without a valid lab license, we can simulate that behaviour using the following command (see :doc:`chapter Special Scan Modes <./special-scan-modes>` for more details and flags used in lab scan mode):
+Without a valid lab license, we can simulate that behaviour using the following command (see :doc:`/usage/special-scan-modes` for more details and flags used in lab scan mode):
 
-.. code:: sh 
+.. code-block:: console
 
-    ./thor-linux-64 -a Filescan --intense -p /mnt/mem-dumps/procs/
+    user@desktop:~$ ./thor-linux-64 -a Filescan --intense -p /mnt/mem-dumps/procs/
 
 The output of such a scan will look like this 
 
-.. code-block:: sh
+.. code-block:: console
 
     [?%] Worker 01: /mnt/mem-dumps/procs/3812.dmp          [_______________________________]Progress: 286 MB
     [?%] Worker 01: /mnt/mem-dumps/procs/3812.dmp          [_______________________________]Progress: 343 MB
@@ -121,9 +157,9 @@ The system should have at least 2 CPU cores and 2 GB of RAM.
 
 The recommended flags to run THOR are:
 
-.. code:: sh
+.. code-block:: doscon
 
-   thor64.exe --module Filescan --alldrives --path X: --path Y: --path Z:
+   C:\temp\thor>thor64.exe --module Filescan --alldrives --path X: --path Y: --path Z:
 
 If needed or desired the scan can be adapted using the following flags. In general the following options are not recommended but can help in special szenarios.
 

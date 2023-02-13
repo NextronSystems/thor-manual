@@ -36,7 +36,10 @@ Retrieve Valid License From ASGARD
 Use THOR's ``--asgard`` and ``--asgard-token`` parameters
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-In ASGARD 2.5+ you're able to configure a download token to limit the download of THOR packages and licenses to clients with knowledge of this token. The token is a protection that no one without knowledge of that token can intentionally exceed your license quota limit or retrieve a THOR package without authorization.
+In ASGARD 2.5+ you're able to configure a download token to limit the download of
+THOR packages and licenses to clients with knowledge of this token. The token is
+a protection that no one without knowledge of that token can intentionally exceed
+your license quota limit or retrieve a THOR package without authorization.
 
 The download token can be configured in the ``Downloads`` section of you ASGARD server.
 
@@ -48,24 +51,26 @@ The download token can be configured in the ``Downloads`` section of you ASGARD 
 
 You can retrieve an appropriate THOR license at the scan start using the built-in ``--asgard`` and ``--asgard-token`` parameters.
 
-.. code:: batch 
+.. code-block:: doscon 
 
-   thor64.exe --asgard my-asgard.internal
+   C:\temp\thor>thor64.exe --asgard my-asgard.internal
 
-.. code:: batch 
+.. code-block:: doscon 
 
-   thor64.exe --asgard my-asgard.internal --asgard-token OCU92GW1CyOJLzaHkGrim1v2O0_ZkHPu0A
+   C:\temp\thor>thor64.exe --asgard my-asgard.internal --asgard-token OCU92GW1CyOJLzaHkGrim1v2O0_ZkHPu0A
 
 If everything works as expected, you'll see an INFO level message in the output that looks like: 
 
-.. code:: batch 
+.. code-block:: batch 
 
    Info: Init License file found LICENSE: my-asgard.internal OWNER: Master ASGARD: ACME Inc TYPE: Workstation STARTS: 2021/06/18 EXPIRES: 2022/06/18 SCANNER: All Scanners VALID: true REASON:
 
 Use ASGARD's API to retrieve a license manually
 """""""""""""""""""""""""""""""""""""""""""""""
 
-You can also script the license retrieval from a local ASGARD server by using the API. The help box in ASGARD's ``Licensing > Generate License`` section shows curl requests that can be used to retrieve licenses from your ASGARD server.
+You can also script the license retrieval from a local ASGARD server by using the API. The help
+box in ASGARD's ``Licensing > Generate License`` section shows curl requests that can be used
+to retrieve licenses from your ASGARD server.
 
 .. figure:: ../images/asgard-license-gen.png
    :target: ../_images/asgard-license-gen.png
@@ -78,21 +83,26 @@ All you need are:
 * Hostname 
 * System Type (``server``, ``workstation``)
 
-If there is uncertainty it's recommended to generate ``server`` type licenses which are more expensive but run on both system types.
+If there is uncertainty it's recommended to generate ``server`` type licenses which are
+more expensive but run on both system types.
 
-For example: To retrieve a valid license for the servers named ``SRV001`` and ``SRV002`` you can use the following command:
+For example: To retrieve a valid license for the servers named ``SRV001`` and ``SRV002``
+you can use the following command:
 
-.. code:: bash 
+.. code-block:: console 
 
-   curl -XPOST "https://my-asgard.internal:8443/api/v0/licensing/issue?token=OJCBaTq4VGLjrCes2k4ACCQOzg0AxAoz01" -o licenses.zip -d "type=server" -d "hostnames=SRV001" -d "hostnames=SRV002" ... -d "hostnames=hostnameN"
+   nextron@unix:~$ curl -XPOST "https://my-asgard.internal:8443/api/v0/licensing/issue?token=OJCBaTq4VGLjrCes2k4ACCQOzg0AxAoz01" -o licenses.zip -d "type=server" -d "hostnames=SRV001" -d "hostnames=SRV002" ... -d "hostnames=hostnameN"
 
-If you can't use curl and want to retrieve a license as part of a bigger PowerShell script, you can use the following code snippet to help you with the retrieval.
+If you can't use curl and want to retrieve a license as part of a bigger PowerShell script,
+you can use the following code snippet to help you with the retrieval.
 
 .. literalinclude:: ../examples/asgard-license-gen.ps1
    :language: powershell
    :linenos:
 
-Check the ASGARD helper scripts section in `our Github repo <https://github.com/NextronSystems/nextron-helper-scripts/tree/master/asgard>`__ for more scripts and snippets.
+Check the ASGARD helper scripts section in
+`our Github repo <https://github.com/NextronSystems/nextron-helper-scripts/tree/master/asgard>`__
+for more scripts and snippets.
 
 Retrieve Valid License From Customer Portal
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -100,7 +110,8 @@ Retrieve Valid License From Customer Portal
 Use THOR's ``--portal-key`` and ``--portal-contracts`` parameters to retrieve a license
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-To retrieve a licenses from the customer portal, you need an portal key. The portal key (API key) can be configured in the ``User Settings`` section of the `customer portal <https://portal.nextron-systems.com>`__.
+To retrieve a licenses from the customer portal, you need an portal key. The portal key
+(API key) can be configured in the ``User Settings`` section of the `customer portal <https://portal.nextron-systems.com>`__.
 
 .. figure:: ../images/portal-api-key.png
    :target: ../_images/portal-api-key.png
@@ -108,7 +119,13 @@ To retrieve a licenses from the customer portal, you need an portal key. The por
 
    User Settings > API Key
 
-You can retrieve an appropriate THOR license at the scan start using the built-in ``--portal-key`` and ``--portal-contracts`` parameters. The ``--portal-contracts`` parameter is optional. It can be used to take licenses from a specific contract in case you have more than one and want to use a specific one. If none is set, THOR will automatically retrieve licenses from a contract of the right type. (e.g. retrieve workstation license from the first still valid contract that has workstation licenses available)
+You can retrieve an appropriate THOR license at the scan start using the built-in
+``--portal-key`` and ``--portal-contracts`` parameters. The ``--portal-contracts``
+parameter is optional. It can be used to take licenses from a specific contract in
+case you have more than one and want to use a specific one. If none is set, THOR
+will automatically retrieve licenses from a contract of the right type. (e.g.
+retrieve workstation license from the first still valid contract that has
+workstation licenses available)
 
 .. figure:: ../images/portal-ids.png
    :target: ../_images/portal-ids.png
@@ -118,17 +135,17 @@ You can retrieve an appropriate THOR license at the scan start using the built-i
 
 You can then use the parameters as shown in the following examples:
 
-.. code:: batch 
+.. code-block:: console 
 
-   thor64.exe --portal-key IY5Y36thrt7h1775tt1ygfuYIadmGzZJmVk32lXcud4
+   C:\temp\thor>thor64.exe --portal-key IY5Y36thrt7h1775tt1ygfuYIadmGzZJmVk32lXcud4
 
-.. code:: batch 
+.. code-block:: console 
 
-   thor64.exe --portal-key IY5Y36thrt7h1775tt1ygfuYIadmGzZJmVk32lXcud4 --portal-contracts 13,14
+   C:\temp\thor>thor64.exe --portal-key IY5Y36thrt7h1775tt1ygfuYIadmGzZJmVk32lXcud4 --portal-contracts 13,14
 
 If everything works as expected, you'll see an INFO level message in the output that looks like: 
 
-.. code:: batch 
+.. code-block:: batch 
 
    Info License file found LICENSE: portal.nextron-systems.com OWNER: ACME Inc TYPE: Workstation STARTS: 2021/06/23 EXPIRES: 2021/06/30 SCANNER: All Scanners VALID: true REASON:
 
@@ -139,13 +156,19 @@ Username and password can be specified as part of the proxy URL as ``http://user
 Use the Customer Portal's API to retrieve a license manually
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-This is a bit more complicated as we've decided long ago that our customer portal will never contain personal or otherwise relatable information and this includes any kind of hostnames - not even in memory. Therefore it's necessary to generate a HMAC SHA1 hash of the lowercased hostname on the client side and include only the hash in the request to our customer portal.
+This is a bit more complicated as we've decided long ago that our customer portal will
+never contain personal or otherwise relatable information and this includes any kind
+of hostnames - not even in memory. Therefore it's necessary to generate a HMAC SHA1
+hash of the lowercased hostname on the client side and include only the hash in the
+request to our customer portal.
 
-This command generates a HMAC SHA1 of the current host you're working on. If you'd like to generate a license for a different host, simply replace the first part of the command with ``echo -n "mycustomname"``.
+This command generates a HMAC SHA1 of the current host you're working on. If you'd
+like to generate a license for a different host, simply replace the first part
+of the command with ``echo -n "mycustomname"``.
 
-.. code:: bash
+.. code-block:: console
 
-   echo -n "$(hostname -s)" | tr '[:upper:]' '[:lower:]' | openssl dgst -binary -sha1 -mac hmac -macopt hexkey:b190dd4a98456999b6d9c7e4e1ac1f231b978c3e7652898d7db2fcdede34613dbc7909c9fc8b3177bb904871b8b7fc7a30cb1582ce9b0089397836dcc209e2d6 | base64 | tr '/+' '_-' | tr -d '='
+   nextron@unix:~$ echo -n "$(hostname -s)" | tr '[:upper:]' '[:lower:]' | openssl dgst -binary -sha1 -mac hmac -macopt hexkey:b190dd4a98456999b6d9c7e4e1ac1f231b978c3e7652898d7db2fcdede34613dbc7909c9fc8b3177bb904871b8b7fc7a30cb1582ce9b0089397836dcc209e2d6 | base64 | tr '/+' '_-' | tr -d '='
 
 The values needed for a successful request are: 
 
@@ -154,15 +177,15 @@ The values needed for a successful request are:
 * ``$HASH`` = the hash generated from the hostname in the previous step
 * ``$APIKEY`` = the API from the ``User Settings`` section in the customer portal
 
-.. code:: bash 
+.. code-block:: console 
 
-   curl -XPOST https://portal.nextron-systems.com/api/public/contracts/issue/$CONTRACT/$TYPE/$HASH?download=1 -H "Authorization: $APIKEY" -o license.lic
+   nextron@unix:~$ curl -XPOST https://portal.nextron-systems.com/api/public/contracts/issue/$CONTRACT/$TYPE/$HASH?download=1 -H "Authorization: $APIKEY" -o license.lic
 
 A valid license is an encrypted blob of at least 800 bytes. You can check the content of the license for possible error message that came back from the server using ``xxd``.
 
-.. code:: bash 
+.. code-block:: console 
 
-   xxd license.lic
+   nextron@unix:~$ xxd license.lic
 
 If you find a ``Error: HTTP-401`` in the file, than you've most likely used an invalid API key.
 
@@ -210,14 +233,14 @@ different locations in order to avoid write-access errors.
 The necessary steps are:
 
 1. Create a network share and extract the THOR package into the root of
-   the share, i.e. **\\\\fileserver\\thor\\**
+   the share, i.e. ``\\fileserver\thor\``
 2. Find the "thor\_remote.bat" batch file, which can be found in the
-   “tools” sub folder, place it directly in the root of the program
+   "tools" sub folder, place it directly in the root of the program
    folder and adjust it to your needs.
 
    -  set the network share UNC path
 
-   -  set the parameters for the THOR run (see :doc:`chapter Scan <./scan>`)
+   -  set the parameters for the THOR run (see :ref:`usage/scan:scan`)
 
 You should then test the setting like this:
 
@@ -227,7 +250,7 @@ You should then test the setting like this:
    | (right click > Run as Administrator)
 3. | Run the following command, which is going to mount a network drive,
      run THOR and disconnect the previously mounted drive:
-   | **\\\\fileserver\\thor\\thor\_remote.bat**
+   | ``\\fileserver\thor\thor_remote.bat``
 
 After a successful test run, you decide on how to invoke the script on
 the network drive. The following chapters list different options.
@@ -251,11 +274,9 @@ This method uses Sysinternals PsExec and a list of target systems to
 connect and create a Scheduled Task via the command line. This could
 look like the following example:
 
-.. code:: bash
+.. code-block:: doscon
    
-   psexec \\\\server1 -u domain/admin -p pass schtasks /create /tn "THOR
-   Run" /tr "\\\\server\\share\\thor\_remote.bat" /sc ONCE /st 08:00:00 /ru
-   DOMAIN/FUadmin /rp password
+   C:\temp\thor>psexec \\server1 -u domain/admin -p pass schtasks /create /tn "THOR Run" /tr "\\server\share\thor_remote.bat" /sc ONCE /st 08:00:00 /ru DOMAIN/FUadmin /rp password
 
 Start THOR on the Remote System via WMIC
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -265,10 +286,9 @@ that serves the THOR package and is readable by the user that executes
 the scan.
 
 
-.. code:: bash
+.. code-block:: console
    
-   wmic /node:10.0.2.10 /user:MYDOM\\scanadmin process call create "cmd.exe
-   /c \\\\server\\thor10\\thor.exe"
+   C:\temp\thor> wmic /node:10.0.2.10 /user:MYDOM\scanadmin process call create "cmd.exe /c \\server\thor10\thor.exe"
 
 ASGARD Management Center (Windows, Linux, macOS)
 ------------------------------------------------
@@ -276,12 +296,12 @@ ASGARD Management Center (Windows, Linux, macOS)
 ASGARD is the central management platform for THOR scans. It manages
 distributed THOR scans on thousands of systems, collects, forwards and
 analyses logs. Furthermore, ASGARD can control and execute complex
-response tasks if needed. 
+response tasks if needed.
 
 ASGARD comes in two variations: While ASGARD Management Center features
 scan control and response functions, ASGARD Analysis Cockpit can be used
-to analyse large amounts of scan logs through an integrated base-lining
-and case management.  
+to analyze large amounts of scan logs through an integrated base-lining
+and case management.
 
 The hardened, Linux-based ASGARD appliance is a powerful, solid and
 scalable response platform with agents for Windows, Linux and MacOS. It
@@ -339,8 +359,8 @@ distributions. The other steps may remain the same. Within the playbook
 any command line option may be customized for the given scenario.
 
 Ansible does parallelization of the tasks by itself. The default amount
-of parallel executions is five and can be configured using the -f or
---forks parameter when starting the playbooks.
+of parallel executions is five and can be configured using the ``-f`` or
+``--forks`` parameter when starting the playbooks.
 
 Execute Thor using Ansible
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -366,7 +386,7 @@ hosts. This file is later used with the -i parameter in the
 ansible-playbook command. A simple version of this could look like
 following:
 
-.. code:: bash
+.. code-block:: bash
    
    ---
    host1.com
@@ -385,15 +405,15 @@ Ansible Playbook Template
    :language: yaml
    :linenos:
 
-Usage of Thor´s Ansible playbook
+Usage of Thor's Ansible playbook
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Copy the playbook in the main directory of Thor. After this is done it
 can be started as follows:
 
-.. code:: bash
+.. code-block:: console
 
-   ansible-playbook -f <number\_of\_parallel\_executions> -i <inventory\_file> thorplaybook.yml
+   nextron@unix:~$ ansible-playbook -f <number_of_parallel_executions> -i <inventory_file> thorplaybook.yml
 
 After the playbook finished running the scans, the output of each system
 can be found in the **thoransible**-output directory located at the
@@ -406,14 +426,14 @@ Adjust Thor's Command Line Parameters
 
 Per default this playbook will only start Thor with the parameter that
 defines the output log file. This can be changed in the playbook in the
-„Execute Thor“-Task. However, it should be kept in mind, that changing
+"Execute Thor"-Task. However, it should be kept in mind, that changing
 the output log file is not recommended, since the later tasks of the
 playbook depend on this.
 
 THOR Thunderstorm Service
 -------------------------
 
-The command line flag "**--thunderstorm**" starts THOR as a RESTful web
+The command line flag ``--thunderstorm`` starts THOR as a RESTful web
 service on a given network interface and port. This service receives
 samples and returns a scan result.
 
@@ -423,14 +443,14 @@ samples and returns a scan result.
 
    THOR Thunderstorm Overview
 
-The service can be started in two scan modes: 
+The service can be started in two scan modes:
 
 * Pure YARA
 * Full-Featured
 
-In the pure YARA mode (**--pure-yara**) THOR Thunderstorm only applies
+In the pure YARA mode (``--pure-yara``) THOR Thunderstorm only applies
 the 13,000 internal and all custom YARA rules to the submitted samples.
-It's lightweight and fast. 
+It's lightweight and fast.
 
 The full-featured mode is the default. In this mode Thunderstorm also
 parses and analyses Windows Eventlogs (EVTX), registry hives, memory
@@ -442,10 +462,10 @@ since most files are not of a type that triggers an intense parsing
 function, the processing speed should be similar to the “pure-yara”
 mode.
 
-It is recommended to use “pure-yara” mode in cases in which:
+It is recommended to use "pure-yara" mode in cases in which:
 
 * huge forensic artefacts (EVTX or memory dump files) appear on the source systems and overload the Thunderstorm service
-* deeper forensic parsing, IOC matching or other internal THOR checks aren’t needed or wanted
+* deeper forensic parsing, IOC matching or other internal THOR checks aren't needed or wanted
 
 The following table contains all THOR Thunderstorm related command line
 flags:
@@ -460,7 +480,7 @@ Service License Type
 ^^^^^^^^^^^^^^^^^^^^
 
 To run THOR in Thunderstorm service mode, you need a special license
-type named „Service License” that allows this mode of operation.
+type named "Service License" that allows this mode of operation.
 
 After the launch of THOR Thunderstorm, we may allow other license types
 to run THOR in service mode for a limited period of time, so that
@@ -477,14 +497,18 @@ to communicate with the Thunderstorm service.
 
 https://github.com/NextronSystems/thunderstormAPI
 
-It can be installed with: **pip install thunderstormAPI**
+It can be installed with:
+
+.. code-block:: console
+
+   nextron@unix:~$ pip install thunderstormAPI
 
 Thunderstorm API Documentation
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 An API documentation is integrated into the web service.
 
-Simply visit the service URL, e.g.: http://my-server:8080/
+Simply visit the service URL, e.g.: :samp:`http://my-server:8080/`
 
 .. figure:: ../images/image8.png
    :target: ../_images/image8.png
@@ -508,9 +532,12 @@ steps.
 
 2. Run the following command
 
-.. code:: bash
+.. code-block:: console
 
-   wget -O - https://raw.githubusercontent.com/NextronSystems/nextron-helper-scripts/master/thunderstorm/thunderstorm-installer.sh \| bash
+   nextron@unix:~$ wget -O - https://raw.githubusercontent.com/NextronSystems/nextron-helper-scripts/master/thunderstorm/thunderstorm-installer.sh | bash
+
+.. warning:: 
+   Please inspect scripts from the internet before executing them!
 
 Everything else will automatically be handled by the installer script.
 It even supports an “uninstall” flag to remove all files and folders
@@ -524,30 +551,30 @@ proof-of-concept.
    Thunderstorm Service Installer
 
 After the installation, the configuration file is located in
-**/etc/thunderstorm**.
+``/etc/thunderstorm``.
 
-The log file of the service can be found in **/var/log/thunderstorm**.
+The log file of the service can be found in ``/var/log/thunderstorm``.
 
 Thunderstorm Update
 ^^^^^^^^^^^^^^^^^^^
 
-The Thunderstorm service gets updated just as THOR does. Use “thor-util
-update” to update signatures or “thor-util upgrade” to update binaries
+The Thunderstorm service gets updated just as THOR does. Use "thor-util
+update" to update signatures or "thor-util upgrade" to update binaries
 and signatures. The service has to be stopped during the updates.
 
 Update signatures:
 
-.. code:: bash
+.. code-block:: console
 
-   thor-util update 
+   nextron@unix:~$ thor-util update 
 
 Upgrade signatures:
 
-.. code:: bash
+.. code-block:: console
 
-   thor-util upgrade
+   nextron@unix:~$ thor-util upgrade
 
-See the “thor-util” manual for details on how to use these functions.
+See the `THOR Util Manual <https://thor-util-manual.nextron-systems.com>`_  manual for details on how to use these functions.
 
 Thunderstorm Update Script
 """"""""""""""""""""""""""
@@ -559,23 +586,23 @@ https://github.com/NextronSystems/nextron-helper-scripts/tree/master/thunderstor
 
 Update binaries and signatures:
 
-.. code:: bash
+.. code-block:: console
 
-   thunderstorm-update
+   nextron@unix:~$ thunderstorm-update
 
 Stop service, update binaries and signatures, restart
 service:
 
-.. code:: bash
+.. code-block:: console
 
-   thunderstorm-update full
+   nextron@unix:~$ thunderstorm-update full
 
 Source Identification
 ^^^^^^^^^^^^^^^^^^^^^
 
-The log file generated by THOR Thunderstorm doesn’t contain the current
+The log file generated by THOR Thunderstorm doesn't contain the current
 host as hostname in each line. By default, it contains the sending
-source’s FQDN or IP address if a name cannot be resolved using the
+source's FQDN or IP address if a name cannot be resolved using the
 locally configured DNS server.
 
 However, every source can set a “source” value in the request and
@@ -583,9 +610,9 @@ overwrite the automatically evaluated hostname. This way users can use
 custom values that are evaluated or set on the sending on the end
 system.
 
-.. code:: bash
+.. code-block:: console
 
-   curl -X POST "http://myserver:8080/api/check?source=test" -F "file=@sample.exe"
+   nextron@unix:~$ curl -X POST "http://myserver:8080/api/check?source=test" -F "file=@sample.exe"
 
 Synchronous and Asynchronous Mode
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -597,10 +624,10 @@ The default is synchronous submission. In this mode, the sender waits
 for the scan result, which can be empty in case of no detection or
 contains match elements in cases in which a threat could be identified.
 
-In asynchronous mode, the submitter doesn’t wait for the scan result but
+In asynchronous mode, the submitter doesn't wait for the scan result but
 always gets a send receipt with an id, which can just be discarded or
 used to query the service at a later point in time. This mode is best
-for use cases in which the submitter doesn’t need to know the scan
+for use cases in which the submitter doesn't need to know the scan
 results and batch submission should be as fast as possible.
 
 .. list-table::
@@ -635,9 +662,9 @@ synchronous and asynchronous requests at the same time, it is possible
 that all threads are busy processing cached asynchronous samples and not
 more synchronous requests are possible.
 
-In this case use the **--sync-only-threads** flag to reserve a number of
-threads for synchronous requests. (e.g. **--threads 40
---sync-only-threads 10**)
+In this case use the ``--sync-only-threads`` flag to reserve a number of
+threads for synchronous requests. (e.g. ``--threads 40
+--sync-only-threads 10``)
 
 Performance Tests
 ^^^^^^^^^^^^^^^^^
@@ -680,13 +707,13 @@ Depending on the average size of the samples, the submission frequency
 and the number of different sources that submit samples, the
 transmission could take up to twice as much time.
 
-Note: The thunderstormAPI client doesn’t verify the server’s certificate
-by default as in this special case, secrecy isn’t important. The main
+Note: The thunderstormAPI client doesn't verify the server's certificate
+by default as in this special case, secrecy isn't important. The main
 goal of the SSL/TLS encryption is an obscured method to transport
 potentially malicious samples over network segments that could be
 monitored by IDS/IPS systems. You can activate certificate checks with
-the **--verify** command line flag or **verify** parameter in API
-library’s method respectively.
+the ``--verify`` command line flag or ``verify`` parameter in API
+library's method respectively.
 
 THOR Remote
 -----------
@@ -733,7 +760,7 @@ details.
 
 A YAML file with a list of hosts looks like this:
 
-.. code:: yaml
+.. code-block:: yaml
    
    remote:
    - winatl001.dom.int
@@ -749,19 +776,19 @@ https://stackoverflow.com/questions/39391688/multi-line-editing-on-atom
 
 You can then use that file with:
 
-.. code:: batch
+.. code-block:: doscon
    
-   thor64.exe -t targets.yml
+   C:\nextron\thor>thor64.exe -t targets.yml
 
 THOR Remote Licensing
 ^^^^^^^^^^^^^^^^^^^^^
 
 Valid licenses for all target systems are required. Place them in the
 program folder or any sub folder within the program directory (e.g.
-**./licenses**). In case of incident response licenses, just place that
+``./licenses``). In case of incident response licenses, just place that
 single license in the program folder.
 
-You don’t need a valid license for the system that runs THOR’s remote
+You don't need a valid license for the system that runs THOR's remote
 scanning feature (the source system of the scans, e.g. admin
 workstation).
 
@@ -769,9 +796,9 @@ Output
 ^^^^^^
 
 The generated log files are collected and written to the folder
-**./remote-logs**
+``./remote-logs``
 
-The “THOR Remote” function has its own interface, which allows you to
+The "THOR Remote" function has its own interface, which allows you to
 view the progress of the scans, view and scroll through the log files of
 the different remote systems.
 
@@ -797,10 +824,10 @@ https://helgeklein.com/blog/2011/08/access-denied-trying-to-connect-to-administr
 Running THOR from a Network Share
 """""""""""""""""""""""""""""""""
 
-THOR must reside on the local file system of the source system. Don’t run
+THOR must reside on the local file system of the source system. Don't run
 it from a mounted network share. This could lead to the following error:
 
-.. code:: bash
+.. code-block:: bash
    
    CreateFile .: The system cannot find the path specified.
 

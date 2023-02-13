@@ -4,7 +4,7 @@ Configuration
 Scan Templates
 --------------
 
-THOR 10 accepts config files (called “templates”) in YAML format. They
+THOR 10 accepts config files (called "templates") in YAML format. They
 reflect all command options to make them flexible and their use as
 comfortable as possible.
 
@@ -15,24 +15,24 @@ files in a single scan run.
 Default Template
 ^^^^^^^^^^^^^^^^
 
-By default, THOR only applies the file named **thor.yml** in the
-**./config** sub folder. Other config files can be applied using the
-**-t** command line parameter.
+By default, THOR only applies the file named ``thor.yml`` in the
+``./config`` sub folder. Other config files can be applied using the
+``-t`` command line parameter.
 
 Apply Custom Scan Templates
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The following command line provides a custom scan template named
-**mythor.yml**.
+``mythor.yml``.
 
-.. code:: batch
+.. code-block:: doscon
    
-   thor.exe -t mythor.yml
+  C:\nextron\thor>thor.exe -t mythor.yml
 
 Example Templates
 ^^^^^^^^^^^^^^^^^
 
-The default config **thor.yml** in the **./config** folder has the
+The default config ``thor.yml`` in the ``./config`` folder has the
 following content.
 
 Content of THOR's Default Config ``thor.yml``:
@@ -49,28 +49,28 @@ Content of Config File ``mythor.yml``:
 
 The default scan template is always applied first. Custom templates can
 then overwrite settings in the default template. In the example above,
-the **cpulimit** and **max\_file\_size** parameters are overwritten by
+the ``cpulimit`` and ``max_file_size`` parameters are overwritten by
 the custom template.
 
 As you can see in the example file, you have to use the long form of the
-command line parameter (e.g. **syslog**) and not the short form (e.g.
-**s**) in the template files. The long forms can be looked up in the
-command line help using **--help**.
+command line parameter (e.g. ``syslog``) and not the short form (e.g.
+``-s``) in the template files. The long forms can be looked up in the
+command line help using ``--help``.
 
 .. figure:: ../images/image20.png
    :target: ../_images/image20.png
    :alt: Lookup command line parameter long forms using -help
 
-   Lookup command line parameter long forms using –help
+   Lookup command line parameter long forms using ``–help``
 
 Maximum File Size
 -----------------
 
 The default maximum file size for deeper investigations (hash
 calculation and YARA scanning) is 30 MB. The maximum file size for the
-"**intense**" scan mode is 100 MB.
+``-intense`` scan mode is 100 MB.
 
-You can adjust the values in "**./config/thor.yml**". This file does not
+You can adjust the values in ``./config/thor.yml``. This file does not
 get overwritten by an update or upgrade.
 
 Special scan features like the EVTX or Memory Dump scan ignore these
@@ -106,7 +106,7 @@ YARA rule scanning.
 Example: If the maximum file size is set to a default of 12 MB, DeepDive use the
 following chunks in its scan to apply the YARA rule set:
 
-.. code:: 
+.. code-block:: 
 
    Chunk 1: Offset 0 – 12
    Chunk 2: Offset 6 – 18
@@ -119,26 +119,26 @@ Exclude Elements
 Files and Directories
 ^^^^^^^^^^^^^^^^^^^^^
 
-You may use the file "**directory-excludes.cfg**" to exclude directories
+You may use the file ``directory-excludes.cfg`` to exclude directories
 and files(! The name of the config file is misleading) from the scan.
 
 THOR will not scan the contents of these directories. This
-"**directory-excludes.cfg**" config is meant to avoid scanning
+``directory-excludes.cfg`` config is meant to avoid scanning
 sensitive files like databases or directories with a lot of content. If
 you want to suppress false positives that are generated in these
 directories, please see the following chapter and how to suppress them
-by using "**false\_positive\_filters.cfg**".
+by using ``false_positive_filters.cfg``.
 
 The exclusion file contains regular expressions that are applied to each
 scanned element. Each element consists of the file path and file name
-(e.g. C:\\IBM\\temp\_tools\\custom.exe). If one of the defined
+(e.g. ``C:\IBM\temp_tools\custom.exe``). If one of the defined
 expressions matches, the element is excluded. Exclusions can be defined
 for a full element name, at the beginning at the end or somewhere in the
 element name.
 
 As the configured exclusions are treated as regular expressions, special
 characters must be masqueraded by backslash. This applies at least for:
-**[]\\^$.\|?\*+()-**
+``[]\^$.\|?\*+()-``
 
 .. list-table::
    :header-rows: 1
@@ -147,13 +147,13 @@ characters must be masqueraded by backslash. This applies at least for:
    * - Element to exclude 
      - Possible solution 
    * - C:\\IBM\\temp\_tools\\custom.exe  
-     - C:\\\\IBM\\\\temp\_tools\\\\ 
+     - ``C:\\IBM\\temp_tools\\`` 
    * - Log folder of the tool "hpsm" regardless on the partition
-     - \\\\HPSM\\\\log\\\\
+     - ``\\HPSM\\log\\``
    * - Every file with the extension .nsf
-     - \\.nsf$
+     - ``\.nsf$``
    * - THOR custom signatures  
-     - \\\\THOR\\\\custom\\-signatures\\\\
+     - ``\\THOR\\custom\-signatures\\``
 
 Eventlogs
 ^^^^^^^^^
@@ -177,9 +177,9 @@ and applies them as regular expression on the name of the Eventlog.
 Registry
 ^^^^^^^^
 
-Registry paths/keys can be excluded in “\ **registry-excludes.cfg**\ ”.
+Registry paths/keys can be excluded in ``registry-excludes.cfg``.
 The file holds one expression per line and applies them as regular
-expression on each registry key. (e.g. “Software\\WOW6432Node“). Don’t
+expression on each registry key. (e.g. “Software\\WOW6432Node“). Don't
 include the root of the key, e.g. HKLM.
 
 .. list-table::
@@ -188,7 +188,7 @@ include the root of the key, e.g. HKLM.
 
    * - Element to exclude 
      - Exclude Definition 
-   * - HKEY\_LOCAL\_MACHINE\\Software\\⏎ Wow6432Node\\Symantec\\Symantec Endpoint⏎ Protection\\AV\\Exclusions
+   * - ``HKEY_LOCAL_MACHINE\Software\Wow6432Node\Symantec\Symantec Endpoint Protection\AV\Exclusions``
      - Symantec Endpoint Protection\\AV\\Exclusions 
 
 False Positives
@@ -199,10 +199,10 @@ regular expression is applied to the full content of the "**MESSAGE:**"
 value.
 
 E.g. if you want to Exclude all messages that contain the string
-"**Trojan\_Buzus\_dev**" you just add this string to the
-"**false\_positive\_filters.cfg**" file. The file works with regular
+``Trojan_Buzus_dev`` you just add this string to the
+``false_positive_filters.cfg`` file. The file works with regular
 expressions so you could also define something like
-"**chinese\_(charcode\|keyboard)**".
+``chinese_(charcode|keyboard)``.
 
 Filter Verification
 ^^^^^^^^^^^^^^^^^^^
@@ -212,21 +212,21 @@ run on a certain directory that matches the criteria.
 
 You can start a short test run on a certain directory with:
 
-.. code:: batch
+.. code-block:: doscon
    
-   thor.exe -a FileScan --intense -p C:\\TestDir
+   C:\nextron\thor>thor.exe -a FileScan --intense -p C:\\TestDir
 
 Personal Information
 ^^^^^^^^^^^^^^^^^^^^
 
-THOR features an option named **--brd** that allows to filter the output
+THOR features an option named ``--brd`` that allows to filter the output
 messages and replace all known locations and fields that can contain
-user names or user ids with the value "**ANONYMIZED\_BY\_THOR**".
+user names or user ids with the value ``ANONYMIZED_BY_THOR``.
 
 What it does is:
 
 * Replace all "USER" and "OWNER" field values of all modules with the anonymized string value
-* Replaced the subfolder names of "**C:\\Users**" and "**C:\\Documents and Settings**" with the anonymized string value
+* Replaced the subfolder names of ``C:\Users`` and ``C:\Documents and Settings`` with the anonymized string value
 
 There is no guarantee that all user IDs will be removed by the filter,
 as they may appear in the most unexpected locations, but in most cases

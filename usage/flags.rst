@@ -240,7 +240,7 @@ Output Options
       --rfc3339                     Print timestamps in RFC3339 (YYYY-MM-DD'T'HH:mm:ss'Z') format
       --reduced                     Reduced output mode - only warnings, alerts and errors will be printed
       --printlicenses               Print all licenses to command line (default: only 10 licenses will be printed)
-      --local-syslog                Print THOR events to local syslog (using the local0 facility; See :ref:`Local Syslog<usage/output-options:Local Syslog>`)
+      --local-syslog                Print THOR events to local syslog (using the local0 facility; See :ref:`usage/output-options:Local Syslog`)
       --showall                     Print rule matches even if that rule already matched more than 10 times.
       --ascii                       Don't print non-ASCII characters to command line and log files
       --string-context uint         When printing strings from YARA matches, include this many bytes surrounding the match 

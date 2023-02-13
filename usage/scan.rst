@@ -9,7 +9,7 @@ Quick Start
 
 Follow these steps to complete your first THOR scan
 
-1. Make sure you've read the :doc:`Before You Begin<./beforeyoubegin>` guide
+1. Make sure you've read the :doc:`/usage/beforeyoubegin` guide
 2. Open a command line (cmd.exe) as Administrator
 3. Navigate to the folder in which you've extracted the THOR package and placed the license file(s)
 4. Start THOR with **thor64.exe** (macOS: **thor-macos**, Linux: **thor-linux-64**)
@@ -28,7 +28,7 @@ Often Used Parameters
   * - **--soft**
     - Reduce CPU usage, skip all checks that can consume a lot of memory (even if only for a few seconds)
   * - **--quick**
-    - Perform a :doc:`quick scan<./scan-modes>` (skips Eventlog and checks only the most relevant folders)
+    - Perform a :doc:`/usage/scan-modes` (skips Eventlog and checks only the most relevant folders)
   * - **-e target-folder**
     - Write all output files to the given folder
 
@@ -123,9 +123,9 @@ The following command creates a plaintext log file on a share called
 "rep" on system "sys" if the user running the command has the respective
 access rights on the share.
 
-.. code:: batch
+.. code-block:: doscon
 
-   thor64.exe --nohtml --nocsv -l \\sys\rep\%COMPUTERNAME%\_thor.txt
+  C:\nextron\thor>thor64.exe --nohtml --nocsv -l \\sys\rep\%COMPUTERNAME%_thor.txt
 
 Logging to Syslog Server
 ^^^^^^^^^^^^^^^^^^^^^^^^
@@ -133,46 +133,46 @@ Logging to Syslog Server
 The following command instructs THOR to log to a remote syslog server
 only.
 
-.. code:: batch
+.. code-block:: doscon
 
-   thor64.exe --nohtml --nocsv --nolog -s syslog.server.net
+  C:\nextron\thor>thor64.exe --nohtml --nocsv --nolog -s syslog.server.net
 
 Scan Run on a Single Directory
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-.. code:: batch
+.. code-block:: doscon
 
-   thor64.exe --lab -p C:\ProgramData
-   thor64.exe --lab -p I:\mounted\_image\disk1
+  C:\nextron\thor>thor64.exe --lab -p C:\ProgramData
+  C:\nextron\thor>thor64.exe --lab -p I:\mounted\_image\disk1
 
 IMPORTANT: This feature requires a `forensic lab license <https://www.nextron-systems.com/2020/11/11/thor-forensic-lab-license-features/>`__ type which is meant to be used in forensic labs. 
 
 You can imitate a lab scan without a lab license with these command line flags:
 
-.. code:: batch 
+.. code-block:: doscon 
 
-   thor64.exe -a Filescan --intense --norescontrol --nosoft --cross-platform --alldrives -p C:\ProgramData
+  C:\nextron\thor>thor64.exe-a Filescan --intense --norescontrol --nosoft --cross-platform --alldrives -p C:\ProgramData
 
 Deactivate all file output - Syslog only
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-.. code:: batch
+.. code-block:: doscon
 
-   thor64.exe -s 10.1.5.14 --nohtml --nolog --nocsv
+  C:\nextron\thor>thor64.exe -s 10.1.5.14 --nohtml --nolog --nocsv
 
 Save the result files to a different directory 
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-.. code:: batch
+.. code-block:: doscon
 
-   thor64.exe -s 10.1.5.14 -e Z:\
+  C:\nextron\thor>thor64.exe -s 10.1.5.14 -e Z:\
 
 Only scan the last 7 days of the Windows Eventlog and log files on disk 
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-.. code:: batch
+.. code-block:: doscon
 
-   thor64.exe --lookback 7
+  C:\nextron\thor>thor64.exe --lookback 7
 
 Scan System with Defaults and Make a Surface Scan
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -181,9 +181,9 @@ By default, the surface scan (DeepDive) applies all YARA rules in
 "./custom-signatures" folder. In this example all output files are
 written to a network share.
 
-.. code:: batch
+.. code-block:: doscon
 
-   thor64.exe --deepdivecustom -e \\server\share\thor_output\
+  C:\nextron\thor>thor64.exe --deepdivecustom -e \\server\share\thor_output\
 
 Intense Scan and DeepDive on a Mounted Image
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -191,16 +191,16 @@ Intense Scan and DeepDive on a Mounted Image
 Mounted as Drive Z
 ~~~~~~~~~~~~~~~~~~
 
-.. code:: batch
+.. code-block:: doscon
 
-   thor64.exe --lab --deepdive -p Z:\
+  C:\nextron\thor>thor64.exe --lab --deepdive -p Z:\
 
 Mounted as /mnt
 ~~~~~~~~~~~~~~~
 
-.. code:: batch
+.. code-block:: doscon
 
-   thor64.exe --lab --deepdive -p /mnt
+  C:\nextron\thor>thor64.exe --lab --deepdive -p /mnt
 
 IMPORTANT: Lab scanning mode requires a `forensic lab license <https://www.nextron-systems.com/2020/11/11/thor-forensic-lab-license-features/>`__ type which is meant to be used in forensic labs. 
 
@@ -209,9 +209,9 @@ Scanning a Folder or Drive without a Forensic Lab License
 
 You can achieve a similar (but not an equal) scan using a standard license and the following command line:
 
-.. code:: batch 
+.. code-block:: doscon 
 
-   thor64.exe -a Filescan --intense --norescontrol --cross-platform --alldrives -p E:\
+  C:\nextron\thor>thor64.exe -a Filescan --intense --norescontrol --cross-platform --alldrives -p E:\
 
 You can find more information on the advantages of a THOR Forensic Lab license `here <https://www.nextron-systems.com/2020/11/11/thor-forensic-lab-license-features/>`__.
 
@@ -222,40 +222,40 @@ Will restrict THOR's CPU usage in the long running modules “FileScan”,
 “Eventlog”, “LogScan” and “Registry” to 60%. Note that THOR
 automatically applies certain restrictions in automatic soft mode.
 
-.. code:: batch
+.. code-block:: doscon
 
-   thor64.exe -c 60
+  C:\nextron\thor>thor64.exe -c 60
 
 Scan Multiple Paths
 ^^^^^^^^^^^^^^^^^^^
 
-.. code:: batch
+.. code-block:: doscon
 
-   thor64.exe --lab -p C:\\ D:\\webapps E:\\inetpub
+  C:\nextron\thor>thor64.exe --lab -p C:\\ D:\\webapps E:\\inetpub
 
 (non-existent directories will be automatically skipped)
 
 Scan All Hard Drives (Windows Only)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-.. code:: batch
+.. code-block:: doscon
 
-   thor64.exe --allhds
+  C:\nextron\thor>thor64.exe --allhds
 
 Don't Scan Recursively 
 ^^^^^^^^^^^^^^^^^^^^^^
 
-To instruct THOR to scan a folder non-recursively use the **:NOWALK** suffix. 
+To instruct THOR to scan a folder non-recursively use the ``:NOWALK`` suffix. 
 
-.. code:: batch
+.. code-block:: doscon
 
-  thor64.exe -a FileScan -p C:\Windows\System32:NOWALK
+  C:\nextron\thor>thor64.exe -a FileScan -p C:\Windows\System32:NOWALK
 
 Run a Scan with Specific Modules
 --------------------------------
 
-With the parameter **-a** you can run a single module or select a set of
-modules that you’d like to run. ﻿
+With the parameter ``-a`` you can run a single module or select a set of
+modules that you'd like to run.
 
 Valid modules are:
 
@@ -267,15 +267,15 @@ ScheduledTasks, WMIStartup
 
 Run a Rootkit check only:
 
-.. code:: batch
+.. code-block:: doscon
    
-   thor64.exe -a Rootkit
+  C:\nextron\thor>thor64.exe -a Rootkit
 
 Run the Eventlog and file system scan:
 
-.. code:: batch
+.. code-block:: doscon
 	
-   thor64.exe –a Eventlog -a Filescan
+  C:\nextron\thor>thor64.exe –a Eventlog -a Filescan
 
 PE-Sieve Integration
 --------------------
@@ -284,13 +284,13 @@ THOR integrates `PE-Sieve <https://github.com/hasherezade/pe-sieve>`__,
 an open-source tool by @hasherezade to check for malware masquerading 
 as benevolent processes.
 
-PE-Sieve can be activated by using the **--processintegrity** flag. It 
+PE-Sieve can be activated by using the ``--processintegrity`` flag. It 
 runs on Windows as part of the ProcessCheck module and is capable of 
 detecting advanced techniques such as Process Doppelganging.
 
 When investigating infections, you can also raise 
 the sensitivity of the integrated PE-Sieve beyond the default with
-**--full-proc-integrity** (at the cost of possible false positives).
+``--full-proc-integrity`` (at the cost of possible false positives).
 
 THOR reports PE-Sieve results as follows:
 
@@ -323,11 +323,11 @@ THOR 10.6 supports scanning a system with multiple threads in parallel,
 allowing for a significant increase in speed in exchange for a higher
 CPU usage.
 
-To use this feature, use the **--threads** flag which allows you to
+To use this feature, use the ``--threads`` flag which allows you to
 specify THOR's number of parallel threads.
 
-When using the **--lab** (Lab Scanning), **--dropzone** (sample drop
-zone) or **--thunderstorm** (Thunderstorm) command line flags, THOR will
+When using the ``--lab`` (Lab Scanning), ``--dropzone`` (sample drop
+zone) or ``--thunderstorm`` (Thunderstorm) command line flags, THOR will
 default to using as many threads as the system has CPU cores; otherwise,
 THOR will still default to running with a single thread.
 
