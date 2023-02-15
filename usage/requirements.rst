@@ -55,3 +55,16 @@ We have productive setups with our customers involving the file collection from:
 * Citrix Netscaler
 * ICS environments with Windows XP embedded systems (planned)
 * VMWare ESX (see this `blog post <https://www.nextron-systems.com/2021/06/07/analyze-vmware-esx-systems-with-thor-thunderstorm/>`__)
+
+Update Servers
+--------------
+
+To download the newest updates for THOR and our signatures, you need an active internet connection.
+The endpoint performing the update needs to reach our update servers to do this.
+
+For a detailed and up to date list of our update and licensing
+servers, please visit https://www.nextron-systems.com/hosts/.
+
+.. hint::
+  You do not need an active internet connection to scan an endpoint. This is only needed if you want to update
+  to the latest THOR or signature versions.
