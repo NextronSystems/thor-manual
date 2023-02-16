@@ -92,7 +92,7 @@ forensic lab workstation:
 .. note::
 
     This feature requires a `forensic lab license <https://www.nextron-systems.com/2020/11/11/thor-forensic-lab-license-features/>`__
-    type which is meant to be used in forensic labs. 
+    type, which is meant to be used in forensic labs. 
 
 Hostname Replacement in Logs
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -189,13 +189,11 @@ You can drop the `EICAR test file <https://www.eicar.org/download-anti-malware-t
 defined dropzone to test if findings are shown properly:
 
 .. figure:: ../images/thor_dropzone_mode_example1.png
-   :target: ../_images/thor_dropzone_mode_example1.png
    :alt: Example of a THOR Drop Zone Mode finding
 
 Or you can print all output with ``--printall`` - this might clutter the output:
 
 .. figure:: ../images/thor_dropzone_mode_example2.png
-   :target: ../_images/thor_dropzone_mode_example2.png
    :alt: Example of a THOR Drop Zone Mode finding
 
 Image File Scan Mode (-m)
@@ -297,7 +295,6 @@ You can get the full name of a Windows Eventlog by right clicking the
 Eventlog in Windows Event Viewer and selecting "Properties".
 
 .. figure:: ../images/image19.png
-   :target: ../_images/image19.png
    :alt: Windows Eventlog Properties
 
    Windows Eventlog Properties

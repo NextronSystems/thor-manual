@@ -58,7 +58,6 @@ command line parameter (e.g. ``syslog``) and not the short form (e.g.
 command line help using ``--help``.
 
 .. figure:: ../images/image20.png
-   :target: ../_images/image20.png
    :alt: Lookup command line parameter long forms using -help
 
    Lookup command line parameter long forms using ``–help``

@@ -66,7 +66,6 @@ We recommend using: https://sqlitebrowser.org/
 The THOR DB is located at: ``C:\ProgramData\thor\thor10.db``.
 
 .. figure:: ../images/image13.png
-   :target: ../_images/image13.png
    :alt: Find Bottlenecks
 
 Most Frequent Causes of Missing Alerts

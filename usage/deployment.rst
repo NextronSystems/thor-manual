@@ -837,17 +837,11 @@ reports have to be analyzed. If the number of collected reports is high,
 we recommend using ASGARD Analysis Cockpit or Splunk with the free App
 and Add-on.
 
-ASGARD Analysis Cockpit
+ASGARD Analysis Cockpit: https://portal.nextron-systems.com/webshop/downloads
 
-https://portal.nextron-systems.com/webshop/downloads
+THOR APT Scanner App: https://splunkbase.splunk.com/app/3717/
 
-THOR APT Scanner App
-
-https://splunkbase.splunk.com/app/3717/
-
-THOR Add-On
-
-https://splunkbase.splunk.com/app/3718/
+THOR Add-On: https://splunkbase.splunk.com/app/3718/
 
 System Load Considerations
 --------------------------

@@ -84,7 +84,6 @@ column, which is separated by a semicolon.
 Hashes are applied case-insensitively.
 
 .. figure:: ../images/image28.png
-   :target: ../_images/image28.png
    :alt: Example hash IOC file
 
    Example hash IOC file
@@ -105,7 +104,6 @@ Filename IOCs are case insensitive if they don't use any special regex character
 Otherwise, they are case sensitive by default, but can be set as case insensitive by using ``(?i)`` anywhere in the regex.
 
 .. figure:: ../images/image29.png
-   :target: ../_images/image29.png
    :alt: File "filename-iocs.txt"
 
    File "filename-iocs.txt"
@@ -164,7 +162,6 @@ and applies to all following IOCs until another comment is encountered.
 Keyword IOCs are case sensitive.
 
 .. figure:: ../images/image30.png
-   :target: ../_images/image30.png
    :alt: Keyword IOC Example
 
    Keyword IOC Example
@@ -269,8 +266,7 @@ Custom Sigma rules must have the ``.yml`` extension for unencrypted sigma rules
 and the ``.yms`` extension for encrypted sigma rules.
 
 .. figure:: ../images/image31.png
-   :target: ../_images/image31.png
-   :alt: Example Sigma match on Windows Eventolog
+   :alt: Example Sigma match on Windows Eventlog
 
    Example Sigma match on Windows Eventlog
 
@@ -299,7 +295,6 @@ They must have the ``.json`` extension for unencrypted STIXv2 files
 and the ``.jsos`` extension for encrypted STIXv2 files.
 
 .. figure:: ../images/image32.png
-   :target: ../_images/image32.png
    :alt: STIXv2 Initialization during startup
 
    STIXv2 Initialization during startup
@@ -428,7 +423,6 @@ of a registry key path and formats them as shown in the following
 screenshot.
 
 .. figure:: ../images/image33.png
-   :target: ../_images/image33.png
    :alt: Composed strings from registry key/value pairs
 
    Composed strings from registry key/value pairs

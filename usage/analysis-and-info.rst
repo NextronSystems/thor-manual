@@ -32,7 +32,6 @@ For example:
 https://valhalla.nextron-systems.com/info/rule/HKTL_Empire_ShellCodeRDI_Dec19_1
 
 .. figure:: ../images/image34.png
-   :target: ../_images/image34.png
    :alt: Rule Info Page
    
    Rule Info Page
@@ -44,7 +43,6 @@ By using the ``--print-signatures`` flag, you can get a list of all
 initialized YARA and Sigma rules.
 
 .. figure:: ../images/image35.png
-   :target: ../_images/image35.png
    :alt: Rule List Output
 
    Rule List Output
