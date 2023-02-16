@@ -44,7 +44,6 @@ your license quota limit or retrieve a THOR package without authorization.
 The download token can be configured in the ``Downloads`` section of you ASGARD server.
 
 .. figure:: ../images/download-token.png
-   :target: ../_images/download-token.png
    :alt: Downloads > Download Token Configuration
 
    Downloads > Download Token Configuration
@@ -73,15 +72,17 @@ box in ASGARD's ``Licensing > Generate License`` section shows curl requests tha
 to retrieve licenses from your ASGARD server.
 
 .. figure:: ../images/asgard-license-gen.png
-   :target: ../_images/asgard-license-gen.png
    :alt: Licensing > Generate Licenses
 
    Licensing > Generate Licenses
 
-All you need are: 
+All you need is: 
 
 * Hostname 
-* System Type (``server``, ``workstation``)
+* System Type (``server`` or ``workstation``)
+
+.. hint:: 
+   Linux is always using the ``server`` license type
 
 If there is uncertainty it's recommended to generate ``server`` type licenses which are
 more expensive but run on both system types.
@@ -110,11 +111,11 @@ Retrieve Valid License From Customer Portal
 Use THOR's ``--portal-key`` and ``--portal-contracts`` parameters to retrieve a license
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-To retrieve a licenses from the customer portal, you need an portal key. The portal key
-(API key) can be configured in the ``User Settings`` section of the `customer portal <https://portal.nextron-systems.com>`__.
+To retrieve a licenses from the customer portal, you need a portal key. The portal key
+(API key) can be configured in the ``User Settings`` section of the
+`customer portal <https://portal.nextron-systems.com>`__.
 
 .. figure:: ../images/portal-api-key.png
-   :target: ../_images/portal-api-key.png
    :alt: User Settings > API Key
 
    User Settings > API Key
@@ -128,24 +129,23 @@ retrieve workstation license from the first still valid contract that has
 workstation licenses available)
 
 .. figure:: ../images/portal-ids.png
-   :target: ../_images/portal-ids.png
    :alt: Contracts IDs in Customer Portal
 
    Contract IDs in Customer Portal
 
 You can then use the parameters as shown in the following examples:
 
-.. code-block:: console 
+.. code-block:: doscon 
 
    C:\temp\thor>thor64.exe --portal-key IY5Y36thrt7h1775tt1ygfuYIadmGzZJmVk32lXcud4
 
-.. code-block:: console 
+.. code-block:: doscon 
 
    C:\temp\thor>thor64.exe --portal-key IY5Y36thrt7h1775tt1ygfuYIadmGzZJmVk32lXcud4 --portal-contracts 13,14
 
-If everything works as expected, you'll see an INFO level message in the output that looks like: 
+If everything works as expected, you'll see an **INFO** level message in the output that looks like: 
 
-.. code-block:: batch 
+.. code-block:: none 
 
    Info License file found LICENSE: portal.nextron-systems.com OWNER: ACME Inc TYPE: Workstation STARTS: 2021/06/23 EXPIRES: 2021/06/30 SCANNER: All Scanners VALID: true REASON:
 
@@ -211,7 +211,6 @@ either mount the network share and run THOR from there or access it
 directly via its UNC path (e.g. ``\\server\share\thor.exe`` or ``\\server\share\thor64.exe``).
 
 .. figure:: ../images/image4.png
-   :target: ../_images/image4.png
    :alt: Deployment via Network Share
 
    Deployment via Network Share
@@ -321,13 +320,11 @@ services are:
 * **Evidence Collection** – collect evidences (files and memory) from asset
 
 .. figure:: ../images/image5.png
-   :target: ../_images/image5.png
    :alt: ASGARD Management Center
 
    ASGARD Management Center
 
 .. figure:: ../images/image6.png
-   :target: ../_images/image6.png
    :alt: ASGARD IOC Management
 
    ASGARD IOC Management
@@ -386,7 +383,7 @@ hosts. This file is later used with the -i parameter in the
 ansible-playbook command. A simple version of this could look like
 following:
 
-.. code-block:: bash
+.. code-block:: yaml
    
    ---
    host1.com
@@ -438,7 +435,6 @@ service on a given network interface and port. This service receives
 samples and returns a scan result.
 
 .. figure:: ../images/image7.png
-   :target: ../_images/image7.png
    :alt: THOR Thunderstorm Overview
 
    THOR Thunderstorm Overview
@@ -511,7 +507,6 @@ An API documentation is integrated into the web service.
 Simply visit the service URL, e.g.: :samp:`http://my-server:8080/`
 
 .. figure:: ../images/image8.png
-   :target: ../_images/image8.png
    :alt: Thunderstorm API documentation
 
    Thunderstorm API documentation
@@ -545,7 +540,6 @@ from the system to get the system clean again after a successful
 proof-of-concept.
 
 .. figure:: ../images/image9.png
-   :target: ../_images/image9.png
    :alt: Thunderstorm Service Installer
 
    Thunderstorm Service Installer
@@ -749,7 +743,6 @@ A list of parameters used with the remote scanning function can be found
 in the help screen.
 
 .. figure:: ../images/image10.png
-   :target: ../_images/image10.png
    :alt: THOR Remote Usage
 
    THOR Remote Usage
@@ -803,11 +796,9 @@ view the progress of the scans, view and scroll through the log files of
 the different remote systems.
 
 .. figure:: ../images/image11.png
-   :target: ../_images/image11.png
    :alt: THOR Remote Interface I
 
 .. figure:: ../images/image12.png
-   :target: ../_images/image12.png
    :alt: THOR Remote Interface II
 
    THOR Remote Interface
@@ -827,7 +818,7 @@ Running THOR from a Network Share
 THOR must reside on the local file system of the source system. Don't run
 it from a mounted network share. This could lead to the following error:
 
-.. code-block:: bash
+.. code-block:: none
    
    CreateFile .: The system cannot find the path specified.
 
