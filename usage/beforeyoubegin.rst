@@ -2,12 +2,17 @@
 Before You Begin
 ================
 
+Before you begin to use THOR for the first time, you should read through
+this section to get a better understanding of what is needed to use THOR.
+
+In the following chapters you should learn how THOR works.
+
 Add License File
 ----------------
 
-Place a valid license file into the THOR program folder.
-THOR checks the program folder and all sub folder for valid license
-files (``*.lic``). You can specify a certain path with ``--licensepath <path>``.
+Place a valid license file into the THOR program folder. THOR checks the
+program folder and all sub folder for valid license files (``*.lic``).
+Alternatively, you can specify a specific path with ``--licensepath <path>``.
 
 Generate a License 
 ^^^^^^^^^^^^^^^^^^
@@ -44,8 +49,8 @@ Some more remarks regarding the hostname values:
 About License Files
 ^^^^^^^^^^^^^^^^^^^
 
-THOR processes the program folder and all sub folders in search for a
-valid license file with a ``.lic`` extension and picks the first
+THOR processes its program folder and all sub folders in search for a
+valid license file with a ``.lic`` extension, and picks the first
 valid license it can find.
 
 This change has been made to facilitate the rollout using the new host
@@ -54,9 +59,8 @@ based license model.
 You can now generate licenses for a big set of systems, store all the
 licenses as ``thor-system1.lic``, ``this-system2.lic``" and so on in
 a sub folder ``./licenses`` and transfer the THOR program folder with
-the "licenses" sub folder to all the different system for which you have
+the "licenses" sub folder to all the different systems, for which you have
 generated licenses and just run the ``thor.exe`` executable.
-     
 
 Upgrade THOR and Update The Signatures 
 --------------------------------------
@@ -96,7 +100,7 @@ Linux:
 .. code-block:: console
 
    nextron@unix:~/Documents/thor$ ./thor-util upgrade                                                                                           
-   Jan 10 09:33:10 unix THOR_UTIL: Info: Read configuration from /home/markusm/Documents/thor/config/thor-util.yml
+   Jan 10 09:33:10 unix THOR_UTIL: Info: Read configuration from /home/nextron/Documents/thor/config/thor-util.yml
 
        ________ ______  ___    __  ______________                                   
       /_  __/ // / __ \/ _ \  / / / /_  __/  _/ /                                   
@@ -120,7 +124,7 @@ Linux:
 
 It is **important** that you update THOR after you have downloaded it from
 the customer portal, since the packages do not contain the newest signature files. 
-(caused by internal integrity check processes)
+(caused by internal integrity checks)
 
 .. note::
    The upgrade requires a valid license for the host that performs the update. 
@@ -132,18 +136,19 @@ Define an Antivirus / EDR Exclusion
 -----------------------------------
 
 Since THOR accesses different process memories and probes for malicious
-Mutex, Named Pipe and Event values, it is recommended to exclude THOR
+Mutex, Named Pipes and Event values, it is recommended to exclude THOR
 from Antivirus / EDR scanning.
 
 The Antivirus exclusion could also lead to a significant runtime
-reduction, since access to processes memory and files does not get
+reduction, since access to processes memory and files will not get
 intercepted anymore.
 
 .. note:: 
    We see massive runtime changes with Windows Defender since April 2021 (+50-100%). 
    It is highly recommended to exclude THOR from scanning when using Windows Defender. 
 
-The quickest way to add an exclusion on a single system is:
+The quickest way to add an exclusion on a single system is wit the following command
+(change the path in ``-ExclusionProcess`` accordingly).
 
 Windows command line:
 
@@ -157,7 +162,7 @@ PowerShell:
 
    PS C:\Users\nextron> Add-MpPreference -ExclusionProcess 'c:\temp\thor\thor64.exe'
 
-For more information visit `this link <https://docs.microsoft.com/en-us/microsoft-365/security/defender-endpoint/configure-process-opened-file-exclusions-microsoft-defender-antivirus?view=o365-worldwide>`__.
+For more information visit `https://docs.microsoft.com <https://docs.microsoft.com/en-us/microsoft-365/security/defender-endpoint/configure-process-opened-file-exclusions-microsoft-defender-antivirus?view=o365-worldwide>`__.
 
 A Note on SentinelOne
 ^^^^^^^^^^^^^^^^^^^^^
@@ -185,10 +190,9 @@ We offer THOR in different variants.
 
 * THOR 
 * THOR TechPreview
-* THOR Legacy (limited support, availability)
+* THOR Legacy (limited support and compatibility)
 
 .. figure:: ../images/techpreview.png
-   :target: ../_images/techpreview.png
    :alt: THOR Default and TechPreview Differences
 
    THOR Default and TechPreview Focus
@@ -201,7 +205,7 @@ without any broadly tested performance and detection tweaks.
 
 The default version should be used for: 
 
-* Scan sweeps on many hundreds or thousands of systems
+* Scan sweeps on hundreds or thousands of systems
 * Continuous compromise assessments on hundreds or thousands of systems
 * Systems with high requirements on stability
 
@@ -246,8 +250,8 @@ Choose The Right Architecture
 
 You will find a 32 and 64 bit version of the executable in the program folder. Never run
 the 32bit version of THOR named ``thor.exe`` on 64bit system. The 32bit version has some
-limitations that the 64bit version doesn't have. (memory usage, sees different folders
-on disk and registry versions)
+limitations that the 64bit version doesn't have (memory usage, sees different folders
+on disk and registry versions).
 
 Make sure to run the correct binary for your target architecture.
 
@@ -271,20 +275,31 @@ You can verify the executable files in the THOR package with
 
 Find more information on THOR Util in its dedicated `online manual <https://thor-util-manual.nextron-systems.com>`__. 
 
-Note: THOR Util automatically verifies the signatures of the contained 
-binaries in an update package and exits if one or more signatures cannot
-be verified. You don't have to check them manually unless you distrust 
-the THOR Util itself. In this case, you can use the public key published
-on `our web page <https://www.nextron-systems.com/pki/>`__.
-
+.. hint::
+   THOR Util automatically verifies the signatures of the contained 
+   binaries in an update package and exits if one or more signatures cannot
+   be verified. You don't have to check them manually unless you distrust 
+   the THOR Util itself. In this case, you can use the public key published
+   on `our web page <https://www.nextron-systems.com/pki/>`__.
+   
 After downloading the public key the signatures can be manually verified with the following command:
 
 .. code-block:: doscon
 
    C:\Users\nextron>openssl dgst -sha256 -verify <Path to public key .pem> -signature <Path to signature .sig> <Path to the executable>
 
-Example:
+Example Windows:
 
 .. code-block:: doscon
    
-   C:\Users\nextron>openssl dgst -sha256 -verify nextronCode.pem -signature thor-linux.sig thor-linux
+   C:\Users\nextron>openssl dgst -sha256 -verify codesign.pem -signature thor64.exe.sig thor64.exe
+   Verified OK
+
+Example Linux:
+
+.. code-block:: console
+
+   user@unix:~/thor$ openssl sha256 -verify codesign.pem -signature thor-linux.sig thor-linux
+   Verified OK
+
+
