@@ -15,10 +15,9 @@ THOR can be easily expanded to handle individual, client-specific attack
 patterns (e.g. the detection of specific malware files or certain log
 entries on the basis of a forensic analysis).
 
-It is a portable and agentless "APT Scanner".
+It is a portable and agent-less "APT Scanner".
 
 .. figure:: ../images/image3.png
-   :target: ../_images/image3.png
    :alt: THOR Coverage and Comparison to Antivirus and Intrusion Detection
 
    THOR Coverage and Comparison to Antivirus and Intrusion Detection
@@ -30,7 +29,7 @@ The key features are:
 * Runs on Windows, Linux and macOS platforms without any prerequisites
 * Adaptable to the specific tools and activity of new APT cases
 * Scoring System – providing a way to detect previously unknown software
-* Several Export Formats – Syslog (JSON/KV/CEF), HTML, TXT, JSON, CSV
+* Several Export Formats – Syslog (JSON/Key-Value/CEF), HTML, TXT, JSON, CSV
 * Throttling of the scan process to reduce the system load to a minimum
 
 Package
@@ -38,11 +37,26 @@ Package
 
 The THOR Package includes the following files and directories:
 
-* THOR Binaries - thor.exe for 32-bit and thor64.exe for 64-bit systems
-* THOR Utility (thor-util.exe) (Helper tool for update, encryption, report generation, signature verification and other tasks – see the separate manual)
-* Configuration Files in "./config" subfolder (directory-excludes.cfg, sigma.yml, false\_positive\_filters.cfg)
-* Main Signature Database of THOR (./signatures/)
-* Custom Signatures and Threat Intel IOCs (./custom-signatures/)
-* THOR change log (changes.log)
-* Additional tools like EXE packers and the Bifrost server script (./tools/)
-* THOR manuals (./docs/)
+.. list-table:: 
+   :widths: 30, 70
+   :header-rows: 1
+
+   * - 
+     - Files/Directories
+   * - THOR Binaries
+     - **thor.exe** and **thor64.exe**, for 32-bit and 64-bit systems respectively
+   * - THOR Utility
+     - **thor-util.exe**, Helper tool for updates, encryption, report generation,
+       signature verification and other tasks – see `THOR Util Manual <https://thor-util-manual.nextron-systems.com/>`_
+   * - Configuration Files
+     - In subfolder ``./config`` - (**directory-excludes.cfg**, **sigma.yml**, **false\_positive\_filters.cfg**)
+   * - Main Signature Database
+     - In subfolder ``./signatures``
+   * - Custom Signatures and Threat Intel IOCs
+     - In subfolder ``./custom-signatures``
+   * - THOR Changelog
+     - **changes.log**
+   * - Additional Tools
+     - In subfolder ``./tools`` - EXE packers and the Bifrost server script
+   * - THOR Manuals
+     - In subfolder ``./docs``
