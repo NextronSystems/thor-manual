@@ -8,8 +8,8 @@ THOR runs in any Windows, Linux and macOS environment without any
 further requirements. Everything needed is already included in the
 program package.
 
-For best results, it is necessary to run THOR with administrative
-privileges or ``LOCAL_SYSTEM`` on Windows and ``root`` on Linux/macOS
+To use the full potential of THOR, you should execute it with administrative
+privileges - ``LOCAL_SYSTEM`` on Windows and ``root`` on Linux/macOS
 systems.
 
 Supported
