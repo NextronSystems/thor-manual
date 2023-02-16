@@ -259,11 +259,37 @@ modules that you'd like to run.
 
 Valid modules are:
 
-Autoruns, DeepDive, Dropzone, EnvCheck, Filescan, Firewall, Hosts,
-LoggedIn, OpenFiles, ProcessCheck, UserDir, ServiceCheck, Users, AtJobs,
-DNSCache, Eventlog, HotfixCheck, LSASessions, MFT, Mutex,
-NetworkSessions, NetworkShares, RegistryChecks, Rootkit, SHIMCache,
-ScheduledTasks, WMIStartup
+.. list-table:: 
+  :widths: 25, 25, 25, 25
+
+  * - Autoruns
+    - DeepDive
+    - Dropzone
+    - EnvCheck
+  * - Filescan
+    - Firewall
+    - Hosts
+    - LoggedIn
+  * - OpenFiles
+    - ProcessCheck
+    - UserDir
+    - ServiceCheck
+  * - Users
+    - AtJobs
+    - DNSCache
+    - Eventlog
+  * - HotfixCheck
+    - LSASessions
+    - MFT
+    - Mutex
+  * - NetworkSessions
+    - NetworkShares
+    - RegistryChecks
+    - Rootkit
+  * - SHIMCache
+    - ScheduledTasks
+    - WMIStartup
+    -  
 
 Run a Rootkit check only:
 
