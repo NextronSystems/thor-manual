@@ -2,7 +2,6 @@
 Known Issues
 ============
 
-
 THOR#001: Could not parse sigma logsources
 ------------------------------------------
 
@@ -45,3 +44,26 @@ THOR#002: Status
 ~~~~~~~~~~~~~~~~
 
 Open
+
+THOR#003: THOR shows the error: No rules with DEEPSCAN tag found
+----------------------------------------------------------------
+
+This error is caused by a missing signature set. Usually the user just copied the THOR executable and forgot to copy the whole program folder including the ``./signatures`` folder. The error message means that none of THOR's own signatures could be found. These signatures also include the so-called ``DEEPSCAN`` signatures. THOR reports that not a single one of these signatures could be found, which results in very limited scan capabilities. 
+
+.. code-block:: doscon 
+
+    MESSAGE: No rules with DEEPSCAN tag found
+
+THOR#003: Solution 
+~~~~~~~~~~~~~~~~~~
+
+Make sure that you have the ``./signatures`` folder in your THOR program folder and that it contains at least the following files: 
+
+* ``./signatures/yara/thor-all.yas``
+* ``./signatures/yara/thor-deepscan-selectors.yasx``
+* ``./signatures/yara/thor-expensive.yase``
+* ``./signatures/yara/thor-keywords.yas``
+* ``./signatures/yara/thor-log-sigs.yas``
+* ``./signatures/yara/thor-meta.yas``
+* ``./signatures/yara/thor-process-memory-sigs.yas``
+* ``./signatures/yara/thor-registry.yas``
