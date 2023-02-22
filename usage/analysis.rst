@@ -37,7 +37,6 @@ forwarding and SIEM integration that makes it easy for your organization
 to react quickly on new incidents.
 
 .. figure:: ../images/image14.png
-   :target: ../_images/image14.png
    :alt: Analysis Cockpit View
 
    Analysis Cockpit View
@@ -50,13 +49,11 @@ This App helps you to extract the event fields and provides dashboards
 to get a better overview on distributed runs on multiple systems.
 
 .. figure:: ../images/image15.png
-   :target: ../_images/image15.png
    :alt: THOR Splunk App (free)
 
    THOR Splunk App (free)
 
 .. figure:: ../images/image16.png
-   :target: ../_images/image16.png
    :alt: Splunk THOR App Universal View
 
    Splunk THOR App Universal View
@@ -76,7 +73,6 @@ THOR Util provides a feature called "report" that creates HTML reports
 from text logs of one or more scanned systems.
 
 .. figure:: ../images/image17.png
-   :target: ../_images/image17.png
    :alt: THOR Util's Report Output
 
    THOR Util's Report Output
@@ -93,7 +89,6 @@ The Customer Portal contains a log analysis manual in the "Downloads"
 section.
 
 .. figure:: ../images/image18.png
-   :target: ../_images/image18.png
    :alt: Log Analysis Manual Download Link
 
    Log Analysis Manual Download Link
