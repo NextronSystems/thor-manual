@@ -134,8 +134,8 @@ Whenever THOR stops / pauses without any traceback or panic message and no error
 
 Usually the following sources are responsible (descending order, by frequency):
 
-1. Antivirus or EDR suspends the THOR process (>90%)
-2. A frozen command line window due to Windows "Quick Edit Mode" (<10%)
+1. Antivirus or EDR suspends the THOR process (>95%)
+2. A frozen command line window due to Windows "Quick Edit Mode" (<5%)
 3. A constant high system load that causes THOR to stay back and wait for an idling CPU (<3%)
 4. The sensation of a stalled scan that is actually running (<3%)
 
