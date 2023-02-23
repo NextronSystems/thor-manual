@@ -142,7 +142,7 @@ Usually the following sources are responsible (descending order, by frequency):
 Antivirus or EDR suspends THOR
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-In more than 95% and more of the cases, an Antivirus or EDR is responsible for a
+In more than 95% and of the cases, an Antivirus or EDR is responsible for a
 stalled process. Especially McAfee AV/EDR is a well-known source of issues. This
 is caused by the different dialogues in which exceptions have to be defined and
 the fact the certain kinds of blocks cannot be found in any logs.
