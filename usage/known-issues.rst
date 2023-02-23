@@ -48,11 +48,56 @@ Open
 THOR#003: THOR shows the error: No rules with DEEPSCAN tag found
 ----------------------------------------------------------------
 
-This error is caused by a missing signature set. Usually the user just copied the THOR executable and forgot to copy the whole program folder including the ``./signatures`` folder. The error message means that none of THOR's own signatures could be found. These signatures also include the so-called ``DEEPSCAN`` signatures. THOR reports that not a single one of these signatures could be found, which results in very limited scan capabilities. 
+This error is caused by a missing signature set. Usually the user just copied the
+THOR executable and forgot to copy the whole program folder including the ``./signatures``
+folder. The error message means that none of THOR's own signatures could be found.
+These signatures also include the so-called ``DEEPSCAN`` signatures. THOR reports
+that not a single one of these signatures could be found, which results in very limited
+scan capabilities.
+
+You can see that this is the case by inspecting your scan results:
+
+.. code-block:: none
+    :emphasize-lines: 4-5
+
+    THOR: Warning: MODULE: Init MESSAGE: No rules with DEEPSCAN tag found.
+        THOR won't scan any files with YARA rules. Please ensure that you use
+        up-to-date signatures. SCANID: S-Qpw5dDmEBaw
+    THOR: Info: MODULE: Init MESSAGE: Successfully compiled 0 custom default
+        YARA rules SCANID: S-Qpw5dDmEBaw TYPE: YARA
+
+You can also see during the initialization process of THOR, that no YARA rules
+are compiled:
 
 .. code-block:: doscon 
+    :emphasize-lines: 11-12, 23-24
 
-    MESSAGE: No rules with DEEPSCAN tag found
+    C:\nextron\thor>thor64.exe
+    [...]
+
+    > Reading YARA signatures and IOC files ...
+    Info Successfully compiled 0 default YARA rules TYPE: YARA
+    Info Successfully compiled 0 log YARA rules TYPE: YARA
+    Info Successfully compiled 0 registry YARA rules TYPE: YARA
+    Info Successfully compiled 0 keyword YARA rules TYPE: YARA
+    Info Successfully compiled 0 process YARA rules TYPE: YARA
+    Info Successfully compiled 0 meta YARA rules TYPE: YARA
+    Warning No rules with DEEPSCAN tag found. THOR won't scan any files with YARA rules.
+        Please ensure that you use up-to-date signatures.
+    Info Successfully compiled 0 custom default YARA rules TYPE: YARA
+    Info Skip sigma initialization, use '--sigma' flag to scan with sigma
+    Info Successfully compiled 0 STIXv2 indicators (skipped 0 indicators) TYPE: STIX
+    Info Successfully compiled 0 keyword ioc strings TYPE: IOC
+    Info Successfully compiled 0 filename ioc strings and 0 filename ioc regexs TYPE: IOC
+    Info Successfully compiled 0 malware and 0 false positive hashes TYPE: IOC
+    Info Successfully compiled 0 file type signatures TYPE: IOC
+    Info Successfully compiled 0 malware domains TYPE: IOC
+    Info Successfully compiled 0 malicious handles and 0 regex malicious handles TYPE: IOC
+    Info Successfully compiled 0 named pipe ioc strings and 0 named pipe ioc regexs TYPE: IOC
+    Warning No file type signatures compiled, file type detection can't be done.
+        Because of this, many files won't be scanned.
+
+    [...]
 
 THOR#003: Solution 
 ~~~~~~~~~~~~~~~~~~
