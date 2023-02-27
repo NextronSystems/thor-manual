@@ -31,11 +31,12 @@ The chapter :ref:`usage/use-cases:use cases` contains some use cases in which th
 Forensic Lab License
 ^^^^^^^^^^^^^^^^^^^^
 
-Lab scanning mode and its features are usually required in a non-private context. 
+The scan of mounted disk or memory images is a use case that we call "lab scanning".
 It requires a `forensic lab license <https://www.nextron-systems.com/2020/11/11/thor-forensic-lab-license-features/>`__ 
-which is meant to be used in corporate forensic labs. 
+which is meant to be used in corporate digital forensic labs.
 
-You can achieve a similar (but not equal) scan using the following command line flags 
+All other license types are meant for other use cases. (usually live system scanning)
+You can get a similar but not an equally thorough scan using the following command line flags 
 
 .. code-block:: doscon 
 
@@ -43,7 +44,9 @@ You can achieve a similar (but not equal) scan using the following command line 
    
 Without a valid lab license, you cannot use multiple instances of THOR on a single system 
 or switch into multi-threaded scanning. The features mentioned in the following sub chapters
-are also limited.  
+are also limited to a lab license.
+
+`This article <https://www.nextron-systems.com/2020/11/11/thor-forensic-lab-license-features/>`__ explains that advantages of a lab licenses.
 
 Virtual Drive Mapping
 ^^^^^^^^^^^^^^^^^^^^^
