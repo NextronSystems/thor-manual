@@ -161,6 +161,9 @@ The recommended flags to run THOR are:
 
    C:\temp\thor>thor64.exe --module Filescan --alldrives --path X: --path Y: --path Z:
 
+.. note:: 
+    The --alldrives flag is only available with lab licenses
+
 If needed or desired the scan can be adapted using the following flags. In general the following options are not recommended but can help in special szenarios.
 
 - ``--resume``: If a previous scan failed (e.g. because of a exceeded max. runtime) the scan can be resumed, if the same flags (and additional the resume flag) are used to start the scan.

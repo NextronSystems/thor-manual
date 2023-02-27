@@ -67,7 +67,7 @@ This list contains flags that should better be avoided unless you know exactly w
   * - **--c2-in-memory**
     - many false positives on user workstations (especially browser memory)
   * - **--alldrives**
-    - long runtime, stability issues due to scan on network drives or other remote filesystems
+    - long runtime, stability issues due to scan on network drives or other remote file systems
   * - **--mft**
     - stability issues due to high memory usage
   * - **--dump-procs**
@@ -151,7 +151,7 @@ You can imitate a lab scan without a lab license with these command line flags:
 
 .. code-block:: doscon 
 
-  C:\nextron\thor>thor64.exe-a Filescan --intense --norescontrol --nosoft --cross-platform --alldrives -p C:\ProgramData
+  C:\nextron\thor>thor64.exe-a Filescan --intense --norescontrol --nosoft --cross-platform -p C:\ProgramData
 
 Deactivate all file output - Syslog only
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
