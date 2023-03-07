@@ -26,3 +26,4 @@ File Scan;Most modules and features
 Cobalt Strike Beacon Parsing;File Scan, Process Check
 Process Integrity Check;Process Check
 SHIM Cache Analysis;SHIM Cache Scan, Registry Hive
+ETL File Scanning;File Scan
