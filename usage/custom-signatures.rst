@@ -2,35 +2,47 @@ Custom Signatures
 =================
 
 THOR checks the contents of the ``./custom-signatures`` folder and
-processes every file in this folder. The extension determines the type
-of signature (e.g. a simple IOC file, a YARA rule, a Sigma rule, ...).
+processes every file in this folder. The file extension determines the type
+of signature (e.g. a simple IOC file, a YARA rule or a Sigma rule).
 For some signature types, string tags in the file names are used to
 further distinguish the signatures.
 
-For example, a ``my-c2-iocs.txt`` file will be
+For example, a file named ``my-c2-iocs.txt`` will be
 initialized as a file containing simple IOC indicators with
 C2 server information.
 
 Internally the regex ``\Wc2\W`` is used to detect the
 tag, so ``mysource-c2-iocs.txt`` and
 ``dec15-batch1-c2-indicators.txt`` would be detected correctly,
-whereas on the contrary ``filenameiocs.txt`` or ``myc2iocs.txt`` would
-not.
+whereas ``filenameiocs.txt`` or ``myc2iocs.txt`` would
+not be detected.
 
 If you do not wish to place your custom IOCs on potentially compromised systems
 during an engagements, you can use thor-util to encrypting custom signatures.
 This is described in detail in the
 `THOR Util manual <https://thor-util-manual.nextron-systems.com/en/latest/>`_
 
+.. this is for the formatting of the Feature/Module lists.
+.. raw:: html
+
+   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+   <script>
+   $(document).ready(function() {
+   $("p").filter(function() {return $(this).text() === "Yes";}).parent().addClass('yes');
+   $("p").filter(function() {return $(this).text() === "No";}).parent().addClass('no');
+   });
+   </script>
+   <style>
+   .yes {background-color:#64c864 !important; text-align: center;}
+   .no {background-color:#c86464 !important; text-align: center;}
+   </style>
+
 Simple IOCs
 -----------
 
 Simple IOC files are basically CSV files that include the IOC and
-comments. The folder ``./custom-signatures/iocs/templates`` contains
-template files from which you can create your own IOC files.
-
-Simple IOC files must have the extension ``.txt``.
-Encrypted simple IOC files must have the extension ``.dat``.
+comments. Simple IOC files must have the extension ``.txt``.
+encrypted simple IOC files must have the extension ``.dat``.
 
 The following tags for simple IOCs are currently supported:
 
@@ -51,71 +63,92 @@ The following tags for simple IOCs are currently supported:
    * - Tag in File Name
      - Example
    * - c2
-     - misp-c2-domains-iocs.txt
+     - misp-**c2**-domains-iocs.txt
    * - filename
-     - Case-UX22-filename-iocs.txt
+     - Case-UX22-**filename**-iocs.txt
    * - filenames
-     - Malicious-filenames-unitX.txt
+     - Malicious-**filenames**-unitX.txt
    * - hash
-     - op-aura-hash-iocs.txt
+     - op-aura-**hash**-iocs.txt
    * - hashes
-     - int-misp-hashes.txt
+     - int-misp-**hashes**.txt
    * - keyword
-     - keywords-incident-3389.txt
+     - Incident-22-**keyword**.txt
    * - keywords
-     - Incident-22-keyword.txt
+     - **keywords**-incident-3389.txt
    * - trusted-hash
-     - my-trusted-hashes.dat (encrypted)
+     - my-**trusted-hashes**.dat (encrypted)
    * - handles
-     - Operation-fallout-handles.txt
+     - Operation-fallout-**handles**.txt
    * - pipes
-     - incident-22-named-pipes.txt
+     - incident-22-named-**pipes**.txt
+
+.. hint::
+   You can find IOC examples in the directory ``custom-signatures/iocs/templates``
+   of THOR. This should help you to create your own simple IOC files.
+
+.. _Simple IOCs Modules:
+
+For a list of Features/Modules which are used by the different :ref:`usage/custom-signatures:simple iocs`,
+please see the table below.
+
+.. csv-table::
+   :file: ../csv/thor_feature_iocs.csv
+   :delim: ;
+   :header-rows: 1
 
 Hashes
 ^^^^^^
 
-Files with the tag ``hash`` or ``hashes`` in their name
+Files with the string ``hash`` or ``hashes`` in their name
 get initialized as hash IOC sets. Every match with one of these hashes
 receives a sub score of 100.
 
 You can add MD5, SHA1 or SHA256 hashes and add a comment in a second
-column, which is separated by a semicolon.
+column, which is separated by a semicolon. Hashes are applied case-insensitively.
 
-Hashes are applied case-insensitively.
+.. code-block:: text
+   :caption: custom-hashes-iocs.txt
+   :linenos:
 
-.. figure:: ../images/image28.png
-   :alt: Example hash IOC file
-
-   Example hash IOC file
+   0c2674c3a97c53082187d930efb645c2;DEEP PANDA Sakula Malware - http://goo.gl/R3e6eG
+   000c907d39924de62b5891f8d0e03116;The Darkhotel APT http://goo.gl/DuS7WS
+   c03318cb12b827c03d556c8747b1e323225df97bdc4258c2756b0d6a4fd52b47;Operation SMN Hashes http://goo.gl/bfmF8B - Zxshell
 
 File Name IOCs
 ^^^^^^^^^^^^^^
 
-Filename IOC files allow you to define IOCs based on file name and path
-using regular expressions. You can add or reduce
-the total score of a file element during the scan with a positive (e.g.
+Filename IOC files allow you to define IOCs based on filename and filepath
+using regular expressions. You can add or reduce the total score of a file
+element during the scan with a positive (e.g.
 "40") or negative score (e.g. "-30").
 
 While this can also be used to define false positives, or reduce the
 score of well-known files and locations, it gives you all the
 flexibility to add scores according to your needs.
 
-Filename IOCs are case insensitive if they don't use any special regex characters (such as ``*``, ``.``, ``[``, ...).
-Otherwise, they are case sensitive by default, but can be set as case insensitive by using ``(?i)`` anywhere in the regex.
+Filename IOCs are case insensitive if they don't use any special regex
+characters (such as ``*``, ``.``, ``[``, ...). Otherwise, they are case
+sensitive by default, but can be set as case insensitive by using ``(?i)``
+anywhere in the regex.
 
-.. figure:: ../images/image29.png
-   :alt: File "filename-iocs.txt"
+.. code-block:: text
+   :caption: custom-filename-iocs.txt
+   :linenos:
 
-   File "filename-iocs.txt"
-
-For example, if you know that administrators in your organization use
-"PsExec.exe" in a folder "Sysinternals" and any other location should be
+   # Ncat Example
+   \\bin\\nc\.exe;-20
+   
+If you know that administrators in your organization use ``PsExec.exe``
+in a folder named ``Sysinternals``, but any other location should be
 reported as suspicious you could define the following statements:
 
-.. code-block:: 
+.. code-block:: text
+   :caption: psexec-filename.ioc.txt
+   :linenos:
 
-        \\PsExec\.exe;60
-        \\SysInternals\\PsExec\.exe;-60
+   \\PsExec\.exe;60
+   \\SysInternals\\PsExec\.exe;-60
 
 This following example represents the 3\ :sup:`rd` generation filename
 IOC format introduced with THOR version 8.30 and SPARK version 1.5,
@@ -130,41 +163,49 @@ It contains three fields:
 The False Positive Regex statement is only evaluated if the Regex
 statement in column 1 matched.
 
-.. code-block::
+.. code-block:: text
 
-        \\PsExec\.exe;60;\\SysInternals\\
+   \\PsExec\.exe;60;\\SysInternals\\
 
 We use this new format internally to describe abnormal locations of
 system files like
 
-.. code-block::
+.. code-block:: text
 
-        ([C-Zc-z]:\\|\\\\).{1,40}\\svchost\.exe;65;(?i)(HKCR\\Applications|System32|system32|SYSTEM32|winsxs|WinSxS|SysWOW64|SysWow64|syswow64|SYSNATIVE|Sysnative|dllcache|WINXP|WINDOWS|i386|%system32%)\\
+   ([C-Zc-z]:\\|\\\\).{1,40}\\svchost\.exe;65;(?i)(HKCR\\Applications|System32|system32|SYSTEM32|winsxs|WinSxS|SysWOW64|SysWow64|syswow64|SYSNATIVE|Sysnative|dllcache|WINXP|WINDOWS|i386|%system32%)\\
 
 You could also score down directories with many false positives reported
 as "Notices" or "Warnings" like this:
 
-.. code-block::
+.. code-block:: text
 
-        \\directory_with_many_false_positives\\;-30
+   \\directory_with_many_false_positives\\;-30
 
 Keyword IOCs
 ^^^^^^^^^^^^
 
-The keyword-based IOC files contain plain strings that are matched
-against the output lines of almost every module (e.g. Eventlog entries,
-log lines, Autoruns elements, local user names, at jobs etc.)
+The keyword-based IOC files contain plaintext strings that are matched
+against the console output of THOR. Not all console output is being used for those
+IOCs, you can find the full list here: `Simple IOCs Modules`_.
 
-Every line is treated as case-sensitive string.
-A comment can be specified with a line starting with a ``#``
-and applies to all following IOCs until another comment is encountered.
+One use case would be to have different strings which you encountered in Scheduled Tasks
+within Windows. Usually THOR will output all the Scheduled Tasks as ``Info``,
+so this can help to look for specific things throughout the whole THOR scan.
+
+Every line is treated as case-sensitive string. A comment can be specified
+with a line starting with a ``#`` and applies to all following IOCs until
+another comment is encountered.
 
 Keyword IOCs are case sensitive.
 
-.. figure:: ../images/image30.png
-   :alt: Keyword IOC Example
-
-   Keyword IOC Example
+.. code-block:: text
+   :caption: custom-keyword-iocs.txt
+   :linenos:
+   
+   # Evil strings from our case
+   sekurlsa::logonpasswords
+   failed to create Service 'GAMEOVER'
+   kiwi.eo.oe
 
 C2 IOCs
 ^^^^^^^
@@ -186,15 +227,15 @@ and applies to all following IOCs until another comment is encountered.
 A score for the IOC can optionally be specified after the IOC,
 separated by a ``;``, it defaults to 100 if none is specified.
 
-.. code-block:: none
+.. code-block:: text
+   :caption: custom-c2-domains.txt
+   :linenos:
 
-        # OpMuhadib C2 servers
-        182.34.23.10;90
-        update1.usul.ru
-        usul-updates.info
-        182.34.23.0/24
-
-*Example for custom C2 IOCs*
+   # Case 44 C2 Server
+   mastermind.eu
+   googleaccountservices.com
+   89.22.123.12
+   someotherdomain.biz;80
 
 Mutex or Event Values
 ^^^^^^^^^^^^^^^^^^^^^
@@ -208,18 +249,15 @@ its match position by using ``^`` and/or ``$``).
 
 You can decide if you want to set a scope by using ``Global\\``
 or ``BaseNamedObjects\\`` as a prefix. If you decide to use none, your expression
-will be applied to any scope.
+will be applied to any scope. Mutex and event IOCs are case sensitive.
 
-Mutex and event IOCs are case sensitive.
+.. code-block:: text
+   :linenos:
+   :caption: custom-mutex-iocs.txt
 
-.. code-block:: none
-
-        Global\\mymaliciousmutex;Operation Fallout – RAT Mutex
-        Global\\WMI_CONNECTION_RECV;Flame Event https://bit.ly/2KjUTuP
-        Dwm-[a-f0-9]{4}-ApiPort-[a-f0-9]{4};Chinese campaign malware June 19
-
-*Example for custom Mutex IOCs*
-
+   Global\\mymaliciousmutex;Operation Fallout – RAT Mutex
+   Global\\WMI_CONNECTION_RECV;Flame Event https://bit.ly/2KjUTuP
+   Dwm-[a-f0-9]{4}-ApiPort-[a-f0-9]{4};Chinese campaign malware June 19
 
 Named Pipes
 ^^^^^^^^^^^
@@ -234,22 +272,39 @@ they are applied as "contains" (though a regex can, of course, specify
 its match position by using ``^`` and/or ``$``).
 
 Optionally, a score can be added as 2nd field. If none is present, it
-defaults to 100.
+defaults to 100. Named Pipe IOCs are case insensitive.
 
-Named Pipe IOCs are case insensitive.
+.. code-block:: text
+   :caption: custom-named-pipes-iocs.txt
+   :linenos:
 
-.. code-block:: none
+   # Incident Response Engagement
+   MyMaliciousNamedPipe;Malicious pipe used by known RAT
+   MyInteresting[a-z]+Pipe;50;Interesting pipe we have seen in new malware
 
-        MyMaliciousNamedPipe;Malicious pipe used by known RAT
-        MyInteresting[a-z]+Pipe;50;Interesting pipe we have seen in new malware
+Rules
+-----
 
-*Example for custom Named Pipe IOCs*
+There are different types of rules you can use to write your own custom
+rules. This chapter will explain all the methods you can use to write
+your onw rules.
+
+.. _Rules Modules:
+
+For a list of Features/Modules which are used by :ref:`usage/custom-signatures:sigma rules`,
+:ref:`usage/custom-signatures:generic yara rules` and
+:ref:`usage/custom-signatures:specific yara rules`, please see the table below.
+
+.. csv-table::
+   :file: ../csv/thor_feature_rules.csv
+   :delim: ;
+   :header-rows: 1
 
 Sigma Rules
------------
+^^^^^^^^^^^
 
 Sigma is a generic rule format for detections on log data. Sigma is for
-log data, as Snort is for network packets and YARA is for files.
+log data, what Snort is for network packets and YARA is for files.
 
 THOR applies Sigma rules to Windows Eventlogs and log files on disk
 (``.log``). By default, THOR ships with the public Sigma rule set, which
@@ -271,7 +326,7 @@ and the ``.yms`` extension for encrypted sigma rules.
    Example Sigma match on Windows Eventlog
 
 Sigma Examples
-^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~
 
 Perform a scan with the Sigma rules on the different local Windows
 Eventlogs (``-a Eventlog``)
@@ -287,42 +342,8 @@ LogScan) only
 
    C:\tools\thor>thor64 -a Filesystem -p /var/log –sigma
 
-STIX IOCs
----------
-
-THOR can read and apply IOCs provided in STIXv2 JSON files.
-They must have the ``.json`` extension for unencrypted STIXv2 files
-and the ``.jsos`` extension for encrypted STIXv2 files.
-
-.. figure:: ../images/image32.png
-   :alt: STIXv2 Initialization during startup
-
-   STIXv2 Initialization during startup
-
-The following observables are supported.
-
-* ``file:name`` with **=**   **!=**   **LIKE** and **MATCHES**
-* ``file:parent_directory_ref.path`` with **=**   **!=**   **LIKE** and **MATCHES**
-* ``file:hashes.sha-256`` / ``file:hashes.sha256`` with **=** and  **!=**
-* ``file:hashes.sha-1`` / ``file:hashes.sha1`` with **=** and **!=**
-* ``file:hashes.md-5`` / ``file:hashes.md5`` with **=** and **!=**
-* ``file:size with`` **<**   **<=**   **>**   **>=**   **=** and **!=**
-* ``file:created`` with **<**   **<=**   **>**   **>=**   **=** and **!=**
-* ``file:modified`` with **<**   **<=**   **>**   **>=**   **=** and **!=**
-* ``file:accessed`` with **<**   **<=**   **>**   **>=**   **=** and **!=**
-* ``win-registry-key:key`` with **=**   **!=**   **LIKE** and **MATCHES**
-* ``win-registry-key:values.name`` with **=**   **!=**   **LIKE** and **MATCHES**
-* ``win-registry-key:values.data with`` with **=**   **!=**   **LIKE** and **MATCHES**
-* ``win-registry-key:values.modified_time`` with **<**   **<=**   **>**   **>=**   **=** and **!=**
-
-STIX v1
-^^^^^^^
-
-STIX version 1 is not supported.
-
-
 YARA Rules
-----------
+^^^^^^^^^^
 
 THOR allows you include your own custom YARA rules.
 YARA rules must have the **.yar** extension for plain text YARA rules
@@ -336,7 +357,7 @@ There are two custom YARA rule types that you can define in THOR:
 - Specific Rules
 
 Generic YARA Rules
-^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~
 
 All YARA rules which do not contain any specific tag (see :ref:`usage/custom-signatures:Specific YARA Rules`)
 are considered generic YARA rules.
@@ -366,7 +387,7 @@ applied to content.
 
 
 Specific YARA Rules
-^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~
 
 The specific YARA rules contain certain tags in their filename to
 differentiate them further:
@@ -415,7 +436,7 @@ applied to content.
     - meta-rules.yar
 
 THOR YARA Rules for Registry Detection
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+**************************************
 
 THOR allows checking a complete registry path key/value pairs with Yara
 rules. To accomplish this, THOR composes a string from the key/value pairs
@@ -471,7 +492,7 @@ initialize the YARA rule file as registry rule set (e.g. "**registry\_exe\_in\_v
 Registry scanning uses bulk scanning. See :ref:`usage/custom-signatures:Bulk Scanning` for more details.
 
 THOR YARA Rules for Log Detection
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+*********************************
 
 YARA Rules for logs are applied as follows:
 
@@ -487,7 +508,7 @@ Remember that you have to use the keyword **log** in the file name in order to
 initialize the YARA rule file as registry rule set (e.g. ``my_log_rule.yar``).
 
 How to Create YARA Rules
-^^^^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~~~~
 
 Using the UNIX "string" command on Linux systems or in a CYGWIN
 environment enables you to extract specific strings from your sample
@@ -544,7 +565,7 @@ https://www.bsk-consulting.de/2015/02/16/write-simple-sound-yara-rules/
 https://www.bsk-consulting.de/2015/10/17/how-to-write-simple-but-sound-yara-rules-part-2/
 
 Typical Pitfalls
-^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~
 
 Some signatures - even the ones published by well-known vendors - cause
 problems on certain files. The most common source of trouble is the use
@@ -579,13 +600,46 @@ again with the Yara binary. Usually this is caused by a duplicate rule
 name or syntactical errors.
 
 YARA Rule Performance
-^^^^^^^^^^^^^^^^^^^^^
+~~~~~~~~~~~~~~~~~~~~~
 
 We compiled a set of guidelines to improve the performance of YARA
 rules. By following these guidelines you avoid rules that cause many CPU
 cycles and hamper the scan process.
 
 https://gist.github.com/Neo23x0/e3d4e316d7441d9143c7
+
+STIX IOCs
+---------
+
+THOR can read and apply IOCs provided in STIXv2 JSON files.
+They must have the ``.json`` extension for unencrypted STIXv2 files
+and the ``.jsos`` extension for encrypted STIXv2 files.
+
+.. figure:: ../images/image32.png
+   :alt: STIXv2 Initialization during startup
+
+   STIXv2 Initialization during startup
+
+The following observables are supported.
+
+* ``file:name`` with **=**   **!=**   **LIKE** and **MATCHES**
+* ``file:parent_directory_ref.path`` with **=**   **!=**   **LIKE** and **MATCHES**
+* ``file:hashes.sha-256`` / ``file:hashes.sha256`` with **=** and  **!=**
+* ``file:hashes.sha-1`` / ``file:hashes.sha1`` with **=** and **!=**
+* ``file:hashes.md-5`` / ``file:hashes.md5`` with **=** and **!=**
+* ``file:size with`` **<**   **<=**   **>**   **>=**   **=** and **!=**
+* ``file:created`` with **<**   **<=**   **>**   **>=**   **=** and **!=**
+* ``file:modified`` with **<**   **<=**   **>**   **>=**   **=** and **!=**
+* ``file:accessed`` with **<**   **<=**   **>**   **>=**   **=** and **!=**
+* ``win-registry-key:key`` with **=**   **!=**   **LIKE** and **MATCHES**
+* ``win-registry-key:values.name`` with **=**   **!=**   **LIKE** and **MATCHES**
+* ``win-registry-key:values.data with`` with **=**   **!=**   **LIKE** and **MATCHES**
+* ``win-registry-key:values.modified_time`` with **<**   **<=**   **>**   **>=**   **=** and **!=**
+
+STIX v1
+^^^^^^^
+
+STIX version 1 is not supported.
 
 Enhance YARA Rules with THOR Specific Attributes
 ------------------------------------------------

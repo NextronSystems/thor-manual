@@ -81,7 +81,8 @@ html_theme = 'sphinx_rtd_theme'
 
 html_theme_options = {
     'prev_next_buttons_location': 'both',
-    'style_external_links': True
+    'style_external_links': True,
+    'navigation_depth': -1,
 }
 
 html_logo = "images/html/thor-logo.png"
@@ -197,4 +198,4 @@ smartquotes = False
 
 # Use :ref: for subsections
 autosectionlabel_prefix_document = True
-autosectionlabel_maxdepth = 4
+autosectionlabel_maxdepth = 5
