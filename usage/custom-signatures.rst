@@ -308,7 +308,7 @@ log data, what Snort is for network packets and YARA is for files.
 
 THOR applies Sigma rules to Windows Eventlogs and log files on disk
 (``.log``). By default, THOR ships with the public Sigma rule set, which
-is maintained by the community at `<https://github.com/SigmaHQ/sigma>`.
+is maintained by the community at `<https://github.com/SigmaHQ/sigma>`_.
 
 To activate Sigma scanning, you have to use the ``--sigma`` command line
 option or perform an ``--intense`` scan. Sigma scanning is not activated
@@ -421,19 +421,19 @@ applied to content.
     - Examples
   * - registry
     - RegistryChecks, RegistryHive
-    - incident-feb17-registry.yar
+    - incident-feb17-**registry**.yar
   * - log
     - Eventlog, Logscan, EVTX
-    - general-log-strings.yar
+    - general-**log**-strings.yar
   * - process
     - ProcessCheck (only on process memory)
-    - case-a23-process-rules.yar
+    - case-a23-**process**-rules.yar
   * - keyword
     - Mutex, Named Pipes, Eventlog, MFT, ProcessCheck (on all process handles), ProcessHandles, ServiceCheck, AtJobs, LogScan, AmCache, SHIMCache, Registry
-    - misp-3345-keyword-extract.yar
+    - misp-3345-**keyword**-extract.yar
   * - meta
     - Filescan
-    - meta-rules.yar
+    - **meta**-rules.yar
 
 THOR YARA Rules for Registry Detection
 **************************************
@@ -560,9 +560,9 @@ There are some THOR specific add-ons you may use to enhance your rules.
 
 Also see these articles on how to write "simple but sound" YARA rules:
 
-https://www.bsk-consulting.de/2015/02/16/write-simple-sound-yara-rules/
+https://www.nextron-systems.com/2015/02/16/write-simple-sound-yara-rules/
 
-https://www.bsk-consulting.de/2015/10/17/how-to-write-simple-but-sound-yara-rules-part-2/
+https://www.nextron-systems.com/2015/10/17/how-to-write-simple-but-sound-yara-rules-part-2/
 
 Typical Pitfalls
 ~~~~~~~~~~~~~~~~
