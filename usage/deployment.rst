@@ -112,13 +112,13 @@ Use THOR's ``--portal-key`` and ``--portal-contracts`` parameters to retrieve a 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 To retrieve a licenses from the customer portal, you need a portal key. The portal key
-(API key) can be configured in the ``User Settings`` section of the
+(API key) can be configured in the ``My Settings > API Key`` section of the
 `customer portal <https://portal.nextron-systems.com>`__.
 
 .. figure:: ../images/portal-api-key.png
-   :alt: User Settings > API Key
+   :alt: My Settings > API Key
 
-   User Settings > API Key
+   My Settings > API Key
 
 You can retrieve an appropriate THOR license at the scan start using the built-in
 ``--portal-key`` and ``--portal-contracts`` parameters. The ``--portal-contracts``
@@ -141,7 +141,7 @@ You can then use the parameters as shown in the following examples:
 
 .. code-block:: doscon 
 
-   C:\temp\thor>thor64.exe --portal-key IY5Y36thrt7h1775tt1ygfuYIadmGzZJmVk32lXcud4 --portal-contracts 13,14
+   C:\temp\thor>thor64.exe --portal-key IY5Y36thrt7h1775tt1ygfuYIadmGzZJmVk32lXcud4 --portal-contracts 3,5
 
 If everything works as expected, you'll see an **INFO** level message in the output that looks like: 
 
@@ -325,9 +325,9 @@ services are:
    ASGARD Management Center
 
 .. figure:: ../images/image6.png
-   :alt: ASGARD IOC Management
+   :alt: ASGARD Response Control
 
-   ASGARD IOC Management
+   ASGARD Response
 
 Ansible (Linux)
 ---------------
