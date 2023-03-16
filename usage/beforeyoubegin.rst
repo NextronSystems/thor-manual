@@ -19,14 +19,49 @@ Generate a License
 
 You can generate a valid license in our `customer portal <https://portal.nextron-systems.com/>`__.
 
-On Windows system you should use the computer name as hostname during license creation. 
+Navigate to ``Contracts & Licenses`` > ``My Contracts`` and choose the
+correct Contract Type to generate a new license. You can use ``Thor Workstation`` 
+or ``THOR Server & Workstation`` as the License Type.
+
+Here is an Overview of which type of license you need to use:
+
+* THOR Workstation
+
+  - Host-based THOR scanner license for Windows workstations and macOS only.
+    Not usable on Windows servers or Linux systems, regardless of their
+    actual usage (e.g. Linux Desktop systems). Usage on legacy systems,
+    such as Windows XP, requires the ``legacy`` option.
+
+* THOR Server & Workstation
+
+  - Host-based THOR scanner license for scans on all end systems, workstations,
+    servers, Windows, Linux, and macOS. Usage on legacy systems, like Windows
+    2003 or Windows 2008 before R2, requires the ``legacy`` option.
+
+.. figure:: ../images/portal_contract_overview.png
+   :alt: Contract Overview in the Portal
+
+   Contract Overview in the Portal
+
+Click on the green ``Plus`` icon of your contract and fill all the mandatory
+fields. After clicking on ``Check Hostnames``, you can issue the license
+if all the hostnames are unique and valid.
+
+.. figure:: ../images/portal_generate_license.png
+   :alt: Generate a License in the Portal
+
+   Generate a License in the Portal
+
+For the license generation it is necessary to use the hostname of the system
+which will run THOR. On Windows system you should use the ``computername``
+as hostname during license creation: 
 
 .. code-block:: doscon 
 
    C:\Users\nextron>echo %COMPUTERNAME%
    WIN11-TESTING
 
-On Linux use the hostname command:
+On Linux use the ``hostname`` command:
 
 .. code-block:: console 
 
@@ -45,6 +80,19 @@ Some more remarks regarding the hostname values:
 * Use only the hostname of a FQDN (**master1** of **master1.internal.net**)
 * The casing of the letters doesn't matter (case-insensitive)
 * We do not store the hostnames anywhere in our portal
+
+After you issued your license, your browser will forward you to the ``Licenses``
+section of the portal. You will be able to see all the issued licenses for the contract
+you just used earlier. You can either download a single ``License``, a ``License Bundle``,
+which contains all the selected licenses in one zip file, or a ``Software + License
+Bundle``, which contains the correct THOR version plus your license(s).
+If you want to see all your issued licenses for all of your contracts, you can remove the
+filter on the top which says ``Contract: xyz``.
+
+.. figure:: ../images/portal_licenses_overview.png
+   :alt: Licenses Overview in the Portal
+
+   Licenses Overview in the Portal
 
 About License Files
 ^^^^^^^^^^^^^^^^^^^
