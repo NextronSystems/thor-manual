@@ -151,7 +151,7 @@ You can imitate a lab scan without a lab license with these command line flags:
 
 .. code-block:: doscon 
 
-  C:\nextron\thor>thor64.exe-a Filescan --intense --norescontrol --nosoft --cross-platform -p C:\ProgramData
+  C:\nextron\thor>thor64.exe -a Filescan --intense --norescontrol --nosoft --cross-platform -p C:\ProgramData
 
 Deactivate all file output - Syslog only
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
