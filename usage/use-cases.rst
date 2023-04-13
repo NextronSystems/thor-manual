@@ -10,10 +10,10 @@ Disk Image Analysis
 THOR, as a scanner, does not mount disk images to a certain driver
 on your forensic workstation. You have to use 3rd party tools for
 that task. Please see :ref:`usage/use-cases:arsenal image mounter (aim)`
-and :ref:`usage/use-cases:ftkimager` below to get an overview of
-potential tools to use.
+and :ref:`usage/use-cases:ftkimager` for Windows or :ref:`usage/use-cases:dissect`
+for Linux to get an overview of potential tools to use.
 
-First, you mount the image to a certain drive with your prefered tool.
+First, you mount the image to a certain drive/path with your preferred tool.
 Afterwards you can use THOR in the lab scanning mode to analyze the
 mounted image. To benefit from all features of this mode, you have to
 acquire and use a so-called **forensic lab** or **lab** license.
@@ -25,6 +25,13 @@ your forensic Windows workstation.
 .. code-block:: doscon
 
     C:\thor>thor64.exe --lab --virtual-map S:C -j WKS0001 -p S:\
+
+The following example shows the same parameters for a Linux forensic
+workstation. The drive is mounted to ``/mnt/image/fs/sysvol/``.
+
+.. code-block:: console
+
+    nextron@unix:~/thor$ ./thor-linux-64 --lab --virtual-map /mnt/image/fs/sysvol/:C -j WKS0001 -p /mnt/image/fs/sysvol/ 
 
 The ``--lab`` parameter will apply several internal flags (e.g. enables
 intense mode scanning every file, enables multi-threading, disables
@@ -60,6 +67,20 @@ the old `command line versions of FTKimager <https://accessdata.com/product-down
 .. note:: 
     We recommend using Arsenal Image Mounter to mount your images, since we observed better performance
     during our internal tests.
+
+Dissect
+^^^^^^^
+
+Dissect is an incident response framework build from various parsers and implementations
+of file formats. Tying this all together, Dissect allows you to work with tools named
+``target-query`` and ``target-shell`` to quickly gain access to forensic artefacts,
+such as Runkeys, Prefetch files, and Windows Event Logs, just to name a few!
+
+You can find the tool here:
+https://github.com/fox-it/dissect
+
+For instructions on how to mount a disk image, you can find information here:
+https://docs.dissect.tools/en/latest/tools/target-mount.html
 
 Memory Image Analysis with Volatility
 -------------------------------------
