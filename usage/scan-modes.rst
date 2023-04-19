@@ -37,7 +37,8 @@ modules, whereas the ‘features’ section lists only features that are
 handled differently in the different scan modes.
 
 Modules
--------------------
+-------
+
 OS Module Overview
 ^^^^^^^^^^^^^^^^^^
 
@@ -66,6 +67,10 @@ OS Module Overview
   :header-rows: 1
 
 .. [1] No process memory scan with YARA rules
+
+.. hint:: 
+  For a list of module names and how to turn them off, please
+  see :ref:`usage/scan-modes:scan module names`
 
 Scan Mode Overview
 ^^^^^^^^^^^^^^^^^^
@@ -106,8 +111,8 @@ how they are called by the different modules and other features.
   :delim: ;
   :header-rows: 1
 
-Scan Mode Names
-^^^^^^^^^^^^^^^
+Scan Module Names
+^^^^^^^^^^^^^^^^^
 
 .. csv-table::
   :file: ../csv/scan-module-naming.csv
