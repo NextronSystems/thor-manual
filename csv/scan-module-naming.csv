@@ -1,0 +1,31 @@
+Scan Mode;Module Name;Disable Module
+File System Scan;Filescan;--nofilesystem
+Registry Scan;RegistryChecks;--noreg
+SHIM Cache Scan;SHIMCache;--noshimcache
+Mutex Check;Mutex;--nomutex
+Named Pipes Check;Pipes;--nopipes
+DNS Cache Check;DNSCache;--nodnscache
+Hotfix Check;HotfixCheck;--nohotfixes
+Hosts File Check;Hosts;--nohosts
+Firewall Config Check;Firewall;--nofirewall
+Network Share Check;NetworkShares;--nonetworkshares
+Logged In Check;LoggedIn;--nologons
+Process Check;ProcessCheck;--noprocs
+Service Check;ServiceCheck;--noservices
+Autoruns Check;Autoruns;--noautorons
+Rootkit Check;Rootkit;--norootkits
+LSA Sessions Analysis;LSASessions;--nolsasessions
+User Account Check;Users;--nousers
+User Profile Check;UserDir;--noprofiles
+Network Sessions Check;NetworkSessions;--nonetworksessions
+Scheduled Tasks Analysis;ScheduledTasks;--notasks
+WMI Startup Check;WMIStartup;--nowmi
+At Entries Check;AtJobs;--noatjobs
+MFT Analysis;MFT;--nomft
+Eventlog Analysis;Eventlog;--noeventlog
+KnowledgeDB Check;KnowledgeDB;--noknowledgedb
+Environment Variables Check;EnvCheck;--noenv
+Crontab Check;Cron;
+Integrity Check;Integritycheck;--nointegritycheck
+Event Check;Events;--noevents
+ETW Watcher;EtwWatcher;--noetwwatcher

@@ -105,3 +105,12 @@ how they are called by the different modules and other features.
   :widths: 50, 50
   :delim: ;
   :header-rows: 1
+
+Scan Mode Names
+^^^^^^^^^^^^^^^
+
+.. csv-table::
+  :file: ../csv/scan-module-naming.csv
+  :widths: 33, 33, 33
+  :delim: ;
+  :header-rows: 1
