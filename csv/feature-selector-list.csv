@@ -1,0 +1,27 @@
+Tag;Feature;Applied regardless of Filesize limit
+AMCACHE;Amcache;no
+ZIPARCHIVE;Archive;no
+RARARCHIVE;Archive;no
+TARARCHIVE;Archive;no
+TARGZARCHIVE;Archive;no
+TARBZ2ARCHIVE;Archive;no
+CABARCHIVE;Archive;no
+GZIPCOMPRESSEDFILE;Archive;no
+SEVENZIPARCHIVE;Archive;no
+ATJOBS;AtJobs;yes
+AUDITLOG;Auditlog;yes
+AUTHORIZEDKEYS;AuthorizedKeys;yes
+EMAILFILE;EmailParser;no
+ETL;ETL;yes
+EVTX;EVTX;yes
+UPX;ExeDecompress;no
+WINRAR;ExeDecompress;no
+LNK;LinkScan;yes
+LOGSCAN;LogScan;yes
+MFT;MftFile;yes
+OLE;OleScan;no
+PREFETCH;Prefetch;yes
+REGISTRYHIVE;RegistryHive;yes
+UNESCAPE;Unescaper;no
+WER;WER;yes
+WMIPERSISTENCE;WMIPersistence;yes

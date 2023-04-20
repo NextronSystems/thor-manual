@@ -77,7 +77,7 @@ Modules
 
 OS Module Overview
 ^^^^^^^^^^^^^^^^^^
-
+ 
 .. raw:: html
 
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
@@ -120,6 +120,15 @@ Scan Mode Overview
 .. [2] Disabled on Domain Controllers
 .. [3] No process memory scan with YARA rules
 
+Scan Module Names
+^^^^^^^^^^^^^^^^^
+
+.. csv-table::
+  :file: ../csv/scan-module-naming.csv
+  :widths: 33, 33, 33
+  :delim: ;
+  :header-rows: 1
+
 Features
 --------
 
@@ -147,11 +156,18 @@ how they are called by the different modules and other features.
   :delim: ;
   :header-rows: 1
 
-Scan Module Names
+Feature selectors
 ^^^^^^^^^^^^^^^^^
+Since THOR 10.7, some features in THOR are triggered by YARA rules.
+
+When a (meta or generic) YARA rule with a specific tag matches on a file, the
+corresponding feature is started and parses the file.
+
+The standard signatures contain a number of rules with these tags, but if required,
+you can add additional rules with these tags as custom signatures.
 
 .. csv-table::
-  :file: ../csv/scan-module-naming.csv
-  :widths: 33, 33, 33
+  :file: ../csv/feature-selector-list.csv
+  :widths: 40, 40, 50
   :delim: ;
   :header-rows: 1
