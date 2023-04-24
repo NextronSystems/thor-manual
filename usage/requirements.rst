@@ -12,17 +12,34 @@ To use the full potential of THOR, you should execute it with administrative
 privileges - ``LOCAL_SYSTEM`` on Windows and ``root`` on Linux/macOS
 systems.
 
-Supported
----------
+Operating Systems
+-----------------
 
-.. csv-table::
-  :file: ../csv/supported-os.csv
+The following operating systems and their versions are the **minimum
+requirements** to run THOR. Any newer version will also work with THOR.
+
+.. list-table:: 
   :widths: 30, 30, 40
-  :delim: ;
   :header-rows: 1
 
+  * - Linux
+    - Windows
+    - macOS
+  * - RHEL/CentOS 6
+    - Windows 7 x86/x64
+    - macOS 10.14 (Mojave)
+  * - SuSE SLES 11
+    - Windows Server 2008 R2
+    - macOS 11 (Intel)
+  * - Ubuntu 16 LTS
+    - 
+    - macOS 11 (ARM, Apple M1)
+  * - Debian 9
+    - 
+    - 
+
 Limited Support
----------------
+^^^^^^^^^^^^^^^
 
 These versions are scannable with THOR Legacy. Contact us for details on how to download and use THOR Legacy. 
 
@@ -34,12 +51,12 @@ These versions are scannable with THOR Legacy. Contact us for details on how to 
 * Windows Server 2008 x64
 
 Special Versions
-----------------
+^^^^^^^^^^^^^^^^
 
 We offer a special version for AIX. Only a few architectures are supported. 
 
 Unsupported
------------
+^^^^^^^^^^^
 
 * VMWare ESX - `https://kb.vmware.com/s/article/1036544 <https://kb.vmware.com/s/article/1036544>`__
 * many others 
@@ -66,5 +83,7 @@ For a detailed and up to date list of our update and licensing
 servers, please visit https://www.nextron-systems.com/hosts/.
 
 .. hint::
-  You do not need an active internet connection to scan an endpoint. This is only needed if you want to update
-  to the latest THOR or signature versions.
+  You do not need an active internet connection to scan an endpoint. This is only needed
+  if you want to update to the latest THOR and signature versions. There are special
+  licenses for special circumstances, for example when the licensed system does not
+  have internet access.
