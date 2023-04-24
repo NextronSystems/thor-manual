@@ -101,10 +101,9 @@ Hashes
 ^^^^^^
 
 Files with the string ``hash`` or ``hashes`` in their name
-get initialized as hash IOC sets. There are two possibilities for writing
-a custom hashes IOC file. Either you are assigning a custom score to your
-hashes, or you do not assign a score at all, in which case the match will
-default to a score of 100.
+get initialized as hash IOC sets. Either you are assigning a custom score
+to your hashes, or you do not assign a score at all, in which case the
+match will default to a score of 100.
 
 The first column contains your MD5, SHA1 or SHA256 hashes. The second column
 contains your comment, if you do not use any scoring. If you choose to use
@@ -118,8 +117,7 @@ and hashes are applied case-insensitively.
    :linenos:
 
    0c2674c3a97c53082187d930efb645c2;DEEP PANDA Sakula Malware - http://goo.gl/R3e6eG
-   000c907d39924de62b5891f8d0e03116;85;The Darkhotel APT http://goo.gl/DuS7WS
-   c03318cb12b827c03d556c8747b1e323225df97bdc4258c2756b0d6a4fd52b47;Operation SMN Hashes http://goo.gl/bfmF8B - Zxshell
+   f05b1ee9e2f6ab704b8919d5071becbce6f9d0f9d0ba32a460c41d5272134abe;50;Vulnerable Lenovo Diagnostics Driver - https://github.com/alfarom256/CVE-2022-3699/tree/main
 
 File Name IOCs
 ^^^^^^^^^^^^^^
