@@ -101,18 +101,24 @@ Hashes
 ^^^^^^
 
 Files with the string ``hash`` or ``hashes`` in their name
-get initialized as hash IOC sets. Every match with one of these hashes
-receives a sub score of 100.
+get initialized as hash IOC sets. There are two possibilities for writing
+a custom hashes IOC file. Either you are assigning a custom score to your
+hashes, or you do not assign a score at all, in which case the match will
+default to a score of 100.
 
-You can add MD5, SHA1 or SHA256 hashes and add a comment in a second
-column, which is separated by a semicolon. Hashes are applied case-insensitively.
+The first column contains your MD5, SHA1 or SHA256 hashes. The second column
+contains your comment, if you do not use any scoring. If you choose to use
+your own scoring (example below on line 2), the score goes into the second
+column and the comment into the third. Columns are separated by a semicolon
+and hashes are applied case-insensitively.
 
 .. code-block:: text
    :caption: custom-hashes-iocs.txt
+   :emphasize-lines: 2
    :linenos:
 
    0c2674c3a97c53082187d930efb645c2;DEEP PANDA Sakula Malware - http://goo.gl/R3e6eG
-   000c907d39924de62b5891f8d0e03116;The Darkhotel APT http://goo.gl/DuS7WS
+   000c907d39924de62b5891f8d0e03116;85;The Darkhotel APT http://goo.gl/DuS7WS
    c03318cb12b827c03d556c8747b1e323225df97bdc4258c2756b0d6a4fd52b47;Operation SMN Hashes http://goo.gl/bfmF8B - Zxshell
 
 File Name IOCs
