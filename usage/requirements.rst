@@ -41,19 +41,42 @@ requirements** to run THOR. Any newer version will also work with THOR.
 Limited Support
 ^^^^^^^^^^^^^^^
 
-These versions are scannable with THOR Legacy. Contact us for details on how to download and use THOR Legacy. 
+These versions are scannable with THOR Legacy. The legacy version
+of THOR is usually running on those systems, but if you encounter
+any problems, we will not be able to fix them. Contact us for
+details on how to download and use THOR Legacy.
 
-* Windows XP SP2 x86 (unsupported)
-* Windows XP SP2 x64 (unsupported)
-* Windows Server 2003 x86 (unsupported)
-* Windows Server 2003 x64 (unsupported)
-* Windows Server 2008 x86
-* Windows Server 2008 x64
+.. list-table:: 
+  :widths: 30, 30, 40
+  :header-rows: 1
+
+  * - OS
+    - Architecture
+    - Support
+  * - Windows XP SP2
+    - x86 and x64
+    - no
+  * - Windows XP SP3
+    - x86 and x64
+    - no
+  * - Windows Server 2003
+    - x86 and x64
+    - no
+  * - Windows Server 2003 SP1
+    - x86 and x64
+    - no
+  * - Windows Server 2003 SP2
+    - x86 and x64
+    - no
+  * - Windows Server 2008
+    - x86 and x64
+    - yes
 
 Special Versions
 ^^^^^^^^^^^^^^^^
 
-We offer a special version for AIX. Only a few architectures are supported. 
+We offer a special version for AIX. Only a few architectures are supported
+by THOR. Please contact us for more information.
 
 Unsupported
 ^^^^^^^^^^^
