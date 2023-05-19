@@ -75,6 +75,12 @@ lists only features that are handled differently in the different scan modes.
 Modules
 -------
 
+Modules are are standalone jobs which are being executed one after the other by THOR.
+Those modules are invoking one job, for example the ``File System Scan`` module will
+scan your file system, or the ``User Account Check`` will scan your system for user
+accounts. Modules can invoke one or multiple :ref:`usage/scan-modes:features`,
+which we will explain further down in this section.
+
 OS Module Overview
 ^^^^^^^^^^^^^^^^^^
  
@@ -132,6 +138,15 @@ Scan Module Names
 Features
 --------
 
+Features are being invoked by :ref:`usage/scan-modes:modules` and provide
+further ``Details`` about an item. For example, the ``File System Scan``
+might find a ``.zip`` file during a scan and invoke the ``Archive Scan``
+feature. The ``Archive Scan`` feature in return will extract the zip file
+and scan all the items in it.
+
+Another example would be the ``Eventlog Analysis`` Module, which might invoke
+the ``Sigma Scan`` feature on certain eventlog entries.
+
 Feature Scan Mode Overview
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -169,5 +184,14 @@ you can add additional rules with these tags as custom signatures.
 .. csv-table::
   :file: ../csv/feature-selector-list.csv
   :widths: 40, 40, 50
+  :delim: ;
+  :header-rows: 1
+
+Feature names
+^^^^^^^^^^^^^
+
+.. csv-table::
+  :file: ../csv/feature-naming.csv
+  :widths: 33, 33, 33
   :delim: ;
   :header-rows: 1

@@ -1,0 +1,55 @@
+Feature;Feature Name;Disable Feature
+Do not use or create ThorDB database for holding scan information;ThorDB;--nothordb
+Scan with Sigma signatures;Sigma;per default disabled, use ``--sigma`` to enable
+Do not scan log files (identified by .log extension or location);LogScan;--nologscan
+Disable checks with YARA;Yara;--noyara
+Disable checks with STIX;Stix;--nostix
+Do not scan contents of archives;Archive;--noarchive
+Do not scan contents of archives;ArchiveScan;--noarchive
+Disable checks for known C2 Domains;C2;--noc2
+Do not analyze process handles;ProcessHandles;--noprochandles
+Do not analyze process connections;ProcessConnections;--noprocconnections
+Do not analyze Amcache files;Amcache;--noamcache
+Do not analyze Registry Hive files;RegistryHive;--noregistryhive
+Do not decompress and scan portable executables;ExeDecompress;--noexedecompress
+Do not analyze web directories that were found in process handles;WebdirScan;--nowebdirscan
+Do not analyze system for vulnerabilities;VulnerabilityCheck;--novulnerabilitycheck
+Do not analyze prefetch directory;Prefetch;--noprefetch
+Do not analyze groups.xml;GroupsXML;--nogroupsxml
+Do not check WMI Persistence;WMIPersistence;--nowmipersistence
+Do not analyze LNK files;Lnk;--nolnk
+Do not check Knowledge DB on Mac OS;KnowledgeDB;--noknowledgedb
+Do not analyze .wer files;WER;--nower
+Do not analyze EVTX files;EVTX;--noevtx
+Do not analyze authorized_keys files;AuthorizedKeys;--noauthorizedkeys
+Do not calculate imphash for suspicious EXE files (Windows only);Imphash;--noimphash
+Disable Email parser;Eml;--noeml
+Disable ETL parser;ETL;--noetl
+Do not analyze jobs scheduled with the 'at' tool;AtJobs;--noatjobs
+Server running the Bifrost 2 quarantine service. THOR will upload all suspicious files to this server;Bifrost2;per default disabled, use ``--bifrost2Server`` to enable
+;BulkScan;can't be disabled
+Disable cpulimit check;CPULimit;--nocpulimit
+;CheckString;can't be disabled
+;CronParser;can't be disabled
+Do not check for DoublePulsar Backdoor (Module: Rootkit);DoublePulsar;--nodoublepulsar
+;EnrichFileInfo;can't be disabled
+;FilenameIOCs;can't be disabled
+;Filescan;can't be disabled
+;KeywordIOCs;can't be disabled
+;Logger;can't be disabled
+;MagicHeader;can't be disabled
+;OLE;can't be disabled
+;ParseCobaltStrike;can't be disabled
+;ProgressTracker;can't be disabled
+;RecycleBin;can't be disabled
+Do not check whether the system is running out of resources. Use this option to enforce scans that have been canceled due to resource scarcity. (use with care!);Rescontrol;--norescontrol
+Do not analyze SHIM Cache entries;SHIMCache;--noshimcache
+;SignalHandler;can't be disabled
+;TeamViewer;can't be disabled
+Virustotal API key for hash / sample uploads;VirusTotal;per default disabled, use ``--vtkey`` to enable
+;WorkerProgressTracker;can't be disabled
+Run this command for each file that has a score greater than the score from ``--action_level``;Action;per default disabled, use ``--action_command`` to enable
+Output file for audit trail;AuditTrail;per default disabled, use ``--audit-trail`` to enable
+Output file for audit trail;AuditTrailWriter;per default disabled, use ``--audit-trail`` to enable
+Scan memory dumps;DumpScan;per default disabled, use ``--dumpscan`` to enable
+Run PE-Sieve to check for process integrity (Windows only);ProcessIntegrity;per default disabled, use ``--processintegrity`` to enable
