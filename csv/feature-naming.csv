@@ -1,55 +1,52 @@
 Feature;Feature Name;Disable Feature
-Do not use or create ThorDB database for holding scan information;ThorDB;--nothordb
+Use a persistent database for holding information across scans;ThorDB;--nothordb
 Scan with Sigma signatures;Sigma;per default disabled, use ``--sigma`` to enable
-Do not scan log files (identified by .log extension or location);LogScan;--nologscan
-Disable checks with YARA;Yara;--noyara
-Disable checks with STIX;Stix;--nostix
-Do not scan contents of archives;Archive;--noarchive
-Do not scan contents of archives;ArchiveScan;--noarchive
-Disable checks for known C2 Domains;C2;--noc2
-Do not analyze process handles;ProcessHandles;--noprochandles
-Do not analyze process connections;ProcessConnections;--noprocconnections
-Do not analyze Amcache files;Amcache;--noamcache
-Do not analyze Registry Hive files;RegistryHive;--noregistryhive
-Do not decompress and scan portable executables;ExeDecompress;--noexedecompress
-Do not analyze web directories that were found in process handles;WebdirScan;--nowebdirscan
-Do not analyze system for vulnerabilities;VulnerabilityCheck;--novulnerabilitycheck
-Do not analyze prefetch directory;Prefetch;--noprefetch
-Do not analyze groups.xml;GroupsXML;--nogroupsxml
-Do not check WMI Persistence;WMIPersistence;--nowmipersistence
-Do not analyze LNK files;Lnk;--nolnk
-Do not check Knowledge DB on Mac OS;KnowledgeDB;--noknowledgedb
-Do not analyze .wer files;WER;--nower
-Do not analyze EVTX files;EVTX;--noevtx
-Do not analyze authorized_keys files;AuthorizedKeys;--noauthorizedkeys
-Do not calculate imphash for suspicious EXE files (Windows only);Imphash;--noimphash
-Disable Email parser;Eml;--noeml
-Disable ETL parser;ETL;--noetl
-Do not analyze jobs scheduled with the 'at' tool;AtJobs;--noatjobs
-Server running the Bifrost 2 quarantine service. THOR will upload all suspicious files to this server;Bifrost2;per default disabled, use ``--bifrost2Server`` to enable
-;BulkScan;can't be disabled
+Scan log file (identified by .log extension or location) entries one by one;LogScan;--nologscan
+Check files, processes or blobs with YARA;Yara;
+Check files with STIX;Stix;--nostix
+Extract files contained in archives;Archive;--noarchive
+Scan files contained in archives;ArchiveScan;--noarchive
+Run checks for known C2 Domains;C2;--noc2
+Analyze process handles;ProcessHandles;--noprochandles
+Analyze process connections;ProcessConnections;--noprocconnections
+Analyze entries in Amcache files;Amcache;--noamcache
+Parse and analyze registry hives;RegistryHive;--noregistryhive
+Decompress and scan UPX or SFX packed portable executables;ExeDecompress;--noexedecompress
+Analyze web directories that were found in process handles;WebdirScan;--nowebdirscan
+Search for configuration file vulnerabilities (e.g. weak Tomcat passwords);VulnerabilityCheck;--novulnerabilitycheck
+Parse Windows prefetch directories;Prefetch;--noprefetch
+Parse groups.xml files (for AD permissions) and search for vulnerabilities;GroupsXML;--nogroupsxml
+Parse WMI Persistence directories;WMIPersistence;--nowmipersistence
+Parse and analyze LNK files;Lnk;--nolnk
+Check Knowledge DB on Mac OS;KnowledgeDB;--noknowledgedb
+Parse .wer crash dump files;WER;--nower
+Parse EVTX eventlogs and scan the contained log entries;EVTX;--noevtx
+Analyze authorized_keys SSH files;AuthorizedKeys;--noauthorizedkeys
+Parse and analyze .eml Email files;Eml;--noeml
+Parse Windows Event Trace Logging files and scan the contained logs;ETL;--noetl
+Parse jobs files scheduled with the 'at' tool;AtJobs;--noatjobs
+Upload suspicious files to a server running the Bifrost 2 quarantine service;Bifrost2;per default disabled, use ``--bifrost2Server`` to enable
+Scan multiple entries as a single block;BulkScan;can't be disabled
 Disable cpulimit check;CPULimit;--nocpulimit
-;CheckString;can't be disabled
-;CronParser;can't be disabled
-Do not check for DoublePulsar Backdoor (Module: Rootkit);DoublePulsar;--nodoublepulsar
-;EnrichFileInfo;can't be disabled
-;FilenameIOCs;can't be disabled
-;Filescan;can't be disabled
-;KeywordIOCs;can't be disabled
-;Logger;can't be disabled
-;MagicHeader;can't be disabled
-;OLE;can't be disabled
-;ParseCobaltStrike;can't be disabled
-;ProgressTracker;can't be disabled
-;RecycleBin;can't be disabled
-Do not check whether the system is running out of resources. Use this option to enforce scans that have been canceled due to resource scarcity. (use with care!);Rescontrol;--norescontrol
-Do not analyze SHIM Cache entries;SHIMCache;--noshimcache
-;SignalHandler;can't be disabled
-;TeamViewer;can't be disabled
-Virustotal API key for hash / sample uploads;VirusTotal;per default disabled, use ``--vtkey`` to enable
-;WorkerProgressTracker;can't be disabled
-Run this command for each file that has a score greater than the score from ``--action_level``;Action;per default disabled, use ``--action_command`` to enable
-Output file for audit trail;AuditTrail;per default disabled, use ``--audit-trail`` to enable
-Output file for audit trail;AuditTrailWriter;per default disabled, use ``--audit-trail`` to enable
-Scan memory dumps;DumpScan;per default disabled, use ``--dumpscan`` to enable
-Run PE-Sieve to check for process integrity (Windows only);ProcessIntegrity;per default disabled, use ``--processintegrity`` to enable
+Run filename IOC, keyword IOC, and YARA rules on a chunk of data;CheckString;can't be disabled
+Parse crontab files and analyze their entries;CronParser;can't be disabled
+Check for DoublePulsar Backdoor in the rootkit module;DoublePulsar;--nodoublepulsar
+Gather additional information (like hashes, owner, timestamps, ...) about file paths ;EnrichFileInfo;can't be disabled
+Apply filename IOCs;FilenameIOCs;can't be disabled
+Scan files and similar objects;Filescan;can't be disabled
+Apply keyword IOCs;KeywordIOCs;can't be disabled
+Log information during a THOR run;Logger;can't be disabled
+Detect a file's type based on its first bytes;MagicHeader;can't be disabled
+Parse OLE files (e.g. old MS office documents, or MS Office macros);OLE;can't be disabled
+Parse additional information from a detected CobaltStrike beacon;ParseCobaltStrike;can't be disabled
+Keep and display information about THOR's current activity;ProgressTracker;can't be disabled
+Parse additional information from files in a Windows recycle bin;RecycleBin;can't be disabled
+Check whether the system is running out of RAM, and end THOR, if this is the case;Rescontrol;--norescontrol
+Parse SHIM Caches from registry and analyze their entries;SHIMCache;--noshimcache
+React to interrupts from outside THOR in a controlled manner;SignalHandler;can't be disabled
+Look for unencrypted TeamViewer passwords in registry hives;TeamViewer;can't be disabled
+Add additional information from Virustotal to detected files;VirusTotal;per default disabled, use ``--vtkey`` to enable
+Run a user defined command for detected files;Action;per default disabled, use ``--action_command`` to enable
+Write a detailed output file with information about all scanned elements;AuditTrail;per default disabled, use ``--audit-trail`` to enable
+Scan memory dump files in chunks;DumpScan;per default disabled, use ``--dumpscan`` to enable
+Scan processes with PE-Sieve to check for process integrity (Windows only);ProcessIntegrity;per default disabled, use ``--processintegrity`` to enable
