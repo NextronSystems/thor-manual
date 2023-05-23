@@ -286,12 +286,39 @@ contains more information on the legacy version.
 The legacy version lacks: 
 
 * Module: Eventlog scanning 
-* Feature: Deeper process inspection (process hollowing, doppelgänging, etc.)
+* Feature: Deeper process inspection (process hollowing, doppelgänging, etc.) 
 
-The legacy version is not offered in our customer portal. We share it with our customers on request. 
+.. note::
+   We only offer limited support for this version, since we cannot guarantee a successful
+   stable scan on platforms that have already been deprecated.
 
-We only offer limited support for this version, since we cannot guarantee a successful
-stable scan on platforms that have already been deprecated.
+To use THOR Legacy, you need a special license. Contact sales to get more information regarding
+Legacy licenses.
+
+To download THOR Legacy, follow these steps:
+
+1. Download a normal THOR package (non-legacy)
+2. Use thor-util to download THOR Legacy:
+
+   ``thor-util.exe download --legacy -t thor10-win``
+
+3. You will get a zip file with the following name:
+
+   ``thor-win-10.6.20_<date>-<time>.zip``
+
+4. The content of this zip file should be as follows:
+
+   .. figure:: ../images/thor_legacy_content.png
+      :alt: THOR Legacy content
+
+5. You can now transfer this package to your Legacy system. Please do an upgrade
+   before you start using this:
+
+   ``thor-legacy-util.exe upgrade``
+
+   ``thor-legacy-util.exe update``
+
+6. Place your Legacy license inside this folder and start using THOR Legacy
 
 Choose The Right Architecture 
 -----------------------------
