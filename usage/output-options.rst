@@ -64,12 +64,10 @@ Be aware that archives with matches show up as
 column.
 
 If you need more columns in that CSV, consider processing the JSON
-output instead.
+output instead. To do this, you can use ``thor-util`` to convert
+logs from one format to the other:
 
-Note: our Github repository contains scripts to convert THOR's JSON
-output into a CSV with any given field values, see:
-
-`https://github.com/NextronSystems/nextron-helper-scripts/tree/master/thor-log-processors <https://github.com/NextronSystems/nextron-helper-scripts/tree/master/thor-log-processors>`__
+https://thor-util-manual.nextron-systems.com/en/latest/usage/log-conversion.html
 
 CSV Stats
 ^^^^^^^^^
