@@ -245,11 +245,10 @@ You should then test the setting like this:
 
 1. Connect to a remote system (Remote Desktop), which you would like to
    scan
-2. | Start a command line "as Administrator"
-   | (right click > Run as Administrator)
-3. | Run the following command, which is going to mount a network drive,
-     run THOR and disconnect the previously mounted drive:
-   | ``\\fileserver\thor\thor_remote.bat``
+2. Start a command line "as Administrator" (right click > Run as Administrator)
+3. Run the following command, which is going to mount a network drive,
+   run THOR and disconnect the previously mounted drive:
+   ``\\fileserver\thor\thor_remote.bat``
 
 After a successful test run, you decide on how to invoke the script on
 the network drive. The following chapters list different options.
@@ -285,7 +284,7 @@ that serves the THOR package and is readable by the user that executes
 the scan.
 
 
-.. code-block:: console
+.. code-block:: doscon
    
    C:\temp\thor> wmic /node:10.0.2.10 /user:MYDOM\scanadmin process call create "cmd.exe /c \\server\thor10\thor.exe"
 
@@ -303,7 +302,7 @@ to analyze large amounts of scan logs through an integrated base-lining
 and case management.
 
 The hardened, Linux-based ASGARD appliance is a powerful, solid and
-scalable response platform with agents for Windows, Linux and MacOS. It
+scalable response platform with agents for Windows, Linux and macOS. It
 provides essential response features like the collection of files,
 directories and main memory, remote file system browsing and other
 counteractive measures.
