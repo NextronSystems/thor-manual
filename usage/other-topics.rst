@@ -138,8 +138,9 @@ that could have caused the memory exhaustion.
 
    Resource Control Scan Termination
 
-Warning: Deactivating Resource Control on systems with exhausted
-resources can put the system's stability at risk.
+.. warning:: 
+  Deactivating Resource Control on systems with exhausted
+  resources can put the system's stability at risk.
 
 Automatic Soft Mode
 ^^^^^^^^^^^^^^^^^^^
