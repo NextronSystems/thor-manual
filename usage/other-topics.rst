@@ -359,7 +359,8 @@ Action Flags
    * - **--action\_command string**
      - Run this command for each file that has a score greater than the score from ``--action_level``
    * - **--action\_args strings**
-     - Arguments to pass to the command specified via ``--action_command``. The placeholders %filename%, %filepath%, %file%, %ext%, %md5%, %score% and %date% are replaced at execution time
+     - Arguments to pass to the command specified via ``--action_command``. The placeholders ``%filename%``,
+       ``%filepath%``, ``%file%``, ``%ext%``, ``%md5%``, ``%score%`` and ``%date%`` are replaced at execution time
    * - **--action\_level int**
      - Only run the command from ``--action_command`` for files with at least this score (default ``40``)
 
