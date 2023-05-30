@@ -20,7 +20,7 @@ Generate a License
 You can generate a valid license in our `customer portal <https://portal.nextron-systems.com/>`__.
 
 Navigate to ``Contracts & Licenses`` > ``My Contracts`` and choose the
-correct Contract Type to generate a new license. You can use ``Thor Workstation`` 
+correct Contract Type to generate a new license. You can use ``THOR Workstation`` 
 or ``THOR Server & Workstation`` as the License Type.
 
 Here is an Overview of which type of license you need to use:

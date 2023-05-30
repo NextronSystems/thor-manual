@@ -335,7 +335,7 @@ Ansible (Linux)
 Distribute Run with Ansible
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-In practice it is crucial to execute Thor on many servers in a network.
+In practice it is crucial to execute THOR on many servers in a network.
 A possible way to achieve this is described within this paper, taking
 into account that the footprint on the target should be minimal and that
 the procedure should not depend on the used Linux Distribution.
@@ -359,25 +359,25 @@ Ansible does parallelization of the tasks by itself. The default amount
 of parallel executions is five and can be configured using the ``-f`` or
 ``--forks`` parameter when starting the playbooks.
 
-Execute Thor using Ansible
+Execute THOR using Ansible
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The following section will show how to use an Ansible playbook to execute
-Thor on multiple Linux systems.
+THOR on multiple Linux systems.
 
 It will perform following steps on each system:
 
 * Create a temporary folder
 * Mount a RAM drive using the folder as mount point
-* Copy Thor to this RAM drive
-* Execute Thor
+* Copy THOR to this RAM drive
+* Execute THOR
 * Unmount the RAM drive
 * Delete the temporary folder
 
 Inventory File
 ^^^^^^^^^^^^^^
 
-First it is needed to define a list of hosts to execute Thor on. This is
+First it is needed to define a list of hosts to execute THOR on. This is
 done by setting up a YAML file with the hostnames or IP addresses of the
 hosts. This file is later used with the -i parameter in the
 ansible-playbook command. A simple version of this could look like
@@ -402,10 +402,10 @@ Ansible Playbook Template
    :language: yaml
    :linenos:
 
-Usage of Thor's Ansible playbook
+Usage of THOR's Ansible playbook
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Copy the playbook in the main directory of Thor. After this is done it
+Copy the playbook in the main directory of THOR. After this is done it
 can be started as follows:
 
 .. code-block:: console
@@ -418,12 +418,12 @@ parent directory of thor. Therefor it is important that the user
 starting ansible-playbook has the required rights to write in this
 directory.
 
-Adjust Thor's Command Line Parameters
+Adjust THOR's Command Line Parameters
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Per default this playbook will only start Thor with the parameter that
+Per default this playbook will only start THOR with the parameter that
 defines the output log file. This can be changed in the playbook in the
-"Execute Thor"-Task. However, it should be kept in mind, that changing
+"Execute THOR"-Task. However, it should be kept in mind, that changing
 the output log file is not recommended, since the later tasks of the
 playbook depend on this.
 
