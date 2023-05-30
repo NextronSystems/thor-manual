@@ -23,7 +23,8 @@ Debugging Examples
 
 Then try scanning that specific element with the ``--debug`` parameter set.
 
-To run only a certain module use: 
+To run only a certain module use (see :ref:`usage/scan-modes:scan module names` for 
+a full list of module names): 
 
 .. code-block:: doscon 
    
@@ -85,14 +86,16 @@ This can be caused by two reasons:
 
 The magic header of that file is not in the list of interesting magic
 headers (see ``./signatures/misc/file-type-signatures.cfg``) AND file
-doesn't have a relevant file extension (.asp, .vbs, .ps, .ps1, .rar,
-.tmp, .bas, .bat, .chm, .cmd, .com, .cpl, .crt, .dll, .exe, .hta, .js,
-.lnk, .msc, .ocx, .pcd, .pif, .pot, .pdf, .reg, .scr, .sct, .sys, .url,
-.vb, .vbe, .vbs, .wsc, .wsf, .wsh, .ct, .t, .input, .war, .jsp, .php,
-.asp, .aspx, .doc, .docx, .pdf, .xls, .xlsx, .ppt, .pptx, .tmp, .log,
-.dump, .pwd, .w, .txt, .conf, .cfg, .conf, .config, .psd1, .psm1,
-.ps1xml, .clixml, .psc1, .pssc, .pl, .www, .rdp, .jar, .docm, .ace,
-.job, .temp, .plg, .asm)
+doesn't have a relevant file extension:
+
+.. code-block:: none
+   
+   .asp, .vbs, .ps, .ps1, .rar, .tmp, .bas, .bat, .chm, .cmd, .com, .cpl, .crt, .dll,
+   .exe, .hta, .js, .lnk, .msc, .ocx, .pcd, .pif, .pot, .pdf, .reg, .scr, .sct, .sys,
+   .url, .vb, .vbe, .vbs, .wsc, .wsf, .wsh, .ct, .t, .input, .war, .jsp, .php, .asp,
+   .aspx, .doc, .docx, .pdf, .xls, .xlsx, .ppt, .pptx, .tmp, .log, .dump, .pwd, .w,
+   .txt, .conf, .cfg, .conf, .config, .psd1, .psm1, .ps1xml, .clixml, .psc1, .pssc,
+   .pl, .www, .rdp, .jar, .docm, .ace, .job, .temp, .plg, .asm
 
 Solution: Use an intense scanning mode for that folder (``--intense``) 
 or add the magic header to ``file-type-signatures.cfg``
@@ -298,7 +301,7 @@ On Linux:
    Signature Database 2021/05/03-150936
    Sigma Database 0.19.1-1749-g2f12c5c5
 
-On Mac OS:
+On macOS:
 
 .. code-block:: console 
 
@@ -330,7 +333,7 @@ On Linux:
 
    user@desktop:~$ uname -a 
 
-On Mac OS:
+On macOS:
 
 .. code-block:: console 
 
