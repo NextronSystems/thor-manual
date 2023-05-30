@@ -820,9 +820,6 @@ it from a mounted network share. This could lead to the following error:
    
    CreateFile .: The system cannot find the path specified.
 
-Using Templates and Other Absolute Paths
-""""""""""""""""""""""""""""""""""""""""
-
 Distribute to Offline Networks / Field Offices
 ----------------------------------------------
 
