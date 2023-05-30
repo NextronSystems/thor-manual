@@ -414,7 +414,7 @@ can be started as follows:
 
 After the playbook finished running the scans, the output of each system
 can be found in the **thoransible**-output directory located at the
-parent directory of thor. Therefor it is important that the user
+parent directory of THOR. Therefor it is important that the user
 starting ansible-playbook has the required rights to write in this
 directory.
 
