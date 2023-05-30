@@ -720,9 +720,12 @@ execute THOR with certain parameters on remote systems.
 Requirements:
 
 * Administrative Domain Windows user account with access rights on the target systems
-* | Reachability of the target systems (Windows Ports)
-  | 135/tcp for SCM (Service Management)
-  | 445/tcp for SMB (Mounting)
+* Reachability of the target systems (Windows Ports):
+
+  - 135/tcp for SCM (Service Management)
+
+  - 445/tcp for SMB (Mounting)
+
 * A list of target systems
 
 Advantages:
@@ -734,7 +737,9 @@ Advantages:
 Disadvantages:
 
 * Requires reachability of Windows ports
-* User credentials remain on the target system if it is used with explicit credentials (NTLM Auth) and the users doesn’t already use an account that has access rights on target systems (Kerberos Auth)
+* User credentials remain on the target system if it is used with explicit credentials
+  (NTLM Auth) and the users doesn't already use an account that has access rights on
+  target systems (Kerberos Auth)
 
 Usage
 ^^^^^
@@ -759,13 +764,6 @@ A YAML file with a list of hosts looks like this:
    - winatl001.dom.int
    - winatl002.dom.int
    - winnyk001.dom2.int
-
-We recommend using a text editor that supports multi-line editing like
-Atom or Sublime.
-
-https://atom.io/
-
-https://stackoverflow.com/questions/39391688/multi-line-editing-on-atom
 
 You can then use that file with:
 
