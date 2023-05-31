@@ -602,19 +602,20 @@ and everything works fine.
 AlientVault APT1 Rule:
 
 .. code-block::
+   :linenos:
+   :emphasize-lines: 7
 
-        rule APT1_WEBC2_TABLE {
-                meta:
-                        author = "AlienVault Labs"
-                strings:
-                        $msg1 = "Fail To Execute The Command" wide ascii
-                        $msg2 = "Execute The Command Successfully" wide
-                        $gif1 = /\w+\.gif/
-                        $gif2 = "GIF89" wide ascii
-                condition:
-                        3 of them
-        }
-
+    rule APT1_WEBC2_TABLE {
+        meta:
+             author = "AlienVault Labs"
+        strings:
+             $msg1 = "Fail To Execute The Command" wide ascii
+             $msg2 = "Execute The Command Successfully" wide
+             $gif1 = /\w+\.gif/
+             $gif2 = "GIF89" wide ascii
+        condition:
+             3 of them
+    }
 
 Copying your rule to the signatures directory may cause THOR to fail
 during rule initialization. If this happens you should check your rule
@@ -644,19 +645,100 @@ and the ``.jsos`` extension for encrypted STIXv2 files.
 
 The following observables are supported.
 
-* ``file:name`` with **=**   **!=**   **LIKE** and **MATCHES**
-* ``file:parent_directory_ref.path`` with **=**   **!=**   **LIKE** and **MATCHES**
-* ``file:hashes.sha-256`` / ``file:hashes.sha256`` with **=** and  **!=**
-* ``file:hashes.sha-1`` / ``file:hashes.sha1`` with **=** and **!=**
-* ``file:hashes.md-5`` / ``file:hashes.md5`` with **=** and **!=**
-* ``file:size with`` **<**   **<=**   **>**   **>=**   **=** and **!=**
-* ``file:created`` with **<**   **<=**   **>**   **>=**   **=** and **!=**
-* ``file:modified`` with **<**   **<=**   **>**   **>=**   **=** and **!=**
-* ``file:accessed`` with **<**   **<=**   **>**   **>=**   **=** and **!=**
-* ``win-registry-key:key`` with **=**   **!=**   **LIKE** and **MATCHES**
-* ``win-registry-key:values.name`` with **=**   **!=**   **LIKE** and **MATCHES**
-* ``win-registry-key:values.data with`` with **=**   **!=**   **LIKE** and **MATCHES**
-* ``win-registry-key:values.modified_time`` with **<**   **<=**   **>**   **>=**   **=** and **!=**
+* ``file:name`` with
+
+  * **=**
+  * **!=**
+  * **LIKE**
+  * **MATCHES**
+
+* ``file:parent_directory_ref.path`` with
+
+  * **=**
+  * **!=**
+  * **LIKE**
+  * **MATCHES**
+
+* ``file:hashes.sha-256`` / ``file:hashes.sha256`` with
+   
+  * **=**
+  * **!=**
+
+* ``file:hashes.sha-1`` / ``file:hashes.sha1`` with
+
+  * **=**
+  * **!=**
+
+* ``file:hashes.md-5`` / ``file:hashes.md5`` with
+
+  * **=**
+  * **!=**
+
+* ``file:size`` with
+
+  * **<**
+  * **<=**
+  * **>**
+  * **>=**
+  * **=**
+  * **!=**
+
+* ``file:created`` with
+
+  * **<**
+  * **<=**
+  * **>**
+  * **>=**
+  * **=**
+  * **!=**
+
+* ``file:modified`` with
+
+  * **<**
+  * **<=**
+  * **>**
+  * **>=**
+  * **=**
+  * **!=**
+
+* ``file:accessed`` with
+
+  * **<**
+  * **<=**
+  * **>**
+  * **>=**
+  * **=**
+  * **!=**
+
+* ``win-registry-key:key`` with
+
+  * **=**
+  * **!=**
+  * **LIKE**
+  * **MATCHES**
+
+* ``win-registry-key:values.name`` with
+
+  * **=**
+  * **!=**
+  * **LIKE**
+  * **MATCHES**
+
+* ``win-registry-key:values.data with`` with
+
+  * **=**
+  * **!=**
+  * **LIKE**
+  * **MATCHES**
+
+* ``win-registry-key:values.modified_time`` with
+
+  * **<**
+  * **<=**
+  * **>**
+  * **>=**
+  * **=**
+  * **!=**
 
 STIX v1
 ^^^^^^^
@@ -682,36 +764,38 @@ like "not" or "all of them".
 
 Simple Yara Rule:
 
-.. code-block::
+.. code-block:: none
+   :linenos:
 
-        rule simple_demo_rule_1 {
-                meta:
-                        description = "Demo Rule"
-                strings:
-                        $a1 = "EICAR-STANDARD-ANTIVIRUS-TEST-FILE"
-                condition:
-                        $a1
-        }
+   rule simple_demo_rule_1 {
+        meta:
+             description = "Demo Rule"
+        strings:
+             $a1 = "EICAR-STANDARD-ANTIVIRUS-TEST-FILE"
+        condition:
+             $a1
+   }
 
 The following listing shows a more complex rule that includes a lot of
 keywords used in typical rules included in the rule set.
 
 Complex Yara Rule:
 
-.. code-block::
+.. code-block:: none
+   :linenos:
 
-        rule complex_demo_rule_1 {
-                meta:
-                        description = "Demo Rule"
-                strings:
-                        $a1 = "EICAR-STANDARD-ANTIVIRUS-TEST-FILE"
-                        $a2 = "li0n" fullword
-                        $a3 = /msupdate\.(exe|dll)/ nocase
-                        $a4 = { 00 45 9A ?? 00 00 00 AA }
-                        $fp = "MSWORD"
-                condition:
-                        1 of ($a*) and not $fp
-        }
+   rule complex_demo_rule_1 {
+       meta:
+            description = "Demo Rule"
+       strings:
+            $a1 = "EICAR-STANDARD-ANTIVIRUS-TEST-FILE"
+            $a2 = "li0n" fullword
+            $a3 = /msupdate\.(exe|dll)/ nocase
+            $a4 = { 00 45 9A ?? 00 00 00 AA }
+            $fp = "MSWORD"
+       condition:
+            1 of ($a*) and not $fp
+   }
 
 The example above shows the most common keywords used in our THOR rule
 set. These keywords are included in the YARA standard. The rule does not
@@ -741,18 +825,19 @@ to the total score of an object.
 
 Yara Rule with THOR specific attribute "score":
 
-.. code-block::
+.. code-block:: none
+   :linenos:
 
-        rule demo_rule_score {
-                meta:
-                        description = "Demo Rule"
-                        score = 80
-                strings:
-                        $a1 = "EICAR-STANDARD-ANTIVIRUS-TEST-FILE"
-                        $a2 = "honkers" fullword
-                condition:
-                        1 of them
-        }
+   rule demo_rule_score {
+       meta:
+            description = "Demo Rule"
+            score = 80
+       strings:
+            $a1 = "EICAR-STANDARD-ANTIVIRUS-TEST-FILE"
+            $a2 = "honkers" fullword
+       condition:
+            1 of them
+   }
 
 Feel free to set your own "score" values in rules you create. If you
 don't define a "score" the rule gets a default score of 75.
@@ -768,33 +853,72 @@ Additional Attributes
 ^^^^^^^^^^^^^^^^^^^^^
 
 THOR allows using certain external variables in your generic and meta YARA rules.
-
 These external variables are:
 
-* "**filename**" - single file name like "**cmd.exe**"
-* "**filepath**" - file path without file name like "**C:\\temp**"
-* "**extension**" - file extension with a leading "**.**", lower case like "**.exe**"
-* "**filetype**" - type of the file based on the magic header signatures (for a list of valid file types see: "**./signatures/misc/file-type-signatures.cfg**") like "**EXE**" or "**ZIP**"
-* "**timezone**" – the system's time zone (see https://golang.org/src/time/zoneinfo_abbrs_windows.go for valid values)
-* "**language**" – the systems language settings (see https://docs.microsoft.com/en-us/windows/win32/intl/sort-order-identifiers)
-* "**owner**" - The file owner, e.g. "**NT-AUTHORITY\\SYSTEM**" on Windows or "**root**" on Linux
-* "**group**" (available since THOR 10.6.8) - The file group, e.g. "**root**" on Linux. This variable is empty on Windows.
-* "**filemode**" (available since THOR 10.6) - file mode for this file (see https://man7.org/linux/man-pages/man7/inode.7.html, "The file type and mode"). On Windows, this variable will be an artificial approximation of a file mode since Windows is not POSIX compliant.
+* **filename**
 
-The "**filesize**" value contains the file size in bytes. It is provided directly by YARA and is not specific to THOR.
+  * single file name
+  * Example: ``cmd.exe``
+
+* **filepath**
+
+  * file path without file name
+  * Example: ``C:\temp``
+
+* **extension**
+
+  * file extension with a leading ``.``, lower case
+  * Example: ``.exe``
+
+* **filetype**
+
+  * type of the file based on the magic header signatures
+    (for a list of valid file types see:
+    ``./signatures/misc/file-type-signatures.cfg``)
+  * Example: ``EXE`` or ``ZIP``
+
+* **timezone**
+
+  * the system's time zone (see https://golang.org/src/time/zoneinfo_abbrs_windows.go for valid values)
+
+* **language**
+
+  * the systems language settings (see https://docs.microsoft.com/en-us/windows/win32/intl/sort-order-identifiers)
+
+* **owner**
+
+  * The file owner
+  * Example: ``NT-AUTHORITY\SYSTEM`` on Windows
+  * Example: ``root`` on Linux
+
+* **group** (available since THOR 10.6.8)
+
+  * The file group
+  * Example: ``root`` on Linux
+  * This variable is empty on Windows
+
+* **filemode** (available since THOR 10.6)
+
+  * file mode for this file (see https://man7.org/linux/man-pages/man7/inode.7.html, "The file type and mode").
+  * On Windows, this variable will be an artificial approximation of a file mode since Windows is not POSIX compliant.
+
+* **filesize**
+
+  * The value contains the file size in bytes. It is provided directly by YARA and is not specific to THOR.
 
 Yara Rule with THOR External Variable:
 
-.. code-block::
+.. code-block:: none
+   :linenos:
 
-        rule demo_rule_enhanced_attribute_1 {
-                meta:
-                        description = "Demo Rule - Eicar"
-                strings:
-                        $a1 = "EICAR-STANDARD-ANTIVIRUS-TEST-FILE"
-                condition:
-                        $a1 and filename matches /eicar.com/
-        }
+   rule demo_rule_enhanced_attribute_1 {
+        meta:
+             description = "Demo Rule - Eicar"
+        strings:
+             $a1 = "EICAR-STANDARD-ANTIVIRUS-TEST-FILE"
+        condition:
+             $a1 and filename matches /eicar.com/
+   }
 
 A more complex rule using several of the THOR external variables would
 look like the one in the following listing.
@@ -805,41 +929,44 @@ smaller 100byte.
 
 Yara Rule with more complex THOR Enhanced Attributes.
 
-.. code-block::
+.. code-block:: none
+   :linenos:
 
-        rule demo_rule_enhanced_attribute_2 {
-                meta:
-                        author = "F.Roth"
-                strings:
-                        $a1 = "EICAR-STANDARD-ANTIVIRUS-TEST-FILE"
-                condition:
-                        $a1 and filename matches /eicar\.(com|dll|exe)/ and filesize < 100
-        }
+   rule demo_rule_enhanced_attribute_2 {
+        meta:
+             author = "F.Roth"
+        strings:
+             $a1 = "EICAR-STANDARD-ANTIVIRUS-TEST-FILE"
+        condition:
+             $a1 and filename matches /eicar\.(com|dll|exe)/ and filesize < 100
+   }
 
 
 The following YARA rule shows a typical combination used in one of the
 client specific rule sets, which are integrated in THOR. The rule
-matches on "**.idx**" files that contain strings used in the Java
+matches on ``.idx`` files that contain strings used in the Java
 Version of the VNC remote access tool. Without the enhancements made
 this wouldn't be possible as there would be no way to apply the rule
 only to a special type of extension.
 
 Real Life Yara Rule:
 
-.. code-block::
+.. code-block:: none
+   :linenos:
 
-        rule HvS_Client_2_APT_Java_IDX_Content_hard {
-                meta:
-                        description = "VNCViewer.jar Entry in Java IDX file"
-                strings:
-                        $a1 = "vncviewer.jar"
-                        $a2 = "vncviewer/VNCViewer.class"
-                condition:
-                        1 of ($a*) and extension matches /\.idx/
-        }
+   rule HvS_Client_2_APT_Java_IDX_Content_hard {
+        meta:
+             description = "VNCViewer.jar Entry in Java IDX file"
+        strings:
+             $a1 = "vncviewer.jar"
+             $a2 = "vncviewer/VNCViewer.class"
+        condition:
+             1 of ($a*) and extension matches /\.idx/
+   }
 
 Bulk Scanning
 ^^^^^^^^^^^^^
+
 THOR scans registry and log entries in bulks since each YARA invocation has a
 relatively high overhead. This means that during the scan, the following happens:
 
@@ -854,26 +981,27 @@ ever applying.
 
 For example, consider this rule:
 
-.. code::
+.. code-block:: none
+   :linenos:
 
-        rule FakeMicrosoftStartupEntry {
-                strings:
-                        $s1 = "Microsoft\\SomeRegistryKey;ShouldBeUsedOnlyByMicrosoft;"
-                        $fp = "Windows\\System32"
-                condition:
-                        $s1 and not $fp
-        }
+   rule FakeMicrosoftStartupEntry {
+        strings:
+             $s1 = "Microsoft\\SomeRegistryKey;ShouldBeUsedOnlyByMicrosoft;"
+             $fp = "Windows\\System32"
+        condition:
+             $s1 and not $fp
+   }
 
 This rule is meant to match if the specified registry key contains some DLL that is not
-in C:\\Windows\\System32. However, the false positive string may inadvertently match on
+in ``C:\Windows\System32``. However, the false positive string may inadvertently match on
 other entries in the bulk, like here:
 
-.. code::
+.. code-block::
 
-        Path\to\Microsoft\SomeRegistryKey;ShouldBeUsedOnlyByMicrosoft;C:\evil.exe
-        ...
-        Path\to\SomeOtherRegistryKey;Entry;C:\Windows\System32\explorer.exe
-        ...
+   Path\to\Microsoft\SomeRegistryKey;ShouldBeUsedOnlyByMicrosoft;C:\evil.exe
+   ...
+   Path\to\SomeOtherRegistryKey;Entry;C:\Windows\System32\explorer.exe
+   ...
 
 Because the rule does not apply to the bulk, THOR never scans the single elements and
 does not report any match. Therefore, be very careful with false positive strings with log
@@ -882,15 +1010,15 @@ or registry YARA rules.
 A possible workaround for this issue is to define the false positive strings in ways that
 they can't match anywhere else, e.g. like this:
 
-.. code::
+.. code-block:: none
 
-        rule FakeMicrosoftStartupEntry {
-                strings:
-                        $s1 = "Microsoft\\SomeRegistryKey;ShouldBeUsedOnlyByMicrosoft;"
-                        $fp = /Microsoft\\SomeRegistryKey;ShouldBeUsedOnlyByMicrosoft;[^\n]{0,40}Windows\\System32/
-                condition:
-                        $s1 and not $fp
-        }
+   rule FakeMicrosoftStartupEntry {
+        strings:
+             $s1 = "Microsoft\\SomeRegistryKey;ShouldBeUsedOnlyByMicrosoft;"
+             $fp = /Microsoft\\SomeRegistryKey;ShouldBeUsedOnlyByMicrosoft;[^\n]{0,40}Windows\\System32/
+        condition:
+             $s1 and not $fp
+   }
 
 Restrict Yara Rule Matches
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -903,49 +1031,52 @@ rule should apply to file objects or process memory only.
 
 Apply rule in-memory only:
 
-.. code-block::
+.. code-block:: none
+   :linenos:
 
-        rule Malware_in_memory {
-                meta:
-                        author = "Florian Roth"
-                        description = "Think Tank Campaign"
-                        type = "memory"
-                strings:
-                        $s1 = "evilstring-inmemory-only"
-                condition:
-                        1 of them
-        }
+   rule Malware_in_memory {
+        meta:
+             author = "Florian Roth"
+             description = "Think Tank Campaign"
+             type = "memory"
+        strings:
+             $s1 = "evilstring-inmemory-only"
+        condition:
+             1 of them
+   }
 
 Apply rule on file objects only:
 
-.. code-block::
+.. code-block:: none
+   :linenos:
 
-        rule Malware_in_fileobject {
-                meta:
-                        description = "Think Tank Campaign"
-                        type = "file"
-                strings:
-                        $s1 = "evilstring-infile-only"
-                condition:
-                        1 of them
-        }
+   rule Malware_in_fileobject {
+        meta:
+             description = "Think Tank Campaign"
+             type = "file"
+        strings:
+             $s1 = "evilstring-infile-only"
+        condition:
+             1 of them
+   }
 
 You can also decide if a rule should not match in "DeepDive" module by
 setting the "nodeepdive" attribute to "1".
 
 Avoid DeepDive application:
 
-.. code-block::
+.. code-block:: none
+   :linenos:
 
-        rule Malware_avoid_DeepDive {
-                meta:
-                        description = "Think Tank Campaign"
-                        nodeepdive = 1
-                strings:
-                        $s1 = "evilstring-not-deepdive"
-                condition:
-                        1 of them
-        }
+   rule Malware_avoid_DeepDive {
+        meta:
+             description = "Think Tank Campaign"
+             nodeepdive = 1
+        strings:
+             $s1 = "evilstring-not-deepdive"
+        condition:
+             1 of them
+   }
 
 If you have problems with false positives caused by the specific YARA
 rules, try using the "limit" modifier in the meta data section of your
@@ -963,18 +1094,18 @@ meta data section of the YARA rule.
 
 Limits detection to the "Mutex" module:
 
-.. code-block::
+.. code-block:: none
+   :linenos:
 
-        rule Malicious_Mutex_Evtx {
-                meta:
-                        description = "Detects malicious mutex EVTX"
-                        limit = "Mutex"
-                strings:
-                        $s1 = "_evtx_"
-                condition:
-                        1 of them
-        }
-
+   rule Malicious_Mutex_Evtx {
+        meta:
+             description = "Detects malicious mutex EVTX"
+             limit = "Mutex"
+        strings:
+             $s1 = "_evtx_"
+        condition:
+             1 of them
+   }
 
 Notes:
 
@@ -990,15 +1121,16 @@ attribute. Do not use a negative score value in YARA rules.
 
 False Positive Rule:
 
-.. code-block::
+.. code-block:: none
+   :linenos:
 
-        rule FalsePositive_AVSig1 {
-                meta:
-                        description = "Match on McAfee Signature Files"
-                        falsepositive = 1
-                        score = 50
-                strings:
-                        $s1 = "%%%McAfee-Signature%%%"
-                condition:
-                        1 of them
-        }
+   rule FalsePositive_AVSig1 {
+        meta:
+             description = "Match on McAfee Signature Files"
+             falsepositive = 1
+             score = 50
+        strings:
+             $s1 = "%%%McAfee-Signature%%%"
+        condition:
+             1 of them
+   }
