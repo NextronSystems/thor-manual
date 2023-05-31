@@ -166,7 +166,7 @@ in a folder named ``Sysinternals``, but any other location should be
 reported as suspicious you could define the following statements:
 
 .. code-block:: text
-   :caption: psexec-filename.ioc.txt
+   :caption: psexec-filename-ioc.txt
    :linenos:
 
    \\PsExec\.exe;60
