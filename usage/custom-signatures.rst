@@ -46,21 +46,40 @@ encrypted simple IOC files must have the extension ``.dat``.
 
 The following tags for simple IOCs are currently supported:
 
-* "**c2**" or "**domains**" for C2 server IOCs like IPs and host names
-* "**filename**" or "**filenames**" for file name IOCs
-* "**hash**" or "**hashes**" for MD5, SHA1, SHA256 hash IOCs
-* "**keyword**" or "**keywords**" for string based keywords
-* "**trusted-hash**" or "**trusted-hashes**" or "**falsepositive-hash**" or
-  "**falsepositive-hashes**" for hashes that you trust (also expects CSV
-  format in the form "**hash;comment**" like the hash IOCs)
-* "**handles**" for malicious Mutex / Event IOCs
-* "**pipes**" or "**pipe**" for Named Pipe IOCs
+* "**c2**" or "**domains**"
+  
+  * for IP addresses and hostnames
+
+* "**filename**" or "**filenames**"
+
+  * for filenames
+
+* "**hash**" or "**hashes**"
+
+  * for MD5, SHA1 and SHA256 hashes
+
+* "**keyword**" or "**keywords**"
+
+  * for string-based keywords
+
+* "**trusted-hash**" or "**trusted-hashes**"
+  or "**falsepositive-hash**" or "**falsepositive-hashes**"
+
+  * for hashes that you trust
+
+* "**handles**"
+
+  * for malicious Mutex / Events
+
+* "**pipes**" or "**pipe**"
+
+  * for Named Pipes
 
 .. list-table::
    :header-rows: 1
-   :widths: 37, 63
+   :widths: 50, 50
 
-   * - Tag in File Name
+   * - Tag/String in File Name
      - Example
    * - c2
      - misp-**c2**-domains-iocs.txt
@@ -100,16 +119,16 @@ please see the table below.
 Hashes
 ^^^^^^
 
-Files with the string ``hash`` or ``hashes`` in their name
+Files with the string ``hash`` or ``hashes`` in their filename
 get initialized as hash IOC sets. Either you are assigning a custom score
 to your hashes, or you do not assign a score at all, in which case the
 match will default to a score of 100.
 
-The first column contains your MD5, SHA1 or SHA256 hashes. The second column
+The first column contains your MD5, SHA1 or SHA256 hash. The second column
 contains your comment, if you do not use any scoring. If you choose to use
 your own scoring (example below on line 2), the score goes into the second
 column and the comment into the third. Columns are separated by a semicolon
-and hashes are applied case-insensitively.
+and hashes are applied case-insensitively. Scoring and comments are optional.
 
 .. code-block:: text
    :caption: custom-hashes-iocs.txt
@@ -124,8 +143,7 @@ File Name IOCs
 
 Filename IOC files allow you to define IOCs based on filename and filepath
 using regular expressions. You can add or reduce the total score of a file
-element during the scan with a positive (e.g.
-"40") or negative score (e.g. "-30").
+element during the scan with a positive (e.g. "40") or negative score (e.g. "-30").
 
 While this can also be used to define false positives, or reduce the
 score of well-known files and locations, it gives you all the
