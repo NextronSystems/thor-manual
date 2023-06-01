@@ -474,9 +474,9 @@ The ``Archive Scan`` feature supports the following archive types:
 - TAR
 - TAR + GZIP (.tar.gz)
 - TAR + BZIP2 (.tar.bz2)
-- GZIP (THOR TechPreview only)
-- 7ZIP (THOR TechPreview only)
-- CAB (THOR TechPreview only)
+- GZIP (THOR 10.7+)
+- 7ZIP (THOR 10.7+)
+- CAB (THOR 10.7+)
 
 When scanning a file within any of these files, THOR will append the path within the archive to the archive's own path 
 for scan purposes (like filename IOCs or YARA rules). E.g., an archive ``C:\temp\test.zip`` containing a file ``path/in/zip.txt``
