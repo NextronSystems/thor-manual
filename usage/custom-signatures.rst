@@ -138,6 +138,11 @@ and hashes are applied case-insensitively. Scoring and comments are optional.
    0c2674c3a97c53082187d930efb645c2;DEEP PANDA Sakula Malware - http://goo.gl/R3e6eG
    f05b1ee9e2f6ab704b8919d5071becbce6f9d0f9d0ba32a460c41d5272134abe;50;Vulnerable Lenovo Diagnostics Driver - https://github.com/alfarom256/CVE-2022-3699/tree/main
 
+.. hint::
+  Each hash in your Hash IOC file needs a description to be valid. If you are
+  using ASGARD to manage your custom IOCs, you can omit the Description, since
+  the name of your ``IOC Group`` will be used as a description instead.
+
 File Name IOCs
 ^^^^^^^^^^^^^^
 
@@ -169,6 +174,7 @@ reported as suspicious you could define the following statements:
    :caption: psexec-filename-ioc.txt
    :linenos:
 
+   # PsExec
    \\PsExec\.exe;60
    \\SysInternals\\PsExec\.exe;-60
 
