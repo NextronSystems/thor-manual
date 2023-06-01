@@ -147,6 +147,10 @@ and scan all the items in it.
 Another example would be the ``Eventlog Analysis`` Module, which might invoke
 the ``Sigma Scan`` feature on certain eventlog entries.
 
+.. hint:: 
+  Please see chapter :ref:`usage/other-topics:archive scan` for a list
+  of supported archive formats.
+
 Feature Scan Mode Overview
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
