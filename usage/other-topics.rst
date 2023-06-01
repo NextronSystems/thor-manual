@@ -465,12 +465,15 @@ check:
   | New or changed entries in the "hosts" file could indicate system manipulations by attackers to block certain security functions or intercept connections.
 
 Archive Scan 
-^^^^^^^^^^^^
+------------
 
-The ``ArchiveScan`` feature supports the following archive types: 
+The ``Archive Scan`` feature supports the following archive types:
 
 - ZIP
 - RAR
+- GZIP
+- 7ZIP
+- CAB
 - TAR
 - TAR + GZIP (.tar.gz)
 - TAR + BZIP2 (.tar.bz2)
