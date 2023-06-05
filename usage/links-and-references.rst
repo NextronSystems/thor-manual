@@ -2,35 +2,19 @@
 Links and References
 ====================
 
-THOR Website
+THOR Website: https://www.nextron-systems.com/thor/
 
-https://www.nextron-systems.com/thor/
+Nextron Customer Portal: https://portal.nextron-systems.com
 
-Nextron Customer Portal
+Nextron Software Update Status: https://update1.nextron-systems.com/info.php
 
-https://portal.nextron-systems.com
+YARA Documentation: https://yara.readthedocs.io/
 
-Nextron Software Update Status
+yarGen - YARA Rule Generator: https://github.com/Neo23x0/yarGen/
 
-https://update1.nextron-systems.com/info.php
+THOR APT Scanner App and Add-on v2: https://splunkbase.splunk.com/app/3717/ and https://splunkbase.splunk.com/app/3718/
 
-YARA Documentation
-
-https://yara.readthedocs.io/
-
-yarGen - YARA Rule Generator
-
-https://github.com/Neo23x0/yarGen/
-
-THOR APT Scanner App and Add-on v2
-
-https://splunkbase.splunk.com/app/3717/
-
-https://splunkbase.splunk.com/app/3718/
-
-Sigma Project
-
-https://github.com/Neo23x0/sigma
+Sigma Project: https://github.com/Neo23x0/sigma
 
 Open Source License Acknowledgements
 ------------------------------------
