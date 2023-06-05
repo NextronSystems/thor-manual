@@ -1,8 +1,8 @@
 Special Scan Modes
 ==================
 
-Lab Scanning (--lab)
---------------------
+Lab Scanning
+------------
 
 Lab scanning mode that is activated with ``--lab`` (formerly
 ``--fsonly``). It is used to scan mounted forensic images or a single
@@ -133,8 +133,8 @@ log, HTML, CSV) to a reports folder named ``C:\reports``.
     This feature requires a `forensic lab license <https://www.nextron-systems.com/2020/11/11/thor-forensic-lab-license-features/>`__
     type which is meant to be used in forensic labs. 
 
-Lookback Mode (--lookback --all-module-lookback)
-------------------------------------------------
+Lookback Mode
+-------------
 
 The ``--lookback`` option allows you to restrict the Eventlog and log
 file scan to a given amount of days. E.g. by using ``--lookback 3`` you
@@ -153,8 +153,8 @@ This scan mode is perfect for quick scans to verify SIEM related events
 and is used by default in THOR Cloud's settings for executions via
 Microsoft Defender ATP.
 
-Drop Zone Mode (--dropzone)
----------------------------
+Drop Zone Mode
+--------------
 
 The drop zone mode allows you to define a folder on your local hard
 drive that is monitored for changes. If a new file is created in that
@@ -199,8 +199,8 @@ Or you can print all output with ``--printall`` - this might clutter the output:
 .. figure:: ../images/thor_dropzone_mode_example2.png
    :alt: Example of a THOR Drop Zone Mode finding
 
-Image File Scan Mode (-m)
--------------------------
+Image File Scan Mode
+--------------------
 
 The image file scan mode has a misleading name. It isn't meant to be
 used for forensic image scanning but for the scan of un-mountable images
@@ -226,8 +226,8 @@ YARA signatures placed in the "./custom-signatures/yara" sub folder.
     This feature requires a `forensic lab license <https://www.nextron-systems.com/2020/11/11/thor-forensic-lab-license-features/>`__
     type which is meant to be used in forensic labs. 
 
-DeepDive (--image_file)
------------------------
+DeepDive
+--------
 
 The DeepDive module allows a surface scan of a given memory dump.
 
@@ -252,15 +252,17 @@ There are some disadvantages linked with the DeepDive detection engine:
 
 THOR uses other attributes to report these findings:
 
-* | Offsets
-  | THOR reports the location on the disk, so that forensic
-     investigators are able to check and extract the file from an image
-     of the hard drive.
+* Offsets
+  
+  * THOR reports the location on the disk, so that forensic
+    investigators are able to check and extract the file from an image
+    of the hard drive.
 
-* | Restore
-  | THOR is able to restore the whole file to a given directory. It
-     uses the system's NetBIOS name, rule name, the score and the offset
-     to create a file name for the extracted file.
+* Restore
+  
+  * THOR is able to restore the whole file to a given directory. It
+    uses the system's NetBIOS name, rule name, the score and the offset
+    to create a file name for the extracted file.
 
 As a side effect of this dissection all the embedded executables in
 other file formats like RTF or PDF are detected regardless of their way
@@ -281,8 +283,8 @@ directory``" option.
   * - **-r directory**
     - Recovery directory for files found by DeepDive 
 
-Eventlog Analysis (-n)
-----------------------
+Eventlog Analysis
+-----------------
 
 The Eventlog scan mode allows scanning certain Windows Eventlogs.
 
@@ -311,8 +313,8 @@ and instructs the Eventlog module to scan only the “Security” and
 
    C:\nextron\thor>thor64.exe -n Security -n System
 
-MFT Analysis (--mft)
---------------------
+MFT Analysis
+------------
 
 The MFT analysis module reads the "Master File Table" (MFT) of a
 partition and parses its contents. The MFT analysis takes a significant
