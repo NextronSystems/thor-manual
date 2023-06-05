@@ -2,7 +2,17 @@
 Scan
 ====
 
-First of all, THOR runs fine with the default settings. The recommended scan options are already active in the default scan. 
+This chapter is a quick introduction on how to run a THOR scan
+and how to personalize scans to better fit your environment and
+expectations.
+
+Please note, the command line arguments are used to fine tune
+your scans and yield potentially better results for your use cases.
+
+There is no "one fits all" command line argument, but we designed
+THOR to cover the broadest area with minimal impact in the default
+operating mode. Default in this case means no additional command
+line arguments.
 
 Quick Start
 -----------
@@ -10,11 +20,22 @@ Quick Start
 Follow these steps to complete your first THOR scan
 
 1. Make sure you've read the :doc:`/usage/beforeyoubegin` guide
-2. Open a command line (cmd.exe) as Administrator
+2. Open a command line as administrative user
+   
+   a. Administrator on Windows
+   b. root on Linux and macOS
+
 3. Navigate to the folder in which you've extracted the THOR package and placed the license file(s)
-4. Start THOR with **thor64.exe** (macOS: **thor-macos**, Linux: **thor-linux-64**)
+4. Start THOR on your command line
+   
+   a. ``thor64.exe`` on 64-bit Windows systems
+   b. ``thor.exe`` on 32-bit Windows systems
+   c. ``thor-linux-64`` on x86-64 Linux systems
+   d. ``thor-linux`` on i386 Linux systems
+   e. ``thor-macos`` on macOS
+
 5. Wait until the scan has completed (this can take between 20 and 180 minutes)
-6. When the scan is complete, check the text log and HTML report in the THOR program directory
+6. When the scan is finsihed, check the text log and HTML report in the THOR program directory
 
 Often Used Parameters
 ---------------------
@@ -28,7 +49,7 @@ Often Used Parameters
   * - **--soft**
     - Reduce CPU usage, skip all checks that can consume a lot of memory (even if only for a few seconds)
   * - **--quick**
-    - Perform a :doc:`/usage/scan-modes` (skips Eventlog and checks only the most relevant folders)
+    - Perform a quick scan (skips Eventlog and checks only the most relevant folders); see :doc:`/usage/scan-modes` 
   * - **-e target-folder**
     - Write all output files to the given folder
 
@@ -98,7 +119,7 @@ This list contains flags that are often used by analysts to tweak the scan in us
 Help and Debugging
 ------------------
 
-You can use the following parameters to 
+You can use the following parameters help you to understand THOR and the output better.
 
 .. list-table::
   :header-rows: 1
@@ -145,20 +166,15 @@ Scan Run on a Single Directory
   C:\nextron\thor>thor64.exe --lab -p C:\ProgramData
   C:\nextron\thor>thor64.exe --lab -p I:\mounted\_image\disk1
 
-IMPORTANT: This feature requires a `forensic lab license <https://www.nextron-systems.com/2020/11/11/thor-forensic-lab-license-features/>`__ type which is meant to be used in forensic labs. 
+.. important::
+  This feature requires a `forensic lab license <https://www.nextron-systems.com/2020/11/11/thor-forensic-lab-license-features/>`__
+  type which is meant to be used in forensic labs. 
 
 You can imitate a lab scan without a lab license with these command line flags:
 
 .. code-block:: doscon 
 
   C:\nextron\thor>thor64.exe -a Filescan --intense --norescontrol --nosoft --cross-platform -p C:\ProgramData
-
-Deactivate all file output - Syslog only
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-.. code-block:: doscon
-
-  C:\nextron\thor>thor64.exe -s 10.1.5.14 --nohtml --nolog --nocsv
 
 Save the result files to a different directory 
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -178,7 +194,7 @@ Scan System with Defaults and Make a Surface Scan
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 By default, the surface scan (DeepDive) applies all YARA rules in
-"./custom-signatures" folder. In this example all output files are
+"./custom-signatures" folder. In this example, all output files are
 written to a network share.
 
 .. code-block:: doscon
@@ -187,6 +203,9 @@ written to a network share.
 
 Intense Scan and DeepDive on a Mounted Image
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The following are two examples on how to scan a mounted image on
+Windows and Linux.
 
 Mounted as Drive Z
 ~~~~~~~~~~~~~~~~~~
@@ -202,7 +221,9 @@ Mounted as /mnt
 
   C:\nextron\thor>thor64.exe --lab --deepdive -p /mnt
 
-IMPORTANT: Lab scanning mode requires a `forensic lab license <https://www.nextron-systems.com/2020/11/11/thor-forensic-lab-license-features/>`__ type which is meant to be used in forensic labs. 
+.. important::
+  Lab scanning mode requires a `forensic lab license <https://www.nextron-systems.com/2020/11/11/thor-forensic-lab-license-features/>`__
+  type which is meant to be used in forensic labs. 
 
 Scanning a Folder or Drive without a Forensic Lab License
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -218,8 +239,8 @@ You can find more information on the advantages of a THOR Forensic Lab license `
 Throttled THOR Run (static throttling value)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Will restrict THOR's CPU usage in the long running modules “FileScan”,
-“Eventlog”, “LogScan” and “Registry” to 60%. Note that THOR
+Will restrict THOR's CPU usage in the long running modules "FileScan",
+"Eventlog", "LogScan" and "Registry" to 60%. Note that THOR
 automatically applies certain restrictions in automatic soft mode.
 
 .. code-block:: doscon
@@ -255,41 +276,8 @@ Run a Scan with Specific Modules
 --------------------------------
 
 With the parameter ``-a`` you can run a single module or select a set of
-modules that you'd like to run.
-
-Valid modules are:
-
-.. list-table:: 
-  :widths: 25, 25, 25, 25
-
-  * - Autoruns
-    - DeepDive
-    - Dropzone
-    - EnvCheck
-  * - Filescan
-    - Firewall
-    - Hosts
-    - LoggedIn
-  * - OpenFiles
-    - ProcessCheck
-    - UserDir
-    - ServiceCheck
-  * - Users
-    - AtJobs
-    - DNSCache
-    - Eventlog
-  * - HotfixCheck
-    - LSASessions
-    - MFT
-    - Mutex
-  * - NetworkSessions
-    - NetworkShares
-    - RegistryChecks
-    - Rootkit
-  * - SHIMCache
-    - ScheduledTasks
-    - WMIStartup
-    -  
+modules that you'd like to run. All available modules can be found in the
+section :ref:`usage/scan-modes:scan module names`.
 
 Run a Rootkit check only:
 
@@ -345,9 +333,9 @@ for more details on these values.
 Multi-Threading
 ---------------
 
-THOR 10.6 supports scanning a system with multiple threads in parallel,
-allowing for a significant increase in speed in exchange for a higher
-CPU usage.
+Starting from version 10.6, THOR supports scanning a system with multiple
+threads in parallel, allowing for a significant increase in speed in
+exchange for a higher CPU usage.
 
 To use this feature, use the ``--threads`` flag which allows you to
 specify THOR's number of parallel threads.
@@ -357,11 +345,17 @@ zone) or ``--thunderstorm`` (Thunderstorm) command line flags, THOR will
 default to using as many threads as the system has CPU cores; otherwise,
 THOR will still default to running with a single thread.
 
-Note: This mode is only available with the "Lab", "Thunderstorm" and "Incident Response" license type.
+.. note::
+  The above listed modes are only available with the "Lab", "Thunderstorm"
+  and "Incident Response" license type.
 
 Enabled Modules
 ^^^^^^^^^^^^^^^
 
-Not all modules support multi-threading. It is currently enabled in:
-File, Registry, Eventlog scanning and Thunderstorm and Dropzone service
-mode.
+Not all modules support multi-threading. It is currently supported for:
+
+* Filescan
+* RegistryChecks
+* Eventlog
+* Thunderstorm (Thunderstorm License needed)
+* Dropzone (Lab License needed)
