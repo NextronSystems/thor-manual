@@ -1,6 +1,11 @@
 Special Scan Modes
 ==================
 
+This section describes special scan modes, which might need a
+different license compared to the default THOR license. If you
+have any questions regarding pricing of those licenses, please
+contact our sales department.
+
 Lab Scanning
 ------------
 
@@ -64,30 +69,30 @@ the forensic lab workstation.
 Virtual drive mapping allows you to virtually map that drive to its
 original name. The syntax is as follows:
 
-.. code-block:: bash
+.. code-block:: none
 
    --virtual-map current-location:original-location
 
 Some examples:
 
-A original partition "C:"" from the source system has been mounted to
-drive “F:” on the forensic lab workstation:
+A original partition "C:" from the source system has been mounted to
+drive "F:" on the forensic lab workstation:
 
-.. code-block:: bash
+.. code-block:: none
 
    --virtual-map F:C
 
 A original mount point "/" has been mounted to "/mnt/image1" on a Linux
 forensic lab workstation:
 
-.. code-block:: bash
+.. code-block:: none
 
    --virtual-map /mnt/image1:/
 
 A Windows image of drive "C:" mounted to "/mnt/image1" on a Linux
 forensic lab workstation:
 
-.. code-block:: bash
+.. code-block:: none
 
    --virtual-map /mnt/image1:C
 
@@ -109,7 +114,7 @@ forensic lab workstation as the source.
 You should use the name of the host from which the image has been
 retrieved as the value for that parameter.
 
-.. code-block:: bash
+.. code-block:: none
 
    -j orig-hostname
 
