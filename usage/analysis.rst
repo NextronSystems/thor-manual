@@ -36,7 +36,7 @@ Furthermore, the ANALYSIS COCKPIT comes with a rule based alert
 forwarding and SIEM integration that makes it easy for your organization
 to react quickly on new incidents.
 
-.. figure:: ../images/image14.png
+.. figure:: ../images/analysis_cockpit.png
    :alt: Analysis Cockpit View
 
    Analysis Cockpit View
@@ -58,13 +58,9 @@ to get a better overview on distributed runs on multiple systems.
 
    Splunk THOR App Universal View
 
-THOR APT Scanner App
+THOR APT Scanner App: https://splunkbase.splunk.com/app/3717/
 
-https://splunkbase.splunk.com/app/3717/
-
-THOR Add-On
-
-https://splunkbase.splunk.com/app/3718/
+THOR Add-On:https://splunkbase.splunk.com/app/3718/
 
 THOR Util Report Feature
 ------------------------
@@ -72,7 +68,7 @@ THOR Util Report Feature
 THOR Util provides a feature called "report" that creates HTML reports
 from text logs of one or more scanned systems.
 
-.. figure:: ../images/image17.png
+.. figure:: ../images/thor-util-report.png
    :alt: THOR Util's Report Output
 
    THOR Util's Report Output
@@ -85,12 +81,11 @@ https://www.nextron-systems.com/2018/06/20/thor-util-with-html-report-generation
 Log Analysis Manual
 -------------------
 
-The Customer Portal contains a log analysis manual in the "Downloads"
-section.
+We have written a detailed Log Analysis Manual which:
 
-.. figure:: ../images/image18.png
-   :alt: Log Analysis Manual Download Link
+* Explains how to analyze THOR logs
+* Contains example logs
+* Lists potential false positives you might encounter
+* And how different attributes are to be evaluated
 
-   Log Analysis Manual Download Link
-
-https://portal.nextron-systems.com/webshop/downloads
+https://log-analysis-manual.nextron-systems.com/
