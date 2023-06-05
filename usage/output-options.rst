@@ -7,12 +7,16 @@ Scan Output
 
 THOR creates several files during and at the end of the scan.
 
-**Real Time** - the text log file is written during the scan process.
-Also the SYSLOG output is sent in real-time to one or more remote
-systems.
+* **Real Time**
+  
+  * the text log file is written during the scan process.
+    Also the SYSLOG output is sent in real-time to one or more remote
+    systems.
 
-**End of Scan** - the full HTML report and CSV file with all file scan
-elements reported as suspicious are written at the end of the scan.
+* **End of Scan**
+
+  * the full HTML report and CSV file with all file scan
+    elements reported as suspicious are written at the end of the scan.
 
 You can define different formatting options for each the FILE and the
 SYSLOG output.
@@ -29,21 +33,24 @@ the use of parameter on different operating systems.
 These can be used in command line parameters and scan templates across
 all platforms.
 
-.. code-block:: batch
+.. code-block:: doscon
 
-   thor64.exe -a FileScan -p S:\\ -o :hostname:\_:time:.csv
+   C:\thor>thor64.exe -a FileScan -p S:\\ -o :hostname:\_:time:.csv
 
 Log File Output (.txt)
 ^^^^^^^^^^^^^^^^^^^^^^
 
 The standard log file is written by default.
 
-* | **--nolog**
-  | Don’t create a log file
-* | **-l / --logfile** **filename**
-  | Set a filename for the log file
+* **--nolog**
+  
+  * Don't create a log file
 
-The log file’s format aligns with the format of SYSLOG messages. This
+* **--logfile filename**
+  
+  * Set a filename for the log file
+
+The log file's format aligns with the format of SYSLOG messages. This
 way it can easily be imported to most SIEM or log analysis systems.
 
 CSV Output (.csv)
@@ -81,24 +88,31 @@ errors
 
 CSV Stats Output:
 
-+-------------------------------------------------------------------------------------------------------------------------------+
-| HYPERION,2021-02-17 17:01:25,2021-02-17 17:01:28,10.6.2,--lab -p C:\\temp -o HYPERION\_test\_:time:.csv --csvstats,5,2,3,0    |
-+-------------------------------------------------------------------------------------------------------------------------------+
+.. list-table::
+
+   * - HYPERION,2021-02-17 17:01:25,2021-02-17 17:01:28,10.6.2,--lab -p C:\temp -o HYPERION:time:.csv --csvstats,5,2,3,0
 
 JSON Output (.json)
 ^^^^^^^^^^^^^^^^^^^
 
 The JSON output file can be configured with these options:
 
-* | **--json**
-  | Create a JSON output file
-* | **--jsonfile** **filename**
-  | Set a filename for the JSON log file
-* | **--cmdjson**
-  | Print JSON format into the command line (e.g. used with Splunk
-     scripted input)
-* | **-s [syslogtarget]:[port]:** **SYSLOGJSON**
-  | Send syslog messages with JSON formatting
+* **--json**
+  
+  * Create a JSON output file
+
+* **--jsonfile filename**
+  
+  * Set a filename for the JSON log file
+
+* **--cmdjson**
+  
+  * Print JSON format into the command line (e.g. used with Splunk
+    scripted input)
+
+* **-s [syslogtarget]:[port]:SYSLOGJSON**
+  
+  * Send syslog messages with JSON formatting
 
 Key Value Output
 ^^^^^^^^^^^^^^^^
@@ -112,13 +126,17 @@ stays untouched by this setting.
 
 There are three different Key Value Pair Formatting flags:
 
-* | **--keyval**
-  | Write key/value pairs to the log file
-* | **--cmdkeyval**
-  | Print key/value pairs in the command line (e.g. used with Splunk
-     scripted input)
-* | **-s [syslogtarget]:[port]:SYSLOGKV**
-  | Send syslog messages with proper key/value formatting
+* **--keyval**
+  
+  * Write key/value pairs to the log file
+
+* **--cmdkeyval**
+  
+  * Print key/value pairs in the command line (e.g. used with Splunk
+    scripted input)
+* **-s [syslogtarget]:[port]:SYSLOGKV**
+  
+  * Send syslog messages with proper key/value formatting
 
 .. list-table::
    :header-rows: 1
@@ -135,7 +153,7 @@ There are three different Key Value Pair Formatting flags:
 Timestamps
 ^^^^^^^^^^
 
-Timestamp in all modules use the ANSIC standard, which looks like:
+Timestamp in all modules use the ANSI standard, which looks like:
 
 .. code-block:: none
 
@@ -156,14 +174,14 @@ The parameter ``--rfc3339`` generates time stamps for UTC time in the
 format described in RFC 3339. In contrast to the default time stamps RFC
 3339 timestamps include a year and look like this:
 
-+----------------------+
-| 2017-02-31T23:59:60Z |
-+----------------------+
+.. list-table::
+
+  * - 2017-02-31T23:59:60Z
 
 SCAN ID
 ^^^^^^^
 
-The former parameter “-i”, which has been used for so-called case IDs
+The former parameter ``-i``, which has been used for so-called case IDs
 (CID) has been repurposed to allow users to set a certain scan ID
 (SCANID) that appears in every log line.
 
@@ -171,38 +189,44 @@ The scan ID helps SIEM and analysis systems to correlate the scan lines
 from multiple scans on a single host. Otherwise it would be very
 difficult to answer the following questions:
 
-* How many scans completed successfully on a certain end system?
-* Which scan on a certain end system terminated during the scan run?
+* How many scans completed successfully on a certain endpoint?
+* Which scan on a certain endpoint terminated during the scan run?
 
 If no parameter is set, THOR will automatically generate a random scan
-ID, which starts with an “\ **S-**\ “ and contains the following
-characters: **a-zA-Z0-9\_-**
+ID, which starts with an ``S-`` and contains the following
+characters: ``a-zA-Z0-9_-``
+
+.. list-table::
+   :header-rows: 1
+
+   * - Example ScanIDs
+   * - S-Rooa61RfuuM
+   * - S-0vRKu-1\_p7A
 
 Users can overwrite the scan ID with ``-i myscanid`` to assign the logs of
 multiple scan runs to a single logical scan, e.g. if multiple partitions
 of a system get scanned in the lab in different scan runs, but should be
 shown as a single scan in Analysis Cockpit or your SIEM of choice.
 
-Examples:
-
-+------------------+
-| S-Rooa61RfuuM    |
-| S-0vRKu-1\_p7A   |
-+------------------+
-
-In a log line, it looks like:
+In a log line, it looks like (set newlines for readability):
 
 .. code-block:: none
 
-   Jul 10 09:08:47 PROMETHEUS/10.0.2.15 THOR: Alert: MODULE: SHIMCache
-   SCANID: S-r4GhEhEiIRg MESSAGE: Malware name found in Shim Cache Entry ENTRY:
-   C:\Users\neo\Desktop\ncat.exe KEYWORD: \\ncat\.exe DATE: 07/29/13 05:16:04 TYPE: system
-   HIVEFILE: None EXTRAS: N/A N/A True
+   Jul 10 09:08:47 PROMETHEUS/10.0.2.15 THOR: Alert:
+     MODULE: SHIMCache
+     SCANID: S-r4GhEhEiIRg
+     MESSAGE: Malware name found in Shim Cache Entry
+     ENTRY: C:\Users\neo\Desktop\ncat.exe
+     KEYWORD: \\ncat\.exe
+     DATE: 07/29/13 05:16:04
+     TYPE: system
+     HIVEFILE: None
+     EXTRAS: N/A N/A True
 
 Custom Scan ID Prefix
 ~~~~~~~~~~~~~~~~~~~~~
 
-Since version 10.5 you are able to set you custom prefix by using
+Since THOR version 10.5 you are able to set you custom prefix by using
 ``--scanid-prefix``. The fixed character "S" can be replaced with any
 custom string. This allows users to set an identifier for a group of
 scans that can be grouped together in a SIEM or Analysis Cockpit.
@@ -233,7 +257,7 @@ The definition consists of 4 elements:
 
 The available options for each element are:
 
-.. code-block:: bash
+.. code-block:: none
 
    (target ip):(target port):(DEFAULT/CEF/JSON/SYSLOGJSON/SYSLOGKV):(UDP/TCP/TCPTLS)
 
@@ -258,21 +282,21 @@ The available type field values require an explication:
 
 There are default values, which do not have to be defined explicitly:
 
-.. code-block:: bash
+.. code-block:: none
 
    (your target system ip):514:DEFAULT:UDP
 
 Sending Syslog to a target on a port that differs from the default port
 514/udp looks like this:
 
-.. code-block:: bash
+.. code-block:: none
 
    -s 10.0.0.4:2514
 
 Sending Syslog to a receiving server using an SSL/TLS encrypted TCP
 connection:
 
-.. code-block:: bash
+.. code-block:: none
 
    -s 10.0.0.4:6514:DEFAULT:TCPTLS
 
@@ -280,7 +304,7 @@ You can define as many targets as you like.
 
 An often used combination sends JSON formatted messages to a certain UDP port:
 
-.. code-block:: bash 
+.. code-block:: none 
 
    -s 10.0.0.4:5444:JSON:UDP
 
@@ -298,23 +322,26 @@ has the CEF format set, e.g.:
 Local Syslog
 ^^^^^^^^^^^^
 
-If your Linux system is already configured to forward syslog messages, you might just want to write
-to your local syslog and use the existing system configuration to forward the events. This can be
-achieved by using the ``--local-syslog`` flag.
+If your Linux system is already configured to forward syslog messages,
+you might just want to write to your local syslog and use the existing
+system configuration to forward the events. This can be achieved by
+using the ``--local-syslog`` flag.
 
-THOR logs to the ``local0`` facility that is not being written to a file by default on every
-Linux distribution. By default Debian derivatives log it to ``/var/log/syslog``; Others such
-as Red Hat do not. To enable writing ``local0`` messages to a file a syslog configuration for
+THOR logs to the ``local0`` facility, which is not being written to a
+file by default on every Linux distribution. By default Debian derivatives
+log it to ``/var/log/syslog``; Others such as Red Hat do not. To enable
+writing ``local0`` messages to a file a syslog configuration for
 rsyslog (e.g. ``/etc/rsyslog.conf``) could look like:
 
-.. code-block::
+.. code-block:: none
 
     # THOR --local-syslog destination
     local0.*        -/var/log/thor
 
 Do not forget to restart the syslog daemon (e.g. ``systemctl restart rsyslog.service``).
 
-You then either add that file in your syslog forwarding configuration or write to a file that is already forwarded instead.
+You then either add that file in your syslog forwarding configuration
+or write to a file that is already forwarded instead.
 
 Encrypted Output Files
 ----------------------
