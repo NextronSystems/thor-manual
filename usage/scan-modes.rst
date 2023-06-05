@@ -1,18 +1,18 @@
 Scan Modes
 ==========
 
-You can select between 6 different scan modes in THOR:
+You can select between six different scan modes in THOR:
 
 - **Default**
 
-  We recommend using the default scan mode for all sweeping activity. Scans take
-  from 1 to 6 hours depending on the partition size and number of interesting files.
+  We recommend using the default scan mode for all sweeping activities. Scans take
+  from one to six hours, depending on the partition size and number of interesting files.
   
   In default mode, THOR automatically chooses  the "**Soft**" mode if the system has only limited
   CPU and RAM resources.
 
-  There's a special "Lab Scanning" (**--lab**) method described in section 
-  :ref:`usage/special-scan-modes:lab scanning (--lab)`, which disables many limitations
+  There's a special "Lab Scanning" (``--lab``) method described in section 
+  :ref:`usage/special-scan-modes:lab scanning`, which disables many limitations
   and allows to scan mounted images in a Lab scenario, even with multiple THOR instances
   on a single Workstation.
 
@@ -22,9 +22,9 @@ You can select between 6 different scan modes in THOR:
 - **Quick** ``--quick``
 
   This mode is the fastest one and oriented on the "Pareto Principle", covering 80% of
-  the modules and check in 20% of the normal scan time. In "quick" mode, THOR skips
+  the modules and checks in 20% of the normal scan time. In "quick" mode, THOR skips
   elements that have not been created or modified within the last 2 days in the "Eventlog",
-  “Registry” and "Filescan" modules. A set of 40+ directories will still be checked
+  "Registry" and "Filescan" modules. A set of 40+ predefined directories will still be checked
   completely (e.g. AppData, Recycler, System32). "Quick" mode is known to be the
   "preventive" scan mode – less intense and very fast.
 
@@ -41,8 +41,9 @@ Themed scan modes:
 
 * **Lab Scan** ``--lab``
 
-  This mode scans only the file system and disables all other modules. (see :ref:`usage/special-scan-modes:lab scanning (--lab)`
-  for more details and flags used in this scan mode)
+  This mode scans only the file system and disables all other modules.
+  (see :ref:`usage/special-scan-modes:lab scanning` for more details
+  and flags used in this scan mode)
   
   Example: 
   
@@ -54,13 +55,15 @@ Themed scan modes:
 
   This mode is meant for system scanning in a non-productive or lab environment. It
   disables several speed optimizations and enables time-consuming extra checks for
-  best detection results.
+  best detection results. Be careful with this mode on database servers, as this
+  could corrupt your database due to the high load of the server. Snapshots/backups
+  are advised before using this mode.
 
 * **Difference** ``--diff``
 
   The Diff Mode looks for a last scan and last finished modules in the local THOR
   DB and scans only elements on disk that have been changed or created since the last
-  scan start. This mode applies short-cuts to the "Filesystem", "Eventlog" and "Registry"
+  scan start. This mode applies shortcuts to the "Filesystem", "Eventlog" and "Registry"
   modules. Diff scans are typically the shortest scans but require a completed previous
   scan. This scan mode is also susceptible to the so-called "Timestomping".
 
@@ -75,7 +78,7 @@ lists only features that are handled differently in the different scan modes.
 Modules
 -------
 
-Modules are are standalone jobs which are being executed one after the other by THOR.
+Modules are standalone jobs, which are being executed one after the other by THOR.
 Those modules are invoking one job, for example the ``File System Scan`` module will
 scan your file system, or the ``User Account Check`` will scan your system for user
 accounts. Modules can invoke one or multiple :ref:`usage/scan-modes:features`,
