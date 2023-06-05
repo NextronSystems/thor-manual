@@ -15,22 +15,31 @@ Collecting a Diagnostcs Pack
 
 THOR Util comes with the functionality to collect a diagnostics pack for
 THOR scans. This is helpful if a scan is taking more time as expected
-or if THOR exits unexpectedly. More detail can be found in the
+or if THOR exits unexpectedly. More details can be found in the
 `diagnostics section of THOR Util <https://thor-util-manual.nextron-systems.com/en/latest/usage/diagnostics.html>`_.
 
 Debugging Examples 
 ------------------
 
-Then try scanning that specific element with the ``--debug`` parameter set.
+If you found the culprit for your problematic scan, try scanning that
+specific element with the ``--debug`` parameter set.
 
-To run only a certain module use (see :ref:`usage/scan-modes:scan module names` for 
-a full list of module names): 
+To run a scan only with certain modules only use the ``--module`` (short hand ``-a``)
+command line switch (see :ref:`usage/scan-modes:scan module names` for 
+a full list of module names):
 
 .. code-block:: doscon 
    
    C:\nextron\thor>thor64.exe -a Mutex
    C:\nextron\thor>thor64.exe -a FileScan 
    C:\nextron\thor>thor64.exe -a Eventlog
+
+.. hint:: 
+   You can specify multiple modules:
+
+   .. code-block:: doscon
+
+      C:\nextron\thor>thor64.exe -a Mutex -a EnvCheck -a Users
 
 You can try to reduce the scope of a module even further by using lookbacks
 
@@ -56,10 +65,10 @@ Finding Bottlenecks
 -------------------
 
 You may get the error message ``MODULE: RuntimeWatcher MESSAGE: Maximum runtime has exceeded, killing THOR``
-or encounter very slow or never-ending scans.
+or encounter very slow/never-ending scans.
 
-You can check the statistics table in ``thor10.db`` on that end
-system after a scan to determine the last element or elements that took
+You can check the statistics table in ``thor10.db`` on the problematic
+endpoint after a scan to determine the last element or elements that took
 a long time to process.
 
 We recommend using: https://sqlitebrowser.org/
@@ -72,14 +81,25 @@ The THOR DB is located at: ``C:\ProgramData\thor\thor10.db``.
 Most Frequent Causes of Missing Alerts
 --------------------------------------
 
+Below you can find the most frequent causes of missing alerts.
+
 THOR didn't scan file due to file size restrictions
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Solution: Use ``--max_file_size`` parameter or set permanently in
-config file  ``./config/thor.yml``. Also note that in lab scanning
-mode the default value is much bigger (``--max_file_size_intense``)
+**Solution**: Use the ``--max_file_size`` parameter or set it permanently
+in the config file ``./config/thor.yml``.
 
-THOR didn’t scan the file due to a skipped deeper inspection
+.. code-block:: doscon
+
+   C:\nextron\thor>thor64.exe --max_file_size 206233600 # setting max file size to 100 MB
+
+.. literalinclude:: ../examples/thor.yaml
+   :caption: Default thor.yaml
+   :language: yaml
+   :linenos:
+   :emphasize-lines: 3
+
+THOR didn't scan the file due to a skipped deeper inspection
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 This can be caused by two reasons:
@@ -97,7 +117,7 @@ doesn't have a relevant file extension:
    .txt, .conf, .cfg, .conf, .config, .psd1, .psm1, .ps1xml, .clixml, .psc1, .pssc,
    .pl, .www, .rdp, .jar, .docm, .ace, .job, .temp, .plg, .asm
 
-Solution: Use an intense scanning mode for that folder (``--intense``) 
+**Solution**: Use an intense scanning mode for that folder (``--intense``) 
 or add the magic header to ``file-type-signatures.cfg``
 
 .. warning::
@@ -105,7 +125,8 @@ or add the magic header to ``file-type-signatures.cfg``
    Intense scanning mode threatens the scan and system stability!
 
 THOR fails to initialize custom rules with the correct type
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
 It happens very often that users that prepare custom IOCs or YARA rules 
 forget to include the correct keyword in the filename of the IOC or YARA
 rule file.
@@ -114,33 +135,34 @@ The correct use of keywords is described in the chapters :ref:`usage/custom-sign
 for IOCs and :ref:`usage/custom-signatures:Specific YARA Rules` for YARA rules.
 
 A wrong or missing keyword leads to situations in which a file that contains 
-YARA rules that are meant to be applied to log files, doesn't contain a "log" 
-keyword in it's name.
+YARA rules that are meant to be applied to log files, but doesn't contain a "log" 
+keyword in it's filename.
 
 You can review a correct initialization in the command line output or log file.
 
-.. code-block:: batch 
+.. code-block:: none 
 
    Info Adding rule set from my-log-rules.yar as 'log' type
 
 Using the keyword **c2** for C2 IOCs in a filename should result in a line like 
 the following:
 
-.. code-block:: batch 
+.. code-block:: none 
 
    Info Reading iocs from /tmp/thor10/custom-signatures/iocs/my-c2-iocs.txt as 'domains' type
 
 Most Frequent Causes of Frozen Scans
 ------------------------------------
 
-Whenever THOR stops / pauses without any traceback or panic message and no error 
+Whenever THOR stops or pauses without any traceback or panic message
+and no error messages.
 
 Usually the following sources are responsible (descending order, by frequency):
 
-1. Antivirus or EDR suspends the THOR process (>98%)
-2. A frozen command line window due to Windows "Quick Edit Mode" (<1%)
-3. A constant high system load that causes THOR to stay back and wait for an idling CPU (<1%)
-4. The sensation of a stalled scan that is actually running (<1%)
+1. An :ref:`usage/debugging:antivirus or edr suspends thor` (>98%)
+2. A "paused" command line window due to :ref:`usage/debugging:windows quick edit mode` (<1%)
+3. A :ref:`usage/debugging:constant high system load` that causes THOR to stay back and wait for an idling CPU (<1%)
+4. :ref:`usage/debugging:the perception of a stalled scan`, which is actually running (<1%)
 
 Antivirus or EDR suspends THOR
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -150,13 +172,13 @@ stalled process. Especially McAfee AV/EDR is a well-known source of issues. This
 is caused by the different dialogues in which exceptions have to be defined and
 the fact certain kinds of blocks cannot be found in any logs.
 
-If a THOR scans stalls in one of these modules, a Antivirus or EDR interaction is highly likely: 
+If a THOR scans stalls in one of these modules, an Antivirus or EDR interaction is highly likely: 
 
-- Mutex
-- Events
-- NamedPipes
-- ShimCache
-- ProcessCheck
+* Mutex
+* Events
+* NamedPipes
+* ShimCache
+* ProcessCheck
 
 **Solution**: Review all possible exclusions in your AV / EDR and add the THOR folder to the exclusion list
 
@@ -185,8 +207,8 @@ that appears to be paused or suspended on systems that are under a constant high
 that scans on a system with a constant high CPU load take longer than on other systems
 and could slow down the processes that would otherwise take all the CPU capacity.
 
-The Sensation of a Stalled Scan
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+The Perception of a Stalled Scan
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Under certain circumstances the scan may appear stalled but is still running.
 You can always interrupt a scan using CTRL+C that brings THOR into the interrupt
@@ -203,6 +225,8 @@ that element (size, format, access rights, location).
 Most Frequent Causes of Failed Scans
 ------------------------------------
 
+The following examples are the most frequent causes of a failed scan.
+
 External Processes Terminating THOR
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -216,12 +240,17 @@ Usually the four following sources are responsible (descending order, by frequen
 3. A management solution that noticed a high CPU load caused by the THOR process killed it
 4. Attackers killed the THOR process
 
-Note: A process termination that always happens at the same element is a sign for an Antivirus or EDR detection.
+.. note:: 
+   A process termination that always happens at the same element is a
+   sign for an Antivirus or EDR detection.
 
 Insufficient Free Memory
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
-.. code-block::
+If the system you are trying to scan runs out of free memory, you will
+encounter the following message in your scan log:
+
+.. code-block:: none
 
    fatal error: out of memory
 
@@ -233,29 +262,29 @@ Probable causes:
 4. You are using the wrong THOR version for your architecture
 5. You've activated a feature that consumes a lot of memory (e.g. ``--mft`` or ``--intense``)
 
-Whenever THOR recognizes a low amount of free memory, THOR checks the 
-top 3 memory consumers on the system and includes them in the log message
-that it writes before exiting.
+Whenever THOR recognizes a low amount of free memory, it checks the 
+top three memory consumers on the system and includes them in the log message,
+before exiting the scan.
 
-You could try running THOR in Soft Mode (``--soft``) in which modules and 
-features that require a lot of memory are deactivated.
+You could try running THOR in Soft Mode (``--soft``), which will deactivate
+modules and features that require a lot of memory.
 
-Using the 32bit binary of thor named ``thor.exe`` on a 64bit system 
-can lead to interrupted scans with this error message. The 32bit binary
-isn't able to address as much memory as the 64bit version. Always make 
+Using the 32bit binary of THOR named ``thor.exe`` on a 64bit system 
+can lead to interrupted scans with the above error message. The 32bit binary
+is not able to address as much memory as the 64bit version. Always make 
 sure to use the correct THOR version for the respective architecture.
 
-Several ulimits might cause THOR to terminate if they are too restrictive, including:
+Several ``ulimits`` might cause THOR to terminate if they are too restrictive, including:
 
- - locked-in-memory size
- - address space
- - number of open file descriptors
- - maximum data size
+* locked-in-memory size
+* address space
+* number of open file descriptors
+* maximum data size
 
- If you are certain your machine has sufficient RAM, check your ulimits with ``ulimit -a``
- and try to rerun the scan with increased limits, if necessary.
- The `man page <https://www.man7.org/linux/man-pages/man5/limits.conf.5.html>`_ for the ulimits
- configuration size gives a full overview over the limits and how to persistently modify them.
+If you are certain your machine has sufficient RAM, check your ulimits with ``ulimit -a``
+and try to rerun the scan with increased limits, if necessary.
+The `man page <https://www.man7.org/linux/man-pages/man5/limits.conf.5.html>`_ for the ulimits
+configuration size gives a full overview over the limits and how to persistently modify them.
 
 Help Us With The Debugging
 --------------------------
@@ -268,7 +297,8 @@ providing the following information.
 
 Which THOR version do you use?
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-Tell us which THOR version you are using: 
+
+Tell us the exact THOR version you are using: 
 
 1. For which operating system (Windows, Linux, macOS, AIX)
 2. For which architecture (32bit, 64bit)
@@ -314,8 +344,6 @@ On macOS:
    Signature Database 2021/05/03-150936
    Sigma Database 0.19.1-1749-g2f12c5c5
 
-This should produce a message like this: 
-
 What is the target platform that THOR fails on? 
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -349,23 +377,21 @@ when the error occurred.
 
    C:\thor>thor64.exe --quick -e D:\logs -p C:\Windows\System32
 
-Provide the log of a scan with --debug flag 
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Provide the log of a scan with the ``--debug`` flag 
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The most important element is a scan log of a scan with set ``--debug`` 
-flag.
+The most important element is a scan log of a scan with the ``--debug`` 
+flag used.
 
 The easiest way is to run the scan exactly as you've run it when the 
 problem occurred adding the ``--debug`` command line flag.
-
-E.g.
 
 .. code-block:: doscon 
 
    C:\thor>thor64.exe --quick -e D:\logs -p C:\Windows\System32 --debug
 
 If you're able to pinpoint the error to a certain module, you could limit 
-the scan to that module to get to the problematic element more quickly, e.g.
+the scan to that module to get to the problematic element more quickly.
 
 .. code-block:: doscon 
 
@@ -376,14 +402,14 @@ It is okay to replace confidential information like the hostname or IP addresses
 
 Note: The debug log files can be pretty big, so please compress the file before 
 submitting it to us. Normal log files have a size between 1 and 4 MB. Scans started 
-with the --debug flag typically have sizes of 30-200 MB. The compression ratio is 
+with the ``--debug`` flag typically have sizes of 30-200 MB. The compression ratio is 
 typically between 2-4%, so a compressed file shouldn't be larger than 10 MB.
 
 Provide a Screenshot (Optional)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Sometimes errors lead to panics of the executables, which causes the situation 
-that the relevant log lines don't appear in the log file. In these cases, please 
+in which relevant log lines don't appear in the log file. In these cases, please 
 also create a screenshot of a panic shown in the command line window.
 
 Provide the THOR database (Optional) 
@@ -411,4 +437,5 @@ Further Notes
 * If the files are too big to send, even after compression, please contact
   us and you'll receive a file upload link that you can use 
 * If a certain file or element (eventlog, registry hive) caused the issue,
-  please check if you can provide that file or element for our analysis
+  please check if you can provide that file or element for our analysis, as those
+  files can contain sensitive information.

@@ -1,0 +1,15 @@
+# This is the default config for THOR
+# Skip files bigger than 31457280 bytes
+max_file_size: 31457280
+# Skip files bigger than 209715200 bytes in intense mode (--lab, --intense)
+max_file_size_intense: 209715200
+# Terminate THOR if he runs longer than 168 hours
+max_runtime: 168
+# Limit THOR's CPU usage to 95%
+cpulimit: 95
+# The minimum amount of free physical memory to proceed (in MB)
+minmem: 50
+# Minimum score to report is 40
+min: 40
+# Truncate THOR's field values after 2048 characters
+truncate: 2048
