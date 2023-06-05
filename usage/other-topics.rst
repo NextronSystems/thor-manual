@@ -174,80 +174,157 @@ scoring system is very flexible.
 The total score of an element determines the level/severity of the
 resulting log message.
 
-.. list-table::
-   :header-rows: 1
-   :widths: 20, 20, 60
+.. list-table:: THOR <= 10.6
+  :header-rows: 1
+  :widths: 20, 20, 60
 
-   * - Score
-     - Level
-     - Condition
-   * - 40
-     - Notice
-     - 
-   * - 60
-     - Warning
-     - 
-   * - 100
-     - Alert
-     - At least 1 sub score more than 75
+  * - Score
+    - Level
+    - Condition
+  * - 40
+    - Notice
+    - 
+  * - 60
+    - Warning
+    - 
+  * - 100
+    - Alert
+    - At least 1 sub score more than 75
+
+.. list-table:: THOR >= 10.7
+  :header-rows: 1
+  :widths: 20, 20, 60
+
+  * - Score
+    - Level
+    - Condition
+  * - >= 40
+    - Notice
+    - 
+  * - >= 60
+    - Warning
+    - 
+  * - > 80
+    - Alert
+    - At least 1 sub score more than 75
 
 Scoring per Signature Type Match
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. list-table::
-   :header-rows: 1
-   :widths: 25, 75
+  :header-rows: 1
+  :widths: 25, 75
 
-   * - Type
-     - Score
-   * - YARA match
-     - Defined in the meta data of the YARA rule as integer value (e.g. "score = 50")
-   * - Filename IOC match
-     - Defined in the 2\ :sup:`nd` field of the CSV (e.g. ``\\evil.exe;80``)
-   * - Keyword IOC match
-     - "warning" level messages, see :ref:`usage/other-topics:Default Scores`
-   * - C2 IOC match
-     - "warning" and "alert" level massages, see :ref:`usage/other-topics:Default Scores`
+  * - Type
+    - Score
+  * - YARA match
+    - Defined in the meta data of the YARA rule as integer value (e.g. "score = 50")
+  * - Filename IOC match
+    - Defined in the 2\ :sup:`nd` field of the CSV (e.g. ``\\evil.exe;80``)
+  * - Keyword IOC match
+    - "warning" level messages, see :ref:`usage/other-topics:Default Scores`
+  * - C2 IOC match
+    - "warning" and "alert" level massages, see :ref:`usage/other-topics:Default Scores`
 
-Accumulated Score by Module
-^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Accumulated Scores
+^^^^^^^^^^^^^^^^^^
+
+If an element has multiple sub-scores, all sub-scores will be accumulated
+and calculated into one final score. The following chapters show you how
+those scores are calculated.
+
+THOR <= 10.6
+""""""""""""
 
 .. list-table::
-   :header-rows: 1
-   :widths: 20, 20, 60
+  :align: left
+  :header-rows: 1
+  :widths: 25, 15, 60
 
-   * - Module
-     - Cumulated
+  * - Module
+    - Cumulated Scoring
+    - Score
+  * - * Filescan
 
-       Scoring
-     - Score
-   * - Filescan
+      * Archive Scan
 
-       Archive Scan
+      * DeepDive
 
-       DeepDive
+      * Prefetch
 
-       Prefetch
+      * WER
+    - Yes
+    - Score is a sum of the scores of all "REASONs" (YARA matches, filename IOCs, other anomalies)
 
-       WER
-     - Yes
-     - Score is a sum of the scores of all "REASON"s (YARA matches, filename IOCs, other anomalies)
+      **Note 1**: Only positive scores are shown by default
 
-       **Note 1**: Only positive scores are shown by default
+      **Note 2**: Only the top 2 reasons are shown by default (use ``--allreasons`` to show all positive scores)
+  * - All Other Modules
+    - No
+    - Individual score of each signature match (YARA, filename IOC, keywords, C2)
 
-       **Note 2**: Only the top 2 reasons are shown by default (use ``--allreasons`` to show all positive scores)
-   * - All Other Modules
-     - No
-     - Individual score of each signature match (YARA, filename IOC, keywords, C2)
+      **Note 1**: This means that multiple matches for a single element are possible
 
-       **Note 1**: This means that multiple matches for a single element are possible
+THOR >= 10.7
+""""""""""""
+
+Most modules and features summarize via reasons. Please keep in mind that
+only positive scores and the top two reasons are shown by default. You can
+use ``--allreasons`` to show all positive scores.
+
+Reason scores are not added up for the total score. Instead, given a number
+of scores (s_0, s_1, ...) that are ordered descending. The total score is
+calculated with the following formula:
+
+.. code-block :: none
+
+  100 * (1 - (1 - s_0 / 100 / 2^0) * (1 - s_1 / 100 / 2^1)  * (1 - s_2 / 100 / 2^2) * ...)
+
+This means, scores are "capped" at a maximum of 100, and multiple lower
+scores are weighted far less.
+
+You can use python to calculate the score and try the formula. Please note
+that we use an example with five sub-scores and no sub-score higher than the
+threshold of 75 to turn classify this as an alert:
+
+.. code-block:: python
+
+  subscore0 = 1 - 70 / 100 / pow(2, 0)
+  subscore1 = 1 - 70 / 100 / pow(2, 1)
+  subscore2 = 1 - 50 / 100 / pow(2, 2)
+  subscore3 = 1 - 40 / 100 / pow(2, 3)
+  subscore4 = 1 - 40 / 100 / pow(2, 4)
+  score = 100 * (1 - (subscore0 * subscore1 * subscore2 * subscore3 * subscore4))
+  print(score)
+  84.195859375
 
 Default Scores
 ^^^^^^^^^^^^^^
 
 If no score is set in an "alert" or "warning" message, THOR
 automatically appends a score that corresponds to the message level:
-Warning = 70, Alert = 100.
+
+.. list-table:: THOR <= 10.6
+  :header-rows: 1
+  :widths: 50, 50
+
+  * - Level
+    - Score
+  * - Warning
+    - 70
+  * - Alert
+    - 100
+
+.. list-table:: THOR >= 10.7
+  :header-rows: 1
+  :widths: 50, 50
+
+  * - Level
+    - Score
+  * - Warning
+    - 60
+  * - Alert
+    - 80
 
 Exception: High total score with low sub scores
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -294,37 +371,37 @@ Imagine the following filename IOC signatures:
 
 .. code-block:: none
 
-   \\nmap.exe;70
-   \\bin\\nmap.exe;-30
+  \\nmap.exe;70
+  \\bin\\nmap.exe;-30
 
 and the following Keyword signature:
 
 .. code-block:: none
 
-   nmap.exe
+  nmap.exe
 
 The ``checkString()`` function receives the following string from the
 Eventlog scan module (here: a Sysmon Eventlog entry):
 
 .. code-block:: none
 
-   Process Create:
-   UtcTime: 20180110 10:22:25.277
-   ProcessGuid: {c1b49677e9615a5500000010bbc80702}
-   ProcessId: 3912
-   Image: C:\\Program Files\\Nmap\\bin\\nmap.exe
-   CommandLine: nmap.exe
-   CurrentDirectory: C:\\Windows\\system32\\
-   User: PROMETHEUS\\user1
-   LogonGuid: {c1b496771d725a5300000020d4232500}
-   LogonId: 0x2523d4
-   TerminalSessionId: 1
-   IntegrityLevel: High
-   Hashes: SHA1=F5DC12D658402900A2B01AF2F018D113619B96B8, MD5=9FEA051A9585F2A303D55745B4BF63AA
-   ParentProcessGuid: {c1b496771d745a530000001057452500}
-   ParentProcessId: 1036
-   ParentImage: C:\\Windows\\explorer.exe
-   ParentCommandLine: C:\\Windows\\Explorer.EXE
+  Process Create:
+  UtcTime: 20180110 10:22:25.277
+  ProcessGuid: {c1b49677e9615a5500000010bbc80702}
+  ProcessId: 3912
+  Image: C:\\Program Files\\Nmap\\bin\\nmap.exe
+  CommandLine: nmap.exe
+  CurrentDirectory: C:\\Windows\\system32\\
+  User: PROMETHEUS\\user1
+  LogonGuid: {c1b496771d725a5300000020d4232500}
+  LogonId: 0x2523d4
+  TerminalSessionId: 1
+  IntegrityLevel: High
+  Hashes: SHA1=F5DC12D658402900A2B01AF2F018D113619B96B8, MD5=9FEA051A9585F2A303D55745B4BF63AA
+  ParentProcessGuid: {c1b496771d745a530000001057452500}
+  ParentProcessId: 1036
+  ParentImage: C:\\Windows\\explorer.exe
+  ParentCommandLine: C:\\Windows\\Explorer.EXE
 
 The ``checkString()`` function would create two messages: 1 "warning" for
 the keyword signature and 1 "notice" of the filename IOC signatures.
@@ -351,18 +428,18 @@ Action Flags
 ^^^^^^^^^^^^
 
 .. list-table::
-   :header-rows: 1
-   :widths: 30, 70
+  :header-rows: 1
+  :widths: 30, 70
 
-   * - Parameter
-     - Description
-   * - **--action\_command string**
-     - Run this command for each file that has a score greater than the score from ``--action_level``
-   * - **--action\_args strings**
-     - Arguments to pass to the command specified via ``--action_command``. The placeholders ``%filename%``,
-       ``%filepath%``, ``%file%``, ``%ext%``, ``%md5%``, ``%score%`` and ``%date%`` are replaced at execution time
-   * - **--action\_level int**
-     - Only run the command from ``--action_command`` for files with at least this score (default ``40``)
+  * - Parameter
+    - Description
+  * - **--action\_command string**
+    - Run this command for each file that has a score greater than the score from ``--action_level``
+  * - **--action\_args strings**
+    - Arguments to pass to the command specified via ``--action_command``. The placeholders ``%filename%``,
+      ``%filepath%``, ``%file%``, ``%ext%``, ``%md5%``, ``%score%`` and ``%date%`` are replaced at execution time
+  * - **--action\_level int**
+    - Only run the command from ``--action_command`` for files with at least this score (default ``40``)
 
 Command Line Use
 ^^^^^^^^^^^^^^^^
@@ -388,8 +465,8 @@ the action commands.
 Content of 'tmpl-action.yml':
 
 .. literalinclude:: ../examples/tmpl-action.yml
-   :language: yaml
-   :linenos:
+  :language: yaml
+  :linenos:
 
 THOR DB
 -------
@@ -400,10 +477,14 @@ You can deactivate THOR DB and all its features by using the ``--nothordb`` flag
 
 It stores persistent information over several scan runs:
 
-* | Scan State Information
-  | This information is used to resume scan runs where they were stopped
-* | Delta Comparison
-  | This detection feature allows to compare the result of a former module check with the current results and indicate suspicious changes between scan runs
+* Scan State Information
+
+  * This information is used to resume scan runs where they were stopped
+
+* Delta Comparison
+
+  * This detection feature allows to compare the result of a former module
+    check with the current results and indicate suspicious changes between scan runs
 
 The THOR DB related command line options are:
 
@@ -422,8 +503,8 @@ The THOR DB related command line options are:
    * - **--resumeonly**
      - Only resume a scan if a scan state is available. Do not run a full scan if no scan state can be found.
 
-Scan Resume
-^^^^^^^^^^^
+Resume a Scan
+^^^^^^^^^^^^^
 
 THOR tries to resume a scan when you set the ``--resume`` parameter.
 Since THOR version 10.5 the resume state doesn't get tracked by default
@@ -440,9 +521,8 @@ It will only resume the previous scan if
 
 3. You haven't used the flag ``--nothordb``
 
-4. | scan state information is still available
-   | (could have been cleared by running THOR a second time without the
-     ``--resume`` parameter)
+4. Scan state information is still available (could have been cleared by
+   running THOR a second time without the ``--resume`` parameter)
 
 You can always clear the resume state and discard an old state by
 running thor.exe once without using the ``--resume`` parameter.
@@ -457,12 +537,22 @@ configurations and system components.
 Currently, the following scan modules feature the delta comparison
 check:
 
-* | Autoruns
-  | THOR compares the output of the Autoruns module with the output of the last scan run. The Autoruns does not only check "Autorun" locations but also elements like browser plugins, drivers, LSA providers, WMI objects and scheduled tasks.
-* | Services
-  | The comparison detects new service entries and reports them.
-* | Hosts
-  | New or changed entries in the "hosts" file could indicate system manipulations by attackers to block certain security functions or intercept connections.
+* Autoruns
+
+  * THOR compares the output of the Autoruns module with the output of
+    the last scan run. The Autoruns module does not only check "Autorun"
+    locations but also elements like browser plugins, drivers, LSA
+    providers, WMI objects and scheduled tasks.
+
+* Services
+  
+  * The comparison detects new service entries and reports them.
+
+* Hosts
+
+  * New or changed entries in the "hosts" file could indicate system
+    manipulations by attackers to block certain security functions or
+    intercept connections.
 
 Archive Scan 
 ------------
@@ -478,6 +568,8 @@ The ``Archive Scan`` feature supports the following archive types:
 - 7ZIP (THOR 10.7+)
 - CAB (THOR 10.7+)
 
-When scanning a file within any of these files, THOR will append the path within the archive to the archive's own path 
-for scan purposes (like filename IOCs or YARA rules). E.g., an archive ``C:\temp\test.zip`` containing a file ``path/in/zip.txt``
-will cause the simulated path to be ``C:\temp\test.zip\path\in\zip.txt``.
+When scanning a file within any of these file types, THOR will append
+the path within the archive to the archive's own path for scan purposes
+(like filename IOCs or YARA rules). For example, an archive ``C:\temp\test.zip``
+containing a file ``path/in/zip.txt`` will cause the simulated path to
+be ``C:\temp\test.zip\path\in\zip.txt``.
