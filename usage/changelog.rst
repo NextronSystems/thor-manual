@@ -1,8 +1,7 @@
 Changelog
 =========
 
-This chapter contains all new changes to the ASGARD
-Management Center.
+This chapter contains all the changes of THOR.
 
 THOR 10.7 (Techpreview)
 #######################
