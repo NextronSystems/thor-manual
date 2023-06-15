@@ -208,10 +208,13 @@ resulting log message.
     - Alert
     - At least 1 sub score more than 75
 
-As of THOR version 10.7, we revamped the scoring system to have a possible maximum score
-of 100. This can be seen as a combination of confidence and severity, on a percentage
-basis. This means a finding with a score of 95 can be seen as 95% confident
-and thus a severe finding. Exceptions might be false positives.
+.. note::
+  As of THOR version 10.7, we reworked the scoring system to only
+  use scores between 0 and 100. The score is a metric that expresses
+  a combination of confidence and severity in percent. This means a
+  finding with a score of 95 can be seen as a severe finding with a
+  high confidence. Exceptions might be - as always - obvious false
+  positives like unencrypted or in-memory AV signatures.
 
 Scoring per Signature Type Match
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
