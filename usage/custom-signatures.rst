@@ -309,8 +309,8 @@ Rules
 -----
 
 There are different types of rules you can use to write your own custom
-rules. This chapter will explain all the methods you can use to write
-your onw rules.
+rules. This chapter will explain all the methods you can use to achieve
+this.
 
 .. _Rules Modules:
 
