@@ -146,7 +146,7 @@ access rights on the share.
 
 .. code-block:: doscon
 
-  C:\nextron\thor>thor64.exe --nohtml --nocsv -l \\sys\rep\%COMPUTERNAME%_thor.txt
+  thor64.exe --nohtml --nocsv -l \\sys\rep\%COMPUTERNAME%_thor.txt
 
 Logging to Syslog Server
 ^^^^^^^^^^^^^^^^^^^^^^^^
@@ -156,15 +156,15 @@ only.
 
 .. code-block:: doscon
 
-  C:\nextron\thor>thor64.exe --nohtml --nocsv --nolog -s syslog.server.net
+  thor64.exe --nohtml --nocsv --nolog -s syslog.server.net
 
 Scan Run on a Single Directory
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code-block:: doscon
 
-  C:\nextron\thor>thor64.exe --lab -p C:\ProgramData
-  C:\nextron\thor>thor64.exe --lab -p I:\mounted\_image\disk1
+  thor64.exe --lab -p C:\ProgramData
+  thor64.exe --lab -p I:\mounted\_image\disk1
 
 .. important::
   This feature requires a `forensic lab license <https://www.nextron-systems.com/2020/11/11/thor-forensic-lab-license-features/>`__
@@ -174,21 +174,21 @@ You can imitate a lab scan without a lab license with these command line flags:
 
 .. code-block:: doscon 
 
-  C:\nextron\thor>thor64.exe -a Filescan --intense --norescontrol --nosoft --cross-platform -p C:\ProgramData
+  thor64.exe -a Filescan --intense --norescontrol --nosoft --cross-platform -p C:\ProgramData
 
 Save the result files to a different directory 
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code-block:: doscon
 
-  C:\nextron\thor>thor64.exe -s 10.1.5.14 -e Z:\
+  thor64.exe -s 10.1.5.14 -e Z:\
 
 Only scan the last 7 days of the Windows Eventlog and log files on disk 
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code-block:: doscon
 
-  C:\nextron\thor>thor64.exe --lookback 7
+  thor64.exe --lookback 7
 
 Scan System with Defaults and Make a Surface Scan
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -199,7 +199,7 @@ written to a network share.
 
 .. code-block:: doscon
 
-  C:\nextron\thor>thor64.exe --deepdivecustom -e \\server\share\thor_output\
+  thor64.exe --deepdivecustom -e \\server\share\thor_output\
 
 Intense Scan and DeepDive on a Mounted Image
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -212,14 +212,14 @@ Mounted as Drive Z
 
 .. code-block:: doscon
 
-  C:\nextron\thor>thor64.exe --lab --deepdive -p Z:\
+  thor64.exe --lab --deepdive -p Z:\
 
 Mounted as /mnt
 ~~~~~~~~~~~~~~~
 
 .. code-block:: doscon
 
-  C:\nextron\thor>thor64.exe --lab --deepdive -p /mnt
+  thor64.exe --lab --deepdive -p /mnt
 
 .. important::
   Lab scanning mode requires a `forensic lab license <https://www.nextron-systems.com/2020/11/11/thor-forensic-lab-license-features/>`__
@@ -232,7 +232,7 @@ You can achieve a similar (but not an equal) scan using a standard license and t
 
 .. code-block:: doscon 
 
-  C:\nextron\thor>thor64.exe -a Filescan --intense --norescontrol --cross-platform --alldrives -p E:\
+  thor64.exe -a Filescan --intense --norescontrol --cross-platform --alldrives -p E:\
 
 You can find more information on the advantages of a THOR Forensic Lab license `here <https://www.nextron-systems.com/2020/11/11/thor-forensic-lab-license-features/>`__.
 
@@ -245,14 +245,14 @@ automatically applies certain restrictions in automatic soft mode.
 
 .. code-block:: doscon
 
-  C:\nextron\thor>thor64.exe -c 60
+  thor64.exe -c 60
 
 Scan Multiple Paths
 ^^^^^^^^^^^^^^^^^^^
 
 .. code-block:: doscon
 
-  C:\nextron\thor>thor64.exe --lab -p C:\\ D:\\webapps E:\\inetpub
+  thor64.exe --lab -p C:\\ D:\\webapps E:\\inetpub
 
 (non-existent directories will be automatically skipped)
 
@@ -261,7 +261,7 @@ Scan All Hard Drives (Windows Only)
 
 .. code-block:: doscon
 
-  C:\nextron\thor>thor64.exe --allhds
+  thor64.exe --allhds
 
 Don't Scan Recursively 
 ^^^^^^^^^^^^^^^^^^^^^^
@@ -270,7 +270,7 @@ To instruct THOR to scan a folder non-recursively use the ``:NOWALK`` suffix.
 
 .. code-block:: doscon
 
-  C:\nextron\thor>thor64.exe -a FileScan -p C:\Windows\System32:NOWALK
+  thor64.exe -a FileScan -p C:\Windows\System32:NOWALK
 
 Run a Scan with Specific Modules
 --------------------------------
@@ -283,13 +283,51 @@ Run a Rootkit check only:
 
 .. code-block:: doscon
    
-  C:\nextron\thor>thor64.exe -a Rootkit
+  thor64.exe -a Rootkit
 
 Run the Eventlog and file system scan:
 
 .. code-block:: doscon
 	
-  C:\nextron\thor>thor64.exe –a Eventlog -a Filescan
+  thor64.exe –a Eventlog -a Filescan
+
+Select or Filter Signatures During Initialization
+-------------------------------------------------
+
+THOR 10.7.8 introduces the Init Selector and Init Filter functionalities, allowing users to fine-tune and customize their scanning process for improved accuracy and efficiency.
+
+You can use these flags to limit the signature set to a certain campaign, threat or threat actor.
+
+The filter values are applied to:
+
+- Rule name
+- Tags
+- Description
+
+Here are some examples:
+
+.. code-block::
+
+  thor64.exe --init-selector ProxyShell
+
+You can pass multiple selector keywords separated by comma:
+
+.. code-block::
+
+  thor64.exe --init-selector RANSOM,Lockbit
+
+Or filter a set of signatures that only cause false positives in your environment:
+
+.. code-block::
+
+  thor64.exe --init-filter AutoIt
+
+It is important to note that while these features offer flexibility and customization, we recommend utilizing a limited signature set only for specific use cases. This approach is particularly suitable when scanning exclusively for indicators related to a specific campaign. By understanding the proper utilization of Init Selectors and Init Filters, users can optimize their scanning process and effectively identify targeted threats.
+
+The main advantages of a reduced signature set are: 
+
+- improved scan speed
+- lower memory usage
 
 PE-Sieve Integration
 --------------------
