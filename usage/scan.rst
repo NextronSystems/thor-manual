@@ -294,7 +294,7 @@ Run the Eventlog and file system scan:
 Select or filter Signatures during Initialization
 -------------------------------------------------
 
-THOR 10.7.8 introduces the Init Selector and Init Filter functionalities,
+THOR 10.7.8 introduces the ``Init Selector`` and ``Init Filter`` functionalities,
 allowing users to fine-tune and customize their scanning process for
 improved accuracy and efficiency.
 
