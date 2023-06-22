@@ -144,7 +144,7 @@ The following command creates a plaintext log file on a share called
 "rep" on system "sys" if the user running the command has the respective
 access rights on the share.
 
-.. code-block:: doscon
+.. code-block:: none
 
   thor64.exe --nohtml --nocsv -l \\sys\rep\%COMPUTERNAME%_thor.txt
 
@@ -154,14 +154,14 @@ Logging to Syslog Server
 The following command instructs THOR to log to a remote syslog server
 only.
 
-.. code-block:: doscon
+.. code-block:: none
 
   thor64.exe --nohtml --nocsv --nolog -s syslog.server.net
 
 Scan Run on a Single Directory
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-.. code-block:: doscon
+.. code-block:: none
 
   thor64.exe --lab -p C:\ProgramData
   thor64.exe --lab -p I:\mounted\_image\disk1
@@ -172,21 +172,21 @@ Scan Run on a Single Directory
 
 You can imitate a lab scan without a lab license with these command line flags:
 
-.. code-block:: doscon 
+.. code-block:: none 
 
   thor64.exe -a Filescan --intense --norescontrol --nosoft --cross-platform -p C:\ProgramData
 
 Save the result files to a different directory 
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-.. code-block:: doscon
+.. code-block:: none
 
   thor64.exe -s 10.1.5.14 -e Z:\
 
 Only scan the last 7 days of the Windows Eventlog and log files on disk 
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-.. code-block:: doscon
+.. code-block:: none
 
   thor64.exe --lookback 7
 
@@ -197,7 +197,7 @@ By default, the surface scan (DeepDive) applies all YARA rules in
 "./custom-signatures" folder. In this example, all output files are
 written to a network share.
 
-.. code-block:: doscon
+.. code-block:: none
 
   thor64.exe --deepdivecustom -e \\server\share\thor_output\
 
@@ -210,14 +210,14 @@ Windows and Linux.
 Mounted as Drive Z
 ~~~~~~~~~~~~~~~~~~
 
-.. code-block:: doscon
+.. code-block:: none
 
   thor64.exe --lab --deepdive -p Z:\
 
 Mounted as /mnt
 ~~~~~~~~~~~~~~~
 
-.. code-block:: doscon
+.. code-block:: none
 
   thor64.exe --lab --deepdive -p /mnt
 
@@ -230,7 +230,7 @@ Scanning a Folder or Drive without a Forensic Lab License
 
 You can achieve a similar (but not an equal) scan using a standard license and the following command line:
 
-.. code-block:: doscon 
+.. code-block:: none 
 
   thor64.exe -a Filescan --intense --norescontrol --cross-platform --alldrives -p E:\
 
@@ -243,14 +243,14 @@ Will restrict THOR's CPU usage in the long running modules "FileScan",
 "Eventlog", "LogScan" and "Registry" to 60%. Note that THOR
 automatically applies certain restrictions in automatic soft mode.
 
-.. code-block:: doscon
+.. code-block:: none
 
   thor64.exe -c 60
 
 Scan Multiple Paths
 ^^^^^^^^^^^^^^^^^^^
 
-.. code-block:: doscon
+.. code-block:: none
 
   thor64.exe --lab -p C:\\ D:\\webapps E:\\inetpub
 
@@ -259,7 +259,7 @@ Scan Multiple Paths
 Scan All Hard Drives (Windows Only)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-.. code-block:: doscon
+.. code-block:: none
 
   thor64.exe --allhds
 
@@ -268,7 +268,7 @@ Don't Scan Recursively
 
 To instruct THOR to scan a folder non-recursively use the ``:NOWALK`` suffix. 
 
-.. code-block:: doscon
+.. code-block:: none
 
   thor64.exe -a FileScan -p C:\Windows\System32:NOWALK
 
@@ -281,13 +281,13 @@ section :ref:`usage/scan-modes:scan module names`.
 
 Run a Rootkit check only:
 
-.. code-block:: doscon
+.. code-block:: none
    
   thor64.exe -a Rootkit
 
 Run the Eventlog and file system scan:
 
-.. code-block:: doscon
+.. code-block:: none
 	
   thor64.exe –a Eventlog -a Filescan
 
@@ -309,19 +309,19 @@ The filter values are applied to:
 
 Here are some examples:
 
-.. code-block::
+.. code-block:: none
 
   thor64.exe --init-selector ProxyShell
 
 You can pass multiple selector keywords separated by comma:
 
-.. code-block::
+.. code-block:: none
 
   thor64.exe --init-selector RANSOM,Lockbit
 
 Or filter a set of signatures that only cause false positives in your environment:
 
-.. code-block::
+.. code-block:: none
 
   thor64.exe --init-filter AutoIt
 
