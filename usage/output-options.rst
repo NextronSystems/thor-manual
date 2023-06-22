@@ -97,20 +97,20 @@ JSON Output (.json)
 
 The JSON output file can be configured with these options:
 
-* **--json**
+* **--json** (deprecated since THOR 10.7, use ``--jsonfile``)
   
   * Create a JSON output file
 
 * **--jsonfile filename**
   
-  * Set a filename for the JSON log file
+  * Create a JSON output; filename is optional
 
 * **--cmdjson**
   
   * Print JSON format into the command line (e.g. used with Splunk
     scripted input)
 
-* **-s [syslogtarget]:[port]:SYSLOGJSON**
+* **--syslog [syslogtarget]:[port]:SYSLOGJSON**
   
   * Send syslog messages with JSON formatting
 
@@ -134,7 +134,7 @@ There are three different Key Value Pair Formatting flags:
   
   * Print key/value pairs in the command line (e.g. used with Splunk
     scripted input)
-* **-s [syslogtarget]:[port]:SYSLOGKV**
+* **--syslog [syslogtarget]:[port]:SYSLOGKV**
   
   * Send syslog messages with proper key/value formatting
 
@@ -291,14 +291,14 @@ Sending Syslog to a target on a port that differs from the default port
 
 .. code-block:: none
 
-   -s 10.0.0.4:2514
+   --syslog 10.0.0.4:2514
 
 Sending Syslog to a receiving server using an SSL/TLS encrypted TCP
 connection:
 
 .. code-block:: none
 
-   -s 10.0.0.4:6514:DEFAULT:TCPTLS
+   --syslog 10.0.0.4:6514:DEFAULT:TCPTLS
 
 You can define as many targets as you like.
 
@@ -306,7 +306,7 @@ An often used combination sends JSON formatted messages to a certain UDP port:
 
 .. code-block:: none 
 
-   -s 10.0.0.4:5444:JSON:UDP
+   --syslog 10.0.0.4:5444:JSON:UDP
 
 Common Event Format (CEF)
 ^^^^^^^^^^^^^^^^^^^^^^^^^
