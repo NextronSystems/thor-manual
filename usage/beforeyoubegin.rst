@@ -295,7 +295,8 @@ The legacy version lacks:
 To use THOR Legacy, you need a special license. Contact sales to get more information regarding
 Legacy licenses.
 
-To download THOR Legacy, follow these steps:
+To download THOR Legacy, you can either download it directly from
+our portal (recommended; continue at step 5), or follow these steps:
 
 1. Download a normal THOR package (non-legacy)
 2. Use thor-util to download THOR Legacy:
