@@ -118,8 +118,51 @@ retrieved as the value for that parameter.
 
    -j orig-hostname
 
+Artefact Collector
+^^^^^^^^^^^^^^^^^^
+
+THOR 10.7.8 introduces the ``Artefact Collector`` module. The purpose of
+this module is to be able to quickly collect and archive system
+artifacts into a single ZIP via THOR.
+It can be activated via ``--collector`` (running the collector module at
+the end of a THOR run) or ``--collector-only`` (only running the
+collector module) and uses ``:hostname:_collector.zip`` as output path
+for the ZIP archive per default. The default ZIP archive path can be
+changed with ``--collector-output <path>``.
+The ZIP archive includes all found artifacts and a special file called
+``collector.log`` containing logging information for the module execution
+(e.g. timestamps, hashes, filesize, ...)
+
+The artifacts which are collected per default can be seen with
+``--collector-print-config``. To change the default settings use
+``--collector-config <file>``.
+
+.. tip::
+   Pipe the output of ``--collector-print-config`` to a file and use a
+   modified version of it.
+
+For testing the collector config you can use ``--collector-dry-run`` -
+this only prints the artifacts which would be collected to stdout - no
+output ZIP archive will be created. It is also possible to limit the
+artifact size via the ``--collector-max-filesize`` flag.
+
+If run on Windows, the collector module will parse the MFT and collect
+files based on the extracted information. This allows the collection of
+all files including special files like ``$UsnJrnl``. The downside of MFT
+parsing is that it takes a bit longer. If you do not care about special
+files and want to speed up the collection process, use ``--collector-no-mft``.
+
+All flags can be found in the THOR full help (``--fullhelp``).
+
+.. note::
+   Users need a special license to use the ``Artefact Collector``
+   feature.
+
 Examples
 ^^^^^^^^
+
+THOR Lab Scanning Example
+~~~~~~~~~~~~~~~~~~~~~~~~~
 
 A full command line of a THOR scan started in a lab environment would
 look like this:
@@ -134,9 +177,28 @@ hostname with "WKS001" in the outputs and saves every output file (text
 log, HTML, CSV) to a reports folder named ``C:\reports``.
 
 .. note::
+   This feature requires a `forensic lab license <https://www.nextron-systems.com/2020/11/11/thor-forensic-lab-license-features/>`__
+   type which is meant to be used in forensic labs.
 
-    This feature requires a `forensic lab license <https://www.nextron-systems.com/2020/11/11/thor-forensic-lab-license-features/>`__
-    type which is meant to be used in forensic labs. 
+Artefact Collector Example
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The command line of a THOR scan in collector-only mode would like this:
+
+.. code-block:: doscon
+
+   C:\nextron\thor>thor.exe --collector-only
+
+If you want THOR to run in its "classic" way and afterwards collect
+artifacts, use: 
+
+.. code-block:: doscon
+
+   C:\nextron\thor>thor.exe <normal-THOR-flags> --collector
+
+.. note::
+   This feature requires a `forensic lab license <https://www.nextron-systems.com/2020/11/11/thor-forensic-lab-license-features/>`__
+   type which is meant to be used in forensic labs.
 
 Lookback Mode
 -------------
