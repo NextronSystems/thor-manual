@@ -103,7 +103,15 @@ The JSON output file can be configured with these options:
 
 * **--jsonfile filename**
   
-  * Create a JSON output; filename is optional
+  * Create a JSON output. Filename is optional; if no filename is set,
+    the format ``:hostname:_thor_:time:.json`` will be used. Default format
+    is JSON v1.
+
+* **--jsonv2** (THOR >= 10.7)
+
+  * Use the JSON v2 format, which is easier to parse than the old v1 format.
+  * This should be used with ``--jsonfile``, if you want to save the output to a
+    json log file.
 
 * **--cmdjson**
   
