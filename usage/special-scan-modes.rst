@@ -169,7 +169,7 @@ look like this:
 
 .. code-block:: doscon
 
-   C:\nextron\thor>thor64.exe --lab -p S:\\ --virtual-map S:C –j WKS001 -e C:\\reports
+   C:\nextron\thor>thor64.exe --lab -p S:\ --virtual-map S:C –j WKS001 -e C:\reports
 
 It instructs THOR to scan the mounted partition S: in lab scanning mode,
 maps the current partition “S:” to a virtual drive “C:”, replaces the
