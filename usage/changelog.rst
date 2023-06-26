@@ -6,6 +6,48 @@ This chapter contains all the changes of THOR.
 THOR 10.7 (Techpreview)
 #######################
 
+THOR Version 10.7.8
+~~~~~~~~~~~~~~~~~~~
+
+.. list-table::
+    :header-rows: 1
+    :widths: 15, 85
+
+    * - Type
+      - Description
+    * - Feature
+      - (via THOR Util) log conversion to CSV is now possible
+    * - Feature
+      - New Artifact Collector module, which allows collection of forensic artifacts from the current system into a ZIP file
+    * - Feature
+      - New '--print-signatures-json' flag for JSON output of current signatures
+    * - Feature
+      - New '--init-selector' and '--init-filter' flags which allow the user to load only a subset of the normal signatures
+    * - Change
+      - When using '--encrypt', log files are now encrypted as they are written during the THOR scan. This prevents temporary log files, but also makes generation of HTML reports afterwards impossible. Use THOR Util instead to generate HTML reports after decrypting the logs.
+    * - Change
+      - Display matches on reverse lookup IP addresses in a better way
+    * - Change
+      - Update to Golang v1.20.5
+    * - Change
+      - Update to OpenSSL 3.0.9
+    * - Bugfix
+      - Display error messages correctly in JSON logs
+    * - Bugfix
+      - On Linux, don't skip directories with children where lstat() fails
+
+THOR Version 10.7.7
+~~~~~~~~~~~~~~~~~~~
+
+.. list-table::
+    :header-rows: 1
+    :widths: 15, 85
+
+    * - Type
+      - Description 
+    * - Change
+      - THOR Lite licenses with Sigma now also have the Eventlog and EVTX modules enabled
+
 THOR Version 10.7.6
 ~~~~~~~~~~~~~~~~~~~
 
