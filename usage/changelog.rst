@@ -265,7 +265,16 @@ THOR Version 10.6.21
     * - Feature
       - Add TYPE fields to reasons
     * - Change
-      - Update to Golang v1.19.6
+      - Update to Golang v1.19.9
+    * - Change
+      - Terminate early when an invalid flag is used in the THOR template file
+    * - Change
+      - Report YARA matches in the DeepDive feature with reasons
+    * - Change
+      - Increase default YARA stack size to 32768
+    * - Bugfix
+      - Don't report filename matches on nonexisting files when resolving the file name from a reference using environment variables
+
 
 THOR Version 10.6.20
 ~~~~~~~~~~~~~~~~~~~~
