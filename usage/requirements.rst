@@ -72,8 +72,8 @@ details on how to download and use THOR Legacy.
     - x86 and x64
     - yes
 
-Special Versions
-^^^^^^^^^^^^^^^^
+THOR for AIX
+^^^^^^^^^^^^
 
 We offer a special version for AIX. Currently only a small number of versions
 are supported. We are extensively testing THOR on AIX 7.2 with Power7. Older
