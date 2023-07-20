@@ -285,8 +285,15 @@ contains more information on the legacy version.
 
 The legacy version lacks: 
 
-* Module: Eventlog scanning 
-* Feature: Deeper process inspection (process hollowing, doppelgänging, etc.) 
+* Diagnostic features of THOR Util
+* UPX unpacking
+* ADS scanning
+* Module: Process scanning
+* Module: Eventlog scanning
+* Module: THOR Thunderstorm
+* Module: ETW Watcher
+* Module: Task scheduler
+* HTML report generation
 
 .. note::
    We only offer limited support for this version, since we cannot guarantee a successful
