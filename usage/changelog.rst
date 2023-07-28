@@ -6,6 +6,32 @@ This chapter contains all the changes of THOR.
 THOR 10.7 (Techpreview)
 #######################
 
+THOR Version 10.7.9
+~~~~~~~~~~~~~~~~~~~
+
+.. list-table::
+    :header-rows: 1
+    :widths: 15, 85
+
+    * - Type
+      - Description
+    * - Change
+      - CPU limit now applies only to full system CPU usage, not only THOR (reverts a change made in 10.7.4)
+    * - Change
+      - If THOR is cancelled by the Rescontrol feature, the information is now displayed as an Error instead of a Warning
+    * - Change
+      - Standardized logging of matches on processes
+    * - Change
+      - Update to Golang v1.20.6
+    * - Change
+      - Update to YARA v4.3.2
+    * - Bugfix
+      - Fixed an issue where simultaneous write access from another process to a file that THOR scanned could cause the THOR scan to fail
+    * - Bugfix
+      - Fixed an issue where old Windows systems could incorrectly be displayed as unpatched
+    * - Bugfix
+      - Fixed an issue where 'thor-util update' could remove the file type signatures
+
 THOR Version 10.7.8
 ~~~~~~~~~~~~~~~~~~~
 
