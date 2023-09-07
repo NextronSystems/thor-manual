@@ -97,7 +97,7 @@ To illustrate this a bit, please see the table below:
 
 .. hint::
    A tool like ``top`` on a linux systems displays the cpu usage by default as a percentage of a
-   single CPU (Core/Thread). Please see ``Irix Mode`` in the man page of
+   single Thread (of the CPU's Cores). Please see ``Irix Mode`` in the man page of
    ``top``: https://man7.org/linux/man-pages/man1/top.1.html
 
 Maximum File Size
