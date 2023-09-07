@@ -53,7 +53,7 @@ Often Used Parameters
   * - **-e target-folder**
     - Write all output files to the given folder
 
-Parameters Possibly Relevant for Your User Case
+Parameters possibly relevant for your Use Case
 -----------------------------------------------
 
 .. list-table::
@@ -62,12 +62,15 @@ Parameters Possibly Relevant for Your User Case
 
   * - Parameter
     - Description
-  * - **-c, --cpulimit percentage**
-    - Reduce the average CPU load to the given percentage value. This can be helpful to reduce the load e.g. on server systems with real-time services or reduce the noise produced by fans on user laptops.
+  * - **-c, --cpulimit integer**
+    - Instruct THOR to pause all scanning if the systems CPU load is higher than the value specified.
 
-      The specified value is a percentage value for the complete CPU. For example, ``--cpulimit 50`` on a quad-core system limits THOR to using at most 50% of the available CPU time, which would be 2 cores.
+      Please see :ref:`usage/configuration:cpu limit (--cpulimit)` for more information.
   * - **--allhds**
-    - By default THOR scans only the C: partition on Windows machines and other files/folders only in cases in which some reference points to a different partition (e.g. configured web root of IIS is on ``D:\inetpub``, registered service runs from ``D:\vendor\service``)
+    - By default THOR scans only the C: partition on Windows machines and other files/folders only
+     
+      in cases in which some reference points to a different partition (e.g. configured web root of IIS
+      is on ``D:\inetpub``, registered service runs from ``D:\vendor\service``)
   * - **--lookback days**
       **--globallookback**
     - Only check the elements changed or created during the last X days in all available modules (reduces the scan duration significantly)
