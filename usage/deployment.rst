@@ -782,6 +782,10 @@ You don't need a valid license for the system that runs THOR's remote
 scanning feature (the source system of the scans, e.g. admin
 workstation).
 
+.. hint::
+   You can pair THOR Remote with the :ref:`usage/other-topics:license retrieval`
+   options available within THOR, to make deployment easier.
+
 Output
 ^^^^^^
 

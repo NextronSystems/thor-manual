@@ -2,6 +2,88 @@
 Other Topics 
 ============
 
+License Retrieval
+-----------------
+
+THOR allows for a more flexible way to fetch licenses,
+besides the classic way of placing a license file in
+the program folder. In this chapter we will show both
+available options for license retrieval.
+
+It is important to know that those two options also
+work with :ref:`usage/deployment:thor remote`. In this
+case, all licenses will be downloaded to the host which
+is running the initial THOR Remote command (the host
+running THOR Remote does not need a license).
+
+.. important::
+   If you have already a valid THOR license for your host
+   placed within THOR's program folder, no (new) license will
+   be downloaded/issued from the remote locations.
+
+ASGARD License Retrieval
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+If you are having a local instance of the ASGARD Management
+Center installed and using its license pool for your THOR
+scans, you can use the ``--asgard`` flag to download a valid
+license. This flag also needs the ``--asgard-token`` flag to
+work. The Token can be found in the **Download** section of
+your ASGARD Management Center.
+
+Example:
+
+.. code-block:: console
+
+  nextron@unix:~/thor$ ./thor-linux-64 --asgard "my-asgard.local" --asgard-token "download-token"
+  [...SNIP...]
+  Info License file found LICENSE: my-asgard.local OWNER: John Doe TYPE: Server STARTS: 2023/08/30 EXPIRES: 2023/11/01 SCANNER: THOR VALID: true REASON:
+
+The retrieved license will be placed in the program folder of THOR,
+so you can run THOR the next time without all the extra flags.
+The name of the license is ``<hostname>.lic``. Rerunning the command
+will not issue a new license, but rather download the already valid
+license again from your ASGARD Management Center.
+
+Nextron Portal License Retrieval
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+If you are using standalone packages of THOR, you can speed up
+the process of deploying THOR by using its ``--portal-key``
+flag. This allows you to download a THOR license straight from
+the Licensing Portal, without the need to generate all the licenses
+and downloading them manually first. This is a good way to automate
+scanning.
+
+The argument ``--portal-key`` is expecting one argument, which is
+the API key of your Portal user. THOR will grab the first available
+license from the contract with the lowest ID and issue one to your host.
+No new license will be issued if a valid license was found for the host.
+If no valid license was found, a new one will be issued. This also means
+that you should provide the ``--portal-contracts`` flag if you want to
+limit THOR to a specific contract(s) for issuing/downloading licenses.
+
+Example:
+
+.. code-block:: console
+
+   nextron@unix:~/thor$ ./thor-linux-64 --portal-key "my-api-key" --portal-contracts "3,5,12,13"
+   ...SNIP...
+   Info License file found LICENSE: portal.nextron-systems.com OWNER: Jane Doe TYPE: Server STARTS: 2023/03/10 EXPIRES: 2023/09/29 SCANNER: THOR VALID: true REASON:
+
+The retrieved license will be placed in the program folder of THOR,
+so you can run THOR the next time without all the extra flags.
+The name of the license is ``<hostname>.lic``. Rerunning the command
+will not issue a new license, but rather download the already valid
+license again from the portal.
+
+.. attention:: 
+  If no valid license is found, a new one will be issued. This can be
+  prevented with the ``--portal-nonewlic`` flag. If THOR can't find a
+  valid license within the account/contracts, it will simply exit.
+  This is a useful feature if you want to prevent over-issuing of
+  licenses within your contracts.
+
 Evidence Collection
 -------------------
 

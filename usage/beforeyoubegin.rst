@@ -14,6 +14,11 @@ Place a valid license file into the THOR program folder. THOR checks the
 program folder and all sub folder for valid license files (``*.lic``).
 Alternatively, you can specify a specific path with ``--licensepath <path>``.
 
+.. tip::
+   THOR is also able to fetch licenses from our licensing portal or a local
+   ASGARD Management Center. Please see chapter :ref:`usage/other-topics:license retrieval`
+   for more information about license retrieval.
+
 Generate a License 
 ^^^^^^^^^^^^^^^^^^
 
