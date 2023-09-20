@@ -494,7 +494,7 @@ Values are formatted as follows:
 This means that you can write a Yara rule that looks like this (remember
 to escape all backslashes):
 
-.. code-block::
+.. code-block:: yara
 
         rule Registry_DarkComet {
                 meta:
