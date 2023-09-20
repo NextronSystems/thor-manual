@@ -600,7 +600,7 @@ expression "$gif1" which causes Yara to check for a "word character" of
 undefined length. Try to avoid regular expressions of undefined length
 and everything works fine.
 
-AlientVault APT1 Rule:
+AlientVault APT1 Rule: yara
 
 .. code-block::
    :linenos:
