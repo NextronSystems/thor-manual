@@ -765,7 +765,7 @@ like "not" or "all of them".
 
 Simple Yara Rule:
 
-.. code-block:: none
+.. code-block:: yara
    :linenos:
 
    rule simple_demo_rule_1 {
@@ -782,7 +782,7 @@ keywords used in typical rules included in the rule set.
 
 Complex Yara Rule:
 
-.. code-block:: none
+.. code-block:: yara
    :linenos:
 
    rule complex_demo_rule_1 {
@@ -826,7 +826,7 @@ to the total score of an object.
 
 Yara Rule with THOR specific attribute "score":
 
-.. code-block:: none
+.. code-block:: yara
    :linenos:
 
    rule demo_rule_score {
@@ -909,7 +909,7 @@ These external variables are:
 
 Yara Rule with THOR External Variable:
 
-.. code-block:: none
+.. code-block:: yara
    :linenos:
 
    rule demo_rule_enhanced_attribute_1 {
@@ -930,7 +930,7 @@ smaller 100byte.
 
 Yara Rule with more complex THOR Enhanced Attributes.
 
-.. code-block:: none
+.. code-block:: yara
    :linenos:
 
    rule demo_rule_enhanced_attribute_2 {
@@ -952,7 +952,7 @@ only to a special type of extension.
 
 Real Life Yara Rule:
 
-.. code-block:: none
+.. code-block:: yara
    :linenos:
 
    rule HvS_Client_2_APT_Java_IDX_Content_hard {
@@ -982,7 +982,7 @@ ever applying.
 
 For example, consider this rule:
 
-.. code-block:: none
+.. code-block:: yara
    :linenos:
 
    rule FakeMicrosoftStartupEntry {
@@ -1011,7 +1011,7 @@ or registry YARA rules.
 A possible workaround for this issue is to define the false positive strings in ways that
 they can't match anywhere else, e.g. like this:
 
-.. code-block:: none
+.. code-block:: yara
 
    rule FakeMicrosoftStartupEntry {
         strings:
@@ -1032,7 +1032,7 @@ rule should apply to file objects or process memory only.
 
 Apply rule in-memory only:
 
-.. code-block:: none
+.. code-block:: yara
    :linenos:
 
    rule Malware_in_memory {
@@ -1048,7 +1048,7 @@ Apply rule in-memory only:
 
 Apply rule on file objects only:
 
-.. code-block:: none
+.. code-block:: yara
    :linenos:
 
    rule Malware_in_fileobject {
@@ -1066,7 +1066,7 @@ setting the "nodeepdive" attribute to "1".
 
 Avoid DeepDive application:
 
-.. code-block:: none
+.. code-block:: yara
    :linenos:
 
    rule Malware_avoid_DeepDive {
@@ -1095,7 +1095,7 @@ meta data section of the YARA rule.
 
 Limits detection to the "Mutex" module:
 
-.. code-block:: none
+.. code-block:: yara
    :linenos:
 
    rule Malicious_Mutex_Evtx {
@@ -1122,7 +1122,7 @@ attribute. Do not use a negative score value in YARA rules.
 
 False Positive Rule:
 
-.. code-block:: none
+.. code-block:: yara
    :linenos:
 
    rule FalsePositive_AVSig1 {
