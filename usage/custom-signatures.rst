@@ -602,7 +602,7 @@ and everything works fine.
 
 AlientVault APT1 Rule: yara
 
-.. code-block::
+.. code-block:: yara
    :linenos:
    :emphasize-lines: 7
 
