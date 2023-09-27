@@ -97,21 +97,18 @@ JSON Output (.json)
 
 The JSON output file can be configured with these options:
 
-* **--json** (deprecated since THOR 10.7, use ``--jsonfile``)
+* **--json** (deprecated since THOR 10.7, use ``--jsonv2``)
   
   * Create a JSON output file
-
-* **--jsonfile filename**
-  
-  * Create a JSON output. Filename is optional; if no filename is set,
-    the format ``:hostname:_thor_:time:.json`` will be used. Default format
-    is JSON v1.
 
 * **--jsonv2** (THOR >= 10.7)
 
   * Use the JSON v2 format, which is easier to parse than the old v1 format.
-  * This should be used with ``--jsonfile``, if you want to save the output to a
-    json log file.
+  * This can be used with ``--jsonfile``.
+
+* **--jsonfile filename**
+  
+  * Log file for JSON output. If no value is specified, defaults to ``:hostname:_thor_:time:.json``.
 
 * **--cmdjson**
   
