@@ -115,6 +115,10 @@ To retrieve a licenses from the customer portal, you need a portal key. The port
 (API key) can be configured in the ``My Settings > API Key`` section of the
 `customer portal <https://portal.nextron-systems.com>`__.
 
+.. important::
+   API functionality needs to be activated by Nextron. Please contact support/sales
+   to activate the API functionality.
+
 .. figure:: ../images/portal-api-key.png
    :alt: My Settings > API Key
 
