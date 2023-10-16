@@ -1,0 +1,67 @@
+THOR 10.4
+#########
+
+THOR 10.4.2
+~~~~~~~~~~~
+
+.. list-table::
+    :header-rows: 1
+    :widths: 15, 85
+
+    * - Type
+      - Description
+    * - Feature
+      - Store resume information only if '--resume' is set to improve performance
+    * - Feature
+      - New command line option '--portal-key' to download a license at start time
+    * - Feature
+      - New command line option '--yara-max-strings-per-rule' to increase the supported number of IOCs
+    * - Feature
+      - New command line option '--nofserrors' to suppress filesystem errors
+    * - Feature
+      - Print integrated revision of the sigma rules at startup
+    * - Feature
+      - Include Scan ID in HTML report synopsis
+    * - Change
+      - Apply suspicious locations platform independently
+    * - Bugfix
+      - Don't stop HTML log generation on encountering certain uncommon log lines
+    * - Bugfix
+      - Remove anonymization on non-personal accounts like Default
+    * - Bugfix
+      - Apply Signatures for Windows Handles more precisely
+    * - Bugfix
+      - Remove a False Positive that could occur in the DNS cache
+    * - Bugfix
+      - Increase the supported number of IOCs massively beyond the default 10000.
+    * - Bugfix
+      - Fix a panic related to incorrectly formatted /etc/passwd files on Linux.
+
+THOR 10.4.1
+~~~~~~~~~~~
+
+.. list-table::
+    :header-rows: 1
+    :widths: 15, 85
+
+    * - Type
+      - Description
+    * - Bugfix
+      - Filescan panic on WER (Windows Error Report) files
+
+THOR 10.4.0
+~~~~~~~~~~~
+
+.. list-table::
+    :header-rows: 1
+    :widths: 15, 85
+
+    * - Type
+      - Description
+    * - Feature
+      - Added Bifrost 2 gRPC support for upcoming ASGARD 2
+    * - Feature
+      - EmoCheck in FileScan module
+    * - Feature
+      - TeamViewer password detection and decryption
+

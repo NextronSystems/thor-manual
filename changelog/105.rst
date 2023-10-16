@@ -1,0 +1,382 @@
+THOR 10.5 (Legacy)
+##################
+
+THOR 10.5.18
+~~~~~~~~~~~~
+
+.. list-table::
+    :header-rows: 1
+    :widths: 15, 85
+
+    * - Type
+      - Description
+    * - Change
+      - Remove outdated content from the tools folder in THOR packages
+    * - Bugfix
+      - Exclude THOR logs from being detected by THOR
+
+THOR 10.5.17
+~~~~~~~~~~~~
+
+.. list-table::
+    :header-rows: 1
+    :widths: 15, 85
+
+    * - Type
+      - Description
+    * - Feature
+      - Authors of YARA rules are now included in match outputs
+    * - Change
+      - Update PE-Sieve to v0.2.9.6
+    * - Change
+      - Global YARA rules now cause an error since they can inadvertently affect THOR's internal signatures
+    * - Change
+      - Some modules were removed on specific platforms (especially on MacOS and AIX) that only held dummy
+    * - Change
+      - Add EVTX 3.2 support
+    * - Bugfix
+      - Print Eventlog timestamps in local timezone, unless '--utc' is used
+
+THOR 10.5.16
+~~~~~~~~~~~~
+
+.. list-table::
+    :header-rows: 1
+    :widths: 15, 85
+
+    * - Type
+      - Description
+    * - Change
+      - Upgrade PE-Sieve to v0.2.9.5
+    * - Change
+      - Upgrade OpenSSL to 1.1.1j
+    * - Bugfix
+      - Ensure THOR honors low CPU limits correctly
+    * - Bugfix
+      - Correct loading for some named pipe IOC files
+    * - Bugfix
+      - Incorrect formatting for JSON syslog output
+
+THOR 10.5.15
+~~~~~~~~~~~~
+
+.. list-table::
+    :header-rows: 1
+    :widths: 15, 85
+
+    * - Type
+      - Description
+    * - Feature
+      - Add support for a THOR Util configuration file. This file allows setting a default configuration (e.g. to always upgrade to the TechPreview).
+    * - Change
+      - Notarize THOR for MacOS
+
+THOR 10.5.14
+~~~~~~~~~~~~
+
+.. list-table::
+    :header-rows: 1
+    :widths: 15, 85
+
+    * - Type
+      - Description
+    * - Feature
+      - Scan all event logs if '--intense' was specified
+    * - Feature
+      - Allow fetching the signatures in development by using '--sigdev' with thor-util update
+    * - Change
+      - Add info resource to THOR Windows files
+    * - Change
+      - Refactor bulk scanning to have less memory allocated / released to reduce memory usage volatility
+    * - Change
+      - Let THOR Util default to its own directory for THOR and license paths (same behaviour as THOR already has)
+    * - Change
+      - Check YARA / IOC filename indicators (like log, registry, keyword) with word boundaries
+    * - Change
+      - Add additional event logs to list scanned by default
+    * - Change
+      - Don't allow a downgrade in THOR Util unless '--force' is specified
+    * - Change
+      - Update to Golang 1.15.10
+    * - Change
+      - Specific options (dropzone mode, deep dive mode, fsonly, nodoublecheck, hostname rewrite) have been restricted to Forensic Lab and Incident Response license types
+    * - Bugfix
+      - Add checks for improved handling of corrupted registry hives
+    * - Bugfix
+      - Clarify some messages of THOR Util
+    * - Bugfix
+      - Apply excludes with OS path separators with '--cross-platform'
+
+THOR 10.5.13
+~~~~~~~~~~~~
+
+.. list-table::
+    :header-rows: 1
+    :widths: 15, 85
+
+    * - Type
+      - Description
+    * - Change
+      - Minor directory exclusion adjustments for Microsoft Exchange
+
+THOR 10.5.12
+~~~~~~~~~~~~
+
+.. list-table::
+    :header-rows: 1
+    :widths: 15, 85
+
+    * - Type
+      - Description
+    * - Bugfix
+      - Remove some directory excludes specific to Microsoft Exchange
+
+THOR 10.5.11
+~~~~~~~~~~~~
+
+.. list-table::
+    :header-rows: 1
+    :widths: 15, 85
+
+    * - Type
+      - Description
+    * - Feature
+      - Make bulk scan size manually configurable with '--bulk-size'
+    * - Change
+      - Disable 60 MB log size limit if debugging (with '--debug' or '--trace') is active
+
+THOR 10.5.10
+~~~~~~~~~~~~
+
+.. list-table::
+    :header-rows: 1
+    :widths: 15, 85
+
+    * - Type
+      - Description
+    * - Feature
+      - Suppress rule matches on log files after the same rule matched 10 times or more, this can be deactivated with '--showall'
+    * - Feature
+      - Add a context menu for filtering to the HTML reports
+    * - Feature
+      - Add support for NFTables firewalls on Linux
+    * - Feature
+      - Add a field 'SIGTYPE' to messages which displays whether an IOC or YARA rule is custom or built-in
+    * - Feature
+      - Reuse previous Scan ID if a scan is resumed
+    * - Feature
+      - Add additional information to files detected in a Windows recycle bin (original file name, deletion time)
+    * - Change
+      - Limit file enrichment to 10 files per message
+    * - Change
+      - Name automatically generated YARA rules for C2 domains after the domain rather than after a counter
+    * - Change
+      - Reduce score of a C2 match with a YARA rule by 30
+    * - Change
+      - Upgrade to YARA 4.0.5
+    * - Change
+      - Make matching of C2 IOCs on process memory optional, it can be enabled with '--c2-in-memory'
+    * - Bugfix
+      - Deduplicate listen ports per process
+    * - Bugfix
+      - Improve permission vulnerability check for Linux services
+    * - Bugfix
+      - Skip specific registry hives where THOR could behave unstable
+
+THOR 10.5.9
+~~~~~~~~~~~
+
+.. list-table::
+    :header-rows: 1
+    :widths: 15, 85
+
+    * - Type
+      - Description
+    * - Feature
+      - Apply C2 checks to log scans
+    * - Change
+      - Increase the default maximum runtime to 1 week
+    * - Change
+      - Apply special scan features on files even if those files exceed the maximum file size set
+    * - Bugfix
+      - Remove several false positives on process memory of Antivirus products
+    * - Bugfix
+      - Fix an issue where THOR Remote could freeze if too many remote scans were started
+    * - Bugfix
+      - Fix an issue where packed files weren't unpacked completely before being scanned
+
+THOR 10.5.8
+~~~~~~~~~~~
+
+.. list-table::
+    :header-rows: 1
+    :widths: 15, 85
+
+    * - Type
+      - Description
+    * - Bugfix
+      - Print time of currently analyzed event in Eventlog module
+
+THOR 10.5.7
+~~~~~~~~~~~
+
+.. list-table::
+    :header-rows: 1
+    :widths: 15, 85
+
+    * - Type
+      - Description
+    * - Change
+      - Upgrade to Golang 1.14.7
+    * - Change
+      - Catch Panics in a Module to leave other modules unaffected
+    * - Change
+      - Disable support for licenses using an obsolete encryption method
+    * - Bugfix
+      - Extend output in a specific Events module message
+    * - Bugfix
+      - New parameter '--max_process_size' that limits the size of processes that THOR scans with YARA rules. Default value is 500 MB. THOR memory usage increases as this value is increased.
+
+THOR 10.5.6
+~~~~~~~~~~~
+
+.. list-table::
+    :header-rows: 1
+    :widths: 15, 85
+
+    * - Type
+      - Description
+    * - Bugfix
+      - Catch possible panic during Amcache parsing
+    * - Bugfix
+      - Catch possible panic if the Application Eventlog could not be opened
+
+THOR 10.5.5
+~~~~~~~~~~~
+
+.. list-table::
+    :header-rows: 1
+    :widths: 15, 85
+
+    * - Type
+      - Description
+    * - Change
+      - Exchange signing certificate for newer
+    * - Bugfix
+      - Check Registry Hive entries in the same format as Live Registry entries
+    * - Bugfix
+      - Check UserData elements in EVTX files
+
+THOR 10.5.4
+~~~~~~~~~~~
+
+.. list-table::
+    :header-rows: 1
+    :widths: 15, 85
+
+    * - Type
+      - Description
+    * - Feature
+      - Support download of Tech Previews in Thor-Util
+    * - Feature
+      - Support license download from ASGARD 2.5+ with '--asgard-token'
+    * - Bugfix
+      - Terminate if started with '--resumeonly' and no previous scan with the same context existed
+    * - Bugfix
+      - Calculate the context that '--resume' used to check for previous scans differently, excluding elements prone to change
+
+THOR 10.5.3
+~~~~~~~~~~~
+
+.. list-table::
+    :header-rows: 1
+    :widths: 15, 85
+
+    * - Type
+      - Description
+    * - Bugfix
+      - Catch Panic when handling specific Registry Hives on disk.
+
+THOR 10.5.2
+~~~~~~~~~~~
+
+.. list-table::
+    :header-rows: 1
+    :widths: 15, 85
+
+    * - Type
+      - Description
+    * - Bugfix
+      - Disable PE-Sieve by default to follow up on some rare issues. It can be enabled with '--process-integrity' or '--intense'.
+
+THOR 10.5.1
+~~~~~~~~~~~
+
+.. list-table::
+    :header-rows: 1
+    :widths: 15, 85
+
+    * - Type
+      - Description
+    * - Feature
+      - Generate process dumps of suspicious processes (for now Windows only) when '--procdumps' is specified
+    * - Feature
+      - New command line option '--procdump-dir' to control where process dumps are stored
+    * - Feature
+      - Integrate parser for Windows LNK files
+    * - Feature
+      - New command line option '--image-chunk-size' to set the size of chunks when scanning image files
+    * - Feature
+      - New command line option '--generate-config' to create a configuration file for THOR based on command line options
+    * - Feature
+      - Open busy registry hives using a raw disk image and the MFT
+    * - Feature
+      - On interactive interrupts, show progress and a menu to continue or abort the scan
+    * - Feature
+      - Support new IOC file for named pipes on Windows
+    * - Feature
+      - Detect files with uncommon / unlikely timestamps (timestomping)
+    * - Change
+      - Reduce log level for open port messages to Info
+    * - Change
+      - Extend '--all-module-lookback' to Registry Hive files and EVTX log files, rename it to '--global-lookback'
+    * - Change
+      - Update used YARA to 4.0.1
+    * - Change
+      - Print last scanned element when maximum runtime is exceeded
+    * - Bugfix
+      - Don't stop HTML log generation on encountering certain uncommon log lines
+
+
+THOR 10.5.0
+~~~~~~~~~~~
+
+.. list-table::
+    :header-rows: 1
+    :widths: 15, 85
+
+    * - Type
+      - Description
+    * - Feature
+      - New PowerShell script to download and run Thor easily
+    * - Feature
+      - Execute PE-Sieve at runtime to discover processes with malicious sections, sensitivity can be raised further with '--full-proc-integrity'
+    * - Feature
+      - New command line option '--scanid-prefix' to set a custom Scan ID prefix
+    * - Feature
+      - New command line option '--print-signatures' to print metadata to all YARA and Sigma signatures
+    * - Feature
+      - New command line option '--all-module-lookback' that applies lookback to the Filesystem, Registry, and Services modules as well
+    * - Feature
+      - Make score for Handle IOCs customizable
+    * - Feature
+      - New command line option '--ascii' to exclude non-ASCII characters from the logs
+    * - Change
+      - Check open files without using an external 'lsof' executable on Unix platforms
+    * - Change
+      - Update descriptions for most command line options
+    * - Change
+      - Print non-ASCII strings in matches as hex sequences
+    * - Change
+      - Include time (in addition to the date) in default log file name
+
