@@ -55,9 +55,14 @@ the Licensing Portal, without the need to generate all the licenses
 and downloading them manually first. This is a good way to automate
 scanning.
 
-The argument ``--portal-key`` is expecting one argument, which is
-the API key of your Portal user. THOR will grab the first available
-license from the contract with the lowest ID and issue one to your host.
+The argument ``--portal-key`` is expecting one argument, which can be
+one of:
+
+ - The API key of your Portal user
+ - A download token for one of your contracts
+
+When using an API key, THOR will grab the first available license from
+the contract with the lowest ID and issue one to your host.
 No new license will be issued if a valid license was found for the host.
 If no valid license was found, a new one will be issued. This also means
 that you should provide the ``--portal-contracts`` flag if you want to
