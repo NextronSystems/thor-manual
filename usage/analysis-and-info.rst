@@ -46,3 +46,5 @@ initialized YARA and Sigma rules.
    :alt: Rule List Output
 
    Rule List Output
+
+This information can also be printed machine readable as JSON by using the ``--print-signatures-json`` flag.
