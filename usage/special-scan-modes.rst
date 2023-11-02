@@ -155,8 +155,8 @@ files and want to speed up the collection process, use ``--collector-no-mft``.
 All flags can be found in the THOR full help (``--fullhelp``).
 
 .. note::
-   Users need a special license to use the ``Artefact Collector``
-   feature.
+   A special license called ``THOR Deep Forensics`` is needed to use the
+   ``Artefact Collector`` feature.
 
 Examples
 ^^^^^^^^
