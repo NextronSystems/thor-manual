@@ -133,8 +133,8 @@ The ZIP archive includes all found artifacts and a special file called
 ``collector.log`` containing logging information for the module execution
 (e.g. timestamps, hashes, filesize, ...)
 
-The artifacts which are collected per default can be seen with
-``--collector-print-config``. To change the default settings use
+The artifacts which are collected per default (GLOB patterns) can be seen
+with ``--collector-print-config``. To change the default settings use
 ``--collector-config <file>``.
 
 .. tip::
