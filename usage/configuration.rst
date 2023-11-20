@@ -246,8 +246,8 @@ False Positives
 ^^^^^^^^^^^^^^^
 
 The false positive filters work like the directory/file excludes. A
-regular expression is applied to the full content of the "**MESSAGE:**"
-value.
+regular expression is applied to the **full** event, excluding the event
+header (e.g. ``Sep 14 12:07:07 some-hostname/192.168.0.20``).
 
 E.g. if you want to Exclude all messages that contain the string
 ``Trojan_Buzus_dev`` you just add this string to the
