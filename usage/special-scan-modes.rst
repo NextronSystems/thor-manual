@@ -355,6 +355,34 @@ Eventlog Analysis
 
 The Eventlog scan mode allows scanning certain Windows Eventlogs.
 
+In intense mode, all Eventlogs are scanned. In normal or soft mode, the following Eventlogs are scanned:
+
+- System
+- Application
+- Security
+- Windows PowerShell
+- Microsoft-Windows-AppLocker/EXE and DLL
+- Microsoft-Windows-AppLocker/MSI and Script
+- Microsoft-Windows-CodeIntegrity/Operational
+- Microsoft-Windows-DeviceGuard/Operational
+- Microsoft-Windows-Folder Redirection/Operational
+- Microsoft-Windows-PowerShell/Operational
+- Microsoft-Windows-Sysmon/Operational
+- Microsoft-Windows-Security-Mitigations/KernelMode
+- Microsoft-Windows-Shell-Core/Operational
+- Microsoft-Windows-SmbClient/Security
+- Microsoft-Windows-SMBServer/Security
+- Microsoft-Windows-TaskScheduler/Operational
+- Microsoft-Windows-WMI-Activity/Operational
+- Microsoft-Windows-Windows Defender/Operational
+- Microsoft-Windows-Windows Firewall With Advanced Security/Firewall
+- Microsoft-Windows-WinINet-Config/ProxyConfigChanged
+- Microsoft-Windows-VHDMP-Operational
+- Microsoft-Windows-WLAN-AutoConfig/Operational
+- Microsoft-Windows-Winlogon/Operational
+- Microsoft-Windows-UniversalTelemetryClient/Operational
+
+
 The parameter ``-n`` works like the ``-p`` parameter in the Filesystem
 module. It takes the target Eventlog as parameter, which is the Windows
 Eventlog's full name.
@@ -362,6 +390,9 @@ Eventlog's full name.
 .. code-block:: doscon
 
    C:\nextron\thor>thor64.exe -a Eventlog –n "Microsoft-Windows-Sysmon/Operational"
+
+From THOR 10.7.13 onwards, ``-n`` can also be used to scan all event logs
+by using ``-n *``.
 
 You can get the full name of a Windows Eventlog by right clicking the
 Eventlog in Windows Event Viewer and selecting "Properties".
@@ -371,7 +402,7 @@ Eventlog in Windows Event Viewer and selecting "Properties".
 
    Windows Eventlog Properties
 
-The -n parameter can also be used to restrict the Eventlog scanning to
+The ``-n`` parameter can also be used to restrict the Eventlog scanning to
 certain Eventlogs. The following command will start a default THOR scan
 and instructs the Eventlog module to scan only the “Security” and
 “System” Eventlog.
