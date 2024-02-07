@@ -1,10 +1,12 @@
 Special Scan Modes
 ==================
 
-This section describes special scan modes, which might need a
-different license compared to the default THOR license. If you
-have any questions regarding pricing of those licenses, please
-contact our sales department.
+This section describes special purpose scan modes that
+change THOR's mode of operation or activate particular
+features. Some of these modes need a special license
+which is highlighted in the ``note`` box. If you have
+any questions regarding pricing of those licenses,
+please contact our sales department at sales@nextron-systems.com
 
 Lab Scanning
 ------------
