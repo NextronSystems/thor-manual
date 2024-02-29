@@ -138,6 +138,15 @@ Scan Module Names
   :delim: ;
   :header-rows: 1
 
+Scan Module Explanation
+^^^^^^^^^^^^^^^^^^^^^^^
+
+.. csv-table::
+  :file: ../csv/scan-module-explanation.csv
+  :widths: 20, 80
+  :delim: ;
+  :header-rows: 1
+
 Features
 --------
 
