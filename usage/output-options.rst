@@ -155,6 +155,58 @@ There are three different Key Value Pair Formatting flags:
    * - Key/Value Pairs - With "--keyval" parameter
    * - Jul 10 09:07:59 PROMETHEUS/10.0.2.15 THOR : Alert: MODULE="SHIMCache" MESSAGE="Malware name found in Shim Cache Entry" ENTRY="C:\\Users\\neo\\Desktop\\ncat.exe" KEYWORD="\\\\ncat\\.exe" DATE="07/29/13 05:16:04" TYPE="system" HIVEFILE="None" EXTRAS="N/A N/A True"
 
+Audit trail
+^^^^^^^^^^^
+
+Audit trail output is available starting from THOR 10.8.
+
+It contains different output from the other output options. Usually, THOR only prints elements (e.g. files, or registry entries)
+that have been matched on by some signature. Audit trail mode, on the other hand, contains _all_ scanned elements, even those that THOR considers inconspicious,
+as well as their (known) connections to each other.
+
+This information can be used to visualize these elements, and help with grouping suspicious elements or laterally finding more suspicious elements.
+
+.. warning::
+
+   Audit trail output comes with an overhead since THOR usually does not calculate all the information contained in the audit trail.
+
+Output format
+~~~~~~~~~~~~~
+Audit trail output is a gzipped JSON file. The file can be specified with ``--audit-trail my-target-file.json.gz``.
+
+The file contains newline delimited JSON. where each contained JSON object follows the following schema:
+
+.. code-block:: json
+
+   {
+      "id": "string",
+      "details": {
+         ...
+      },
+      "timestamps": {
+         ...
+      },
+      "reasons": [
+         {
+            "summary": "string",
+            "score": "int",
+            ...
+         }
+      ],
+      "references": [
+         {
+            "target-id": "string"
+         }
+      ]
+   }
+
+- ``id`` contains a unique ID for the element that was matched on
+- ``details`` contains the element that was matched on
+- ``timestamps`` contains all timestamps found within this element
+- ``reasons`` contains a list of signatures that matched on this element
+- ``references`` contains a list of IDs of other elements that this element referred to in some way
+
+
 Timestamps
 ^^^^^^^^^^
 
