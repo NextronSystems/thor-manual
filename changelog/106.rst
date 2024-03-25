@@ -1,6 +1,36 @@
 THOR 10.6 (Stable)
 ##################
 
+THOR Version 10.6.24
+~~~~~~~~~~~~~~~~~~~~
+
+.. list-table::
+    :header-rows: 1
+    :widths: 15, 85
+
+    * - Type
+      - Description
+    * - Bugfix
+      - Fix an issue where ``--lowprio`` and ``--verylowprio`` were not working correctly on Linux
+
+THOR Version 10.6.23
+~~~~~~~~~~~~~~~~~~~~
+
+.. list-table::
+    :header-rows: 1
+    :widths: 15, 85
+
+    * - Type
+      - Description
+    * - Bugfix
+      - Fix an issue where unicode characters in file names could cause panics
+    * - Bugfix
+      - Fix an issue where corrupt archive files could cause panics
+    * - Bugfix
+      - Fix an issue where the 32-bit version of THOR for Linux crashed when loading the signatures
+    * - Bugfix
+      - Fix an issue where the NetworkShares module incorrectly reported an error
+
 THOR 10.6.22
 ~~~~~~~~~~~~
 

@@ -1,6 +1,107 @@
 THOR 10.7 (Techpreview)
 #######################
 
+THOR Version 10.7.14
+~~~~~~~~~~~~~~~~~~~~
+
+.. list-table::
+    :header-rows: 1
+    :widths: 15, 85
+
+    * - Type
+      - Description
+    * - Feature
+      - New ``--max-reasons`` flag to limit the shown number of reasons per message. This flag replaces ``--allreasons``, which will still work, but is now deprecated.
+    * - Bugfix
+      - Fix an issue where the 32-bit version of THOR for Linux crashed when loading the signatures
+    * - Bugfix
+      - Fix an issue where large /etc/hosts files could cause extremely long scan times
+    * - Bugfix
+      - Fix an issue where entries in /etc/hosts that mapped multiple hostnames to the same IP address could cause hard-to-read log entries
+
+THOR Version 10.7.13
+~~~~~~~~~~~~~~~~~~~~
+
+.. list-table::
+    :header-rows: 1
+    :widths: 15, 85
+
+    * - Type
+      - Description
+    * - Feature
+      - New ``--max-hits`` flag to limit the number of hits per IOC or YARA rule
+    * - Feature
+      - ``--eventlog-target`` now supports '*' as a target
+    * - Change
+      - Memory dump files are now scanned with process memory YARA rules rather than the default YARA rules
+    * - Change
+      - Update to Golang v1.20.13
+    * - Bugfix
+      - ``--lab --collector`` now activates the artifact collector, as intended
+    * - Bugfix
+      - Fix an issue where THOR could crash during initialization
+    * - Bugfix
+      - Dataless files on MacOS are now ignored
+    * - Bugfix
+      - Fix an issue where some network drives on Linux were scanned even if ``--alldrives`` was not activated
+    * - Bugfix
+      - Fix an issue where THOR for Linux could crash in the 'Crontab' module
+    * - Bugfix
+      - Fix an issue where some eventlogs could cause a crash in the 'Eventlog' module
+    * - Bugfix
+      - Fix an issue where, if an error occurred when reading a file, incorrect file hashes were displayed
+
+THOR Version 10.7.12
+~~~~~~~~~~~~~~~~~~~~
+
+.. list-table::
+    :header-rows: 1
+    :widths: 15, 85
+
+    * - Type
+      - Description
+    * - Bugfix
+      - Fix an issue where a high number of mutexes could cause a crash in THOR
+
+THOR Version 10.7.11
+~~~~~~~~~~~~~~~~~~~~
+
+.. list-table::
+    :header-rows: 1
+    :widths: 15, 85
+
+    * - Type
+      - Description
+    * - Bugfix
+      - Fix an issue where THOR could hang when scanning specific processes on Linux
+
+THOR Version 10.7.10
+~~~~~~~~~~~~~~~~~~~~
+
+.. list-table::
+    :header-rows: 1
+    :widths: 15, 85
+
+    * - Type
+      - Description
+    * - Feature
+      - New ``--nommap`` flag to disable memory mapping in features
+    * - Change
+      - Remove action feature due to potential abusability
+    * - Change
+      - Update to Golang v1.20.10
+    * - Change
+      - SFX RAR executables are now extracted using the Archive feature instead of the ExeDecompress feature, which allows access to the filenames within the archive
+    * - Bugfix
+      - Fix an issue where too many open handles on a system could cause a crash
+    * - Bugfix
+      - Fix an issue where a scan exit due to the Rescontrol could cause a deadlock
+    * - Bugfix
+      - Ensure that data is truncated, even if match strings are unusually large
+    * - Bugfix
+      - Fix an issue where the EtwWatcher could crash when finishing
+
+
 THOR 10.7.9
 ~~~~~~~~~~~
 
@@ -41,11 +142,11 @@ THOR 10.7.8
     * - Feature
       - New Artifact Collector module, which allows collection of forensic artifacts from the current system into a ZIP file
     * - Feature
-      - New '--print-signatures-json' flag for JSON output of current signatures
+      - New ``--print-signatures-json`` flag for JSON output of current signatures
     * - Feature
-      - New '--init-selector' and '--init-filter' flags which allow the user to load only a subset of the normal signatures
+      - New ``--init-selector`` and ``--init-filter`` flags which allow the user to load only a subset of the normal signatures
     * - Change
-      - When using '--encrypt', log files are now encrypted as they are written during the THOR scan. This prevents temporary log files, but also makes generation of HTML reports afterwards impossible. Use THOR Util instead to generate HTML reports after decrypting the logs.
+      - When using ``--encrypt``, log files are now encrypted as they are written during the THOR scan. This prevents temporary log files, but also makes generation of HTML reports afterwards impossible. Use THOR Util instead to generate HTML reports after decrypting the logs.
     * - Change
       - Display matches on reverse lookup IP addresses in a better way
     * - Change
@@ -79,15 +180,15 @@ THOR 10.7.6
     * - Type
       - Description 
     * - Feature
-      - Add '--minimum-sigma-level' to specify which Sigma rules should trigger a finding. This defaults to high and is reduced to medium in intense mode, which is the current behaviour.
+      - Add ``--minimum-sigma-level`` to specify which Sigma rules should trigger a finding. This defaults to high and is reduced to medium in intense mode, which is the current behaviour.
     * - Feature
-      - Add '--audit-trail' for detailed log output of THOR scan trails. This feature is experimental so far, and the output and output format may yet change.
+      - Add ``--audit-trail`` for detailed log output of THOR scan trails. This feature is experimental so far, and the output and output format may yet change.
     * - Feature
-      - Add '--background' to adjust THOR log level colors to specific backgrounds. Currently, optimizeds for dark and light backgrounds are available.
+      - Add ``--background`` to adjust THOR log level colors to specific backgrounds. Currently, optimizeds for dark and light backgrounds are available.
     * - Feature
-      - Add '--jsonv2' which changes the JSON output to better reflect the structure of the log entry, with substructures now properly representing parts of the log entry. This also affects Thunderstorm responses when set.
+      - Add ``--jsonv2`` which changes the JSON output to better reflect the structure of the log entry, with substructures now properly representing parts of the log entry. This also affects Thunderstorm responses when set.
     * - Change
-      - Increased default value for '--yara-stack-size' to 32768
+      - Increased default value for ``--yara-stack-size`` to 32768
     * - Change
       - Standardized logging of filename IOC related reasons
     * - Change
@@ -107,7 +208,7 @@ THOR 10.7.5
     * - Feature
       - Add new ETL feature for parsing ETL files
     * - Feature
-      - Add '--vtkey', '--vtmode', and '--vtaccepteula' flag for integration of VirusTotal in THOR
+      - Add ``--vtkey``, ``--vtmode``, and ``--vtaccepteula`` flag for integration of VirusTotal in THOR
     * - Feature
       - Improve progress reports when scanning complex files
     * - Feature
@@ -121,7 +222,7 @@ THOR 10.7.5
     * - Change
       - Upgrade PE-Sieve to v0.3.5
     * - Change
-      - '--print-signatures' now silences the normal initialization output
+      - ``--print-signatures`` now silences the normal initialization output
     * - Change
       - Use mimalloc for YARA allocations on Linux and MacOS
     * - Change
@@ -145,7 +246,7 @@ THOR 10.7.4
     * - Feature
       - ExeDecompress feature is now also supported on Linux
     * - Feature
-      - Added '--lowioprio' flag for lowered IO priority
+      - Added ``--lowioprio`` flag for lowered IO priority
     * - Change
       - Update to Golang v1.19.2
     * - Change
@@ -155,7 +256,7 @@ THOR 10.7.4
     * - Change
       - Modified the scoring formula to further reduce the impact of multiple subscores on the full score. As compensation, the default threshold for alerts has been reduced.
     * - Bugfix
-      - .lnk file processing with '--virtual-map' no longer causes link targets to be scanned without applying the virtual mapping
+      - .lnk file processing with ``--virtual-map`` no longer causes link targets to be scanned without applying the virtual mapping
     * - Bugfix
       - Access faults while reading memory mapped files no longer cause THOR to crash
     * - Bugfix
@@ -239,9 +340,9 @@ THOR 10.7.1
     * - Change
       - THOR will now scan processes even in soft mode, with a maximum process size of 250MB.
     * - Change
-      - '--max_file_size_intense' is now deprecated. Instead, '--max_file_size' should be used.
+      - ``--max_file_size_intense`` is now deprecated. Instead, ``--max_file_size`` should be used.
     * - Change
-      - '--virtual-map' now supports mounts in subpaths on Windows, e.g. as '--virtual-map G:\mount:C'
+      - ``--virtual-map`` now supports mounts in subpaths on Windows, e.g. as ``--virtual-map G:\mount:C``
     * - Change
       - Upgrade PE-Sieve to v0.3.3
     * - Change
@@ -261,7 +362,7 @@ THOR 10.7.0
     * - Feature
       - Change how score is added to avoid cases where scores added up to absurd values
     * - Feature
-      - Support scanning alternate data streams with '--ads'
+      - Support scanning alternate data streams with ``--ads``
     * - Feature
       - Check environment variables of processes
     * - Change
