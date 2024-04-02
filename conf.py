@@ -20,7 +20,6 @@ html_logo = "images/html/thor-logo.png"
 html_favicon = "images/html/favicon.ico"
 html_static_path = ['_static']
 html_css_files = ['css/custom.css',]
-htmlhelp_basename = 'THOR Manual'
 epub_title = project
 epub_exclude_files = ['search.html']
 intersphinx_mapping = {'https://docs.python.org/': None}
