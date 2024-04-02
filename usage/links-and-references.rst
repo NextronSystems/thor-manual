@@ -501,13 +501,13 @@ github.com/prometheus/procfs
 Beats
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-| https://github.com/secDre4mer/beats/v7
-| https://github.com/elastic/beats/v7
+| https://github.com/secDre4mer/beats
+| https://github.com/elastic/beats
 | Licensed by Elasticsearch B.V.
 | Licensed under Apache License 2.0
 
 https://github.com/ulikunitz/xz
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 | Copyright (c) 2014-2020  Ulrich Kunitz
 | Licensed under BSD 2-Clause "Simplified" License

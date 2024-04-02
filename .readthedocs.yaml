@@ -5,6 +5,9 @@ build:
   os: ubuntu-22.04
   tools:
     python: "3.11"
+  jobs:
+    pre_build:
+      - make linkcheck
 
 sphinx:
   configuration: conf.py
@@ -13,4 +16,4 @@ formats: all
 
 python:
   install:
-  - requirements: requirements.txt
+    - requirements: requirements.txt

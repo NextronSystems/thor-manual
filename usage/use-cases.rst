@@ -66,10 +66,8 @@ of AIM, please see the ``aim_cli.exe`` within the program folder for more help.
 FTKImager
 ^^^^^^^^^
 
-Alternatively, you can use the tool `FTKImager <https://accessdata.com/product-download#digital-forever>`_
-to mount your image. In case you plan to use an automated setup in which
-you use scripts to automatically process images, you could try to use
-the old `command line versions of FTKimager <https://accessdata.com/product-download#past-versions>`__.
+Alternatively, you can use the tool `FTKImager <https://www.exterro.com/digital-forensics-software/ftk-imager>`_
+to mount your image.
 
 .. note:: 
   We recommend using Arsenal Image Mounter to mount your images, since we observed better performance

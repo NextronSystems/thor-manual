@@ -356,7 +356,7 @@ THOR reports PE-Sieve results as follows:
   * - Others
     - No Output in THOR   
 
-See the `PE-Sieve documentation <https://hasherezade.github.io/pe-sieve/structt__report.html>`__
+See the `PE-Sieve documentation <https://github.com/hasherezade/pe-sieve/wiki>`__
 for more details on these values.
 
 Multi-Threading
