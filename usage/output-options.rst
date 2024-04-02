@@ -181,16 +181,16 @@ The file contains newline delimited JSON. where each contained JSON object follo
    {
       "id": "string",
       "details": {
-         ...
+         "...": "...",
       },
       "timestamps": {
-         ...
+         "...": "...",
       },
       "reasons": [
          {
             "summary": "string",
             "score": "int",
-            ...
+            "...": "...",
          }
       ],
       "references": [
