@@ -210,14 +210,14 @@ The file contains newline delimited JSON. where each contained JSON object follo
 Timestamps
 ^^^^^^^^^^
 
-Timestamp in all modules use the ANSI standard, which looks like:
+Timestamp in all modules are using the  **ANSI C** format:
 
 .. code-block:: none
 
-   Mon Jan 2 15:04:05 2006
+   Mon Jan  2 15:04:05 2006
    Mon Mar 19 09:04:05 2018
 
-https://flaviocopes.com/go-date-time-format
+https://go.dev/src/time/format.go
 
 UTC
 ~~~
