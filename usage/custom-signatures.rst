@@ -56,7 +56,7 @@ The following tags for simple IOCs are currently supported:
 
 * "**hash**" or "**hashes**"
 
-  * for MD5, SHA1 and SHA256 hashes
+  * for MD5, SHA1 or SHA256 hashes or (since THOR 10.7.6) Imphashs
 
 * "**keyword**" or "**keywords**"
 
@@ -124,8 +124,8 @@ get initialized as hash IOC sets. Either you are assigning a custom score
 to your hashes, or you do not assign a score at all, in which case the
 match will default to a score of 100.
 
-The first column contains your MD5, SHA1 or SHA256 hash. The second column
-contains your comment, if you do not use any scoring. If you choose to use
+The first column contains your MD5, SHA1 or SHA256 hash or (since THOR 10.7.6) an Imphash.
+The second column contains your comment, if you do not use any scoring. If you choose to use
 your own scoring (example below on line 2), the score goes into the second
 column and the comment into the third. Columns are separated by a semicolon
 and hashes are applied case-insensitively. Scoring and comments are optional.
