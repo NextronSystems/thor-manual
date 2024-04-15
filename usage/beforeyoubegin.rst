@@ -200,7 +200,7 @@ intercepted anymore.
    We see massive runtime changes with Windows Defender since April 2021 (+50-100%). 
    It is highly recommended to exclude THOR from scanning when using Windows Defender. 
 
-The quickest way to add an exclusion on a single system is wit the following command
+The quickest way to add an exclusion on a single system is with the following command
 (change the path in ``-ExclusionProcess`` accordingly).
 
 Windows command line:
