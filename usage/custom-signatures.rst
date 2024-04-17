@@ -429,8 +429,10 @@ differentiate them further:
   | Rules are applied to all string checks in many different modules.
 * | Metadata Checks (since THOR 10.6)
   | Tag: **'meta'**
-  | Rules are applied to all files without exception, including directories, symlinks and the like, but can only access the THOR specific external variables (see :ref:`usage/custom-signatures:Additional Attributes`) and the first 100 bytes of the file.
+  | Rules are applied to all files without exception, including directories, symlinks and the like, but can only access the THOR specific external variables (see :ref:`usage/custom-signatures:Additional Attributes`) and the first 2048 bytes of the file.
   | Since THOR 10.6.8: If a metadata rule has the special tag DEEPSCAN, THOR will perform a YARA scan on the full file with the default rule set (see :ref:`usage/custom-signatures:Generic YARA Rules`).
+  | Since THOR 10.7: Symlinks now have their target as the content.
+  | Since THOR 10.8: Directories now have their directory listing (as file names, separated by newlines) as the content.
 
 The following table shows in which modules the specific YARA rules are
 applied to content.
