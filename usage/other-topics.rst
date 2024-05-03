@@ -662,6 +662,7 @@ The ``Archive Scan`` feature supports the following archive types:
 - GZIP (THOR 10.7+)
 - 7ZIP (THOR 10.7+)
 - CAB (THOR 10.7+)
+- BZIP2 (THOR 10.8+)
 
 When scanning a file within any of these file types, THOR will append
 the path within the archive to the archive's own path for scan purposes
