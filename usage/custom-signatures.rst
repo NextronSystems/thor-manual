@@ -329,13 +329,18 @@ Sigma Rules
 Sigma is a generic rule format for detections on log data. Sigma is for
 log data, what Snort is for network packets and YARA is for files.
 
-THOR applies Sigma rules to Windows Eventlogs and log files on disk
-(``.log``). By default, THOR ships with the public Sigma rule set, which
-is maintained by the community at `<https://github.com/SigmaHQ/sigma>`_.
+THOR ships with the public Sigma rule set, which
+is maintained by the community at `<https://github.com/SigmaHQ/sigma>`_,
+as well as additional Nextron internal rules.
 
-To activate Sigma scanning, you have to use the ``--sigma`` command line
-option or perform an ``--intense`` scan. Sigma scanning is not activated
-by default. This behavior may change in the future.
+THOR applies Sigma rules to Windows Eventlogs and log files on disk
+(``.log``). In addition, Sigma rules are used for internal matching against objects
+which THOR encounters.
+
+.. note::
+  To activate Sigma scanning before THOR 10.7, you have to use the ``--sigma``
+  command line option or perform an ``--intense`` scan. Sigma scanning is not
+  activated by default in these versions.
 
 By default only the results of Sigma rules of level critical and high are shown.
 If called with the ``--intense`` flag, medium level rules are applied as well.
@@ -348,8 +353,22 @@ and the ``.yms`` extension for encrypted sigma rules.
 
    Example Sigma match on Windows Eventlog
 
+Sigma matching on THOR output
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Starting with THOR 10.8, Sigma rules can also be written to match
+on THOR content. These rules need to have a logsource with `product: THOR`
+and `service: matched-module`.
+
+The available object types that can be matched on can be listed with
+``--describe-object-type all``. All objects of a specific type can also be
+printed by using ``--log-object-type specificobjecttype``. This can be helpful
+to determine available fields for matching.
+
 Sigma Examples
 ~~~~~~~~~~~~~~
+
+Scanning Logfiles with Sigma
+****************************
 
 Perform a scan with the Sigma rules on the different local Windows
 Eventlogs (``-a Eventlog``)
@@ -364,6 +383,24 @@ LogScan) only
 .. code-block:: doscon
 
    C:\tools\thor>thor64 -a Filesystem -p /var/log –sigma
+
+Matching on Amcache with a custom Sigma rule (THOR 10.8+)
+*********************************************************
+
+.. code-block:: yaml
+
+  title: Detecting execution of malicious hash via Amcache
+  level: critical
+  logsource:
+    product: THOR
+    service: Amcache
+  detection:
+    hash:
+      SHA1: DEADBEEFDEADBEEFDEADBEEFDEADBEEFDEADBEEF
+    filter:
+      PATH|endswith: \benign.exe
+    detection: hash and not filter
+
 
 YARA Rules
 ^^^^^^^^^^
