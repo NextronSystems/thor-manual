@@ -909,6 +909,24 @@ These external variables are:
 
   * The value contains the file size in bytes. It is provided directly by YARA and is not specific to THOR.
 
+* **osversion** (available since THOR 10.6.15)
+
+  * The Windows build number (0 on non-Windows systems)
+
+* **unpack_parent** (available since THOR 10.7.9)
+
+  * The file's origin (e.g. "ZIP" if it was contained in a ZIP file)
+
+* **unpack_source** (available since THOR 10.7.9)
+
+  * The file's origins, separated by ">" (e.g. "EMAIL>ZIP" if it was contained in a ZIP file that was an email attachment)
+
+* **permissions** (available since THOR 10.8)
+
+  * The permissions of the file.
+  * On Unix systems, this is a string representation of the file mode.
+  * On Windows, this contains the DACL of the file, separated with / (e.g "BUILTIN\Users:W / BUILTIN\Administrators:F")
+
 Yara Rule with THOR External Variable:
 
 .. code-block:: yara
