@@ -388,3 +388,55 @@ Not all modules support multi-threading. It is currently supported for:
 * Eventlog
 * Thunderstorm (Thunderstorm License needed)
 * Dropzone (Lab License needed)
+
+Plugins
+-------
+
+Starting with 10.8, THOR supports plugins. They can support a THOR scan in several ways:
+
+* Parsing a file format that THOR does not (yet) support
+* Checking more complex conditions that cannot be written as custom IOCs or rules
+* Extending THOR output in custom, user-defined ways
+* ...
+
+
+Writing a plugin
+^^^^^^^^^^^^^^^^
+
+Plugins are written in Golang. They communicate with THOR via an interface which is defined in
+https://github.com/NextronSystems/thor-plugin.
+
+Plugins must contain an ``Init`` function which is called when THOR starts; at this time, they can
+register `hooks`. Hooks are invoked during the scan whenever something is scanned that fulfills
+the conditions specified for the hook.
+
+When such an element is scanned, the plugin hook is called with that element (e.g. a file), and the
+plugin can now proceed to parse or check this element. It can call specific functions to:
+
+* Log a finding
+* Log an informational message
+* Return data back to THOR for further analysis
+
+Examples can be found at https://github.com/NextronSystems/thor-plugin/tree/master/examples.
+
+.. warning::
+  When a Plugin panics, it can cause the THOR scan to fail. Write your plugins with care.
+
+.. note::
+  Plugins only have access to a subset of the standard library. If more features are required, please
+  let us know.
+
+Using a plugin
+^^^^^^^^^^^^^^
+
+Plugins need to be placed in the ``plugins`` folder in the THOR directory.
+
+Each file in this folder with the ``.go`` extension is executed as a separate plugin.
+
+.. warning::
+  Plugins contain executable code that is run by THOR. For this reason, never run any plugins that do
+  not come from a trusted source.
+
+Disabling plugins
+^^^^^^^^^^^^^^^^^
+To disable all plugins, use ``--no-plugins``.
