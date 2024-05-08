@@ -26,3 +26,9 @@ Cobalt Strike Beacon Parsing;Enabled;Enabled;Enabled;Enabled
 Process Integrity Check [5]_;Disabled;Disabled;Disabled;Enabled
 SHIM Cache Analysis;Enabled;Enabled;Enabled;Enabled
 ETL File Scanning [5]_;Enabled;Enabled;Enabled;Enabled
+VBE Decoding;Enabled;Enabled;Enabled;Enabled
+ICS File Parsing;Enabled;Enabled;Enabled;Enabled
+ShimDB parsing;Enabled;Enabled;Enabled;Enabled
+Tesseract;Enabled;Enabled;Enabled;Enabled
+Jumplist parsing;Enabled;Enabled;Enabled;Enabled
+PS module analysis cache parsing;Enabled;Enabled;Enabled;Enabled

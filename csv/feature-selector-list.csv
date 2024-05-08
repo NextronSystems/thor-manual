@@ -25,3 +25,8 @@ REGISTRYHIVE;RegistryHive;yes
 UNESCAPE;Unescaper;no
 WER;WER;yes
 WMIPERSISTENCE;WMIPersistence;yes
+VBEDECODER;VBE;no
+ICS;ICS;no
+SDB;ShimDB;no
+JUMPLIST;JumpList;no
+PSMODULECACHE;ModuleAnalysisCache;no
