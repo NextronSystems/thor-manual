@@ -439,4 +439,5 @@ Each file in this folder with the ``.go`` extension is executed as a separate pl
 
 Disabling plugins
 ^^^^^^^^^^^^^^^^^
+
 To disable all plugins, use ``--no-plugins``.
