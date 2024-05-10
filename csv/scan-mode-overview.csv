@@ -1,31 +1,30 @@
-Module;Normal;Quick;Soft;Intense   
-File System Scan;;Reduced;
-Registry Scan;;;
-SHIM Cache Scan;;;
-Mutex Check;;;Disabled
-Named Pipes Check;;;
-DNS Cache Check;;;
-Hotfix Check;;Disabled;
-Hosts File Check;;;Disabled
-Firewall Config Check;;Disabled;Disabled
-Network Share Check;;;Disabled
-Logged In Check;Enabled [2]_;;Disabled
-Process Check;;;Reduced [3]_
-Service Check;;;
-Autoruns Check;;;
-Rootkit Check;;;
-LSA Sessions Analysis;;;Disabled
-User Account Check;Enabled [2]_;;
-User Profile Check;Enabled [2]_;Disabled;
-Network Sessions Check;Enabled [2]_;;Disabled
-Scheduled Tasks Analysis;;;
-WMI Startup Check;;;
-At Entries Check;;;
-MFT Analysis;Disabled;Disabled;Disabled;Enabled   
-Eventlog Analysis;;Disabled;
-KnowledgeDB Check;;;
-Environment Variables Check;;;
-Crontab Check;;;
-Integrity Check;;;
-Event Check;;;
-ETW Watcher;;;
+Module;Normal;Quick;Soft;Intense
+At Entries Check;Enabled;Enabled;Enabled;Enabled
+Autoruns Check;Enabled;Enabled;Enabled;Enabled
+Crontab Check;Enabled;Enabled;Enabled;Enabled
+DNS Cache Check;Enabled;Enabled;Enabled;Enabled
+Environment Variables Check;Enabled;Enabled;Enabled;Enabled
+ETW Watcher;Enabled;Enabled;Enabled;Enabled
+Event Check;Enabled;Enabled;Enabled;Enabled
+Eventlog Analysis;Enabled;Disabled;Enabled;Enabled
+File System Scan;Enabled;Reduced;Enabled;Enabled
+Firewall Config Check;Enabled;Disabled;Disabled;Enabled
+Hosts File Check;Enabled;Enabled;Disabled;Enabled
+Hotfix Check;Enabled;Disabled;Enabled;Enabled
+KnowledgeDB Check;Enabled;Enabled;Enabled;Enabled
+Logged In Check [2]_;Enabled;Enabled;Disabled;Enabled
+LSA Sessions Analysis;Enabled;Enabled;Disabled;Enabled
+MFT Analysis;Disabled;Disabled;Disabled;Enabled
+Mutex Check;Enabled;Enabled;Disabled;Enabled
+Named Pipes Check;Enabled;Enabled;Enabled;Enabled
+Network Sessions Check [2]_;Enabled;Enabled;Disabled;Enabled
+Network Share Check;Enabled;Enabled;Disabled;Enabled
+Process Check;Enabled;Enabled;Reduced [3]_;Enabled
+Registry Scan [2]_;Enabled;Enabled;Enabled;Enabled
+Rootkit Check;Enabled;Enabled;Enabled;Enabled
+Scheduled Tasks Analysis;Enabled;Enabled;Enabled;Enabled
+Service Check;Enabled;Enabled;Enabled;Enabled
+SHIM Cache Scan;Enabled;Enabled;Enabled;Enabled
+User Account Check [2]_;Enabled;Enabled;Enabled;Enabled
+User Profile Check [2]_;Enabled;Disabled;Enabled;Enabled
+WMI Startup Check;Enabled;Enabled;Enabled;Enabled

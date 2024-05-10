@@ -120,9 +120,18 @@ OS Module Overview
 Scan Mode Overview
 ^^^^^^^^^^^^^^^^^^
 
+The table below shows you which modules will be active
+with the different scan modes. For OS compatibility, see
+:ref:`usage/scan-modes:os module overview`.
+
+- Normal: THOR without any flags regarding modules or features
+- Quick: THOR scan with ``--quick`` flag
+- Soft: THOR scan with ``--soft`` flag
+- Intense: THOR scan with ``--intense`` flag
+
 .. csv-table::
   :file: ../csv/scan-mode-overview.csv
-  :widths: 20, 20, 20, 20, 20
+  :widths: 28, 18, 18, 18, 18
   :delim: ;
   :header-rows: 1
 
