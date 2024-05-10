@@ -400,7 +400,7 @@ Starting with 10.8, THOR supports plugins. They can support a THOR scan in sever
 * ...
 
 
-Writing a plugin
+Writing a Plugin
 ^^^^^^^^^^^^^^^^
 
 Plugins are written in Golang. They communicate with THOR via an interface which is defined in
@@ -410,7 +410,7 @@ Plugins must contain an ``Init`` function which is called when THOR starts; at t
 register `hooks`. Hooks are invoked during the scan whenever something is scanned that fulfills
 the conditions specified for the hook.
 
-When such an element is scanned, the plugin hook is called with that element (e.g. a file), and the
+When such an element is scanned, the plugin hook is called with that element (e.g., a file), and the
 plugin can now proceed to parse or check this element. It can call specific functions to:
 
 * Log a finding
@@ -420,13 +420,13 @@ plugin can now proceed to parse or check this element. It can call specific func
 Examples can be found at https://github.com/NextronSystems/thor-plugin/tree/master/examples.
 
 .. warning::
-  When a Plugin panics, it can cause the THOR scan to fail. Write your plugins with care.
+  When a plugin panics, it can cause the THOR scan to fail. Write your plugins with care.
 
 .. note::
   Plugins only have access to a subset of the standard library. If more features are required, please
   let us know.
 
-Using a plugin
+Using a Plugin
 ^^^^^^^^^^^^^^
 
 Plugins need to be placed in the ``plugins`` folder in the THOR directory.
@@ -437,7 +437,7 @@ Each file in this folder with the ``.go`` extension is executed as a separate pl
   Plugins contain executable code that is run by THOR. For this reason, never run any plugins that do
   not come from a trusted source.
 
-Disabling plugins
+Disabling Plugins
 ^^^^^^^^^^^^^^^^^
 
 To disable all plugins, use ``--no-plugins``.
