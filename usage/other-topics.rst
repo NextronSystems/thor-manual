@@ -649,7 +649,7 @@ check:
     manipulations by attackers to block certain security functions or
     intercept connections.
 
-Archive Scan 
+Archive Scan
 ------------
 
 The ``Archive Scan`` feature supports the following archive types:
@@ -659,10 +659,18 @@ The ``Archive Scan`` feature supports the following archive types:
 - TAR
 - TAR + GZIP (.tar.gz)
 - TAR + BZIP2 (.tar.bz2)
-- GZIP (THOR 10.7+)
-- 7ZIP (THOR 10.7+)
-- CAB (THOR 10.7+)
-- BZIP2 (THOR 10.8+)
+- GZIP |thor107req|
+- 7ZIP |thor107req|
+- CAB |thor107req|
+- BZIP2 |thor108req|
+
+.. |thor107req| raw:: html
+
+   <span style="color:blue;font-size:70%;">(THOR 10.7 and later)</span>
+
+.. |thor108req| raw:: html
+
+   <span style="color:blue;font-size:70%;">(THOR 10.8 and later)</span>
 
 When scanning a file within any of these file types, THOR will append
 the path within the archive to the archive's own path for scan purposes
