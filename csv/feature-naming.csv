@@ -51,3 +51,9 @@ Run a user defined command for detected files;Action;per default disabled, use `
 Write a detailed output file with information about all scanned elements;AuditTrail;per default disabled, use ``--audit-trail`` to enable
 Scan memory dump files in chunks;DumpScan;per default disabled, use ``--dumpscan`` to enable
 Scan processes with PE-Sieve to check for process integrity (Windows only);ProcessIntegrity;per default disabled, use ``--processintegrity`` to enable
+Parse ICS files (calendar entries);ICS;
+Decode VBE files (obfuscated VB scripts);VBE;
+Parse Shim databases;ShimDB;
+Check for filesystem anomalies;Tesseract;Use ``--tesseract-model`` to enable
+Parse jumplist files (used by Windows to protocol opened files);JumpList;
+Parse PS module analysis cache (gives information about once loaded PS modules);ModuleAnalysisCache;

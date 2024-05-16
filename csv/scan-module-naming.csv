@@ -29,3 +29,4 @@ Crontab Check;Cron;
 Integrity Check;Integritycheck;--nointegritycheck
 Event Check;Events;--noevents
 ETW Watcher;EtwWatcher;--noetwwatcher
+Timestomp Check;Timestomp;--notimestomp
