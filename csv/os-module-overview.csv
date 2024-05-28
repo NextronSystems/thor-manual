@@ -29,3 +29,4 @@ Crontab Check;Not Supported;Supported;Not Supported
 Integrity Check;Not Supported;Supported;Not Supported
 Event Check;Supported;Not Supported;Not Supported
 ETW Watcher;Supported;Not Supported;Not Supported
+Antivirus;Supported;Not Supported;Not Supported
