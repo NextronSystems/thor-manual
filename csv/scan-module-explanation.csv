@@ -26,4 +26,5 @@ AtJobs;The **AtJobs** module analyses the local user jobs and just lists them in
 ScheduledTasks;The **ScheduledTasks** module analyses the local user at jobs and just lists them in "Info" level messages and applies the global string check on the command line.
 Rescontrol;The **Rescontrol** (Resource Control) module generates "Warning" level messages in cases a resource limit has been reached. In most of the cases, this is caused by very low free main memory levels or false positives that generated many SYSLOG messages. Resource control is active by default and can be deactivated with (``--norescontrol``).
 DeepDive;A **DeepDive** on memory images or disk space cannot be analyzed by THOR events alone. You typically need the memory dumps or restored chunks to evaluate the findings. This typically takes a lot more time, know-how and effort to complete.We recommend the analysis of DeepDive module events only in case other indicators give a sufficient initial suspicion.
-Rootkit;
+Rootkit;The **Rootkit** module checks for various (OS dependent) rootkit indicators, e.g. DoublePulsar on Windows, or Drovorub on Linux.
+Antivirus;The **Antivirus** module lists the installed Antivirus products and (for Windows Defender) the existing exclusions.
