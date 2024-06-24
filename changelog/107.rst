@@ -1,6 +1,38 @@
 THOR 10.7 (Techpreview)
 #######################
 
+THOR Version 10.7.16
+~~~~~~~~~~~~~~~~~~~~
+
+.. list-table::
+    :header-rows: 1
+    :widths: 15, 85
+
+    * - Type
+      - Description
+    * - Change
+      - ``--maxsysloglength``, ``--rfc3164``, ``--rfc5424`` and ``--rfc`` no longer apply to syslog outputs with JSON formatted outputs (since the truncated output would be invalid JSON)
+    * - Bugfix
+      - Fix an issue where simultaneous truncation on a currently scanned file could cause a crash
+
+THOR Version 10.7.15
+~~~~~~~~~~~~~~~~~~~~
+
+.. list-table::
+    :header-rows: 1
+    :widths: 15, 85
+
+    * - Type
+      - Description
+    * - Feature
+      - Shell completions can now be generated for bash, zsh, fish and powershell with ``--completions``
+    * - Feature
+      - Multithreading is now available for all license types (use ``--threads`` to set the number of threads)
+    * - Bugfix
+      - Fix an issue where usage of ``--syslog`` with CEF output caused a crash
+    * - Bugfix
+      - Apply '--max-hits' to Timestomp module
+
 THOR Version 10.7.14
 ~~~~~~~~~~~~~~~~~~~~
 
