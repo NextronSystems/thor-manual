@@ -1,6 +1,18 @@
 THOR 10.6 (Stable)
 ##################
 
+THOR Version 10.6.25
+~~~~~~~~~~~~~~~~~~~~
+
+.. list-table::
+	:header-rows: 1
+	:widths: 15, 85
+
+	* - Type
+	  - Description
+	* - Bugfix
+	  - Fix an issue where Emotet IOC matches could cause a panic
+
 THOR Version 10.6.24
 ~~~~~~~~~~~~~~~~~~~~
 
