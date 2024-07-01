@@ -21,13 +21,13 @@ Follow these steps to complete your first THOR scan
 
 1. Make sure you've read the :doc:`/usage/beforeyoubegin` guide
 2. Open a command line as administrative user
-   
+
    a. Administrator on Windows
    b. root on Linux and macOS
 
 3. Navigate to the folder in which you've extracted the THOR package and placed the license file(s)
 4. Start THOR on your command line
-   
+
    a. ``thor64.exe`` on 64-bit Windows systems
    b. ``thor.exe`` on 32-bit Windows systems
    c. ``thor-linux-64`` on x86-64 Linux systems
@@ -49,7 +49,7 @@ Often Used Parameters
   * - **--soft**
     - Reduce CPU usage, skip all checks that can consume a lot of memory (even if only for a few seconds)
   * - **--quick**
-    - Perform a quick scan (skips Eventlog and checks only the most relevant folders); see :doc:`/usage/scan-modes` 
+    - Perform a quick scan (skips Eventlog and checks only the most relevant folders); see :doc:`/usage/scan-modes`
   * - **-e target-folder**
     - Write all output files to the given folder
 
@@ -68,11 +68,12 @@ Parameters possibly relevant for your Use Case
       Please see :ref:`usage/configuration:cpu limit (--cpulimit)` for more information.
   * - **--allhds**
     - By default THOR scans only the C: partition on Windows machines and other files/folders only
-     
+
       in cases in which some reference points to a different partition (e.g. configured web root of IIS
       is on ``D:\inetpub``, registered service runs from ``D:\vendor\service``)
-  * - **--lookback days**
-      **--globallookback**
+  * - **--lookback <days>**
+
+      **--global-lookback**
     - Only check the elements changed or created during the last X days in all available modules (reduces the scan duration significantly)
 
 Risky Flags
@@ -161,37 +162,29 @@ only.
 
   thor64.exe --nohtml --nocsv --nolog -s syslog.server.net
 
-Scan Run on a Single Directory
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Scan a Single Directory
+^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code-block:: none
 
-  thor64.exe --lab -p C:\ProgramData
-  thor64.exe --lab -p I:\mounted\_image\disk1
+  thor64.exe -a Filescan -p C:\temp
 
-.. important::
-  This feature requires a `forensic lab license <https://www.nextron-systems.com/2020/11/11/thor-forensic-lab-license-features/>`__
-  type which is meant to be used in forensic labs. 
-
-You can imitate a lab scan without a lab license with these command line flags:
-
-.. code-block:: none 
-
-  thor64.exe -a Filescan --intense --norescontrol --nosoft --cross-platform -p C:\ProgramData
-
-Save the result files to a different directory 
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Change the output directory
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code-block:: none
 
-  thor64.exe -s 10.1.5.14 -e Z:\
+  thor64.exe -e Z:\
 
-Only scan the last 7 days of the Windows Eventlog and log files on disk 
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Only scan the last 7 days of (Windows) Event Logs
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code-block:: none
 
   thor64.exe --lookback 7
+
+By default the ``--lookback`` flag/value only applies to (Windows) Event Logs.
+To apply it to all modules, use the ``--global-lookback`` flag.
 
 Scan System with Defaults and Make a Surface Scan
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -210,6 +203,10 @@ Intense Scan and DeepDive on a Mounted Image
 The following are two examples on how to scan a mounted image on
 Windows and Linux.
 
+.. important::
+  Lab scanning mode requires a `forensic lab license <https://www.nextron-systems.com/2020/11/11/thor-forensic-lab-license-features/>`__
+  type, which is meant to be used in forensic labs.
+
 Mounted as Drive Z
 ~~~~~~~~~~~~~~~~~~
 
@@ -223,10 +220,6 @@ Mounted as /mnt
 .. code-block:: none
 
   thor64.exe --lab --deepdive -p /mnt
-
-.. important::
-  Lab scanning mode requires a `forensic lab license <https://www.nextron-systems.com/2020/11/11/thor-forensic-lab-license-features/>`__
-  type, which is meant to be used in forensic labs. 
 
 Scan Multiple Paths
 ^^^^^^^^^^^^^^^^^^^
@@ -245,10 +238,10 @@ Scan All Hard Drives (Windows Only)
 
   thor64.exe --allhds
 
-Don't Scan Recursively 
+Don't Scan Recursively
 ^^^^^^^^^^^^^^^^^^^^^^
 
-To instruct THOR to scan a folder non-recursively use the ``:NOWALK`` suffix. 
+To instruct THOR to scan a folder non-recursively use the ``:NOWALK`` suffix.
 
 .. code-block:: none
 
@@ -264,7 +257,7 @@ section :ref:`usage/scan-modes:scan module names`.
 Run a Rootkit check only:
 
 .. code-block:: none
-   
+
   thor64.exe -a Rootkit
 
 Run the Eventlog and file system scan:
@@ -315,7 +308,7 @@ By understanding the proper utilization of Init Selectors and Init
 Filters, users can optimize their scanning process and effectively
 identify targeted threats.
 
-The main advantages of a reduced signature set are: 
+The main advantages of a reduced signature set are:
 
 - improved scan speed
 - lower memory usage
@@ -323,15 +316,15 @@ The main advantages of a reduced signature set are:
 PE-Sieve Integration
 --------------------
 
-THOR integrates `PE-Sieve <https://github.com/hasherezade/pe-sieve>`__, 
-an open-source tool by @hasherezade to check for malware masquerading 
+THOR integrates `PE-Sieve <https://github.com/hasherezade/pe-sieve>`__,
+an open-source tool by @hasherezade to check for malware masquerading
 as benevolent processes.
 
-PE-Sieve can be activated by using the ``--processintegrity`` flag. It 
-runs on Windows as part of the ProcessCheck module and is capable of 
+PE-Sieve can be activated by using the ``--processintegrity`` flag. It
+runs on Windows as part of the ProcessCheck module and is capable of
 detecting advanced techniques such as Process Doppelganging.
 
-When investigating infections, you can also raise 
+When investigating infections, you can also raise
 the sensitivity of the integrated PE-Sieve beyond the default with
 ``--full-proc-integrity`` (at the cost of possible false positives).
 
@@ -342,7 +335,7 @@ THOR reports PE-Sieve results as follows:
   :widths: 50, 50
 
   * - Findings
-    - THOR's Reporting Level 
+    - THOR's Reporting Level
   * - Replaced PE File
     - Warning
   * - Implanted PE File
@@ -354,7 +347,7 @@ THOR reports PE-Sieve results as follows:
   * - IAT Hooked
     - Notice
   * - Others
-    - No Output in THOR   
+    - No Output in THOR
 
 See the `PE-Sieve documentation <https://github.com/hasherezade/pe-sieve/wiki>`__
 for more details on these values.
