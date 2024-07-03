@@ -214,7 +214,7 @@ In THOR v10.5 we've extended this feature to include all applicable
 modules, including "FileScan", "Registry", "Services", "Registry Hives"
 and "EVTX Scan".
 
-By setting the flags ``--all-module-lookback --lookback 2`` you instruct
+By setting the flags ``--global-lookback --lookback 2`` you instruct
 THOR to scan only elements that have been created or modified during the
 last 2 days. This reduces the scan duration significantly.
 
