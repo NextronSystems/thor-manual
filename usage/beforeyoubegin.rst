@@ -254,11 +254,13 @@ To do this, navigate on your Mac to ``System Settings`` > ``Privacy & Security``
 You need to add ``thor-macosx`` to the listed application.
 
 .. figure:: ../images/macos_fulldiskaccess_terminal.png
+.. figure:: ../images/macos_fulldiskaccess_terminal.png
    :width: 500
    :alt: Full Disk Access View
 
    Full Disk Access View
 
+After your scan has finished, you can disable FDA for Terminal and reenable when scanning again.
 After your scan has finished, you can disable FDA for Terminal and reenable when scanning again.
 
 Choose The Right THOR Variant 
