@@ -21,5 +21,6 @@ Open Source License Acknowledgements
 
 A up to date list of third-party software components used by
 THOR 10 with open source licensing requirements can be found
-in the file ``./docs/License_Acknowledgement.txt``.
+in the file ``./docs/License_Acknowledgement.txt`` in your
+local THOR package.
 
