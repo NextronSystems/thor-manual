@@ -222,7 +222,7 @@ In general, the following options are not recommended but can help in special sc
     the scan can be resumed, if the same flags (and additional the resume
     flag) are used to start the scan.
 
-* ``--max-runtime 0``
+* ``--max_runtime 0``
 
   * Default is 7 days. Change this value if your scans need more time.
 
@@ -236,9 +236,9 @@ In general, the following options are not recommended but can help in special sc
   * If your scanning system has too little system resources, the softmode
     is automatically enabled. This flag prevents that.
 
-* ``--all-module--lookback --lookback 8``
+* ``--lookback 8 --global-lookback``
 
-  * Only scans files that were modified within the last 8 days. Faster scan
+  * Only scans files that were modified within the last 8 days. Apply Lookback to all modules that support it (not only Eventlog). Faster scan
     time but vulnerable to timestomping attacks.
 
 * ``--diff``

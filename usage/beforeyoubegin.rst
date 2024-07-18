@@ -236,6 +236,32 @@ when running McAfee products. You have to exclude the process in different secti
 (AV, EDR, On-Access). We've compiled a list of exclusions for our ASGARD customers,
 which you can find `here <https://asgard-manual.nextron-systems.com/en/latest/requirements/av_edr.html#mcafee-edr-exclusions>`__.
 
+Grant Full Disk Access on macOS
+-------------------------------
+
+THOR requires Full Disk Access (FDA) for some data like Mail, Messages and certain administrative settings for all users, while scanning macOS, although THOR itself must be executed with administrative privileges.
+
+You can grant FDA to ``Terminal`` (as executing application) on demand while scanning, by allowing access when prompted. Alternatively you can grant access before, to perform the scan unattended. Please keep in mind that also administrative privileges on the machine are needed to perform this change.
+
+To do this, navigate on your Mac to ``System Settings`` > ``Privacy & Security`` > ``Full Disk Access``:
+
+.. figure:: ../images/macos_privacy_and_security.png
+   :width: 500
+   :alt: System Settings View
+
+   System Settings View
+
+You need to add ``thor-macosx`` to the listed application.
+
+.. figure:: ../images/macos_fulldiskaccess_terminal.png
+   :width: 500
+   :alt: Full Disk Access View
+
+   Full Disk Access View
+
+After your scan has finished, you can disable FDA for Terminal and reenable when scanning again.
+After your scan has finished, you can disable FDA for Terminal and reenable when scanning again.
+
 Choose The Right THOR Variant 
 -----------------------------
 
