@@ -239,9 +239,14 @@ which you can find `here <https://asgard-manual.nextron-systems.com/en/latest/re
 Grant Full Disk Access on macOS
 -------------------------------
 
-THOR requires Full Disk Access (FDA) for some data like Mail, Messages and certain administrative settings for all users, while scanning macOS, although THOR itself must be executed with administrative privileges.
+THOR requires Full Disk Access (FDA) for some data like Mail, Messages and certain
+administrative settings for all users, while scanning macOS, although THOR itself
+must be executed with administrative privileges.
 
-You can grant FDA to ``Terminal`` (as executing application) on demand while scanning, by allowing access when prompted. Alternatively you can grant access before, to perform the scan unattended. Please keep in mind that also administrative privileges on the machine are needed to perform this change.
+You can grant FDA to ``Terminal`` (as executing application) on demand while scanning,
+by allowing access when prompted. Alternatively you can grant access before, to perform
+the scan unattended. Please keep in mind that also administrative privileges on the
+machine are needed to perform this change.
 
 To do this, navigate on your Mac to ``System Settings`` > ``Privacy & Security`` > ``Full Disk Access``:
 
@@ -259,7 +264,6 @@ You need to add ``thor-macosx`` to the listed application.
 
    Full Disk Access View
 
-After your scan has finished, you can disable FDA for Terminal and reenable when scanning again.
 After your scan has finished, you can disable FDA for Terminal and reenable when scanning again.
 
 Choose The Right THOR Variant 
