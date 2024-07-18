@@ -6,7 +6,6 @@ version="1.0"
 author = 'Nextron Systems GmbH'
 extensions = [
     'sphinx.ext.autosectionlabel',
-    'sphinx_rtd_theme'
 ]
 templates_path = ['_templates']
 source_suffix = '.rst'
