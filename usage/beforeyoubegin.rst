@@ -256,7 +256,7 @@ To do this, navigate on your Mac to ``System Settings`` > ``Privacy & Security``
 
    System Settings View
 
-You need to add ``thor-macosx`` to the listed application.
+You need to add ``Terminal`` to the listed application.
 
 .. figure:: ../images/macos_fulldiskaccess_terminal.png
    :width: 500
