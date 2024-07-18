@@ -254,7 +254,6 @@ To do this, navigate on your Mac to ``System Settings`` > ``Privacy & Security``
 You need to add ``thor-macosx`` to the listed application.
 
 .. figure:: ../images/macos_fulldiskaccess_terminal.png
-.. figure:: ../images/macos_fulldiskaccess_terminal.png
    :width: 500
    :alt: Full Disk Access View
 
