@@ -19,13 +19,13 @@ Alternatively, you can specify a specific path with ``--licensepath <path>``.
    ASGARD Management Center. Please see chapter :ref:`usage/other-topics:license retrieval`
    for more information about license retrieval.
 
-Generate a License 
+Generate a License
 ^^^^^^^^^^^^^^^^^^
 
 You can generate a valid license in our `customer portal <https://portal.nextron-systems.com/>`__.
 
 Navigate to ``Contracts & Licenses`` > ``My Contracts`` and choose the
-correct Contract Type to generate a new license. You can use ``THOR Workstation`` 
+correct Contract Type to generate a new license. You can use ``THOR Workstation``
 or ``THOR Server & Workstation`` as the License Type.
 
 Here is an Overview of which type of license you need to use:
@@ -59,28 +59,28 @@ if all the hostnames are unique and valid.
 
 For the license generation it is necessary to use the hostname of the system
 which will run THOR. On Windows system you should use the ``computername``
-as hostname during license creation: 
+as hostname during license creation:
 
-.. code-block:: doscon 
+.. code-block:: doscon
 
    C:\Users\nextron>echo %COMPUTERNAME%
    WIN11-TESTING
 
 On Linux use the ``hostname`` command:
 
-.. code-block:: console 
+.. code-block:: console
 
    nextron@unix:~$ hostname
    unix
 
-On macOS use the following command: 
+On macOS use the following command:
 
-.. code-block:: console 
+.. code-block:: console
 
    MacBook:~ nextron$ sysctl kern.hostname
    MacBook
 
-Some more remarks regarding the hostname values: 
+Some more remarks regarding the hostname values:
 
 * Use only the hostname of a FQDN (**master1** of **master1.internal.net**)
 * The casing of the letters doesn't matter (case-insensitive)
@@ -110,20 +110,26 @@ This change has been made to facilitate the rollout using the new host
 based license model.
 
 You can now generate licenses for a big set of systems, store all the
-licenses as ``thor-system1.lic``, ``this-system2.lic``" and so on in
-a sub folder ``./licenses`` and transfer the THOR program folder with
-the "licenses" sub folder to all the different systems, for which you have
-generated licenses and just run the ``thor.exe`` executable.
+licenses (e.g. ``thor-system1.lic``, ``this-system2.lic``, ``...``)
+in a sub folder called ``licenses`` and transfer the THOR program folder with
+the ``licenses`` sub folder to all the different systems, for which you have
+generated licenses and just run the ``thor64.exe`` executable. There is no
+limit on how many license files are placed in this folder.
 
-Upgrade THOR and Update The Signatures 
+You can use this to create one thumb drive for all your systems, or have a
+network share with one version of THOR with all your licenses included.
+Another use case might be the usage of :ref:`usage/deployment:Thor Remote`,
+which requires a license for all remote systems you plan on scanning.
+
+Upgrade THOR and Update The Signatures
 --------------------------------------
 
 Run the following command to update THOR and its signatures:
 
 Windows:
 
-.. code-block:: doscon 
-   
+.. code-block:: doscon
+
    C:\nextron\thor>thor-util.exe upgrade
    Jan 10 09:24:20 win11-testing THOR_UTIL: Info: Read configuration from C:\nextron\thor\config\thor-util.yml
 
@@ -152,17 +158,17 @@ Linux:
 
 .. code-block:: console
 
-   nextron@unix:~/Documents/thor$ ./thor-util upgrade                                                                                           
+   nextron@unix:~/Documents/thor$ ./thor-util upgrade
    Jan 10 09:33:10 unix THOR_UTIL: Info: Read configuration from /home/nextron/Documents/thor/config/thor-util.yml
 
-       ________ ______  ___    __  ______________                                   
-      /_  __/ // / __ \/ _ \  / / / /_  __/  _/ /                                   
-       / / / _  / /_/ / , _/ / /_/ / / / _/ // /__                                  
-      /_/ /_//_/\____/_/|_|  \____/ /_/ /___/____/                                  
+       ________ ______  ___    __  ______________
+      /_  __/ // / __ \/ _ \  / / / /_  __/  _/ /
+       / / / _  / /_/ / , _/ / /_/ / / / _/ // /__
+      /_/ /_//_/\____/_/|_|  \____/ /_/ /___/____/
 
-      Copyright by Nextron Systems GmbH, 2021                                       
-      v1.10.6+thor10.6.19                                                           
-                                                                             
+      Copyright by Nextron Systems GmbH, 2021
+      v1.10.6+thor10.6.19
+
    Jan 10 09:33:10 unix THOR_UTIL: Info: Starting Upgrade Process
    Jan 10 09:33:10 unix THOR_UTIL: Info: License file found OWNER: Rick Roll TYPE: client STARTS: 2023/01/10 EXPIRES: 2023/08/14
    Jan 10 09:33:10 unix THOR_UTIL: Info: Downloading 'thor-linux'
@@ -176,12 +182,12 @@ Linux:
    Jan 10 09:33:11 unix THOR_UTIL: Info: already up-to-date
 
 It is **important** that you update THOR after you have downloaded it from
-the customer portal, since the packages do not contain the newest signature files. 
+the customer portal, since the packages do not contain the newest signature files.
 (caused by internal integrity checks)
 
 .. note::
-   The upgrade requires a valid license for the host that performs the update. 
-   If you don't want to use a license for that host, ask us for a ``silent license``, 
+   The upgrade requires a valid license for the host that performs the update.
+   If you don't want to use a license for that host, ask us for a ``silent license``,
    which can be used for all kinds of testing purposes and also allows to update THOR
    and its signatures.
 
@@ -196,16 +202,16 @@ The Antivirus exclusion could also lead to a significant runtime
 reduction, since access to processes memory and files will not get
 intercepted anymore.
 
-.. note:: 
-   We see massive runtime changes with Windows Defender since April 2021 (+50-100%). 
-   It is highly recommended to exclude THOR from scanning when using Windows Defender. 
+.. note::
+   We see massive runtime changes with Windows Defender since April 2021 (+50-100%).
+   It is highly recommended to exclude THOR from scanning when using Windows Defender.
 
 The quickest way to add an exclusion on a single system is with the following command
 (change the path in ``-ExclusionProcess`` accordingly).
 
 Windows command line:
 
-.. code-block:: doscon 
+.. code-block:: doscon
 
    C:\Users\nextron>powershell -ep bypass -Command "Add-MpPreference -ExclusionProcess 'c:\temp\thor\thor64.exe'"
 
@@ -266,12 +272,12 @@ You need to add ``Terminal`` to the listed application.
 
 After your scan has finished, you can disable FDA for Terminal and reenable when scanning again.
 
-Choose The Right THOR Variant 
+Choose The Right THOR Variant
 -----------------------------
 
-We offer THOR in different variants. 
+We offer THOR in different variants.
 
-* THOR 
+* THOR
 * THOR TechPreview
 * THOR Legacy (limited support and compatibility)
 
@@ -286,31 +292,31 @@ THOR
 The default version of THOR is the most stable version, intensively tested and
 without any broadly tested performance and detection tweaks.
 
-The default version should be used for: 
+The default version should be used for:
 
 * Scan sweeps on hundreds or thousands of systems
 * Continuous compromise assessments on hundreds or thousands of systems
 * Systems with high requirements on stability
 
-THOR TechPreview 
+THOR TechPreview
 ^^^^^^^^^^^^^^^^
 
 The TechPreview version is focussed on detection and speed. This
 `blog post <https://www.nextron-systems.com/2020/08/31/introduction-thor-techpreview/>`__
-contains more information on the differences. 
+contains more information on the differences.
 
-The TechPreview version should be used for: 
+The TechPreview version should be used for:
 
 * Digital forensic lab scanning
-* Dropzone mode scanning 
-* Image scanning 
+* Dropzone mode scanning
+* Image scanning
 * THOR Thunderstorm setups
-* Single system live forensics on systems that don't have highest priority on stability 
+* Single system live forensics on systems that don't have highest priority on stability
 
 You can find the information on how to get the TechPreview version in
 the `THOR Util manual <https://thor-util-manual.nextron-systems.com/en/latest/usage/download-packages.html#thor-techpreview-version>`__.
 
-THOR Legacy 
+THOR Legacy
 ^^^^^^^^^^^
 
 THOR Legacy is a stripped down version that includes all modules that can be used
@@ -318,7 +324,7 @@ on outdated operating systems. This
 `blog post <https://www.nextron-systems.com/2020/12/17/thor-10-legacy-for-windows-xp-and-windows-2003/>`__
 contains more information on the legacy version.
 
-The legacy version lacks: 
+The legacy version lacks:
 
 * Diagnostic features of THOR Util
 * UPX unpacking
@@ -363,7 +369,7 @@ our portal (recommended; continue at step 5), or follow these steps:
 
 6. Place your Legacy license inside this folder and start using THOR Legacy
 
-Choose The Right Architecture 
+Choose The Right Architecture
 -----------------------------
 
 You will find a 32 and 64 bit version of the executable in the program folder. Never run
@@ -373,7 +379,7 @@ on disk and registry versions).
 
 Make sure to run the correct binary for your target architecture.
 
-Choose The Right Command Line Flags 
+Choose The Right Command Line Flags
 -----------------------------------
 
 The recommended way to run THOR has already been put into the default. So, the recommended
@@ -416,15 +422,15 @@ You can verify the executable files in the THOR package with
 * thor-util's "verify" feature
 * openssl verifying the integrity of executables manually
 
-Find more information on THOR Util in its dedicated `online manual <https://thor-util-manual.nextron-systems.com>`__. 
+Find more information on THOR Util in its dedicated `online manual <https://thor-util-manual.nextron-systems.com>`__.
 
 .. hint::
-   THOR Util automatically verifies the signatures of the contained 
+   THOR Util automatically verifies the signatures of the contained
    binaries in an update package and exits if one or more signatures cannot
-   be verified. You don't have to check them manually unless you distrust 
+   be verified. You don't have to check them manually unless you distrust
    the THOR Util itself. In this case, you can use the public key published
    on `our web page <https://www.nextron-systems.com/pki/>`__.
-   
+
 After downloading the public key the signatures can be manually verified with the following command:
 
 .. code-block:: doscon
@@ -434,7 +440,7 @@ After downloading the public key the signatures can be manually verified with th
 Example Windows:
 
 .. code-block:: doscon
-   
+
    C:\Users\nextron>openssl dgst -sha256 -verify codesign.pem -signature thor64.exe.sig thor64.exe
    Verified OK
 
