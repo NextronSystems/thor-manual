@@ -84,7 +84,7 @@ to verify if everything is working as expected.
 Unsupported
 ^^^^^^^^^^^
 
-* VMWare ESX - `https://kb.vmware.com/s/article/1036544 <https://kb.vmware.com/s/article/1036544>`__
+* VMWare ESX - see https://knowledge.broadcom.com/external/article?legacyId=1036544
 * many others 
 
 If you need to perform an analysis on unsupported operating systems or architectures, contact us
