@@ -5,7 +5,7 @@ Before You Begin
 Before you begin to use THOR for the first time, you should read through
 this section to get a better understanding of what is needed to use THOR.
 
-In the following chapters you should learn how THOR works.
+In the following chapters, you should learn how THOR works.
 
 Add License File
 ----------------
@@ -57,8 +57,8 @@ if all the hostnames are unique and valid.
 
    Generate a License in the Portal
 
-For the license generation it is necessary to use the hostname of the system
-which will run THOR. On Windows system you should use the ``computername``
+For the license generation, it is necessary to use the hostname of the system
+which will run THOR. On a Windows system, you should use the ``computername``
 as hostname during license creation:
 
 .. code-block:: doscon
@@ -203,7 +203,7 @@ reduction, since access to processes memory and files will not get
 intercepted anymore.
 
 .. note::
-   We see massive runtime changes with Windows Defender since April 2021 (+50-100%).
+   We have seen massive runtime changes with Windows Defender since April 2021 (+50-100%).
    It is highly recommended to exclude THOR from scanning when using Windows Defender.
 
 The quickest way to add an exclusion on a single system is with the following command
@@ -221,7 +221,7 @@ PowerShell:
 
    PS C:\Users\nextron> Add-MpPreference -ExclusionProcess 'c:\temp\thor\thor64.exe'
 
-For more information visit `https://docs.microsoft.com <https://docs.microsoft.com/en-us/microsoft-365/security/defender-endpoint/configure-process-opened-file-exclusions-microsoft-defender-antivirus?view=o365-worldwide>`__.
+For more information, visit `https://docs.microsoft.com <https://docs.microsoft.com/en-us/microsoft-365/security/defender-endpoint/configure-process-opened-file-exclusions-microsoft-defender-antivirus?view=o365-worldwide>`__.
 
 A Note on SentinelOne
 ^^^^^^^^^^^^^^^^^^^^^
@@ -250,7 +250,7 @@ administrative settings for all users, while scanning macOS, although THOR itsel
 must be executed with administrative privileges.
 
 You can grant FDA to ``Terminal`` (as executing application) on demand while scanning,
-by allowing access when prompted. Alternatively you can grant access before, to perform
+by allowing access when prompted. Alternatively, you can grant access before, to perform
 the scan unattended. Please keep in mind that also administrative privileges on the
 machine are needed to perform this change.
 
@@ -301,7 +301,7 @@ The default version should be used for:
 THOR TechPreview
 ^^^^^^^^^^^^^^^^
 
-The TechPreview version is focussed on detection and speed. This
+The TechPreview version is focused on detection and speed. This
 `blog post <https://www.nextron-systems.com/2020/08/31/introduction-thor-techpreview/>`__
 contains more information on the differences.
 
@@ -311,7 +311,7 @@ The TechPreview version should be used for:
 * Dropzone mode scanning
 * Image scanning
 * THOR Thunderstorm setups
-* Single system live forensics on systems that don't have highest priority on stability
+* Single system live forensics on systems that don't have the highest priority on stability
 
 You can find the information on how to get the TechPreview version in
 the `THOR Util manual <https://thor-util-manual.nextron-systems.com/en/latest/usage/download-packages.html#thor-techpreview-version>`__.
@@ -319,7 +319,7 @@ the `THOR Util manual <https://thor-util-manual.nextron-systems.com/en/latest/us
 THOR Legacy
 ^^^^^^^^^^^
 
-THOR Legacy is a stripped down version that includes all modules that can be used
+THOR Legacy is a stripped-down version that includes all modules that can be used
 on outdated operating systems. This
 `blog post <https://www.nextron-systems.com/2020/12/17/thor-10-legacy-for-windows-xp-and-windows-2003/>`__
 contains more information on the legacy version.
@@ -372,9 +372,9 @@ our portal (recommended; continue at step 5), or follow these steps:
 Choose The Right Architecture
 -----------------------------
 
-You will find a 32 and 64 bit version of the executable in the program folder. Never run
-the 32bit version of THOR named ``thor.exe`` on 64bit system. The 32bit version has some
-limitations that the 64bit version doesn't have (memory usage, sees different folders
+You will find a 32 and 64-bit version of the executable in the program folder. Never run
+the 32-bit version of THOR named ``thor.exe`` on a 64-bit system. The 32-bit version has some
+limitations that the 64-bit version doesn't have (memory usage, sees different folders
 on disk and registry versions).
 
 Make sure to run the correct binary for your target architecture.
