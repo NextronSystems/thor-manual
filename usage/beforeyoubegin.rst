@@ -7,12 +7,16 @@ this section to get a better understanding of what is needed to use THOR.
 
 In the following chapters, you should learn how THOR works.
 
-Add License File
-----------------
+Licensing
+---------
 
-Place a valid license file into the THOR program folder. THOR checks the
-program folder and all sub folder for valid license files (``*.lic``).
-Alternatively, you can specify a specific path with ``--licensepath <path>``.
+THOR needs a valid license to run. After you :ref:`usage/beforeyoubegin:generate
+a license`, place the license file in the THOR program folder. THOR checks the
+program folder and all sub folders for valid license files (``*.lic``).
+Alternatively, you can specify a path to search in with ``--licensepath
+<path>``. For details, refer to :ref:`usage/beforeyoubegin:About License Files`.
+For automation purposes, THOR also supports :ref:`usage/beforeyoubegin:license
+injection via environment`.
 
 .. tip::
    THOR is also able to fetch licenses from our licensing portal or a local
@@ -120,6 +124,22 @@ You can use this to create one thumb drive for all your systems, or have a
 network share with one version of THOR with all your licenses included.
 Another use case might be the usage of :ref:`usage/deployment:Thor Remote`,
 which requires a license for all remote systems you plan on scanning.
+
+License Injection via Environment
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Instead of dealing with license files, you can provide a specific license via
+the execution environment of THOR. This is particularly useful for automation
+purposes, e.g., if THOR is run in a nested environment like a container.
+
+Use a valid license file to store its content as a base64-encoded string in the
+environment variable ``THOR_LICENSE``:
+
+.. code-block:: console
+
+   nextron@unix:~$ export THOR_LICENSE=$(base64 < /path/to/thor.lic)
+
+Then run THOR as usual.
 
 Upgrade THOR and Update The Signatures
 --------------------------------------
