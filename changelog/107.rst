@@ -1,8 +1,26 @@
 THOR 10.7 (Techpreview)
 #######################
 
-THOR Version 10.7.16
-~~~~~~~~~~~~~~~~~~~~
+THOR 10.7.17
+~~~~~~~~~~~~
+
+.. list-table::
+    :header-rows: 1
+    :widths: 15, 85
+
+    * - Type
+      - Description
+    * - Feature
+      - New ``--dropzone-delay`` flag to specify the delay between the last write to a file in the dropzone and the scan (to avoid scanning files that are still being written)
+    * - Change
+      - Add support for more sigma modifiers
+    * - Bugfix
+      - Fix an issue where remote IP / port weren't show in some ProcessConnection messages
+    * - Bugfix
+      - Fix an issue where THOR would access network paths on Windows even if ``--alldrives`` wasn't set
+
+THOR 10.7.16
+~~~~~~~~~~~~
 
 .. list-table::
     :header-rows: 1
@@ -15,8 +33,8 @@ THOR Version 10.7.16
     * - Bugfix
       - Fix an issue where simultaneous truncation on a currently scanned file could cause a crash
 
-THOR Version 10.7.15
-~~~~~~~~~~~~~~~~~~~~
+THOR 10.7.15
+~~~~~~~~~~~~
 
 .. list-table::
     :header-rows: 1
@@ -33,8 +51,8 @@ THOR Version 10.7.15
     * - Bugfix
       - Apply '--max-hits' to Timestomp module
 
-THOR Version 10.7.14
-~~~~~~~~~~~~~~~~~~~~
+THOR 10.7.14
+~~~~~~~~~~~~
 
 .. list-table::
     :header-rows: 1
@@ -51,8 +69,8 @@ THOR Version 10.7.14
     * - Bugfix
       - Fix an issue where entries in /etc/hosts that mapped multiple hostnames to the same IP address could cause hard-to-read log entries
 
-THOR Version 10.7.13
-~~~~~~~~~~~~~~~~~~~~
+THOR 10.7.13
+~~~~~~~~~~~~
 
 .. list-table::
     :header-rows: 1
@@ -83,8 +101,8 @@ THOR Version 10.7.13
     * - Bugfix
       - Fix an issue where, if an error occurred when reading a file, incorrect file hashes were displayed
 
-THOR Version 10.7.12
-~~~~~~~~~~~~~~~~~~~~
+THOR 10.7.12
+~~~~~~~~~~~~
 
 .. list-table::
     :header-rows: 1
@@ -95,8 +113,8 @@ THOR Version 10.7.12
     * - Bugfix
       - Fix an issue where a high number of mutexes could cause a crash in THOR
 
-THOR Version 10.7.11
-~~~~~~~~~~~~~~~~~~~~
+THOR 10.7.11
+~~~~~~~~~~~~
 
 .. list-table::
     :header-rows: 1
@@ -107,8 +125,8 @@ THOR Version 10.7.11
     * - Bugfix
       - Fix an issue where THOR could hang when scanning specific processes on Linux
 
-THOR Version 10.7.10
-~~~~~~~~~~~~~~~~~~~~
+THOR 10.7.10
+~~~~~~~~~~~~
 
 .. list-table::
     :header-rows: 1

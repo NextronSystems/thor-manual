@@ -6,8 +6,8 @@ THOR 10.8 (Dev)
    for the public. The features and changes listed here are subject
    to change until the final release.
 
-THOR Version 10.8.0
-~~~~~~~~~~~~~~~~~~~
+THOR 10.8.0
+~~~~~~~~~~~
 
 .. list-table::
     :header-rows: 1
