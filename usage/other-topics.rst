@@ -127,59 +127,8 @@ Also note that THOR will never dump lsass.exe to prevent these dumps
 from potentially being used to extract passwords by any attackers.
 
 
-File Collection (Bifrost)
-^^^^^^^^^^^^^^^^^^^^^^^^^
-
-Bifrost v1 with Script-Based Server
-"""""""""""""""""""""""""""""""""""
-
-The ``./tools`` folder in the program directory contains a simple Python
-based file collection server named Bifrost. The script is named
-``bifrost-server.py``.
-
-You can run that script on any internal system with a Python script
-interpreter installed. By default, it uses port 1400/tcp for incoming
-connections but you can use any port you like.
-
-Usage is:
-
-.. code-block:: console
-
-   nextron@unix:~$ python ./bifrost-server.py -h
-   usage: bifrost-server.py [-h] [-d out-dir] [-i ip] [-p port]
-  
-   Bifrost optional arguments:
-  
-   -h, --help  show this help message and exit
-   -d out-dir  Quarantine directory
-   -i ip       IP address to bind to
-   -p port     Port to bind to (tcp, default 1400)
-
-You can run the server script with:
-
-.. code-block:: console
-   
-  nextron@unix:~$ python ./bifrost-server.py
-
-In order to send suspicious file to that server, you have to set some
-command line flags when running THOR, e.g.
-
-.. code-block:: doscon
-   
-  C:\nextron\thor>thor64.exe --bifrostServer myserver
-
-A more complex statement setting a minimum score and custom port would
-look like this:
-
-.. code-block:: doscon
-   
-  C:\nextron\thor>thor64.exe --bifrostServer myserver --bifrost-port 8080 --bifrostLevel 80
-
-THOR will then try to submit all samples with score equal or higher than
-80 to a Bifrost service running on ``myserver`` port 8080/tcp.
-
-Bifrost v2 with ASGARD
-""""""""""""""""""""""
+File Collection (Bifrost v2)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Bifrost v2 cannot be used standalone yet. The required API Key is set by
 ASGARD v2 during initialization and is unknown to a THOR user.
