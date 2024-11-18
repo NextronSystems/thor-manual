@@ -211,8 +211,13 @@ instruct THOR to check only the log entries that have been created in
 the last 3 days.
 
 In THOR v10.5 we've extended this feature to include all applicable
-modules, including "FileScan", "Registry", "Services", "Registry Hives"
-and "EVTX Scan".
+modules:
+
+* ``FileScan:`` Skipping files that are unchanged since the specified lookback period.
+* ``Registry:`` Avoiding redundant analysis of registry keys or entries that have not been modified.
+* ``Services:`` Focusing on service configurations or states that have changed.
+* ``Registry Hives:`` Limiting scanning to hives with updates.
+* ``EVTX Scan:`` Excluding log entries that predate the lookback threshold.
 
 By setting the flags ``--global-lookback --lookback 2`` you instruct
 THOR to scan only elements that have been created or modified during the
