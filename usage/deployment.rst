@@ -433,47 +433,38 @@ playbook depend on this.
 THOR Thunderstorm Service
 -------------------------
 
-The command line flag ``--thunderstorm`` starts THOR as a RESTful web
-service on a given network interface and port. This service receives
-samples and returns a scan result.
+THOR Thunderstorm provides THORs scanning services as a RESTful web
+service. This service receives samples and returns a scan result.
+
+Thunderstorm Deployment
+^^^^^^^^^^^^^^^^^^^^^^^
+
+The THOR package contains a separate binary under ``tools/thunderstorm``.
+This binary, when started, listens on a given network interface and port
+while running THOR in the background. When samples are received, it
+forwards them to THOR for scanning and returns the results.
 
 .. figure:: ../images/image7.png
    :alt: THOR Thunderstorm Overview
 
    THOR Thunderstorm Overview
 
-The service can be started in two scan modes:
-
-* Pure YARA
-* Full-Featured
-
-In the pure YARA mode (``--pure-yara``) THOR Thunderstorm only applies
-the 13,000 internal and all custom YARA rules to the submitted samples.
-It's lightweight and fast.
-
-The full-featured mode is the default. In this mode Thunderstorm also
-parses and analyses Windows Eventlogs (EVTX), registry hives, memory
-dumps, Windows error reports (WER) and more. It's not just a YARA scan,
-but a full forensic processing.
-
-Under normal circumstances, we recommend using the full-featured mode,
-since most files are not of a type that triggers an intense parsing
-function, the processing speed should be similar to the “pure-yara”
-mode.
-
-It is recommended to use "pure-yara" mode in cases in which:
-
-* huge forensic artefacts (EVTX or memory dump files) appear on the source systems and overload the Thunderstorm service
-* deeper forensic parsing, IOC matching or other internal THOR checks aren't needed or wanted
-
-The following table contains all THOR Thunderstorm related command line
-flags:
+The following table contains all Thunderstorm command line flags:
 
 .. csv-table::
   :file: ../csv/thunderstorm.csv
   :widths: 30, 25, 45
   :delim: ;
   :header-rows: 1
+
+
+The underlying THOR instance can be configured with additional flags
+using the THOR template (see :configuration:) to e.g.:
+
+ - Forward logs with ``--syslog``
+ - Specify a custom log location
+ - Disable some features
+ - ...
 
 Service License Type
 ^^^^^^^^^^^^^^^^^^^^
@@ -487,6 +478,11 @@ customers can test the service and its integration into other solutions.
 
 Thunderstorm Collectors
 ^^^^^^^^^^^^^^^^^^^^^^^
+
+There are several collectors, both as binary and as scripts, available in
+`our GitHub repository <https://github.com/NextronSystems/thunderstorm-collector/>`_.
+These collectors can be used to automatically transmit all (or a subset of) files
+from an endpoint to a Thunderstorm instance.
 
 Thunderstorm API Client
 ^^^^^^^^^^^^^^^^^^^^^^^
@@ -614,7 +610,7 @@ system.
 Synchronous and Asynchronous Mode
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-It is also important to mention that THOR Thunderstorm supports two ways
+It is also important to mention that Thunderstorm supports two ways
 to submit samples, a synchronous and an asynchronous mode.
 
 The default is synchronous submission. In this mode, the sender waits
@@ -649,48 +645,10 @@ results and batch submission should be as fast as possible.
 
 
 In asynchronous mode, the Thunderstorm service keeps the samples in a
-queue on disk and processes them one by one as soon as a thread has time
+queue on disk and scans them with THOR as it has time
 to scan them. The number of files in this queue can be queried at the
 status endpoint **/api/status** and checked on the landing page of the
 web GUI.
-
-In environments in which the Thunderstorm service is used to handle
-synchronous and asynchronous requests at the same time, it is possible
-that all threads are busy processing cached asynchronous samples and not
-more synchronous requests are possible.
-
-In this case use the ``--sync-only-threads`` flag to reserve a number of
-threads for synchronous requests. (e.g. ``--threads 40
---sync-only-threads 10``)
-
-Performance Tests
-^^^^^^^^^^^^^^^^^
-
-Performance tests showed the differences between the two submission
-modes.
-
-In Synchronous mode, sample transmission and server processing take
-exactly the same time since the client always waits for the scan result.
-In asynchronous mode, the sample transmission takes much less time, but
-the processing on the server takes a bit longer, since the sever caches
-the samples on disk.
-
-.. list-table::
-   :header-rows: 1
-   :widths: 40, 30, 30
-
-   * - 
-     - Synchronous
-     - Asynchronous
-   * - Client Transmission
-     - 40 minutes
-     - 18 minutes
-   * - Server Processing
-     -
-     - 46 minutes
-   * - Total time
-     - 40 minutes
-     - 46 minutes
 
 SSL/TLS
 ^^^^^^^
