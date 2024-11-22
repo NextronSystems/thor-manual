@@ -210,17 +210,20 @@ and could slow down the processes that would otherwise take all the CPU capacity
 The Perception of a Stalled Scan
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Under certain circumstances the scan may appear stalled but is still running.
-You can always interrupt a scan using CTRL+C that brings THOR into the interrupt
-menu in which you can see the currently scanned element. In case of the "FileScan"
-module, this is a file or folder. In case of the "EventLog" module, this is an
-event with an ID. If you resume the scan by pressing "C" and interrupt it again
-a few minutes later, you should see another element in the interrupt menu.
+Under certain circumstances the scan may appear stalled but is still running. What we usually recommend in cases like this is:
 
-If THOR still processes the same element for several hours, we recommend checking
-that element (size, format, access rights, location).
+1. Press CTRL+C to get into the interrupt prompt and check the currently scanned element.
+2. Continue the scan.
+3. Wait 30 minutes.
+4. Press CTRL+C again and check if it still scans the same element.
 
-**Solution**: Check progress using the interrupt menu (CTRL+C)
+**Solution**:
+
+There are 3 possible outcomes:
+
+a. **It scans the same element:** try to find out why (huge log file, huge registry hive)? Exclude it.
+b. **It scans elements in a particular folder for a long time:** try to find out why (folder with many logs, folder with many files)? Exclude it.
+c. **It doesn't scan the same element or a particular folder:** check the disk content, disk I/O, number of threads used, process monitor, external hard drive speed?
 
 Most Frequent Causes of Failed Scans
 ------------------------------------
