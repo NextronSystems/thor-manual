@@ -442,3 +442,20 @@ parameters:
     - Do not perform any MFT analysis whatsoever (only useful in combination with ``--intense``)
   * - **--maxmftsize MB**
     - The maximum MFT size in Megabytes to process (default: 200 MB)
+
+Pure YARA mode
+--------------
+
+In the pure YARA mode (``--pure-yara``) THOR only applies
+the internal and all custom YARA rules to the submitted samples.
+It's lightweight and fast.
+
+The full-featured mode is the default. In this mode THOR also
+parses and analyses Windows Eventlogs (EVTX), registry hives, memory
+dumps, Windows error reports (WER) and more. It's not just a YARA scan,
+but a full forensic processing.
+
+Under normal circumstances, we recommend using the full-featured mode,
+since most files are not of a type that triggers an intense parsing
+function, the processing speed should be similar to the “pure-yara”
+mode.
