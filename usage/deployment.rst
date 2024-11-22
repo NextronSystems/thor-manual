@@ -480,7 +480,7 @@ Thunderstorm Collectors
 ^^^^^^^^^^^^^^^^^^^^^^^
 
 There are several collectors, both as binary and as scripts, available in
-`our GitHub repository<https://github.com/NextronSystems/thunderstorm-collector/>`_.
+`our GitHub repository <https://github.com/NextronSystems/thunderstorm-collector/>`_.
 These collectors can be used to automatically transmit all (or a subset of) files
 from an endpoint to a Thunderstorm instance.
 
