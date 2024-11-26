@@ -565,7 +565,7 @@ It will only resume the previous scan if
 
 3. You haven't used the flag ``--nothordb``
 
-4. Scan state information is still available (could have been cleared by
+4. Scan state information is still available in THOR DB (could have been cleared by
    running THOR a second time without the ``--resume`` parameter)
 
 You can always clear the resume state and discard an old state by
