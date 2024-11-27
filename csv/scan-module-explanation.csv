@@ -1,7 +1,7 @@
 Module;Explanation
 Filescan;Events reported by the **FileScan** module typically originate from the file system scan. But due to the "Message Enrichment" feature, other modules that include events with full "file path" strings may also produce events of this type (e.g. module ``SHIMCache``, ``Eventlog``).
 SHIMcache;The **SHIM Cache** or AppCompatCache (Application Compatibility Cache) is a special Registry cache containing valuable information, because the cache tracks metadata for binary files that were executed.
-Autoruns;The **Autoruns** module makes use of the command line version of SysInternals Autoruns. It parses the tools output and integrates the output in each log message.
+Autoruns;The **Autoruns** module enumerates common locations for programs running automatically at system startup, analyzes them and logs them.
 LogScan;The **LogScan** module processes ``*.log`` files found on disk line by line (It performs some checks to avoid scanning files that are not ASCII log files, but something else that uses the ``*.log`` extension). Each log line is checked with all file name and keyword IOCs and scanned with the "keyword" and "log" type YARA rules.
 GroupsXML;The **GroupsXML** module is a module that reports on critical security issues related to decryptable passwords in group policy files, that are readable for anyone within a Windows Domain.
 Registry;**Registry** matches can be caused by different signature types: File name IOCs, keywords or YARA signatures matches.
