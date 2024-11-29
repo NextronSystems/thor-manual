@@ -303,7 +303,7 @@ Which THOR version do you use?
 
 Tell us the exact THOR version you are using:
 
-1. For which operating system (Windows, Linux, macOS, AIX)
+1. For which operating system (Windows, Linux, macOS)
 2. For which architecture (32bit, 64bit)
 
 Run ``thor --version`` and copy the resulting text into the email.
