@@ -353,17 +353,6 @@ and the ``.yms`` extension for encrypted sigma rules.
 
    Example Sigma match on Windows Eventlog
 
-Sigma matching on THOR output
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Starting with THOR 10.8, Sigma rules can also be written to match
-on THOR content. These rules need to have a logsource with `product: THOR`
-and `service: matched-module`.
-
-The available object types that can be matched on can be listed with
-``--describe-object-type all``. All objects of a specific type can also be
-printed by using ``--log-object-type specificobjecttype``. This can be helpful
-to determine available fields for matching.
-
 Sigma Examples
 ~~~~~~~~~~~~~~
 
@@ -383,24 +372,6 @@ LogScan) only
 .. code-block:: doscon
 
    C:\tools\thor>thor64 -a Filesystem -p /var/log –sigma
-
-Matching on Amcache with a custom Sigma rule (THOR 10.8+)
-*********************************************************
-
-.. code-block:: yaml
-
-  title: Detecting execution of malicious hash via Amcache
-  level: critical
-  logsource:
-    product: THOR
-    service: Amcache
-  detection:
-    hash:
-      SHA1: DEADBEEFDEADBEEFDEADBEEFDEADBEEFDEADBEEF
-    filter:
-      PATH|endswith: \benign.exe
-    detection: hash and not filter
-
 
 YARA Rules
 ^^^^^^^^^^
@@ -469,7 +440,6 @@ differentiate them further:
   | Rules are applied to all files without exception, including directories, symlinks and the like, but can only access the THOR specific external variables (see :ref:`usage/custom-signatures:Additional Attributes`) and the first 2048 bytes of the file.
   | Since THOR 10.6.8: If a metadata rule has the special tag DEEPSCAN, THOR will perform a YARA scan on the full file with the default rule set (see :ref:`usage/custom-signatures:Generic YARA Rules`).
   | Since THOR 10.7: Symlinks now have their target as the content.
-  | Since THOR 10.8: Directories now have their directory listing (as file names, separated by newlines) as the content.
 
 The following table shows in which modules the specific YARA rules are
 applied to content.
@@ -957,12 +927,6 @@ These external variables are:
 * **unpack_source** (available since THOR 10.7.9)
 
   * The file's origins, separated by ">" (e.g. "EMAIL>ZIP" if it was contained in a ZIP file that was an email attachment)
-
-* **permissions** (available since THOR 10.8)
-
-  * The permissions of the file.
-  * On Unix systems, this is a string representation of the file mode.
-  * On Windows, this contains the DACL of the file, separated with / (e.g "BUILTIN\Users:W / BUILTIN\Administrators:F")
 
 Yara Rule with THOR External Variable:
 

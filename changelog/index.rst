@@ -8,7 +8,6 @@ Current version naming can be found in the index below.
     :maxdepth: 1
     :caption: Contents
 
-    108
     107
     106
     105

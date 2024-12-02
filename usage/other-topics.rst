@@ -611,18 +611,7 @@ The ``Archive Scan`` feature supports the following archive types:
 - GZIP |thor107req|
 - 7ZIP |thor107req|
 - CAB |thor107req|
-- BZIP2 |thor108req|
 
 .. |thor107req| raw:: html
 
    <span style="color:blue;font-size:70%;">(THOR 10.7 and later)</span>
-
-.. |thor108req| raw:: html
-
-   <span style="color:blue;font-size:70%;">(THOR 10.8 and later)</span>
-
-When scanning a file within any of these file types, THOR will append
-the path within the archive to the archive's own path for scan purposes
-(like filename IOCs or YARA rules). For example, an archive ``C:\temp\test.zip``
-containing a file ``path/in/zip.txt`` will cause the simulated path to
-be ``C:\temp\test.zip\path\in\zip.txt``.
