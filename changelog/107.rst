@@ -1,5 +1,7 @@
-THOR 10.7 (Techpreview)
-#######################
+THOR 10.7 (Stable)
+##################
+
+THOR 10.7 is our current stable version.
 
 THOR 10.7.17
 ~~~~~~~~~~~~
