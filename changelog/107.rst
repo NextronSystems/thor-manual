@@ -3,6 +3,20 @@ THOR 10.7 (Stable)
 
 THOR 10.7 is our current stable version.
 
+THOR 10.7.18
+~~~~~~~~~~~~
+
+.. list-table::
+    :header-rows: 1
+    :widths: 15, 85
+
+    * - Type
+      - Description
+    * - Bugfix
+      - Fix an issue where cabinet file extraction could consume more memory than necessary
+    * - Bugfix
+      - Clarify error message if THOR DB file is not writable
+
 THOR 10.7.17
 ~~~~~~~~~~~~
 
