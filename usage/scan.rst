@@ -320,8 +320,9 @@ THOR integrates `PE-Sieve <https://github.com/hasherezade/pe-sieve>`__,
 an open-source tool by @hasherezade to check for malware masquerading
 as benevolent processes.
 
-PE-Sieve can be activated by using the ``--processintegrity`` flag. It
-runs on Windows as part of the ProcessCheck module and is capable of
+PE-Sieve is part of the ProcessIntegrity feature, which can be activated
+by using the ``--processintegrity`` flag. It runs on Windows as part of
+the ProcessCheck module and is capable of
 detecting advanced techniques such as Process Doppelganging.
 
 When investigating infections, you can also raise
