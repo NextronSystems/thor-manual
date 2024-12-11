@@ -284,21 +284,21 @@ The filter values are applied to:
 
 Here are some examples:
 
-.. code-block:: none
+.. code-block:: doscon
 
-  thor64.exe --init-selector ProxyShell
+  C:\thor>thor64.exe --init-selector ProxyShell
 
 You can pass multiple selector keywords separated by comma:
 
-.. code-block:: none
+.. code-block:: doscon
 
-  thor64.exe --init-selector RANSOM,Lockbit
+  C:\thor>thor64.exe --init-selector RANSOM,Lockbit
 
 Or filter a set of signatures that only cause false positives in your environment:
 
-.. code-block:: none
+.. code-block:: doscon
 
-  thor64.exe --init-filter AutoIt
+  C:\thor>thor64.exe --init-filter AutoIt
 
 It is important to note that while these features offer flexibility
 and customization, we recommend utilizing a limited signature set only
@@ -312,6 +312,18 @@ The main advantages of a reduced signature set are:
 
 - improved scan speed
 - lower memory usage
+
+To get a list of all rules contained within the signature set of THOR,
+you can run the following command. Please keep in mind that the output
+is really long, so we recommend to send the console output to a file,
+which makes it easier to search for specific metadata:
+
+.. code-block:: doscon
+
+  C:\thor>thor64.exe --print-signatures > signatures.txt
+
+.. note::
+  The command might take a bit, since the signature set is quite big.
 
 PE-Sieve Integration
 --------------------
