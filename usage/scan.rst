@@ -28,11 +28,11 @@ Follow these steps to complete your first THOR scan
 3. Navigate to the folder in which you've extracted the THOR package and placed the license file(s)
 4. Start THOR on your command line
 
-   a. ``thor64.exe`` on 64-bit Windows systems
-   b. ``thor.exe`` on 32-bit Windows systems
+   a. ``thor64.exe`` on 64bit Windows systems
+   b. ``thor.exe`` on 32bit Windows systems
    c. ``thor-linux-64`` on x86-64 Linux systems
    d. ``thor-linux`` on i386 Linux systems
-   e. ``thor-macos`` on macOS
+   e. ``thor-macosx`` on macOS
 
 5. Wait until the scan has completed (this can take between 20 and 180 minutes)
 6. When the scan is finsihed, check the text log and HTML report in the THOR program directory
