@@ -6,6 +6,8 @@ THOR Website: https://www.nextron-systems.com/thor/
 
 Nextron Customer Portal: https://portal.nextron-systems.com
 
+Nextron Support Portal: https://support.nextron-systems.com
+
 Nextron Software Update Status: https://update1.nextron-systems.com/info.php
 
 YARA Documentation: https://yara.readthedocs.io/
