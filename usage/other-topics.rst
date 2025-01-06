@@ -158,7 +158,7 @@ Resource control is active by default. You can deactivate it using
 Be advised that due to Resource Control, the THOR scan may terminate its
 completion. The scan gets terminated under the following conditions:
 
-1. If the available physical memory drops below 60MB
+1. If the available physical memory drops below 50 MB
 
 2. | If more than 60 MB of log data have been written (disk / syslog)
    | In this case, THOR switches in the "reduced-logging" mode in which it only transmits "Notices, Warnings and Alerts" and after another 4 MB of log data THOR terminates itself in order to prevent log flooding due to a high number of false positives
