@@ -8,7 +8,7 @@ Nextron Customer Portal: https://portal.nextron-systems.com
 
 Nextron Support Portal: https://support.nextron-systems.com
 
-Nextron Software Update Status: https://update1.nextron-sytems.com/info.php
+Nextron Software Update Status: https://update1.nextron-systems.com/info.php
 
 YARA Documentation: https://yara.readthedocs.io/
 
