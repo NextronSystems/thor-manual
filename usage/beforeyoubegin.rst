@@ -290,7 +290,8 @@ You need to add ``Terminal`` to the listed application.
 
    Full Disk Access View
 
-After your scan has finished, you can disable FDA for Terminal and reenable when scanning again.
+.. note::
+   Once your scan is complete, it's strongly recommended to disable Full Disk Access for Terminal and only re-enable it when performing another scan.
 
 Choose The Right THOR Variant
 -----------------------------
