@@ -362,7 +362,7 @@ On Linux:
 
 .. code-block:: console
 
-   user@desktop:~$ uname -a
+   user@desktop:~$ uname -a > uname.txt
 
 On macOS:
 
