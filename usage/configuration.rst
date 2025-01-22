@@ -156,29 +156,28 @@ Exclude Elements
 Files and Directories
 ^^^^^^^^^^^^^^^^^^^^^
 
-You may use the file ``directory-excludes.cfg`` to exclude directories
-and files(! The name of the config file is misleading) from the scan.
+You may use the file ``path-excludes.cfg`` to exclude directories and
+files from the scan.
 
 THOR will not scan the contents of these directories. This
-``directory-excludes.cfg`` config is meant to avoid scanning
-sensitive files like databases or directories with a lot of content. If
-you want to suppress false positives that are generated in these
-directories, please see the following chapter and how to suppress them
-by using ``false_positive_filters.cfg``.
+``path-excludes.cfg`` configuration is meant to avoid scanning sensitive
+files like databases or directories with a lot of content. If you want
+to suppress false positives that are generated in these directories,
+please see the following chapter and how to suppress them by using
+``false_positive_filters.cfg``.
 
 The exclusion file contains regular expressions that are applied to each
 scanned element. Each element consists of the file path and file name
 (e.g. ``C:\IBM\temp_tools\custom.exe``). If one of the defined
 expressions matches, the element is excluded. Exclusions can be defined
-for a full element name, at the beginning at the end or somewhere in the
+for a full element name, at the beginning, at the end or somewhere in the
 element name.
 
 
 .. note::
-        If used in combination with flags like ``--virtual-map`` that change the
-        original path on the filesystem, the
-        exclusions are applied to the real path on the filesystem, not the
-        original path.
+        If used in combination with flags like ``--virtual-map`` that
+        change the original path on the filesystem, the exclusions are
+        applied to the real path on the filesystem, not the original path.
 
         For example, when using ``--virtual-map F:C`` and
         scanning a file located at ``F:\Windows\explorer.exe``,
@@ -193,15 +192,15 @@ characters must be masqueraded by backslash. This applies at least for:
    :header-rows: 1
    :widths: 60, 40
 
-   * - Element to exclude 
-     - Possible solution 
-   * - C:\\IBM\\temp\_tools\\custom.exe  
-     - ``C:\\IBM\\temp_tools\\`` 
+   * - Element to exclude
+     - Possible solution
+   * - C:\\IBM\\temp\_tools\\custom.exe
+     - ``C:\\IBM\\temp_tools\\``
    * - Log folder of the tool "hpsm" regardless on the partition
      - ``\\HPSM\\log\\``
    * - Every file with the extension .nsf
      - ``\.nsf$``
-   * - THOR custom signatures  
+   * - THOR custom signatures
      - ``\\THOR\\custom\-signatures\\``
    * - SQL database
      - ``/var/lib/mysql/``
