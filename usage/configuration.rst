@@ -62,50 +62,54 @@ command line help using ``--help``.
 
    Lookup command line parameter long forms using ``–help``
 
-CPU Limit (--cpulimit)
-----------------------
+CPU Limit (--cpulimit) Explained
+--------------------------------
 
-Since the ``--cpulimit`` behavior can cause some confusion, we will
-explain the functionality of it a bit more in detail here.
+The ``--cpulimit`` argument helps prevent THOR from overloading your
+system's CPU. Here is how it works:
 
-This argument will take an integer (default 95; minimum 15), which
-represents the maximum CPU load at which THOR will be actively scanning.
-The value can be seen as percentage of the systems maximum CPU load.
+- This argument takes a number (default: 95, minimum: 15).
+- The number represents the percentage of total CPU power that, if exceeded, will cause THOR to pause.
+- It considers the entire CPU, not just individual processor cores.
 
-This can be helpful to reduce the load on server systems with real-time
-services, or to reduce the noise produced by fans in laptops.
-      
-The specified value instructs THOR to pause (all scanning), if the load
-of the systems CPU is higher than the ``cpulimit``. One example would be,
-if a user is doing something CPU intensive, and THOR is running at the same
-time, THOR will pause and wait until the CPU load drops below the ``cpulimit``
-before continuing.
+If your system's CPU is constantly under heavy load (above the ``--cpulimit``
+value), THOR will pause its scanning. Once CPU usage drops below the limit,
+THOR will resume automatically.
 
-To illustrate this a bit, please see the table below:
+For example, if ``--cpulimit`` is set to 40:
 
 .. list-table:: --cpulimit 40
    :header-rows: 1
 
-   * - Total CPU load of system
-     - THOR status
+   * - Total CPU Usage
+     - THOR Status
    * - 20 %
-     - running
-   * - 80 % (user is running CPU intensive tools)
-     - paused/idle
+     - Running normally
+   * - 80 % (other programs using CPU)
+     - Paused (waiting)
    * - 30 %
-     - running
+     - Running normally
 
-.. hint::
-   A tool like ``top`` might show values greater than 100% for a running THOR
-   process. Please see ``Irix Mode`` in the man page of
-   ``top``: https://man7.org/linux/man-pages/man1/top.1.html
+.. important::
+   - If you check CPU usage using ``top``, you might see THOR using more
+     than 100%. This is normal due to how CPU usage is measured. See
+     `Irix Mode in top <https://man7.org/linux/man-pages/man1/top.1.html>`__
+
+   - **This setting does not slow down THOR** — it only ensures THOR doesn't
+     interfere with other programs by pausing when CPU usage is high.
+
+Setting ``--cpulimit`` to a low value is often used in systems which are
+idle for a long period of time, but sporadically do CPU heavy work. THOR
+was designed to keep the system's stability as the top priority, so in
+most cases you don't have to change this setting if you are concerned about
+the stability of your system you are trying to scan.
 
 Maximum File Size
 -----------------
 
 The default maximum file size for deeper investigations (hash
 calculation and YARA scanning) is 30 MB. The maximum file size for the
-``-intense`` scan mode is 100 MB.
+``--intense`` scan mode is 100 MB.
 
 You can adjust the values in ``./config/thor.yml``. This file does not
 get overwritten by an update or upgrade.
