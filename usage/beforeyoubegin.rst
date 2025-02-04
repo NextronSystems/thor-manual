@@ -128,18 +128,26 @@ which requires a license for all remote systems you plan on scanning.
 License Injection via Environment
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Instead of dealing with license files, you can provide a specific license via
-the execution environment of THOR. This is particularly useful for automation
-purposes, e.g., if THOR is run in a nested environment like a container.
+Instead of dealing with license files, you can provide a specific license via  
+the execution environment of THOR. This is particularly useful for automation  
+purposes, such as when running THOR in a nested environment like a container.
 
-Use a valid license file to store its content as a base64-encoded string in the
-environment variable ``THOR_LICENSE``:
+A valid license file can be stored as a **base64-encoded string** in the  
+environment variable ``THOR_LICENSE`` and used automatically by THOR.
+
+**Linux**
 
 .. code-block:: console
 
    nextron@unix:~$ export THOR_LICENSE=$(base64 < /path/to/thor.lic)
 
-Then run THOR as usual.
+**Windows**
+
+.. code-block:: powershell
+
+   $env:THOR_LICENSE = [Convert]::ToBase64String([System.IO.File]::ReadAllBytes("C:\path\to\thor.lic")) && thor.exe
+
+Once the environment variable is set, **run THOR as usual**. It will automatically detect and use the provided license.
 
 Upgrade THOR and Update The Signatures
 --------------------------------------
