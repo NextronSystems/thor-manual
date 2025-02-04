@@ -145,7 +145,7 @@ environment variable ``THOR_LICENSE`` and used automatically by THOR.
 
 .. code-block:: powershell
 
-   $env:THOR_LICENSE = [Convert]::ToBase64String([System.IO.File]::ReadAllBytes("C:\path\to\thor.lic")) && thor.exe
+   $env:THOR_LICENSE = [Convert]::ToBase64String([System.IO.File]::ReadAllBytes("C:\path\to\thor.lic"))
 
 Once the environment variable is set, **run THOR as usual**. It will automatically detect and use the provided license.
 
