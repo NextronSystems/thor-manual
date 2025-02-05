@@ -67,6 +67,8 @@ Themed scan modes:
   modules. Diff scans are typically the shortest scans but require a completed previous
   scan. This scan mode is also susceptible to the so-called "Timestomping".
 
+  However, the contents of some APT-relevant folders are scanned again even though no changes have been made to them. This behavior can be adjusted with the ``--force-aptdir-lookback`` flag.
+
 These scan modes can also be combined, e.g. for ``--soft --diff``, though not
 all combinations may make sense, e.g. ``--soft --intense``.
 
