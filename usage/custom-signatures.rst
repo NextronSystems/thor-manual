@@ -920,11 +920,11 @@ These external variables are:
 
   * The Windows build number (0 on non-Windows systems)
 
-* **unpack_parent** (available since THOR 10.7.9)
+* **unpack_parent** (available since THOR 10.7.20)
 
   * The file's origin (e.g. "ZIP" if it was contained in a ZIP file)
 
-* **unpack_source** (available since THOR 10.7.9)
+* **unpack_source** (available since THOR 10.7.20)
 
   * The file's origins, separated by ">" (e.g. "EMAIL>ZIP" if it was contained in a ZIP file that was an email attachment)
 
