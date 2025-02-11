@@ -88,4 +88,4 @@ We have written a detailed Log Analysis Manual which:
 * Lists potential false positives you might encounter
 * And how different attributes are to be evaluated
 
-https://log-analysis-manual.nextron-systems.com/
+https://log-analysis-manual.nextron-systems.com/en/latest/

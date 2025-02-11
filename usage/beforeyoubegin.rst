@@ -249,7 +249,7 @@ PowerShell:
 
    PS C:\Users\nextron> Add-MpPreference -ExclusionProcess 'c:\temp\thor\thor64.exe'
 
-For more information, visit `https://docs.microsoft.com <https://docs.microsoft.com/en-us/microsoft-365/security/defender-endpoint/configure-process-opened-file-exclusions-microsoft-defender-antivirus?view=o365-worldwide>`__.
+For more information, visit `Microsoft <https://learn.microsoft.com/en-us/defender-endpoint/configure-process-opened-file-exclusions-microsoft-defender-antivirus?view=o365-worldwide>`__.
 
 A Note on SentinelOne
 ^^^^^^^^^^^^^^^^^^^^^
@@ -451,14 +451,14 @@ You can verify the executable files in the THOR package with
 * thor-util's "verify" feature
 * openssl verifying the integrity of executables manually
 
-Find more information on THOR Util in its dedicated `online manual <https://thor-util-manual.nextron-systems.com>`__.
+Find more information on THOR Util in its dedicated `online manual <https://thor-util-manual.nextron-systems.com/en/latest/>`__.
 
 .. hint::
    THOR Util automatically verifies the signatures of the contained
    binaries in an update package and exits if one or more signatures cannot
    be verified. You don't have to check them manually unless you distrust
    the THOR Util itself. In this case, you can use the public key published
-   on `our web page <https://www.nextron-systems.com/pki/>`__.
+   on `our web page <https://www.nextron-systems.com/resources/keys/>`__.
 
 After downloading the public key the signatures can be manually verified with the following command:
 

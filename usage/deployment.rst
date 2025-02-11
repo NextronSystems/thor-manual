@@ -265,8 +265,7 @@ the batch file on the network share and runs THOR. Make sure that the
 respective user account has the rights to mount the configured network
 share.
 
-| You can find more information here:
-| https://technet.microsoft.com/en-us/library/cc725745.aspx
+You can find more information `here <https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2008-R2-and-2008/cc725745(v=ws.11)?redirectedfrom=MSDN>`_
 
 Create a Scheduled Task via PsExec
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -345,13 +344,13 @@ the procedure should not depend on the used Linux Distribution.
 Ansible
 ^^^^^^^
 
-The software Ansible (https://www.ansible.com) is a solution to perform
-tasks distributed over a network on different targets. An Open Source
-Version is available as well as a version with commercial support for
-enterprises. Ansible uses SSH to connect to the target hosts and
-performs a defined set of tasks on them called playbooks. Per default it
-uses keys for authentication, but this can be setup differently. Please
-refer to the official documentation for other methods of
+The software `Ansible <https://www.redhat.com/en/ansible-collaborative?intcmp=7015Y000003t7aWQAQ>`__
+is a solution to perform tasks distributed over a network on different
+targets. An Open Source Version is available as well as a version with
+commercial support for enterprises. Ansible uses SSH to connect to the
+target hosts and performs a defined set of tasks on them called playbooks.
+Per default it uses keys for authentication, but this can be setup
+differently. Please refer to the official documentation for other methods of
 authentication. The tasks and the targets can be customized using
 host groups. The host groups may be used to separate different Linux
 distributions. The other steps may remain the same. Within the playbook
@@ -395,7 +394,7 @@ following:
 To learn more about Ansible inventory files and how to use them, please
 refer to the official documentation:
 
-https://docs.ansible.com/ansible/latest/user_guide/intro_inventory.html
+https://docs.ansible.com/ansible/latest/inventory_guide/intro_inventory.html
 
 Ansible Playbook Template
 ^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -570,7 +569,7 @@ Upgrade signatures:
 
    nextron@unix:~$ thor-util upgrade
 
-See the `THOR Util Manual <https://thor-util-manual.nextron-systems.com>`_  manual for details on how to use these functions.
+See the `THOR Util Manual <https://thor-util-manual.nextron-systems.com/en/latest/>`_  manual for details on how to use these functions.
 
 Thunderstorm Update Script
 """"""""""""""""""""""""""
@@ -814,7 +813,7 @@ System Error 5 occurred – Access Denied
 """""""""""""""""""""""""""""""""""""""
 
 See:
-https://helgeklein.com/blog/2011/08/access-denied-trying-to-connect-to-administrative-shares-on-windows-7/
+https://helgeklein.com/blog/access-denied-trying-to-connect-to-administrative-shares-on-windows-7/
 
 Running THOR from a Network Share
 """""""""""""""""""""""""""""""""
@@ -838,7 +837,7 @@ reports have to be analyzed. If the number of collected reports is high,
 we recommend using ASGARD Analysis Cockpit or Splunk with the free App
 and Add-on.
 
-ASGARD Analysis Cockpit: https://portal.nextron-systems.com/webshop/downloads
+ASGARD Analysis Cockpit: https://portal.nextron-systems.com
 
 THOR APT Scanner App: https://splunkbase.splunk.com/app/3717/
 

@@ -889,11 +889,11 @@ These external variables are:
 
 * **timezone**
 
-  * the system's time zone (see https://golang.org/src/time/zoneinfo_abbrs_windows.go for valid values)
+  * the system's time zone (see https://go.dev/src/time/zoneinfo_abbrs_windows.go for valid values)
 
 * **language**
 
-  * the systems language settings (see https://docs.microsoft.com/en-us/windows/win32/intl/sort-order-identifiers)
+  * the systems language settings (see https://learn.microsoft.com/en-us/defender-endpoint/configure-process-opened-file-exclusions-microsoft-defender-antivirus?view=o365-worldwide)
 
 * **owner**
 

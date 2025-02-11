@@ -47,7 +47,7 @@ The THOR Package includes the following files and directories:
      - **thor.exe** and **thor64.exe**, for 32-bit and 64-bit systems respectively
    * - THOR Utility
      - **thor-util.exe**, Helper tool for updates, encryption, report generation,
-       signature verification and other tasks – see `THOR Util Manual <https://thor-util-manual.nextron-systems.com/>`_
+       signature verification and other tasks – see `THOR Util Manual <https://thor-util-manual.nextron-systems.com/en/latest/>`_
    * - Configuration Files
      - In subfolder ``./config`` - (**directory-excludes.cfg**, **sigma.yml**, **false\_positive\_filters.cfg**)
    * - Main Signature Database

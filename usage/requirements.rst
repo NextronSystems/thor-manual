@@ -97,7 +97,7 @@ To download the newest updates for THOR and our signatures, you need an active i
 The endpoint performing the update needs to reach our update servers to do this.
 
 For a detailed and up to date list of our update and licensing
-servers, please visit https://www.nextron-systems.com/hosts/.
+servers, please visit https://www.nextron-systems.com/resources/hosts/.
 
 .. hint::
   You do not need an active internet connection to scan an endpoint. This is only needed

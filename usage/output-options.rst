@@ -405,4 +405,4 @@ decrypt output files encrypted with the default key.
 
    nextron@unix:~$ thor-util decrypt file.txt
 
-For more information on "thor-util" see the separate `THOR Util manual <https://thor-util-manual.nextron-systems.com/>`__.
+For more information on "thor-util" see the separate `THOR Util manual <https://thor-util-manual.nextron-systems.com/en/latest/>`__.
