@@ -8,9 +8,8 @@ Licensing
 ---------
 
 In almost any method of deployment, the provision of valid licenses for the scanners on the endpoints is a core issue.
-Every license is limited to a certain host name. The only exception are the rare and relatively expensive "Incident Response" licenses.
-
-In all other cases, a valid license has to be generated before a scan run.
+Every license is limited to one host (name) only. In any case, a valid license has to be generated before a scan, otherwise
+THOR will exit immediately.
 
 There are numerous options to retrieve a valid license for a host.
 
