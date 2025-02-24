@@ -3,6 +3,22 @@ THOR 10.7 (Stable)
 
 THOR 10.7 is our current stable version.
 
+THOR 10.7.20
+~~~~~~~~~~~~
+
+.. list-table::
+    :header-rows: 1
+    :widths: 15, 85
+
+    * - Type
+      - Description
+    * - Feature
+      - New ``unpack_source`` / ``unpack_parent`` variables are now available in YARA rules and display the previous unpacking steps the matched data went through
+    * - Bugfix
+      - When running with ``--follow-symlinks`` on Windows, don't skip reparse points
+    * - Bugfix
+      - Correctly include both hostname and IP when logging via syslog
+
 THOR 10.7.19
 ~~~~~~~~~~~~
 
