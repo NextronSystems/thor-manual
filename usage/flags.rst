@@ -221,7 +221,7 @@ Output Options
       --suppresspi                                        Suppress all personal information in log outputs to comply with local data protection policies
       --eventlog                                          Log to windows application eventlog
       -x, --min int                                           Only report files with at least this score 
-      --allreasons                                        Show all reasons why a match is considered dangerous (default: only the top 2 reasons are displayed)
+      --max-reasons                                       Show at most X reasons why a match is considered dangerous (default: only the top 2 reasons are displayed, 0 = no limit)
       --printshim                                         Include all SHIM cache entries in the output as 'info' level messages
       --printamcache                                      Include all AmCache entries in the output as 'info' level messages
       -j, --overwrite-hostname string                         Override the local hostname value with a static value (useful when scanning mounted images in the lab. Requires a Forensic Lab license. 
