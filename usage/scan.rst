@@ -76,6 +76,11 @@ Parameters possibly relevant for your Use Case
       **--global-lookback**
     - Only check the elements changed or created during the last X days in all available modules (reduces the scan duration significantly)
 
+.. hint::
+  On Linux, the ``--allhds`` flag does nothing, since THOR already scans all mounted local file system (FS) devices.
+  It does not scan remote file systems such as NFS, SMB, or other network shares **by default** - this has to be
+  explicitly enabled.
+
 Risky Flags
 -----------
 
@@ -231,12 +236,15 @@ Scan Multiple Paths
 .. hint::
    non-existent directories will be automatically skipped
 
-Scan All Hard Drives (Windows Only)
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Scan All Hard Drives
+^^^^^^^^^^^^^^^^^^^^
 
 .. code-block:: none
 
   thor64.exe --allhds
+
+.. hint::
+  This flag only works with Windows
 
 Don't Scan Recursively
 ^^^^^^^^^^^^^^^^^^^^^^
