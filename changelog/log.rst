@@ -1,8 +1,8 @@
-THOR 10.6 (Old Stable)
-######################
+Changelog
+=========
 
 THOR 10.6 is currently still supported, but we advise customers to switch
-to the newest productive version, :ref:`changelog/107:thor 10.7 (Stable)`.
+to the newest productive version, `10.7 <https://thor-manual.nextron-systems.com>`_.
 We will stop supporting 10.6 in the near future.
 
 THOR 10.6.26

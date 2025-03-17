@@ -210,7 +210,7 @@ scoring system is very flexible.
 The total score of an element determines the level/severity of the
 resulting log message.
 
-.. list-table:: THOR <= 10.6
+.. list-table::
   :header-rows: 1
   :widths: 20, 20, 60
 
@@ -226,31 +226,6 @@ resulting log message.
   * - 100
     - Alert
     - At least 1 sub score more than 75
-
-.. list-table:: THOR >= 10.7
-  :header-rows: 1
-  :widths: 20, 20, 60
-
-  * - Score
-    - Level
-    - Condition
-  * - >= 40
-    - Notice
-    - 
-  * - >= 60
-    - Warning
-    - 
-  * - > 80
-    - Alert
-    - At least 1 sub score more than 75
-
-.. note::
-  As of THOR version 10.7, we reworked the scoring system to only
-  use scores between 0 and 100. The score is a metric that expresses
-  a combination of confidence and severity in percent. This means a
-  finding with a score of 95 can be seen as a severe finding with a
-  high confidence. Exceptions might be - as always - obvious false
-  positives like unencrypted or in-memory AV signatures.
 
 Scoring per Signature Type Match
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -276,9 +251,6 @@ Accumulated Scores
 If an element has multiple sub-scores, all sub-scores will be accumulated
 and calculated into one final score. The following chapters show you how
 those scores are calculated.
-
-THOR <= 10.6
-""""""""""""
 
 .. list-table::
   :align: left
@@ -309,46 +281,13 @@ THOR <= 10.6
 
       **Note 1**: This means that multiple matches for a single element are possible
 
-THOR >= 10.7
-""""""""""""
-
-Most modules and features summarize via reasons. Please keep in mind that
-only positive scores and the top two reasons are shown by default. You can
-use ``--allreasons`` to show all positive scores.
-
-Reason scores are not added up for the total score. Instead, given a number
-of scores (s_0, s_1, ...) that are ordered descending. The total score is
-calculated with the following formula:
-
-.. code-block :: none
-
-  100 * (1 - (1 - s_0 / 100 / 2^0) * (1 - s_1 / 100 / 2^1)  * (1 - s_2 / 100 / 2^2) * ...)
-
-This means, scores are "capped" at a maximum of 100, and multiple lower
-scores are weighted far less.
-
-You can use python to calculate the score and try the formula. Please note
-that we use an example with five sub-scores and no sub-score higher than the
-threshold of 75 to turn classify this as an alert:
-
-.. code-block:: python
-
-  subscore0 = 1 - 70 / 100 / pow(2, 0)
-  subscore1 = 1 - 70 / 100 / pow(2, 1)
-  subscore2 = 1 - 50 / 100 / pow(2, 2)
-  subscore3 = 1 - 40 / 100 / pow(2, 3)
-  subscore4 = 1 - 40 / 100 / pow(2, 4)
-  score = 100 * (1 - (subscore0 * subscore1 * subscore2 * subscore3 * subscore4))
-  print(score)
-  84.195859375
-
 Default Scores
 ^^^^^^^^^^^^^^
 
 If no score is set in an "alert" or "warning" message, THOR
 automatically appends a score that corresponds to the message level:
 
-.. list-table:: THOR <= 10.6
+.. list-table::
   :header-rows: 1
   :widths: 50, 50
 
@@ -358,17 +297,6 @@ automatically appends a score that corresponds to the message level:
     - 70
   * - Alert
     - 100
-
-.. list-table:: THOR >= 10.7
-  :header-rows: 1
-  :widths: 50, 50
-
-  * - Level
-    - Score
-  * - Warning
-    - 60
-  * - Alert
-    - 80
 
 Exception: High total score with low sub scores
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -608,10 +536,3 @@ The ``Archive Scan`` feature supports the following archive types:
 - TAR
 - TAR + GZIP (.tar.gz)
 - TAR + BZIP2 (.tar.bz2)
-- GZIP |thor107req|
-- 7ZIP |thor107req|
-- CAB |thor107req|
-
-.. |thor107req| raw:: html
-
-   <span style="color:blue;font-size:70%;">(THOR 10.7 and later)</span>

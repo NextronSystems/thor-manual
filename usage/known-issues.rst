@@ -91,8 +91,6 @@ THOR#002: THOR in Lab-Mode does not scan network or external drives
       - Fixed Version
     * - N/A
       - >=10.6.16
-       
-        >=10.7.3
 
 If running a command like ``thor64.exe --lab -p Z:\myshare`` THOR will not currently scan
 the path. Normally the ``--alldrives`` flag should be implicitly activated in Lab-mode.

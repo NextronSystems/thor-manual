@@ -1,7 +1,6 @@
 Feature;Feature Name;Disable Feature
 Use a persistent database for holding information across scans;ThorDB;--nothordb
-Scan with Sigma signatures;Sigma;**THOR 10.6** per default disabled, use ``--sigma`` to enable\
-;;**THOR 10.7** ``--nosigma``
+Scan with Sigma signatures;Sigma;per default disabled, use ``--sigma`` to enable
 Scan log file (identified by .log extension or location) entries one by one;LogScan;--nologscan
 Check files, processes or blobs with YARA;Yara;
 Check files with STIX;Stix;--nostix

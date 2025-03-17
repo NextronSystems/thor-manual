@@ -120,46 +120,6 @@ retrieved as the value for that parameter.
 
    -j orig-hostname
 
-Artefact Collector
-^^^^^^^^^^^^^^^^^^
-
-THOR 10.7.8 introduces the ``Artefact Collector`` module. The purpose of
-this module is to be able to quickly collect and archive system
-artifacts into a single ZIP via THOR.
-It can be activated via ``--collector`` (running the collector module at
-the end of a THOR run) or ``--collector-only`` (only running the
-collector module) and uses ``:hostname:_collector.zip`` as output path
-for the ZIP archive per default. The default ZIP archive path can be
-changed with ``--collector-output <path>``.
-The ZIP archive includes all found artifacts and a special file called
-``collector.log`` containing logging information for the module execution
-(e.g. timestamps, hashes, filesize, ...)
-
-The artifacts which are collected per default (GLOB patterns) can be seen
-with ``--collector-print-config``. To change the default settings use
-``--collector-config <file>``.
-
-.. tip::
-   Pipe the output of ``--collector-print-config`` to a file and use a
-   modified version of it.
-
-For testing the collector config you can use ``--collector-dry-run`` -
-this only prints the artifacts which would be collected to stdout - no
-output ZIP archive will be created. It is also possible to limit the
-artifact size via the ``--collector-max-filesize`` flag.
-
-If run on Windows, the collector module will parse the MFT and collect
-files based on the extracted information. This allows the collection of
-all files including special files like ``$UsnJrnl``. The downside of MFT
-parsing is that it takes a bit longer. If you do not care about special
-files and want to speed up the collection process, use ``--collector-no-mft``.
-
-All flags can be found in the THOR full help (``--fullhelp``).
-
-.. note::
-   A special license called ``THOR Deep Forensics`` is needed to use the
-   ``Artefact Collector`` feature.
-
 Examples
 ^^^^^^^^
 
@@ -397,9 +357,6 @@ Eventlog's full name.
 .. code-block:: doscon
 
    C:\nextron\thor>thor64.exe -a Eventlog –n "Microsoft-Windows-Sysmon/Operational"
-
-From THOR 10.7.13 onwards, ``-n`` can also be used to scan all event logs
-by using ``-n *``.
 
 You can get the full name of a Windows Eventlog by right clicking the
 Eventlog in Windows Event Viewer and selecting "Properties".

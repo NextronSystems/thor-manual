@@ -200,7 +200,6 @@ how they are called by the different modules and other features.
 
 Feature selectors
 ^^^^^^^^^^^^^^^^^
-Since THOR 10.7, some features in THOR are triggered by YARA rules.
 
 When a (meta or generic) YARA rule with a specific tag matches on a file, the
 corresponding feature is started and parses the file.

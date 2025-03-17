@@ -56,7 +56,7 @@ The following tags for simple IOCs are currently supported:
 
 * "**hash**" or "**hashes**"
 
-  * for MD5, SHA1 or SHA256 hashes or (since THOR 10.7.6) Imphashs
+  * for MD5, SHA1 or SHA256 hashes
 
 * "**keyword**" or "**keywords**"
 
@@ -124,8 +124,8 @@ get initialized as hash IOC sets. Either you are assigning a custom score
 to your hashes, or you do not assign a score at all, in which case the
 match will default to a score of 100.
 
-The first column contains your MD5, SHA1 or SHA256 hash or (since THOR 10.7.6) an Imphash.
-The second column contains your comment, if you do not use any scoring. If you choose to use
+The first column contains your MD5, SHA1, or SHA256 hash. The second column
+contains your comment, if you do not use any scoring. If you choose to use
 your own scoring (example below on line 2), the score goes into the second
 column and the comment into the third. Columns are separated by a semicolon
 and hashes are applied case-insensitively. Scoring and comments are optional.
@@ -338,9 +338,9 @@ THOR applies Sigma rules to Windows Eventlogs and log files on disk
 which THOR encounters.
 
 .. note::
-  To activate Sigma scanning before THOR 10.7, you have to use the ``--sigma``
-  command line option or perform an ``--intense`` scan. Sigma scanning is not
-  activated by default in these versions.
+  To activate Sigma scanning, you have to use the ``--sigma`` command line
+  option or perform an ``--intense`` scan. Sigma scanning is not activated
+  by default.
 
 By default only the results of Sigma rules of level critical and high are shown.
 If called with the ``--intense`` flag, medium level rules are applied as well.
@@ -439,7 +439,6 @@ differentiate them further:
   | Tag: **'meta'**
   | Rules are applied to all files without exception, including directories, symlinks and the like, but can only access the THOR specific external variables (see :ref:`usage/custom-signatures:Additional Attributes`) and the first 2048 bytes of the file.
   | Since THOR 10.6.8: If a metadata rule has the special tag DEEPSCAN, THOR will perform a YARA scan on the full file with the default rule set (see :ref:`usage/custom-signatures:Generic YARA Rules`).
-  | Since THOR 10.7: Symlinks now have their target as the content.
 
 The following table shows in which modules the specific YARA rules are
 applied to content.
@@ -919,14 +918,6 @@ These external variables are:
 * **osversion** (available since THOR 10.6.15)
 
   * The Windows build number (0 on non-Windows systems)
-
-* **unpack_parent** (available since THOR 10.7.20)
-
-  * The file's origin (e.g. "ZIP" if it was contained in a ZIP file)
-
-* **unpack_source** (available since THOR 10.7.20)
-
-  * The file's origins, separated by ">" (e.g. "EMAIL>ZIP" if it was contained in a ZIP file that was an email attachment)
 
 Yara Rule with THOR External Variable:
 
