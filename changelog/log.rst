@@ -1,7 +1,7 @@
-THOR 10.7 (Stable)
-##################
+Changelog
+#########
 
-THOR 10.7 is our current stable version.
+In this chapter you can find all the changes for THOR 10.7
 
 THOR 10.7.20
 ~~~~~~~~~~~~

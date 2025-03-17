@@ -306,46 +306,18 @@ Tell us the exact THOR version you are using:
 1. For which operating system (Windows, Linux, macOS)
 2. For which architecture (32bit, 64bit)
 
-Run ``thor --version`` and copy the resulting text into the email.
-
-On Windows:
-
-.. code-block:: doscon
-
-   C:\thor>thor64.exe --version
-   THOR 10.6.6
-   Build bea8066 (2021-04-27 14:32:40)
-   YARA 4.0.5
-   PE-Sieve 0.2.8.5
-   OpenSSL 1.1.1j
-   Signature Database 2021/05/03-150936
-   Sigma Database 0.19.1-1749-g2f12c5c5
-
-On Linux:
+Run THOR only with the ``--version`` flag and copy the resulting text into
+the ticket.
 
 .. code-block:: console
 
-   user@desktop:~$ ./thor-linux-64 --version
-   THOR 10.6.6
-   Build bea8066 (2021-04-27 14:32:40)
-   YARA 4.0.5
-   PE-Sieve 0.2.8.5
-   OpenSSL 1.1.1j
-   Signature Database 2021/05/03-150936
-   Sigma Database 0.19.1-1749-g2f12c5c5
-
-On macOS:
-
-.. code-block:: console
-
-   user@macos:~$ ./thor-macosx --version
-   THOR 10.6.6
-   Build bea8066 (2021-04-27 14:32:40)
-   YARA 4.0.5
-   PE-Sieve 0.2.8.5
-   OpenSSL 1.1.1j
-   Signature Database 2021/05/03-150936
-   Sigma Database 0.19.1-1749-g2f12c5c5
+   THOR 10.7.20
+   Build 0527b35 (2025-02-17 14:31:26) (linux, amd64)
+   YARA 4.5.0
+   PE-Sieve 0.3.5
+   OpenSSL 3.0.9
+   Signature Database 2025/03/11-064342
+   Sigma Database r2025-02-03-23-g3ce034bb2
 
 What is the target platform that THOR fails on?
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

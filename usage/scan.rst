@@ -375,10 +375,6 @@ for more details on these values.
 Multi-Threading
 ---------------
 
-Starting from version 10.6, THOR supports scanning a system with multiple
-threads in parallel, allowing for a significant increase in speed in
-exchange for a higher CPU usage.
-
 To use this feature, use the ``--threads`` flag which allows you to
 specify THOR's number of parallel threads.
 

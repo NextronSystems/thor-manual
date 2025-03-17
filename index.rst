@@ -30,7 +30,7 @@ THOR Scanner User Manual
    usage/use-cases
    usage/known-issues
    usage/links-and-references
-   changelog/index
+   changelog/log
 
 Indices and tables
 ==================
