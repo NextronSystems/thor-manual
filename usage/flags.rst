@@ -1,7 +1,7 @@
 Command Line Options
 ====================
 
-This section lists all options that THOR TechPreview currently offers.
+This section lists all options that THOR currently offers.
 
 Scan Options
 ----------------------------------------------------------------------
