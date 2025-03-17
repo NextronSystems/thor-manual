@@ -166,19 +166,19 @@ Windows:
        / / / _  / /_/ / , _/ / /_/ / / / _/ // /__
       /_/ /_//_/\____/_/|_|  \____/ /_/ /___/____/
 
-      Copyright by Nextron Systems GmbH, 2021
-      v1.10.6+thor10.6.19
+      Copyright by Nextron Systems GmbH, 2023                                       
+      v1.11.0+thor10.7.20      
 
    Jan 10 09:24:20 win11-testing THOR_UTIL: Info: Starting Upgrade Process
    Jan 10 09:24:20 win11-testing THOR_UTIL: Info: License file found OWNER: Rick Roll TYPE: client STARTS: 2022/08/09 EXPIRES: 2023/08/09
    Jan 10 09:24:20 win11-testing THOR_UTIL: Info: Downloading 'thor-win'
-   Jan 10 09:24:20 win11-testing THOR_UTIL: Info: Downloading from: https://update1.nextron-systems.com/getupdate.php?full=1&lic=00000000000000000000000000000000&product=thor10-win&thorupgrader=1.10.6%2Bthor10.6.19&thorversion=10.6.19&upgrade_only=1
+   Jan 10 09:24:20 win11-testing THOR_UTIL: Info: Downloading from: https://update1.nextron-systems.com/[...]
    Jan 10 09:24:20 win11-testing THOR_UTIL: Info: already up-to-date
    Jan 10 09:24:20 win11-testing THOR_UTIL: Info: THOR 10 detected, also updating signatures ...
    Jan 10 09:24:20 win11-testing THOR_UTIL: Info: Starting Upgrade Process
    Jan 10 09:24:20 win11-testing THOR_UTIL: Info: License file found OWNER: Rick Roll TYPE: client STARTS: 2022/08/09 EXPIRES: 2023/08/09
    Jan 10 09:24:21 win11-testing THOR_UTIL: Info: Downloading 'signatures'
-   Jan 10 09:24:21 win11-testing THOR_UTIL: Info: Downloading from: https://update1.nextron-systems.com/getupdate.php?full=1&lic=00000000000000000000000000000000&product=signatures&thorupgrader=1.10.6%2Bthor10.6.19&thorversion=23.1.5-122954&upgrade_only=1
+   Jan 10 09:24:21 win11-testing THOR_UTIL: Info: Downloading from: https://update1.nextron-systems.com/[...]
    Jan 10 09:24:21 win11-testing THOR_UTIL: Info: downloaded package as zip
    Jan 10 09:24:28 win11-testing THOR_UTIL: Info: Successfully upgraded from Signatures 23.1.5-122954 to Signatures 23.1.9-153938
 
@@ -194,19 +194,19 @@ Linux:
        / / / _  / /_/ / , _/ / /_/ / / / _/ // /__
       /_/ /_//_/\____/_/|_|  \____/ /_/ /___/____/
 
-      Copyright by Nextron Systems GmbH, 2021
-      v1.10.6+thor10.6.19
+      Copyright by Nextron Systems GmbH, 2023                                       
+      v1.11.0+thor10.7.20      
 
    Jan 10 09:33:10 unix THOR_UTIL: Info: Starting Upgrade Process
    Jan 10 09:33:10 unix THOR_UTIL: Info: License file found OWNER: Rick Roll TYPE: client STARTS: 2023/01/10 EXPIRES: 2023/08/14
    Jan 10 09:33:10 unix THOR_UTIL: Info: Downloading 'thor-linux'
-   Jan 10 09:33:10 unix THOR_UTIL: Info: Downloading from: https://update1.nextron-systems.com/getupdate.php?full=1&lic=00000000000000000000000000000000&product=thor10-linux&thorupgrader=1.10.6%2Bthor10.6.19&thorversion=10.6.19&upgrade_only=1
+   Jan 10 09:33:10 unix THOR_UTIL: Info: Downloading from: https://update1.nextron-systems.com/[...]
    Jan 10 09:33:11 unix THOR_UTIL: Info: already up-to-date
    Jan 10 09:33:11 unix THOR_UTIL: Info: THOR 10 detected, also updating signatures ...
    Jan 10 09:33:11 unix THOR_UTIL: Info: Starting Upgrade Process
    Jan 10 09:33:11 unix THOR_UTIL: Info: License file found OWNER: Rick Roll TYPE: client STARTS: 2023/01/10 EXPIRES: 2023/08/14
    Jan 10 09:33:11 unix THOR_UTIL: Info: Downloading 'signatures'
-   Jan 10 09:33:11 unix THOR_UTIL: Info: Downloading from: https://update1.nextron-systems.com/getupdate.php?full=1&lic=00000000000000000000000000000000&product=signatures&thorupgrader=1.10.6%2Bthor10.6.19&thorversion=23.1.9-153938&upgrade_only=1
+   Jan 10 09:33:11 unix THOR_UTIL: Info: Downloading from: https://update1.nextron-systems.com/[...]
    Jan 10 09:33:11 unix THOR_UTIL: Info: already up-to-date
 
 It is **important** that you update THOR after you have downloaded it from
@@ -382,7 +382,7 @@ our portal (recommended; continue at step 5), or follow these steps:
 
 3. You will get a zip file with the following name:
 
-   ``thor-win-10.6.20_<date>-<time>.zip``
+   ``thor-win-10.6.22_<date>-<time>.zip``
 
 4. The content of this zip file should be as follows:
 

@@ -435,11 +435,11 @@ differentiate them further:
 * | All String Checks
   | Tag: **'keyword'**
   | Rules are applied to all string checks in many different modules.
-* | Metadata Checks (since THOR 10.6)
+* | Metadata Checks
   | Tag: **'meta'**
   | Rules are applied to all files without exception, including directories, symlinks and the like, but can only access the THOR specific external variables (see :ref:`usage/custom-signatures:Additional Attributes`) and the first 2048 bytes of the file.
-  | Since THOR 10.6.8: If a metadata rule has the special tag DEEPSCAN, THOR will perform a YARA scan on the full file with the default rule set (see :ref:`usage/custom-signatures:Generic YARA Rules`).
-  | Since THOR 10.7: Symlinks now have their target as the content.
+  | If a metadata rule has the special tag DEEPSCAN, THOR will perform a YARA scan on the full file with the default rule set (see :ref:`usage/custom-signatures:Generic YARA Rules`).
+  | Symlinks have their target as the content.
 
 The following table shows in which modules the specific YARA rules are
 applied to content.
@@ -901,13 +901,13 @@ These external variables are:
   * Example: ``NT-AUTHORITY\SYSTEM`` on Windows
   * Example: ``root`` on Linux
 
-* **group** (available since THOR 10.6.8)
+* **group**
 
   * The file group
   * Example: ``root`` on Linux
   * This variable is empty on Windows
 
-* **filemode** (available since THOR 10.6)
+* **filemode**
 
   * file mode for this file (see https://man7.org/linux/man-pages/man7/inode.7.html, "The file type and mode").
   * On Windows, this variable will be an artificial approximation of a file mode since Windows is not POSIX compliant.
@@ -916,7 +916,7 @@ These external variables are:
 
   * The value contains the file size in bytes. It is provided directly by YARA and is not specific to THOR.
 
-* **osversion** (available since THOR 10.6.15)
+* **osversion**
 
   * The Windows build number (0 on non-Windows systems)
 

@@ -210,24 +210,7 @@ scoring system is very flexible.
 The total score of an element determines the level/severity of the
 resulting log message.
 
-.. list-table:: THOR <= 10.6
-  :header-rows: 1
-  :widths: 20, 20, 60
-
-  * - Score
-    - Level
-    - Condition
-  * - 40
-    - Notice
-    - 
-  * - 60
-    - Warning
-    - 
-  * - 100
-    - Alert
-    - At least 1 sub score more than 75
-
-.. list-table:: THOR >= 10.7
+.. list-table::
   :header-rows: 1
   :widths: 20, 20, 60
 
@@ -274,47 +257,12 @@ Accumulated Scores
 ^^^^^^^^^^^^^^^^^^
 
 If an element has multiple sub-scores, all sub-scores will be accumulated
-and calculated into one final score. The following chapters show you how
-those scores are calculated.
-
-THOR <= 10.6
-""""""""""""
-
-.. list-table::
-  :align: left
-  :header-rows: 1
-  :widths: 25, 15, 60
-
-  * - Module
-    - Cumulated Scoring
-    - Score
-  * - * Filescan
-
-      * Archive Scan
-
-      * DeepDive
-
-      * Prefetch
-
-      * WER
-    - Yes
-    - Score is a sum of the scores of all "REASONs" (YARA matches, filename IOCs, other anomalies)
-
-      **Note 1**: Only positive scores are shown by default
-
-      **Note 2**: Only the top 2 reasons are shown by default (use ``--allreasons`` to show all positive scores)
-  * - All Other Modules
-    - No
-    - Individual score of each signature match (YARA, filename IOC, keywords, C2)
-
-      **Note 1**: This means that multiple matches for a single element are possible
-
-THOR >= 10.7
-""""""""""""
+and calculated into one final score. Below you can see how those scores are calculated.
 
 Most modules and features summarize via reasons. Please keep in mind that
 only positive scores and the top two reasons are shown by default. You can
-use ``--allreasons`` to show all positive scores.
+use ``--max-reasons`` to change how many reasons you want to show (example:
+``--max-reasons 5`` to show 5 reasons).
 
 Reason scores are not added up for the total score. Instead, given a number
 of scores (s_0, s_1, ...) that are ordered descending. The total score is
@@ -348,18 +296,7 @@ Default Scores
 If no score is set in an "alert" or "warning" message, THOR
 automatically appends a score that corresponds to the message level:
 
-.. list-table:: THOR <= 10.6
-  :header-rows: 1
-  :widths: 50, 50
-
-  * - Level
-    - Score
-  * - Warning
-    - 70
-  * - Alert
-    - 100
-
-.. list-table:: THOR >= 10.7
+.. list-table::
   :header-rows: 1
   :widths: 50, 50
 
@@ -608,10 +545,6 @@ The ``Archive Scan`` feature supports the following archive types:
 - TAR
 - TAR + GZIP (.tar.gz)
 - TAR + BZIP2 (.tar.bz2)
-- GZIP |thor107req|
-- 7ZIP |thor107req|
-- CAB |thor107req|
-
-.. |thor107req| raw:: html
-
-   <span style="color:blue;font-size:70%;">(THOR 10.7 and later)</span>
+- GZIP
+- 7ZIP
+- CAB
