@@ -36,7 +36,11 @@ requirements** to run THOR. Any newer version will also work with THOR.
     - macOS 11 (ARM, Apple M1)
   * - Debian 9
     - 
-    - 
+    -
+
+.. hint::
+  Other rolling linux variants, like Arch, might also work,
+  but are not explicitly tested by us.
 
 Legacy Systems
 ^^^^^^^^^^^^^^
@@ -82,12 +86,12 @@ If you need to perform an analysis on unsupported operating systems or architect
 for a solution using `THOR Thunderstorm <https://www.nextron-systems.com/thor-thunderstorm/>`__
 and `Thunderstorm collectors <https://github.com/NextronSystems/thunderstorm-collector>`__.
 
-We have productive setups with our customers involving the file collection from: 
+Some of our customers have a productive setup which uses Thunderstorm
+to collect/analyze files from the following systems:
 
 * SPARC Solaris 
 * RHEL Linux 4
 * Citrix Netscaler
-* ICS environments with Windows XP embedded systems (planned)
 * VMWare ESX (see this `blog post <https://www.nextron-systems.com/2021/06/07/analyze-vmware-esx-systems-with-thor-thunderstorm/>`__)
 
 Update Servers
@@ -103,4 +107,4 @@ servers, please visit https://www.nextron-systems.com/resources/hosts/.
   You do not need an active internet connection to scan an endpoint. This is only needed
   if you want to update to the latest THOR and signature versions. There are special
   licenses for special circumstances, for example when the licensed system does not
-  have internet access.
+  have internet access, and you need to use another system to download updates.
