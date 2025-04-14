@@ -3,6 +3,22 @@ Changelog
 
 In this chapter you can find all the changes for THOR 10.7
 
+THOR 10.7.21
+~~~~~~~~~~~~
+
+.. list-table::
+    :header-rows: 1
+    :widths: 15, 85
+
+    * - Type
+      - Description
+    * - Change
+      - Revert removal of --action flags for now (will be removed in THOR 11)
+    * - Bugfix
+      - Fix a situation where Thor panics in Windows Safe Mode
+    * - Bugfix
+      - Fix an issue where SHIM cache entries were scanned repeatedly if more than one SHIM cache was scanned
+
 THOR 10.7.20
 ~~~~~~~~~~~~
 
