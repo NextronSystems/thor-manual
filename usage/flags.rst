@@ -319,10 +319,10 @@ Automatic Collection of Suspicious Files (Bifrost)
 
 VirusTotal Integration
 ----------------------------------------------------------------------
-      --vtkey string     Virustotal API key for hash / sample uploads
-      --vtmode string    VirusTotal lookup mode (limited = hash lookups only, full = hash and sample uploads)
-      --vtscore int      Minimum score for hash lookup / sample upload to VirusTotal
-      --vtaccepteula     By specifying this option, you accept VirusTotal's EULA: https://www.virustotal.com/en/about/terms-of-service/
+      --vtkey string     Virustotal API key for hash / sample uploads (mandatory, enables VT integration)
+      --vtmode string    VirusTotal lookup mode (limited = hash lookups only, full = hash and sample uploads, default = limited)
+      --vtscore int      Minimum score for hash lookup / sample upload to VirusTotal (default = 60)
+      --vtaccepteula     By specifying this option, you accept VirusTotal's EULA: https://www.virustotal.com/en/about/terms-of-service/ (mandatory)
       --vtwaitforquota   Wait if the VirusTotal API key quota is exceeded
       --vtverbose        Show more information from VirusTotal
 
