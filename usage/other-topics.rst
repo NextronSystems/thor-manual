@@ -398,6 +398,11 @@ score of 40 (70 + (-30) = 40), which would generate a "Notice".
 Action on Match
 ---------------
 
+.. note::
+
+    This feature requires a `forensic lab license <https://www.nextron-systems.com/2020/11/11/thor-forensic-lab-license-features/>`__
+    type, which is meant to be used in forensic labs. 
+
 The action command allows you define a command that runs whenever THOR
 encounters a file during "Filescan" that has a certain total score or
 higher. The default score that triggers the action command (if set) is
