@@ -19,23 +19,28 @@ The following operating systems and their versions are the **minimum
 requirements** to run THOR. Any newer version will also work with THOR.
 
 .. list-table:: 
-  :widths: 30, 30, 40
+  :widths: 23 31 23 23
   :header-rows: 1
 
   * - Linux
     - Windows
     - macOS
+    - IBM AIX
   * - RHEL/CentOS 6
     - Windows 7 x86/x64
     - macOS 10.14 (Mojave)
+    - 7.2 (PowerPC 8)
   * - SuSE SLES 11
     - Windows Server 2008 R2
     - macOS 11 (Intel)
+    - 
   * - Ubuntu 16 LTS
     - 
     - macOS 11 (ARM, Apple M1)
+    - 
   * - Debian 9
     - 
+    -
     -
 
 .. hint::
