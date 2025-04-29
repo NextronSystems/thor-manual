@@ -35,7 +35,7 @@ Follow these steps to complete your first THOR scan
    e. ``thor-macosx`` on macOS
 
 5. Wait until the scan has completed (this can take between 20 and 180 minutes)
-6. When the scan is finsihed, check the text log and HTML report in the THOR program directory
+6. When the scan is finished, check the text log and HTML report in the THOR program directory
 
 Often Used Parameters
 ---------------------
@@ -337,7 +337,7 @@ PE-Sieve Integration
 --------------------
 
 THOR integrates `PE-Sieve <https://github.com/hasherezade/pe-sieve>`__,
-an open-source tool by @hasherezade to check for malware masquerading
+an open-source tool by ``@hasherezade`` to check for malware masquerading
 as benevolent processes.
 
 PE-Sieve can be activated by using the ``--processintegrity`` flag. It
