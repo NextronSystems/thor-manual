@@ -5,6 +5,18 @@ THOR 10.6 is currently still supported, but we advise customers to switch
 to the newest productive version, `10.7 <https://thor-manual.nextron-systems.com>`_.
 We will stop supporting 10.6 in the near future.
 
+THOR 10.6.27
+~~~~~~~~~~~~
+
+.. list-table::
+	  :header-rows: 1
+	  :widths: 15, 85
+
+	  * - Type
+	    - Description
+	  * - Change
+	    - Update Sigma scanner to support newest Sigma specification
+
 THOR 10.6.26
 ~~~~~~~~~~~~
 
