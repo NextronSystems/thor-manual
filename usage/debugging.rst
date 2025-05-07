@@ -193,8 +193,6 @@ running process automatically gets suspended. A user has to press "Enter" to res
 the suspended process. As the progress indicator of THOR isn't always changing, this
 could lead to the impression that the scan paused by itself.
 
-See `this StackOverflow post <https://stackoverflow.com/questions/30418886/how-and-why-does-quickedit-mode-in-command-prompt-freeze-applications>`_ for more details.
-
 **Solution**: Press "Enter" in the command line window
 
 Constant High System Load
