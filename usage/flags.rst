@@ -10,24 +10,24 @@ Scan Options
       -p, --path strings               Scan a specific file path. Define multiple paths by specifying this option multiple times. Append ':NOWALK' to the path for non-recursive scanning (default: only the system drive)
       --allhds                     (Windows Only) Scan all local hard drives (default: only the system drive)
       --alldrives                  Scan all local drives, including network drives (default: only the system drive). Requires a Forensic Lab license.
-      --max_file_size uint         Max. file size to check (larger files are ignored). Increasing this limit will also increase memory usage of THOR.
-      --max_log_lines int          Maximum amount of lines to check in a log file before skipping the remaining lines
-      --max_process_size uint      Max process size to check (larger processes won't be scanned)
-      --max_runtime int            Maximum runtime in hours. THOR will stop once this time has run out. 0 means no maximum runtime.
+      --max_file_size uint         Max. file size to check (larger files are ignored). Increasing this limit will also increase memory usage of THOR. (default 30MB)
+      --max_log_lines int          Maximum amount of lines to check in a log file before skipping the remaining lines (default 1000000)
+      --max_process_size uint      Max process size to check (larger processes won't be scanned) (default 2GB)
+      --max_runtime int            Maximum runtime in hours. THOR will stop once this time has run out. 0 means no maximum runtime. (default 168)
       --nodoublecheck              Don't check whether another THOR instance is running (e.g. in Lab use cases when several mounted images are scanned simultaneously on a single system) (requires a Forensic Lab license)
       -f, --epoch strings              Specify a range of days with attacker activity as start and end date pairs.
 
                                    Files created/modified between these days (including the specified start, excluding the specified end) will receive an extra score.
 
                                    Example: -f 2009-10-09 -f 2009-10-10 marks the 09.10.2009 as relevant.
-      --epochscore int             Score to add for files that were created/modified on days with attacker activity (see --epoch parameter)
+      --epochscore int             Score to add for files that were created/modified on days with attacker activity (see --epoch parameter) (default 35)
       --insecure                   Skip TLS host verification (insecure)
       --ca strings                 Root CA for host certificate verification during TLS handshakes
       --cross-platform             Apply IOCs with path separators platform independently.
       --require-admin              Terminate immediately if THOR is executed without administrator rights.
       --follow-symlinks            When encountering a symlink during the file scan that points to a directory, scan the directory.
-      --max-recursion-depth uint   Maximum depth of archives to scan
-      --max-nested-objects uint    Maximum number of files per archive to scan
+      --max-recursion-depth uint   Maximum depth of archives to scan (default 4)
+      --max-nested-objects uint    Maximum number of files per archive to scan (default 10000)
 
 Scan Modes
 ----------------------------------------------------------------------
@@ -41,7 +41,7 @@ Scan Modes
       --diff                       Set lookback time (see --lookback) for each module to the last time the module ran successfully and activates --global-lookback.
 
                                    Effectively, this means that only elements that changed since the last scan are examined. (only works if ThorDB has been active)
-      --lookback int               Specify how many past days shall be analyzed. Event log entries from before this point will be ignored. 0 means no limit
+      --lookback int               Specify how many past days shall be analyzed. Event log entries from before this point will be ignored. 0 means no limit (default 0).
       --global-lookback            Apply Lookback to all modules that support it (not only Eventlog). See also --lookback and --lookback-modules.
 
                                    Warning: Timestomping or similar methods of antivirus evasion may result in elements not being examined.
@@ -64,47 +64,47 @@ Scan Modes
 
 Resource Options
 ----------------------------------------------------------------------
-      -c, --cpulimit float        Pause any THOR actions while the overall CPU usage exceeds this value (in percent). Minimum is 15%
+      -c, --cpulimit float        Pause any THOR actions while the overall CPU usage exceeds this value (in percent). Minimum is 15% (default 95)
       --nocpulimit            Disable cpulimit check
       --nosoft                Disable automatic activation of soft mode (see --soft)
       --norescontrol          Do not check whether the system is running out of resources. Use this option to enforce scans that have been canceled due to resource scarcity. (use with care!)
-      --minmem uint           Cancel the running scan if the amount of free physical memory drops below this value (in MB)
+      --minmem uint           Cancel the running scan if the amount of free physical memory drops below this value (in MB) (default 50)
       --lowprio               Reduce the priority of the THOR process to a lower level
       --verylowprio           Reduce the priority of the THOR process to a very low level
       --lowioprio             Reduce the disk priority of the THOR process to a lower level
       --nolowprio             Do not reduce the priority of the THOR process to a lower level due to soft mode (see --soft)
       --nolockthread          Do not lock calls to C libraries to main thread (this may increase performance at the cost of memory usage)
-      --yara-stack-size int   Allocate this number of slots for the YARA stack. Increasing this limit will allow you to use larger rules, albeit with more memory overhead.
-      --yara-timeout int      Cancel any YARA checks that take longer this amount of time (in seconds)
-      --threads IntVar        Run this amount of THOR threads in parallel. Numbers <= 0 are subtracted from the number of cores (0=use all cores), e.g. use -2 to use all cores except for two.
-      --bulk-size uint        Check this amount of elements together, e.g. log lines or registry entries
+      --yara-stack-size int   Allocate this number of slots for the YARA stack. Increasing this limit will allow you to use larger rules, albeit with more memory overhead. (default 32768)
+      --yara-timeout int      Cancel any YARA checks that take longer this amount of time (in seconds) (default 90)
+      --threads int           Run this amount of THOR threads in parallel. Numbers <= 0 are subtracted from the number of cores (0=use all cores), e.g. use -2 to use all cores except for two. (default 1)
+      --bulk-size uint        Check this amount of elements together, e.g. log lines or registry entries (default 20MB)
 
 Special Scan Modes
 ----------------------------------------------------------------------
       -m, --image_file string          Scan only the given single memory image / dump file (don't use for disk images, scan them mounted with --lab). Requires a Forensic Lab license.
-      --image-chunk-size uint      Scan image / dump files in chunks of this size
+      --image-chunk-size uint      Scan image / dump files in chunks of this size (default 11MB)
       -r, --restore_directory string   Restore PE files with YARA rule matches during the DeepDive into the given folder
-      --restore_score int          Restore only chunks with a total match score higher than the given value
+      --restore_score int          Restore only chunks with a total match score higher than the given value (default 50)
       --dropzone                   Watch and scan all files dropped to a certain directory (which must be passed with -p). Disable resource checks and quick mode, activate intense mode, disable ThorDB and apply IOCs platform independently. Requires a Forensic Lab license.
       --dropdelete                 Delete all files dropped to the drop zone after the scan.
-      --dropzone-delay uint32      Scan dropped files after specified delay in seconds (longer delay allow for longer copy processes
+      --dropzone-delay uint32      Scan dropped files after specified delay in seconds (longer delay allow for longer copy processes (default 1)
 
 Thor Thunderstorm Service
 ----------------------------------------------------------------------
       --thunderstorm                      Watch and scan all files sent to a specific port (see --server-port). Disable resource checks and quick mode, activate intense mode, disable ThorDB and apply IOCs platform independently.
       --server-upload-dir string          Path to a directory where THOR drops uploaded files.
 
-                                          If this path does not exist, THOR tries to create it.
-      --server-host string                IP address that THOR's server should bind to.
-      --server-port uint16                TCP port that THOR's server should bind to.
+                                          If this path does not exist, THOR tries to create it. (default "/tmp/thor-uploads")
+      --server-host string                IP address that THOR's server should bind to. (default "127.0.0.1")
+      --server-port uint16                TCP port that THOR's server should bind to. (default 8080)
       --server-cert string                TLS certificate that THOR's server should use. If left empty, TLS is not used.
       --server-key string                 Private key for the TLS certificate that THOR's server should use. Required if --server-cert is specified.
       --server-store-samples string       Sets whether samples should be stored permanently in the folder specified with --server-upload-dir.
 
-                                          Specify "all" to store all samples, or "malicious" to store only samples that generated a warning or an alert.
+                                          Specify "all" to store all samples, or "malicious" to store only samples that generated a warning or an alert. (default "none")
       --server-result-cache-size uint32   Size of the cache that is used to store results of asynchronous requests temporarily.
 
-                                          If set to 0, the cache is disabled and asynchronous results are not stored.
+                                          If set to 0, the cache is disabled and asynchronous results are not stored. (default 250000)
       --pure-yara                         Only scan files using YARA signatures (disables all programmatic checks, STIX, Sigma, IOCs, as well as most features and modules)
       --sync-only-threads uint16          Reserve this amount of THOR threads for synchronous requests
       --force-max-file-size               Enforce the maximum file size even on files like registry hives or log files which are usually scanned despite size.
@@ -113,7 +113,7 @@ License Retrieval
 ----------------------------------------------------------------------
       --asgard string           Hostname of the ASGARD server from which a license should be requested, e.g. asgard.my-company.internal
       --asgard-token string     Use this token to authenticate with the License API of the asgard server. The token can be found in the 'Downloads' or 'Licensing' section in the ASGARD. This requires ASGARD 2.5+.
-      -q, --license-path string     Path containing the THOR license
+      -q, --license-path string     Path containing the THOR license (default is application directory) (default ".")
       --portal-key string       Get a license for this host from portal.nextron-systems.com using this API Key.
 
                                 This feature is only supported for host-based server / workstation contracts.
@@ -162,8 +162,8 @@ Module Extras
 ----------------------------------------------------------------------
       --process ints                  Process IDs to be scanned. Define multiple processes by specifying this option multiple times (default: all processes) (Module: ProcessCheck)
       --dump-procs                    Generate process dumps for suspicious or malicious processes (Module: ProcessCheck)
-      --max-procdumps uint            Create at most this many process dumps (Module: ProcessCheck)
-      --procdump-dir string           Store process dumps of suspicious processes in this directory (Module: ProcessCheck)
+      --max-procdumps uint            Create at most this many process dumps (Module: ProcessCheck) (default 10)
+      --procdump-dir string           Store process dumps of suspicious processes in this directory (Module: ProcessCheck) (default "/var/lib/thor")
       -n, --eventlog-target strings       Scan specific Eventlogs (e.g. 'Security' or 'Microsoft-Windows-Sysmon/Operational') (Module: Eventlog)
       --nodoublepulsar                Do not check for DoublePulsar Backdoor (Module: Rootkit)
       --full-registry                 Do not skip registry hives keys with less relevance (Module: Registry)
@@ -171,12 +171,12 @@ Module Extras
       --showdeleted                   Show deleted files found in the MFT as 'info' messages.
       --allfiles                      Scan all files, even ones that are usually not interesting. Sets --max_file_size to 200MB unless specified otherwise.
       --ads                           Scan Alternate Data Streams for all files
-      --collector-output string       Output path for the ZIP archive created by the 'Artifact-Collector' module
+      --collector-output string       Output path for the ZIP archive created by the 'Artifact-Collector' module (default ":hostname:_collector.zip")
       --collector-print-config        Output default 'Artifact-Collector' config and exit
       --collector-dry-run             Run 'Artifact-Collector' in dry-run mode - files will be listed in the output but not added to the output archive
       --collector-no-mft              Disable MFT parsing in the 'Artifact-Collector' (faster, but might cause some files to be not accessible)
       --collector-config string       Config file for 'Artifact-Collector' module
-      --collector-max-filesize uint   Max size for files the 'Artifact-Collector' module should collect - 0 means no limit
+      --collector-max-filesize uint   Max size for files the 'Artifact-Collector' module should collect - 0 means no limit (default 0B)
 
 Active Features
 ----------------------------------------------------------------------
@@ -224,27 +224,27 @@ Feature Extras
 
 Output Options
 ----------------------------------------------------------------------
-      -l, --logfile string                                    Log file for text output
-      --htmlfile string                                   Log file for HTML output
+      -l, --logfile string                                    Log file for text output (default ":hostname:_thor_:time:.txt")
+      --htmlfile string                                   Log file for HTML output (default ":hostname:_thor_:time:.html")
       --nolog                                             Do not generate text or HTML log files
       --nohtml                                            Do not create an HTML report file
       --appendlog                                         Append text log to existing log instead of overwriting
       --keyval                                            Format text and HTML log files with key value pairs to simplify the field extraction in SIEM systems (key='value')
       --jsonfile string    Log file for JSON output. If no value is specified, defaults to :hostname:_thor_:time:.json.
       --jsonv2                                            Print JSON logs in the v2 format, which is easier to parse than the old v1 format
-      -o, --csvfile string                                    Generate a CSV containing MD5,Filepath,Score for all files with at least the minimum score
+      -o, --csvfile string                                    Generate a CSV containing MD5,Filepath,Score for all files with at least the minimum score (default ":hostname:_files_md5s.csv")
       --nocsv                                             Do not write a CSV of all mentioned files with MD5 hash (see --csvfile)
       --stats-file string         Generate a CSV file containing the scan summary in a single line. If no value is specified, defaults to :hostname:_stats.csv.
       -e, --rebase-dir string                                 Specify the output directory where all output files will be written. Defaults to the current working directory.
       --suppresspi                                        Suppress all personal information in log outputs to comply with local data protection policies
       --eventlog                                          Log to windows application eventlog
-      -x, --min int                                           Only report files with at least this score
-      --max-reasons int                                   Show at most X reasons why a match is considered dangerous (0 = no limit)
+      -x, --min int                                           Only report files with at least this score (default 40)
+      --max-reasons int                                   Show at most X reasons why a match is considered dangerous (0 = no limit) (default 2)
       --printshim                                         Include all SHIM cache entries in the output as 'info' level messages
       --printamcache                                      Include all AmCache entries in the output as 'info' level messages
-      -j, --overwrite-hostname string                         Override the local hostname value with a static value (useful when scanning mounted images in the lab. Requires a Forensic Lab license.
+      -j, --overwrite-hostname string                         Override the local hostname value with a static value (useful when scanning mounted images in the lab. Requires a Forensic Lab license. (default "goetz-debian12-client")
       -i, --scanid string                                     Specify a scan identifier (useful to filter on the scan ID, should be unique)
-      --scanid-prefix string                              Specify a prefix for the scan ID that is concatenated with a random ID if neither --scanid nor --noscanid are specified
+      --scanid-prefix string                              Specify a prefix for the scan ID that is concatenated with a random ID if neither --scanid nor --noscanid are specified (default "S-")
       --noscanid                                          Do not automatically generate a scan identifier if none is specified
       --silent                                            Do not print anything to command line
       --cmdjson                                           Format command line output as JSON
@@ -253,24 +253,24 @@ Output Options
       --pubkey string                                     Use this RSA public key to encrypt the logfile and csvfile (see --encrypt). Both --pubkey="<key>" and --pubkey="<file>" are supported.
       --nocolor                                           Do not use ANSI escape sequences for colorized command line output
       --genid                                             Print a unique ID for each log message. Identical log messages will have the same ID.
-      --truncate int                                      Max. length per THOR value (0 = no truncation)
-      --registry_depth_print int                          Don't print info messages when traversing registry keys at a higher depth than this
+      --truncate int                                      Max. length per THOR value (0 = no truncation) (default 2048)
+      --registry_depth_print int                          Don't print info messages when traversing registry keys at a higher depth than this (default 1)
       --utc                                               Print timestamps in UTC instead of local time zone
       --rfc3339                                           Print timestamps in RFC3339 (YYYY-MM-DD'T'HH:mm:ss'Z') format
       --reduced                                           Reduced output mode - only warnings, alerts and errors will be printed
       --printlicenses                                     Print all licenses to command line (default: only 10 licenses will be printed)
       --local-syslog                                      Print THOR events to local syslog
       --showall                                           Print rule matches even if that rule already matched more than 10 times.
-      --max-hits uint                                     Report at most X matches of a rule or IOC during the complete THOR scan. 0 means all hits will be reported.
+      --max-hits uint                                     Report at most X matches of a rule or IOC during the complete THOR scan. 0 means all hits will be reported. (default 10000)
       --ascii                                             Don't print non-ASCII characters to command line and log files
-      --string-context uint                               When printing strings from YARA matches, include this many bytes surrounding the match
+      --string-context uint                               When printing strings from YARA matches, include this many bytes surrounding the match (default 50)
       --include-info-in-html                              Include info messages in the HTML report
       --audit-trail string                                Output file for audit trail
-      --background string                                 Optimize font colors for given terminal background (options: default, light, dark)
+      --background string                                 Optimize font colors for given terminal background (options: default, light, dark) (default "default")
 
 ThorDB
 ----------------------------------------------------------------------
-      --dbfile string   Location of the thor.db file
+      --dbfile string   Location of the thor.db file (default "/var/lib/thor/thor10.db")
       --resumeonly      Don't start a new scan, only finish an interrupted one. If no interrupted scan exists, nothing is done.
       --resume          Store information while running that allows to resume an interrupted scan later. If a previous scan was interrupted, resume it instead of starting a new one.
 
@@ -286,21 +286,21 @@ Syslog
       --rfc3164               Truncate long Syslog messages to 1024 bytes
       --rfc5424               Truncate long Syslog messages to 2048 bytes
       --rfc                   Use strict syslog according to RFC 3164 (simple host name, shortened message)
-      --maxsysloglength int   Truncate Syslog messages to the given length (0 means no truncation). This only applies to non-JSON formatted syslog.
-      --cef_level int         Define the minimum severity level to log to CEF syslogs (Debug=1, Info=3, Notice=4, Error=5, Warning=8, Alarm=10)
+      --maxsysloglength int   Truncate Syslog messages to the given length (0 means no truncation). This only applies to non-JSON formatted syslog. (default 2048)
+      --cef_level int         Define the minimum severity level to log to CEF syslogs (Debug=1, Info=3, Notice=4, Error=5, Warning=8, Alarm=10) (default 4)
 
 Reporting and Actions
 ----------------------------------------------------------------------
-      --notice int                   Minimum score on which a notice is generated
-      --warning int                  Minimum score on which a warning is generated
-      --alert int                    Minimum score on which an alert is generated
+      --notice int                   Minimum score on which a notice is generated (default 40)
+      --warning int                  Minimum score on which a warning is generated (default 60)
+      --alert int                    Minimum score on which an alert is generated (default 81)
       --action_command string        Run this command for each file that has a score greater than the score from --action_level.
       --action_args strings          Arguments to pass to the command specified via --action_command.
 
                                      The placeholders %filename%, %filepath%, %file%, %ext%, %md5%, %score% and %date% are replaced at execution time.
-      --action_level int             Only run the command from --action_command for files with at least this score.
+      --action_level int             Only run the command from --action_command for files with at least this score. (default 40)
       --nofserrors                   Silently ignore filesystem errors
-      --minimum-sigma-level string   Only report sigma rule matches with this level or higher
+      --minimum-sigma-level string   Only report sigma rule matches with this level or higher (default "high")
 
 THOR Remote
 ----------------------------------------------------------------------
@@ -310,8 +310,8 @@ THOR Remote
       --remote-prompt            Prompt for password for remote hosts
       --remote-debug             Debug Mode for THOR Remote
       --remote-dir string        Upload THOR to this remote directory
-      --remote-workers int       Number of concurrent scans
-      --remote-rate int          Number of seconds to wait between scan starts
+      --remote-workers int       Number of concurrent scans (default 25)
+      --remote-rate int          Number of seconds to wait between scan starts (default 30)
 
 Automatic Collection of Suspicious Files (Bifrost)
 ----------------------------------------------------------------------
@@ -320,13 +320,13 @@ Automatic Collection of Suspicious Files (Bifrost)
                                 This flag is only usable when invoking THOR from ASGARD 2.
       --bifrost2Score int       Send all files with at least this score to the Bifrost 2 quarantine service.
 
-                                This flag is only usable when invoking THOR from ASGARD 2.
+                                This flag is only usable when invoking THOR from ASGARD 2. (default 60)
 
 VirusTotal Integration
 ----------------------------------------------------------------------
       --vtkey string     Virustotal API key for hash / sample uploads
-      --vtmode string    VirusTotal lookup mode (limited = hash lookups only, full = hash and sample uploads)
-      --vtscore int      Minimum score for hash lookup / sample upload to VirusTotal
+      --vtmode string    VirusTotal lookup mode (limited = hash lookups only, full = hash and sample uploads) (default "limited")
+      --vtscore int      Minimum score for hash lookup / sample upload to VirusTotal (default 40)
       --vtaccepteula     By specifying this option, you accept VirusTotal's EULA: https://www.virustotal.com/en/about/terms-of-service/
       --vtwaitforquota   Wait if the VirusTotal API key quota is exceeded
       --vtverbose        Show more information from VirusTotal
