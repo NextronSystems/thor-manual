@@ -182,21 +182,6 @@ If a THOR scans stalls in one of these modules, an Antivirus or EDR interaction 
 
 **Solution**: Review all possible exclusions in your AV / EDR and add the THOR folder to the exclusion list
 
-Windows Quick Edit Mode
-^^^^^^^^^^^^^^^^^^^^^^^
-
-Since Windows 10, the Windows command line window has the so-called "Quick Edit Mode"
-enabled by default. This mode causes a behavior that can lead to a paused THOR scan
-process. Whenever a user switches the active windows from the cmd.exe to a different
-application, e.g. Windows Explorer, and clicks back into the command line window, the
-running process automatically gets suspended. A user has to press "Enter" to resume
-the suspended process. As the progress indicator of THOR isn't always changing, this
-could lead to the impression that the scan paused by itself.
-
-See `this StackOverflow post <https://stackoverflow.com/questions/30418886/how-and-why-does-quickedit-mode-in-command-prompt-freeze-applications>`_ for more details.
-
-**Solution**: Press "Enter" in the command line window
-
 Constant High System Load
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
