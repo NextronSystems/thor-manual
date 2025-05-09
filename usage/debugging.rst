@@ -160,7 +160,7 @@ and no error messages.
 Usually the following sources are responsible (descending order, by frequency):
 
 1. An :ref:`usage/debugging:antivirus or edr suspends thor` (>98%)
-2. A "paused" command line window due to ``windows quick edit mode`` (<1%)
+2. A "paused" command line window due to :ref:`usage/debugging:windows quick edit mode` (<1%)
 3. A :ref:`usage/debugging:constant high system load` that causes THOR to stay back and wait for an idling CPU (<1%)
 4. :ref:`usage/debugging:the perception of a stalled scan`, which is actually running (<1%)
 
@@ -181,6 +181,19 @@ If a THOR scans stalls in one of these modules, an Antivirus or EDR interaction 
 * ProcessCheck
 
 **Solution**: Review all possible exclusions in your AV / EDR and add the THOR folder to the exclusion list
+
+Windows Quick Edit Mode
+^^^^^^^^^^^^^^^^^^^^^^^
+
+Since Windows 10, the Windows command line window has the so-called "Quick Edit Mode"
+enabled by default. This mode causes a behavior that can lead to a paused THOR scan
+process. Whenever a user switches the active windows from the cmd.exe to a different
+application, e.g. Windows Explorer, and clicks back into the command line window, the
+running process automatically gets suspended. A user has to press "Enter" to resume
+the suspended process. As the progress indicator of THOR isn't always changing, this
+could lead to the impression that the scan paused by itself.
+
+**Solution**: Press "Enter" in the command line window
 
 Constant High System Load
 ^^^^^^^^^^^^^^^^^^^^^^^^^
