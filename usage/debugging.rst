@@ -160,7 +160,7 @@ and no error messages.
 Usually the following sources are responsible (descending order, by frequency):
 
 1. An :ref:`usage/debugging:antivirus or edr suspends thor` (>98%)
-2. A "paused" command line window due to :ref:`usage/debugging:windows quick edit mode` (<1%)
+2. A "paused" command line window due to ``windows quick edit mode`` (<1%)
 3. A :ref:`usage/debugging:constant high system load` that causes THOR to stay back and wait for an idling CPU (<1%)
 4. :ref:`usage/debugging:the perception of a stalled scan`, which is actually running (<1%)
 
