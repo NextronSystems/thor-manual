@@ -157,8 +157,7 @@ There are three different Key Value Pair Formatting flags:
 
 Output format
 ~~~~~~~~~~~~~
-Audit Trail Log
-===============
+
 
 The Audit Trail Log feature in THOR provides users with a comprehensive, structured, and
 detailed JSON record of all forensic artifacts and findings encountered during a scan.
@@ -180,7 +179,7 @@ If a filename is not specified, THOR automatically creates one using the pattern
 ``<hostname>_audit_<timestamp>.json.gz``
 
 Audit Trail JSON Schema
-------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The generated audit trail JSON file adheres to the following schema:
 
@@ -225,7 +224,7 @@ The generated audit trail JSON file adheres to the following schema:
    }
 
 Field Descriptions
-------------------
+~~~~~~~~~~~~~~~~~~
 
 ``info``
 
