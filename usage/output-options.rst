@@ -179,7 +179,7 @@ If a filename is not specified, THOR automatically creates one using the pattern
 ``<hostname>_audit_<timestamp>.json.gz``
 
 Audit Trail JSON Schema
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~
 
 The generated audit trail JSON file adheres to the following schema:
 
