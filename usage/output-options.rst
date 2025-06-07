@@ -157,39 +157,98 @@ There are three different Key Value Pair Formatting flags:
 
 Output format
 ~~~~~~~~~~~~~
-Audit trail output is a gzipped JSON file. The file can be specified with ``--audit-trail my-target-file.json.gz``.
 
-The file contains newline delimited JSON. where each contained JSON object follows the following schema:
+
+The Audit Trail Log feature in THOR provides users with a comprehensive, structured, and
+detailed JSON record of all forensic artifacts and findings encountered during a scan.
+It captures this information in a dedicated gzipped JSON file, designed to support forensic
+workflows that require detailed traceability — including both malicious and benign objects.
+
+When activated using the ``--audit-trail`` command-line option, the audit trail logs include:
+
+* **All scan findings**, including detections from all THOR modules.
+* **Analyzed objects** not detected by any module.
+* **Structural relationships** between detected and non-detected elements
+  (e.g., archive contents, extracted files).
+
+The audit trail log integrates seamlessly into existing forensic workflows, allowing analysts
+to effectively use external timeline explorers and analysis tools. This comprehensive logging
+provides essential context, significantly improving the efficiency and accuracy of investigations.
+
+If a filename is not specified, THOR automatically creates one using the pattern
+``<hostname>_audit_<timestamp>.json.gz``
+
+Audit Trail JSON Schema
+~~~~~~~~~~~~~~~~~~~~~~~
+
+The generated audit trail JSON file adheres to the following schema:
 
 .. code-block:: json
 
    {
-      "id": "string",
-      "details": {
-         "...": "...",
-      },
-      "timestamps": {
-         "...": "...",
-      },
-      "reasons": [
-         {
-            "summary": "string",
-            "score": "int",
-            "...": "...",
+     "info": {
+       "Name": "string",
+       "Timestamps": {
+         "...": "..."
+       },
+       "Id": "string",
+       "Details": {
+         "...": "..."
+       }
+     },
+     "findings": [
+       {
+         "Level": "string",
+         "Message": "string",
+         "Module": "string",
+         "Timestamps": {
+           "...": "..."
+         },
+         "Details": {
+           "...": "...",
+           "reasons": [
+             {
+               "name": "string",
+               "score": "int",
+               "...": "..."
+             }
+           ]
          }
-      ],
-      "references": [
-         {
-            "target-id": "string"
-         }
-      ]
+       }
+     ],
+     "references": [
+       {
+         "TargetId": "string"
+       }
+     ]
    }
 
-- ``id`` contains a unique ID for the element that was matched on
-- ``details`` contains the element that was matched on
-- ``timestamps`` contains all timestamps found within this element
-- ``reasons`` contains a list of signatures that matched on this element
-- ``references`` contains a list of IDs of other elements that this element referred to in some way
+Field Descriptions
+~~~~~~~~~~~~~~~~~~
+
+``info``
+
+* **Name**: Identifier of the scanned object or host.
+* **Timestamps**: Relevant timestamp data (creation, modification, scan time).
+* **Id**: Unique identifier of the scanned object.
+* **Details**: Additional metadata providing context.
+
+``findings[]``
+
+* **Level**: Severity of the finding (e.g., alert, warning, notice).
+* **Message**: Description of the detection.
+* **Module**: THOR module responsible for the detection.
+* **Timestamps**: Timestamps associated with the finding.
+* **Details**: Contextual data and additional information.
+
+  * **reasons[]**: Reasons or rules that triggered the detection.
+
+    * **name**: Name of the signature or rule.
+    * **score**: Numeric severity or confidence score.
+
+``references[]``
+
+* **TargetId**: IDs referencing related artifacts, allowing analysts to map relationships and conduct deeper investigations.
 
 
 Timestamps
