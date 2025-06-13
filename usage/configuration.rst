@@ -156,17 +156,21 @@ Exclude Elements
 Files and Directories
 ^^^^^^^^^^^^^^^^^^^^^
 
-You may use the file ``path-excludes.cfg`` to exclude directories and
+You may use the ``--exclude-path`` flag to exclude directories and
 files from the scan.
 
+.. note::
+        As with other CLI flags, you can also use `exclude-path:` in
+        ``thor.yml`` to avoid having to specify excludes each time.
+
 THOR will not scan the contents of these directories. This
-``path-excludes.cfg`` configuration is meant to avoid scanning sensitive
+configuration is meant to avoid scanning sensitive
 files like databases or directories with a lot of content. If you want
 to suppress false positives that are generated in these directories,
 please see the following chapter and how to suppress them by using
 ``false_positive_filters.cfg``.
 
-The exclusion file contains regular expressions that are applied to each
+The flag receives regular expressions that are applied to each
 scanned element. Each element consists of the file path and file name
 (e.g. ``C:\IBM\temp_tools\custom.exe``). If one of the defined
 expressions matches, the element is excluded. Exclusions can be defined
@@ -208,9 +212,12 @@ characters must be masqueraded by backslash. This applies at least for:
 Eventlogs
 ^^^^^^^^^
 
-Eventlog sources can be excluded as whole in
-"**eventlog-excludes.cfg**". The file holds one expression per line
-and applies them as regular expression on the name of the Eventlog.
+Eventlog sources can be excluded as whole with
+"**--exclude-eventlog**".
+
+The flag can be specified multiple times and
+expects a regular expression each time that it applies
+on the name of the Eventlog.
 (e.g. ``Microsoft-Windows-Windows Defender/Operational``)
 
 .. list-table::
@@ -227,9 +234,11 @@ and applies them as regular expression on the name of the Eventlog.
 Registry
 ^^^^^^^^
 
-Registry paths/keys can be excluded in ``registry-excludes.cfg``.
-The file holds one expression per line and applies them as regular
-expression on each registry key. (e.g. “Software\\WOW6432Node“). Don't
+Registry paths/keys can be excluded with ``--exclude-registry-key``.
+
+The flag can be specified multiple times and
+expects a regular expression each time that it applies to each
+registry key (e.g. “Software\\WOW6432Node“). Don't
 include the root of the key, e.g. HKLM.
 
 .. list-table::
@@ -240,6 +249,19 @@ include the root of the key, e.g. HKLM.
      - Exclude Definition 
    * - ``HKEY_LOCAL_MACHINE\Software\Wow6432Node\Symantec\Symantec Endpoint Protection\AV\Exclusions``
      - Symantec Endpoint Protection\\AV\\Exclusions 
+
+Process
+^^^^^^^
+
+Processes can be excluded with ``--exclude-process``.
+
+The flag can be specified multiple times and
+expects a regular expression each time.
+These regular expressions are applied to process name, image path, and
+command line; if any of these match, the process is not analyzed.
+
+Processes are also excluded if their executable file is excluded with
+``--exclude-path``.
 
 False Positives
 ^^^^^^^^^^^^^^^
