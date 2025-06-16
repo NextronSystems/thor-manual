@@ -155,7 +155,7 @@ the responsiveness of running services first.
 Resource control is active by default. You can deactivate it using
 **--norescontrol**.
 
-Be advised that due to Resource Control, the THOR scan may terminate its
+Be advised that due to Resource Control, the THOR scan may terminate before
 completion. The scan gets terminated under the following conditions:
 
 1. If the available physical memory drops below 50 MB
