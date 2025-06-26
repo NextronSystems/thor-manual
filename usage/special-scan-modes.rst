@@ -440,5 +440,3 @@ parameters:
     - Activate MFT analysis
   * - **--nomft**
     - Do not perform any MFT analysis whatsoever (only useful in combination with ``--intense``)
-  * - **--maxmftsize MB**
-    - The maximum MFT size in Megabytes to process (default: 200 MB)
