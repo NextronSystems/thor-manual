@@ -3,6 +3,22 @@ Changelog
 
 In this chapter you can find all the changes for THOR 10.7
 
+THOR 10.7.22
+~~~~~~~~~~~~
+
+.. list-table::
+    :header-rows: 1
+    :widths: 15, 85
+
+    * - Type
+      - Description
+    * - Change
+      - THOR Lite now supports archive scanning
+    * - Bugfix
+      - File excludes are now applied to process images as well
+    * - Bugfix
+      - Fix an issue where usage of --threads in thor.yml caused an error at startup
+
 THOR 10.7.21
 ~~~~~~~~~~~~
 
