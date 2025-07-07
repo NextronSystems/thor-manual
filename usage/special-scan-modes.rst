@@ -38,7 +38,7 @@ The chapter :ref:`usage/use-cases:use cases` contains some use cases in which th
 Forensic Lab License
 ^^^^^^^^^^^^^^^^^^^^
 
-The scan of mounted disk or memory images is a use case that we call "lab scanning".
+The scanning of mounted disk images, memory images, or network shares is a use case that we call **lab scanning**.
 It requires a `forensic lab license <https://www.nextron-systems.com/2020/11/11/thor-forensic-lab-license-features/>`__ 
 which is meant to be used in corporate digital forensic labs.
 
