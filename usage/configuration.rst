@@ -274,7 +274,7 @@ You can start a short test run on a certain directory with:
 Personal Information
 ^^^^^^^^^^^^^^^^^^^^
 
-THOR features an option named ``--brd`` that allows to filter the output
+THOR features an option named ``--suppresspi`` that allows to filter the output
 messages and replace all known locations and fields that can contain
 user names or user ids with the value ``ANONYMIZED_BY_THOR``.
 
