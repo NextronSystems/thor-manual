@@ -1,7 +1,7 @@
 import os
 
 project = 'THOR Manual'
-copyright = '2024, Nextron Systems GmbH'
+copyright = '2025, Nextron Systems GmbH'
 version="1.0"
 author = 'Nextron Systems GmbH'
 extensions = [
