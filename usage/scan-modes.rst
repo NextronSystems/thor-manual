@@ -22,11 +22,17 @@ You can select between six different scan modes in THOR:
 - **Quick** ``--quick``
 
   This mode is the fastest one and oriented on the "Pareto Principle", covering 80% of
-  the modules and checks in 20% of the normal scan time. In "quick" mode, THOR skips
-  elements that have not been created or modified within the last 2 days in the "Eventlog",
-  "Registry" and "Filescan" modules. A set of 40+ predefined directories will still be checked
-  completely (e.g. AppData, Recycler, System32). "Quick" mode is known to be the
-  "preventive" scan mode – less intense and very fast.
+  the modules and checks in 20% of the normal scan time: 
+  
+  - THOR skips elements that have not been created or modified within the last 3 days in "Filescan" modules
+  
+  - Log scanning is disabled (affects the “LogScan”, ‘Eventlog’, and “EVTX” features)
+  
+  - The “Firewall Config Check,” “User Profile Check,” “Hotfix Check,” and “MFT Analysis” modules are disabled
+  
+  - A set of 40+ predefined directories will still be checked completely (e.g. AppData, Recycler, System32)
+  
+  "Quick" mode is known to be the "preventive" scan mode – less intense and very fast.
 
 Themed scan modes:
 
