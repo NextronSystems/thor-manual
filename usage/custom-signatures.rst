@@ -950,13 +950,19 @@ These external variables are:
 
   * The Windows build number (0 on non-Windows systems)
 
-* **unpack_parent** (available since THOR 10.7.9)
+* **unpack_parent** (available since THOR 10.7.20)
 
   * The file's origin (e.g. "ZIP" if it was contained in a ZIP file)
+  * Possible values are:
 
-* **unpack_source** (available since THOR 10.7.9)
+    * Archives: ``ZIP``, ``RAR``, ``RAR``, ``TAR``, ``TARGZ``, ``TARBZ2``, ``CAB``, ``GZIP``, ``BZIP2``, ``7ZIP``
+    * From a module: ``CHM``, ``CHUNK``, ``EMAIL``, ``ICS``, ``MACROS``, ``MFT``, ``OLE``, ``REGISTRY``, ``UNESCAPE``, ``UPX``, ``VBEDECODE``
+    * From a plugin: user-defined via `Scanner.ScanFile <https://github.com/NextronSystems/thor-plugin/blob/ee8583e935f06737d5f83102e2adcd83bfad7ec6/thorplugin.go#L112>`__ from a `THOR plugin <https://github.com/NextronSystems/thor-plugin>`__.
 
-  * The file's origins, separated by ">" (e.g. "EMAIL>ZIP" if it was contained in a ZIP file that was an email attachment)
+* **unpack_source** (available since THOR 10.7.20)
+
+  * The file's origins, separated by ``>`` (e.g. ``EMAIL>ZIP`` if it was contained in a ZIP file that was an email attachment)
+  * For possible values of a file's origin, see ``unpack_parent``.
 
 * **permissions** (available since THOR 10.8)
 
