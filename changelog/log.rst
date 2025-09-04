@@ -3,6 +3,18 @@ Changelog
 
 In this chapter you can find all the changes for THOR 10.7
 
+THOR 10.7.24
+~~~~~~~~~~~~
+
+.. list-table::
+    :header-rows: 1
+    :widths: 15, 85
+
+    * - Type
+      - Description
+    * - Bugfix
+      - Fix an issue where filename IOCs with superfluous escapes weren't applied correctly
+
 THOR 10.7.23
 ~~~~~~~~~~~~
 
