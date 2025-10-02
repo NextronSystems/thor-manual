@@ -23,7 +23,7 @@ Follow these steps to complete your first THOR scan
 2. Open a command line as administrative user
 
    a. Administrator on Windows
-   b. root on Linux and macOS
+   b. root on Linux, macOS or AIX
 
 3. Navigate to the folder in which you've extracted the THOR package and placed the license file(s)
 4. Start THOR on your command line
@@ -33,6 +33,7 @@ Follow these steps to complete your first THOR scan
    c. ``thor-linux-64`` on x86-64 Linux systems
    d. ``thor-linux`` on i386 Linux systems
    e. ``thor-macos`` on macOS
+   f. ``thor-aix`` on AIX
 
 5. Wait until the scan has completed (this can take between 20 and 180 minutes)
 6. When the scan is finsihed, check the text log and HTML report in the THOR program directory
@@ -48,8 +49,8 @@ Often Used Parameters
     - Description
   * - **--soft**
     - Reduce CPU usage, skip all checks that can consume a lot of memory (even if only for a few seconds)
-  * - **--quick**
-    - Perform a quick scan (skips Eventlog and checks only the most relevant folders); see :doc:`/usage/scan-modes`
+  * - **--fast**
+    - Perform a fast scan (skips Eventlog and checks only recent files and the most relevant folders); see :doc:`/usage/scan-modes`
   * - **-e target-folder**
     - Write all output files to the given folder
 
@@ -62,18 +63,18 @@ Parameters possibly relevant for your Use Case
 
   * - Parameter
     - Description
-  * - **-c, --cpulimit integer**
+  * - **-c, --cpu-limit integer**
     - Instruct THOR to pause all scanning if the systems CPU load is higher than the value specified.
 
-      Please see :ref:`usage/configuration:cpu limit (--cpulimit)` for more information.
-  * - **--allhds**
+      Please see :ref:`usage/configuration:cpu limit (--cpu-limit)` for more information.
+  * - **--all-hard-drives**
     - By default THOR scans only the C: partition on Windows machines and other files/folders only
-
       in cases in which some reference points to a different partition (e.g. configured web root of IIS
-      is on ``D:\inetpub``, registered service runs from ``D:\vendor\service``)
+      is on ``D:\inetpub``, registered service runs from ``D:\vendor\service``).
+      This changes the behaviour to scan all local hard drives (network paths or drives are still ignored).
   * - **--lookback <days>**
 
-      **--global-lookback**
+      **--lookback-global**
     - Only check the elements changed or created during the last X days in all available modules (reduces the scan duration significantly)
 
 Risky Flags
@@ -87,17 +88,17 @@ This list contains flags that should better be avoided unless you know exactly w
 
   * - Parameter
     - Description
-  * - **--intense**
+  * - **--deep**
     - long runtime, stability issues due to disabled resource control
   * - **--c2-in-memory**
     - many false positives on user workstations (especially browser memory)
-  * - **--alldrives**
+  * - **--all-drives**
     - long runtime, stability issues due to scan on network drives or other remote file systems
   * - **--mft**
     - stability issues due to high memory usage
-  * - **--dump-procs**
+  * - **--process-dump**
     - stability issues, possibly high disk space usage (free disk space checks are implemented but may fail)
-  * - **--full-registry**
+  * - **--no-builtin-registry-excludes**
     - longer runtime, low positive impact
 
 Lesser Known But Useful Flags
@@ -111,13 +112,13 @@ This list contains flags that are often used by analysts to tweak the scan in us
 
   * - Parameter
     - Description
-  * - **--allreasons**
-    - Show all reasons that led to a certain score
-  * - **--printshim**
-    - Print all available SHIM cache entries into the log
-  * - **--utc**
+  * - **--max-reasons**
+    - Show more reasons than the default (2) that led to a certain score
+  * - **--log-object-type**
+    - Print all objects of a specific type (e.g. SHIM cache entries) into the log
+  * - **--timestamp-utc**
     - Print all timestamps in UTC (helpful when creating timelines)
-  * - **--string-context num-chars**
+  * - **--match-context num-chars**
     - Number of characters preceeding and following the string match to show in the output
 
 Help and Debugging
@@ -133,10 +134,11 @@ You can use the following parameters help you to understand THOR and the output 
     - Description
   * - **--debug**
     - Get debug information if errors occur
-  * - **--help**
-    - Get a help with the most important scan options
-  * - **--fullhelp**
-    - Get a help with all scan options
+  * - **--help (short|full|detailed)**
+    - Get a help with a variable amount of information:
+      - short: summaries of the most important scan options
+      - full: summaries of all options
+      - detailed: long descriptions of all options
 
 Examples
 --------
@@ -144,13 +146,13 @@ Examples
 Logging to a Network Share
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The following command creates a plaintext log file on a share called
+The following command creates a JSON log file on a share called
 "rep" on system "sys" if the user running the command has the respective
 access rights on the share.
 
 .. code-block:: none
 
-  thor64.exe --nohtml --nocsv -l \\sys\rep\%COMPUTERNAME%_thor.txt
+  thor64.exe --no-html --no-csv --json \\sys\rep\%COMPUTERNAME%_thor.json
 
 Logging to Syslog Server
 ^^^^^^^^^^^^^^^^^^^^^^^^
@@ -160,7 +162,7 @@ only.
 
 .. code-block:: none
 
-  thor64.exe --nohtml --nocsv --nolog -s syslog.server.net
+  thor64.exe --no-html --no-csv --no-json --remote-log syslog.server.net
 
 Scan a Single Directory
 ^^^^^^^^^^^^^^^^^^^^^^^
@@ -184,18 +186,7 @@ Only scan the last 7 days of (Windows) Event Logs
   thor64.exe --lookback 7
 
 By default the ``--lookback`` flag/value only applies to (Windows) Event Logs.
-To apply it to all modules, use the ``--global-lookback`` flag.
-
-Scan System with Defaults and Make a Surface Scan
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-By default, the surface scan (DeepDive) applies all YARA rules in
-"./custom-signatures" folder. In this example, all output files are
-written to a network share.
-
-.. code-block:: none
-
-  thor64.exe --deepdivecustom -e \\server\share\thor_output\
+To apply it to all modules, use the ``--lookback-global`` flag.
 
 Intense Scan and DeepDive on a Mounted Image
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -207,19 +198,19 @@ Windows and Linux.
   Lab scanning mode requires a `forensic lab license <https://www.nextron-systems.com/2020/11/11/thor-forensic-lab-license-features/>`__
   type, which is meant to be used in forensic labs.
 
-Mounted as Drive Z
-~~~~~~~~~~~~~~~~~~
+Mounted as Drive Z (drive C on the source system)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. code-block:: none
 
-  thor64.exe --lab --deepdive -p Z:\
+  thor64.exe --lab -p Z:\ --path-remap Z:C
 
 Mounted as /mnt
 ~~~~~~~~~~~~~~~
 
 .. code-block:: none
 
-  thor64.exe --lab --deepdive -p /mnt
+  thor64.exe --lab -p /mnt --path-remap /mnt:/
 
 Scan Multiple Paths
 ^^^^^^^^^^^^^^^^^^^
@@ -236,7 +227,7 @@ Scan All Hard Drives (Windows Only)
 
 .. code-block:: none
 
-  thor64.exe --allhds
+  thor64.exe --all-hard-drives
 
 Don't Scan Recursively
 ^^^^^^^^^^^^^^^^^^^^^^
@@ -264,13 +255,13 @@ Run the Eventlog and file system scan:
 
 .. code-block:: none
 	
-  thor64.exe –a Eventlog -a Filescan
+  thor64.exe -a Eventlog -a Filescan
 
 Select or filter Signatures during Initialization
 -------------------------------------------------
 
-THOR 10.7.8 introduces the ``Init Selector`` and ``Init Filter`` functionalities,
-allowing users to fine-tune and customize their scanning process for
+The ``Signature Includes``  and ``Signature Excludes`` functionalities alow users to
+fine-tune and customize their scanning process for
 improved accuracy and efficiency.
 
 You can use these flags to limit the signature set to a certain campaign,
@@ -284,28 +275,30 @@ The filter values are applied to:
 
 Here are some examples:
 
+Scan only with ProxyShell related signatures:
+
 .. code-block:: none
 
-  thor64.exe --init-selector ProxyShell
+  thor64.exe --signature-include ProxyShell
 
 You can pass multiple selector keywords separated by comma:
 
 .. code-block:: none
 
-  thor64.exe --init-selector RANSOM,Lockbit
+  thor64.exe --signature-include RANSOM,Lockbit
 
 Or filter a set of signatures that only cause false positives in your environment:
 
 .. code-block:: none
 
-  thor64.exe --init-filter AutoIt
+  thor64.exe --signature-exclude AutoIt
 
 It is important to note that while these features offer flexibility
 and customization, we recommend utilizing a limited signature set only
 for specific use cases. This approach is particularly suitable when
 scanning exclusively for indicators related to a specific campaign.
-By understanding the proper utilization of Init Selectors and Init
-Filters, users can optimize their scanning process and effectively
+By understanding the proper utilization of Signature Includes and Excludes, 
+users can optimize their scanning process and effectively
 identify targeted threats.
 
 The main advantages of a reduced signature set are:
@@ -321,13 +314,13 @@ an open-source tool by @hasherezade to check for malware masquerading
 as benevolent processes.
 
 PE-Sieve is part of the ProcessIntegrity feature, which can be activated
-by using the ``--processintegrity`` flag. It runs on Windows as part of
+by using the ``--process-integrity`` flag. It runs on Windows as part of
 the ProcessCheck module and is capable of
 detecting advanced techniques such as Process Doppelganging.
 
 When investigating infections, you can also raise
 the sensitivity of the integrated PE-Sieve beyond the default with
-``--full-proc-integrity`` (at the cost of possible false positives).
+``--process-integrity-full`` (at the cost of possible false positives).
 
 THOR reports PE-Sieve results as follows:
 
@@ -338,15 +331,15 @@ THOR reports PE-Sieve results as follows:
   * - Findings
     - THOR's Reporting Level
   * - Replaced PE File
-    - Warning
+    - Score 70
   * - Implanted PE File
-    - Warning
+    - Score 70
   * - Unreachable File
-    - Notice
+    - Score 50
   * - Patched
-    - Notice
+    - Score 50
   * - IAT Hooked
-    - Notice
+    - Score 50
   * - Others
     - No Output in THOR
 
@@ -356,7 +349,7 @@ for more details on these values.
 Multi-Threading
 ---------------
 
-Starting from version 10.6, THOR supports scanning a system with multiple
+THOR supports scanning a system with multiple
 threads in parallel, allowing for a significant increase in speed in
 exchange for a higher CPU usage.
 
@@ -366,7 +359,7 @@ specify THOR's number of parallel threads.
 When using the ``--lab`` (Lab Scanning), ``--dropzone`` (sample drop
 zone) or ``--thunderstorm`` (Thunderstorm) command line flags, THOR will
 default to using as many threads as the system has CPU cores; otherwise,
-THOR will still default to running with a single thread.
+THOR will default to running with a single thread.
 
 .. note::
   The above listed modes are only available with the "Lab", "Thunderstorm"
@@ -380,13 +373,14 @@ Not all modules support multi-threading. It is currently supported for:
 * Filescan
 * RegistryChecks
 * Eventlog
+* ProcessCheck
 * Thunderstorm (Thunderstorm License needed)
 * Dropzone (Lab License needed)
 
 Plugins
 -------
 
-Starting with 10.8, THOR supports plugins. They can support a THOR scan in several ways:
+THOR 11 supports plugins. They can support a THOR scan in several ways:
 
 * Parsing a file format that THOR does not (yet) support
 * Checking more complex conditions that cannot be written as custom IOCs or rules

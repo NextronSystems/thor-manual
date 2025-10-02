@@ -11,14 +11,6 @@ You can select between six different scan modes in THOR:
   In default mode, THOR automatically chooses  the "**Soft**" mode if the system has only limited
   CPU and RAM resources.
 
-  There's a special "Lab Scanning" (``--lab``) method described in section 
-  :ref:`usage/special-scan-modes:lab scanning`, which disables many limitations
-  and allows to scan mounted images in a Lab scenario, even with multiple THOR instances
-  on a single Workstation.
-
-  .. note::
-    "Lab Scanning" requires a special forensic license.
-
 - **Quick** ``--quick``
 
   This mode is the fastest one and oriented on the "Pareto Principle", covering 80% of
@@ -30,9 +22,10 @@ You can select between six different scan modes in THOR:
 
 Themed scan modes:
 
-- **Soft** ``--soft`` - force disable with ``--nosoft``
+- **Soft** ``--soft`` - force disable with ``--no-soft``
 
-  This mode disables all modules and checks that could be risky for system stability.
+  This mode disables all modules and checks that could be risky for system stability. It furthermore
+  tries to reduce RAM usage of THOR.
   It is automatically activated on (more details in chapter :ref:`usage/other-topics:Automatic Soft Mode`):
   
   - Systems with only a single CPU core
@@ -51,7 +44,10 @@ Themed scan modes:
     
     user@unix:~/thor$ ./thor64 --lab -p /mnt/image_c/
 
-* **Intense** ``--intense``
+  .. note::
+    "Lab Scanning" requires a special forensic license.
+
+* **Deep** ``--deep``
 
   This mode is meant for system scanning in a non-productive or lab environment. It
   disables several speed optimizations and enables time-consuming extra checks for
@@ -111,8 +107,6 @@ OS Module Overview
   :delim: ;
   :header-rows: 1
 
-.. [1] No process memory scan with YARA rules
-
 .. hint:: 
   For a list of module names and how to turn them off, please
   see :ref:`usage/scan-modes:scan module names`
@@ -125,9 +119,9 @@ with the different scan modes. For OS compatibility, see
 :ref:`usage/scan-modes:os module overview`.
 
 - Normal: THOR without any flags regarding modules or features
-- Quick: THOR scan with ``--quick`` flag
+- Fast: THOR scan with ``--fast`` flag
 - Soft: THOR scan with ``--soft`` flag
-- Intense: THOR scan with ``--intense`` flag
+- Deep: THOR scan with ``--deep`` flag
 
 .. csv-table::
   :file: ../csv/scan-mode-overview.csv
@@ -136,7 +130,6 @@ with the different scan modes. For OS compatibility, see
   :header-rows: 1
 
 .. [2] Disabled on Domain Controllers
-.. [3] No process memory scan with YARA rules
 
 Scan Module Names
 ^^^^^^^^^^^^^^^^^
@@ -147,23 +140,14 @@ Scan Module Names
   :delim: ;
   :header-rows: 1
 
-Scan Module Explanation
-^^^^^^^^^^^^^^^^^^^^^^^
-
-.. csv-table::
-  :file: ../csv/scan-module-explanation.csv
-  :widths: 20, 80
-  :delim: ;
-  :header-rows: 1
-
 Features
 --------
 
-Features are being invoked by :ref:`usage/scan-modes:modules` and provide
+Features are invoked by :ref:`usage/scan-modes:modules` or other features and provide
 further ``Details`` about an item. For example, the ``File System Scan``
 might find a ``.zip`` file during a scan and invoke the ``Archive Scan``
 feature. The ``Archive Scan`` feature in return will extract the zip file
-and scan all the items in it.
+and scan all the files in it with the ``File System Scan``.
 
 Another example would be the ``Eventlog Analysis`` Module, which might invoke
 the ``Sigma Scan`` feature on certain eventlog entries.
@@ -171,6 +155,14 @@ the ``Sigma Scan`` feature on certain eventlog entries.
 .. hint:: 
   Please see chapter :ref:`usage/other-topics:archive scan` for a list
   of supported archive formats.
+
+
+.. csv-table::
+  :file: ../csv/feature-naming.csv
+  :widths: 33, 33, 33
+  :delim: ;
+  :header-rows: 1
+
 
 Feature Scan Mode Overview
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -183,6 +175,7 @@ Feature Scan Mode Overview
 
 .. [4] Disabled on Domain Controllers
 .. [5] Only supported on Windows
+.. [5] Only supported on Windows and Linux
 
 Feature caller list
 ^^^^^^^^^^^^^^^^^^^
@@ -192,31 +185,28 @@ how they are called by the different modules and other features.
 
 .. csv-table::
   :file: ../csv/feature-caller-list.csv
-  :widths: 50, 50
+  :widths: 30, 35, 35
   :delim: ;
   :header-rows: 1
 
+.. [1] Dependent on object type, different Sigma rulesets are applied; see :ref:`usage/custom-signatures:Sigma Rules`
+.. [2] Dependent on object type, different YARA rulesets are applied; see :ref:`usage/custom-signatures:YARA Rules`
+
+
+
 Feature selectors
 ^^^^^^^^^^^^^^^^^
-Since THOR 10.7, some features in THOR are triggered by YARA rules.
+Some features in THOR are triggered by YARA rules.
 
 When a (meta or generic) YARA rule with a specific tag matches on a file, the
 corresponding feature is started and parses the file.
 
-The standard signatures contain a number of rules with these tags, but if required,
+The standard signatures contain a number of rules with these tags. However, if these rules
+do not match on an artifact, but should,
 you can add additional rules with these tags as custom signatures.
 
 .. csv-table::
   :file: ../csv/feature-selector-list.csv
   :widths: 40, 40, 50
-  :delim: ;
-  :header-rows: 1
-
-Feature names
-^^^^^^^^^^^^^
-
-.. csv-table::
-  :file: ../csv/feature-naming.csv
-  :widths: 33, 33, 33
   :delim: ;
   :header-rows: 1

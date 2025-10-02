@@ -10,8 +10,8 @@ If you ever encounter a situation in which:
 * THOR exits with an error
 * THOR takes a long time or unexpected short time on elements
 
-Collecting a Diagnostcs Pack
-----------------------------
+Collecting a Diagnostics Pack
+-----------------------------
 
 THOR Util comes with the functionality to collect a diagnostics pack for
 THOR scans. This is helpful if a scan is taking more time as expected
@@ -49,25 +49,29 @@ You can try to reduce the scope of a module even further by using lookbacks
    C:\nextron\thor>thor64.exe -a FileScan -p C:\Windows\System32 --global-lookback --lookback 1
 
 To find out why a certain file couldn't be detected, use
-``--debug`` with ``--printall`` and try to switch into ``--intense`` mode.
+``--debug`` with ``--log-object-type file`` and try to switch into ``--intense`` mode.
 
 .. code-block:: doscon
 
-   C:\nextron\thor>thor64.exe -a Filescan -p C:\testfolder --debug --printall
-   C:\nextron\thor>thor64.exe -a Filescan -p C:\testfolder --debug --printall --intense
+   C:\nextron\thor>thor64.exe -a Filescan -p C:\testfolder --debug --log-object-type file
+   C:\nextron\thor>thor64.exe -a Filescan -p C:\testfolder --debug --log-object-type file --intense
 
 If it has been detected in ``--intense`` mode but not in default mode,
 the file extension or the magic header is most likely the problem.
-You can adjust ``max_file_size`` in ``./config/thor.yml`` or add a
+You can adjust ``file-size-limit`` in ``./config/thor.yml`` or add a
 magic header in ``./signatures/misc/file-type-signatures.cfg``.
 
 Finding Bottlenecks
 -------------------
 
-You may get the error message ``MODULE: RuntimeWatcher MESSAGE: Maximum runtime has exceeded, killing THOR``
+You may get the error message ``MESSAGE: Maximum runtime has exceeded, killing THOR``
 or encounter very slow/never-ending scans.
 
-You can check the statistics table in ``thor10.db`` on the problematic
+This message will include the elements that THOR scanned when it terminated,
+including the amount of time it took for them. This can help you to determine
+why THOR took so long and if it was due to a specific element.
+
+You can also check the statistics table in ``thor10.db`` on the problematic
 endpoint after a scan to determine the last element or elements that took
 a long time to process.
 
@@ -86,12 +90,12 @@ Below you can find the most frequent causes of missing alerts.
 THOR didn't scan file due to file size restrictions
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-**Solution**: Use the ``--max_file_size`` parameter or set it permanently
+**Solution**: Use the ``--file-size-limit`` parameter or set it permanently
 in the config file ``./config/thor.yml``.
 
 .. code-block:: doscon
 
-   C:\nextron\thor>thor64.exe --max_file_size 206233600 # setting max file size to 100 MB
+   C:\nextron\thor>thor64.exe --file-size-limit 100MB
 
 .. literalinclude:: ../examples/thor.yaml
    :caption: Default thor.yaml
@@ -117,12 +121,20 @@ doesn't have a relevant file extension:
    .txt, .conf, .cfg, .conf, .config, .psd1, .psm1, .ps1xml, .clixml, .psc1, .pssc,
    .pl, .www, .rdp, .jar, .docm, .ace, .job, .temp, .plg, .asm
 
-**Solution**: Use an intense scanning mode for that folder (``--intense``)
-or add the magic header to ``file-type-signatures.cfg``
+**Solution**: Add a custom meta rule with the ``DEEPSCAN``tag.
+See :ref:`usage/custom-signatures:Specific YARA Rules` for details about meta rules.
 
-.. warning::
-   This file gets overwritten with an update;
-   Intense scanning mode threatens the scan and system stability!
+
+.. code-block:: yara
+   :caption: custom-meta-rule.yar
+
+        rule MyCustomInspection : DEEPSCAN {
+                meta:
+                        description = "Selects .myo files for the scan"
+                        score = 0
+                condition:
+                        extension == ".myo"
+        }
 
 THOR fails to initialize custom rules with the correct type
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -131,7 +143,7 @@ It happens very often that users that prepare custom IOCs or YARA rules
 forget to include the correct keyword in the filename of the IOC or YARA
 rule file.
 
-The correct use of keywords is described in the chapters :ref:`usage/custom-signatures:Simple IOCs`
+The correct use of keywords is described in the chapters :ref:`usage/custom-signatures:Simple IOC files`
 for IOCs and :ref:`usage/custom-signatures:Specific YARA Rules` for YARA rules.
 
 A wrong or missing keyword leads to situations in which a file that contains
@@ -155,9 +167,8 @@ Most Frequent Causes of Frozen Scans
 ------------------------------------
 
 Whenever THOR stops or pauses without any traceback or panic message
-and no error messages.
-
-Usually the following sources are responsible (descending order, by frequency):
+and no error messages, usually the following sources are responsible
+(descending order, by frequency):
 
 1. An :ref:`usage/debugging:antivirus or edr suspends thor` (>98%)
 2. A "paused" command line window due to :ref:`usage/debugging:windows quick edit mode` (<1%)
@@ -203,7 +214,7 @@ Constant High System Load
 Since THOR automatically sets a low process priority a scan can slow down to a level
 that appears to be paused or suspended on systems that are under a constant high load.
 
-**Solution**: You can avoid this behaviour by using the ``--nolowprio`` flag. Be aware
+**Solution**: You can avoid this behaviour by using the ``--no-low-priority`` flag. Be aware
 that scans on a system with a constant high CPU load take longer than on other systems
 and could slow down the processes that would otherwise take all the CPU capacity.
 
@@ -214,10 +225,9 @@ Under certain circumstances the scan may appear stalled but is still running.
 You can always interrupt a scan using CTRL+C that brings THOR into the interrupt
 menu in which you can see the currently scanned element. In case of the "FileScan"
 module, this is a file or folder. In case of the "EventLog" module, this is an
-event with an ID. If you resume the scan by pressing "C" and interrupt it again
-a few minutes later, you should see another element in the interrupt menu.
+event with an ID. The amount of time spent on this element is also printed.
 
-If THOR still processes the same element for several hours, we recommend checking
+If THOR processes the same element for several hours, we recommend checking
 that element (size, format, access rights, location).
 
 **Solution**: Check progress using the interrupt menu (CTRL+C)
@@ -260,7 +270,7 @@ Probable causes:
 2. THOR's scanning of certain elements requires a lot of memory
 3. You've set ulimit values that are too restrictive
 4. You are using the wrong THOR version for your architecture
-5. You've activated a feature that consumes a lot of memory (e.g. ``--mft`` or ``--intense``)
+5. You've activated a feature that consumes a lot of memory (e.g. ``--mft`` or ``--deep``)
 
 Whenever THOR recognizes a low amount of free memory, it checks the
 top three memory consumers on the system and includes them in the log message,
@@ -310,39 +320,39 @@ On Windows:
 .. code-block:: doscon
 
    C:\thor>thor64.exe --version
-   THOR 10.6.6
-   Build bea8066 (2021-04-27 14:32:40)
-   YARA 4.0.5
-   PE-Sieve 0.2.8.5
-   OpenSSL 1.1.1j
-   Signature Database 2021/05/03-150936
-   Sigma Database 0.19.1-1749-g2f12c5c5
+   THOR 11.0.0
+   Build 95121a0 (2025-08-25 10:31:52) (windows, amd64)
+   YARA 4.5.4
+   PE-Sieve 0.4.1
+   OpenSSL 3.1.3
+   Signature Database 2025/08/29-110036
+   Sigma Database r2025-07-08-33-geeca352f5
 
 On Linux:
 
 .. code-block:: console
 
    user@desktop:~$ ./thor-linux-64 --version
-   THOR 10.6.6
-   Build bea8066 (2021-04-27 14:32:40)
-   YARA 4.0.5
-   PE-Sieve 0.2.8.5
-   OpenSSL 1.1.1j
-   Signature Database 2021/05/03-150936
-   Sigma Database 0.19.1-1749-g2f12c5c5
+   THOR 11.0.0
+   Build 95121a0 (2025-08-25 10:31:52) (linux, amd64)
+   YARA 4.5.4
+   PE-Sieve 0.4.1
+   OpenSSL 3.1.3
+   Signature Database 2025/08/29-110036
+   Sigma Database r2025-07-08-33-geeca352f5
 
 On macOS:
 
 .. code-block:: console
 
    user@macos:~$ ./thor-macosx --version
-   THOR 10.6.6
-   Build bea8066 (2021-04-27 14:32:40)
-   YARA 4.0.5
-   PE-Sieve 0.2.8.5
-   OpenSSL 1.1.1j
-   Signature Database 2021/05/03-150936
-   Sigma Database 0.19.1-1749-g2f12c5c5
+   THOR 11.0.0
+   Build 95121a0 (2025-08-25 10:31:52) (darwin, amd64)
+   YARA 4.5.4
+   PE-Sieve 0.4.1
+   OpenSSL 3.1.3
+   Signature Database 2025/08/29-110036
+   Sigma Database r2025-07-08-33-geeca352f5
 
 What is the target platform that THOR fails on?
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -377,8 +387,16 @@ when the error occurred.
 
    C:\thor>thor64.exe --quick -e D:\logs -p C:\Windows\System32
 
-Provide the log of a scan with the ``--debug`` flag
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Provide a diagnostics pack or crash output
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+If THOR is still running (but hanging), make sure to follow the steps in
+:ref:`usage/debugging:Collecting a Diagnostics Pack`. If THOR crashed and
+printed some error messages like the "out of memory" message above,
+make sure to copy those and include them in your bug report.
+
+Provide the log of a scan with the ``--debug`` flag (optional)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The most important element is a scan log of a scan with the ``--debug``
 flag used.

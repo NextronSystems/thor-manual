@@ -1,16 +1,15 @@
 Module;Windows;Linux;MacOS
 File System Scan;Supported;Supported;Supported
 Registry Scan;Supported;Not Supported;Not Supported
-SHIM Cache Scan;Supported;Not Supported;Not Supported
 Mutex Check;Supported;Not Supported;Not Supported
 Named Pipes Check;Supported;Not Supported;Not Supported
-DNS Cache Check;Supported;Supported;Supported
+DNS Cache Check;Supported;Not Supported;Not Supported
 Hotfix Check;Supported;Not Supported;Not Supported
 Hosts File Check;Supported;Supported;Supported
 Firewall Config Check;Supported;Supported;Not Supported
 Network Share Check;Supported;Not Supported;Not Supported
 Logged In Check;Supported;Supported;Supported
-Process Check;Supported;Supported [1]_;Supported [1]_
+Process Check;Supported;Supported;Supported
 Service Check;Supported;Supported;Not Supported
 Autoruns Check;Supported;Supported;Supported
 Rootkit Check;Supported;Supported;Not Supported
@@ -29,4 +28,7 @@ Crontab Check;Not Supported;Supported;Not Supported
 Integrity Check;Not Supported;Supported;Not Supported
 Event Check;Supported;Not Supported;Not Supported
 ETW Watcher;Supported;Not Supported;Not Supported
-Antivirus;Supported;Not Supported;Not Supported
+Timestomp Check;Supported;Supported;Supported
+Antivirus Installation Check;Supported;Not Supported;Not Supported
+System End-of-Life Check;Supported;Not Supported;Not Supported
+Kernel Module Check;Not Supported;Supported;Not Supported

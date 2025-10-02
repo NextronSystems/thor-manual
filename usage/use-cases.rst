@@ -30,18 +30,18 @@ your forensic Windows workstation.
 
 .. code-block:: doscon
 
-  C:\thor>thor64.exe --lab --virtual-map S:C -j WKS0001 -p S:\
+  C:\thor>thor64.exe --lab --path-remap S:C -j WKS0001 -p S:\
 
 The following example shows the same parameters for a Linux forensic
 workstation. The drive is mounted to ``/mnt/image/fs/sysvol/``.
 
 .. code-block:: console
 
-  nextron@unix:~/thor$ ./thor-linux-64 --lab --virtual-map /mnt/image/fs/sysvol/:C -j WKS0001 -p /mnt/image/fs/sysvol/ 
+  nextron@unix:~/thor$ ./thor-linux-64 --lab --path-remap /mnt/image/fs/sysvol/:C -j WKS0001 -p /mnt/image/fs/sysvol/ 
 
 The ``--lab`` parameter will apply several internal flags (e.g. enables
 intense mode to scan every file, enables multi-threading, disables
-resource control, removes all limitations). The ``--virtual-map``
+resource control, removes all limitations). The ``--path-remap``
 parameter maps every file found in elements of that image to the
 original drive letter and allows the message enrichment to work
 correctly. The ``-j HOSTNAME`` parameter can be used to write every
@@ -167,32 +167,28 @@ for more details and flags used in lab scan mode):
 
 .. code-block:: console
 
-    user@linux:~$ ./thor-linux-64 -a Filescan --intense -p /mnt/mem-dumps/procs/
+    user@linux:~$ ./thor-linux-64 -a Filescan --deep -p /mnt/mem-dumps/procs/
 
 The output of such a scan will look like this 
 
 .. code-block:: none
 
-    [?%] Worker 01: /mnt/mem-dumps/procs/3812.dmp          [_______________________________]Progress: 286 MB
-    [?%] Worker 01: /mnt/mem-dumps/procs/3812.dmp          [_______________________________]Progress: 343 MB
-    Alert YARA Score Rule Match
-      TARGET: /mnt/mem-dumps/procs/3812.dmp
-      TYPE: file
-      NAME: SUSP_Encoded_UA_Mozilla
-      SCORE: 50
-      DESCRIPTION: Detects encoded keyword - User-Agent: Mozilla/
-      SIGTYPE: internal
-      CHUNK_OFFSET: 366000000
-      TAGS: SUSP, T1027
-      MATCHING_STRINGS: Str1: "VzZXItQWdlbnQ6IE1vemlsbGEv" in "dDBRMD0NClVzZXItQWdlbnQ6IE1vemlsbGEvNS4wIChjb2" at 0x1672eacc
-      MODIFIED: Tue Jun 15 11:38:13 2021
-      CHANGED: Tue Jun 15 11:38:13 2021
-      TARGET_SIZE: 610324480
-    [?%] Worker 01: /mnt/mem-dumps/procs/3812.dmp          [_______________________________]Progress: 400 MB
-    [?%] Worker 01: /mnt/mem-dumps/procs/3812.dmp          [_______________________________]Progress: 457 MB
+    Info Scanning /tmp/tmp.pxOragOcjV/powershell.DMP RECURSIVE
+    Info Scanning target (default mode) TARGET: /tmp/tmp.pxOragOcjV/powershell.DMP TYPE: file
+    Notice Notable file chunk found CHUNK_OFFSET: 0x600000 CHUNK_END: 0x1200000 SCORE: 50
+    REASON_1: YARA rule SUSP_Encoded_UA_Mozilla / Detects encoded keyword - User-Agent: Mozilla/ SUBSCORE_1: 50 REF_1: Internal Research - Permutator SIGTYPE_1: internal
+    SIGCLASS_1: YARA Rule RULEDATE_1: 2025-06-02 TAGS_1: SUSP, T1027 RULENAME_1: SUSP_Encoded_UA_Mozilla DESCRIPTION_1: Detects encoded keyword - User-Agent: Mozilla/
+    AUTHOR_1: Florian Roth ID_1:
+    MATCHED_1: VzZXItQWdlbnQ6IE1vemlsbGEv in "\x00\x00\x00\x00\x00V\x00z\x00Z\x00X\x00I\x00t\x00Q\x00W\x00d\x00l\x00b\x00n\x00Q\x006\x00I\x00E\x001\x00v\x00e\x00m\x00l\x00s\x00b\x00G\x00E\x00v\x00\x0d\x00\x0a\x00" at 0xace2a2 in CONTENT
+    REASONS_COUNT: 1
+    ORIGIN_FILE: /tmp/tmp.pxOragOcjV/powershell.DMP ORIGIN_EXTENSION: .DMP ORIGIN_TYPE: MDMP ORIGIN_MODIFIED: Mon Oct  6 14:22:37.349 2025
+    ORIGIN_ACCESSED: Mon Oct  6 14:22:35.775 2025 ORIGIN_CHANGED: Mon Oct  6 14:22:37.349 2025
+    ORIGIN_CREATED: Mon Oct  6 14:22:35.775 2025
+    ORIGIN_SIZE: 248972314 ORIGIN_OWNER: max ORIGIN_GROUP: max ORIGIN_PERMISSIONS: rw-------
 
-The match includes an offset, e.g. ``CHUNK_OFFSET: 366000000``, and a
-matching string, e.g. ``Str1: "VzZXItQWdlbnQ6IE1vemlsbGEv"`` which help
+
+The match includes an offset, e.g. ``CHUNK_OFFSET: 0x600000``, and a
+matching string, e.g. ``MATCHED_1: VzZXItQWdlbnQ6IE1vemlsbGEv`` which help
 you to locate the correct section in the dump file using a hex editor
 for further analysis.
 
@@ -208,10 +204,10 @@ The recommended flags to run THOR are:
 
 .. code-block:: doscon
 
-   C:\temp\thor>thor64.exe --module Filescan --alldrives --path X: --path Y: --path Z:
+   C:\temp\thor>thor64.exe --threads 0 --module Filescan --all-drives --path X: --path Y: --path Z:
 
 .. note:: 
-    The ``--alldrives`` flag is only available with a lab license
+    The ``--all-drives`` flag is only available with a lab license
 
 If needed or desired, the scan can be adapted using the following flags.
 In general, the following options are not recommended but can help in special scenarios.
@@ -222,21 +218,25 @@ In general, the following options are not recommended but can help in special sc
     the scan can be resumed, if the same flags (and additional the resume
     flag) are used to start the scan.
 
-* ``--max_runtime 0``
+* ``--rimwour 0``
 
-  * Default is 7 days. Change this value if your scans need more time.
+  * Default timeout is 7 days, 0 means no timeout. Change this value if your scans need more time.
 
 * ``--path \\fileserver01\shareA``
 
   * If permissions allow anonymous access, the shares can be accessed
     using the UNC path and do not need to be mounted.
+    
+  * If the share is not accessible anonymously, you need to mount the shares using valid
+    user credentials. This has to be done before the scan and access granted to the user running the THOR scan.
+    If you use ASGARD to launch THOR the user performing the scan is ``NT AUTHORITY\SYSTEM``.
 
-* ``--nosoft``
+* ``--no-soft``
 
   * If your scanning system has too little system resources, the softmode
     is automatically enabled. This flag prevents that.
 
-* ``--lookback 8 --global-lookback``
+* ``--lookback 8 --lookback-global``
 
   * Only scans files that were modified within the last 8 days. Apply Lookback to all modules that support it (not only Eventlog). Faster scan
     time but vulnerable to timestomping attacks.
@@ -247,28 +247,24 @@ In general, the following options are not recommended but can help in special sc
     Faster scan time but vulnerable to timestomping attacks. THOR DB is
     needed for diff, so cannot be used in combination with ``--nothordb``.
 
-* ``--max_file_size ?????``
+* ``--file-size-limit ?????``
  
-  * Maximum file size In bytes. The default is 20 MB. If you need to scan bigger files,
-    you might need to increase the maximum file size.
+  * Maximum file size (specify as e.g. ``50MB``)). The default is 30 MB. If you need to scan bigger files,
+    you might need to increase the file size limit.
 
-* ``--no<feature>``
+* ``--exclude-component``
 
-  * Disable features like scanning eventlog files (``--noevtx``), if your share contains
+  * Disable features like scanning Eventlogs (``--exclude-component Eventlog``), if your share contains
     files that trigger special feature checks of THOR, that are not desired. Please see
     :ref:`usage/scan-modes:scan module names` and :ref:`usage/scan-modes:feature names`
-    for a list of module/feature names and the respective command line argument to disable
-    them.
+    for a list of module/feature names that can be passed to ``--exclude-component``.
 
-* ``--allfiles``
+* ``--files-all``
 
-  * Scan all files, independent of file extensions or magic headers.
-    Use ``--max_file_size_intense`` instead of ``--max_file_size``. (Caution: This will
-    increase the scan time drastically!)
+  * Scan all files with YARA, regardless of file extensions or magic headers.
+    Increase the ``--file-size-limit`` to 200MB unless a custom value is specified.
+    (Caution: This will increase the scan time drastically!)
 
-If the share is not accessible anonymously, you need to mount the shares using valid
-user credentials. This has to be done before the scan and access granted to the user running the THOR scan.
-If you use ASGARD to launch THOR the user performing the scan is ``NT AUTHORITY\SYSTEM``.
 
 The usage of diff and lookback are generally not recommended, but can be used if your fileshare scan does not finish in the timeframe you desire.
 Another option is to use multiple dedicated systems to run scans on the fileserver shares in parallel.

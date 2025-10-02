@@ -36,7 +36,7 @@ Retrieve Valid License From ASGARD
 Use THOR's ``--asgard`` and ``--asgard-token`` parameters
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-In ASGARD 2.5+ you're able to configure a download token to limit the download of
+In ASGARD you're able to configure a download token to limit the download of
 THOR packages and licenses to clients with knowledge of this token. The token is
 a protection that no one without knowledge of that token can intentionally exceed
 your license quota limit or retrieve a THOR package without authorization.
@@ -108,8 +108,8 @@ for more scripts and snippets.
 Retrieve Valid License From Customer Portal
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Use THOR's ``--portal-key`` and ``--portal-contracts`` parameters to retrieve a license
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+Use THOR's ``--portal-api-key`` and ``--portal-contracts`` parameters to retrieve a license
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 To retrieve a licenses from the customer portal, you need a portal key. The portal key
 (API key) can be configured in the ``My Settings > API Key`` section of the
@@ -125,7 +125,7 @@ To retrieve a licenses from the customer portal, you need a portal key. The port
    My Settings > API Key
 
 You can retrieve an appropriate THOR license at the scan start using the built-in
-``--portal-key`` and ``--portal-contracts`` parameters. The ``--portal-contracts``
+``--portal-api-key`` and ``--portal-contracts`` parameters. The ``--portal-contracts``
 parameter is optional. It can be used to take licenses from a specific contract in
 case you have more than one and want to use a specific one. If none is set, THOR
 will automatically retrieve licenses from a contract of the right type. (e.g.
@@ -141,11 +141,11 @@ You can then use the parameters as shown in the following examples:
 
 .. code-block:: doscon 
 
-   C:\temp\thor>thor64.exe --portal-key IY5Y36thrt7h1775tt1ygfuYIadmGzZJmVk32lXcud4
+   C:\temp\thor>thor64.exe --portal-api-key IY5Y36thrt7h1775tt1ygfuYIadmGzZJmVk32lXcud4
 
 .. code-block:: doscon 
 
-   C:\temp\thor>thor64.exe --portal-key IY5Y36thrt7h1775tt1ygfuYIadmGzZJmVk32lXcud4 --portal-contracts 3,5
+   C:\temp\thor>thor64.exe --portal-api-key IY5Y36thrt7h1775tt1ygfuYIadmGzZJmVk32lXcud4 --portal-contracts 3,5
 
 If everything works as expected, you'll see an **INFO** level message in the output that looks like: 
 
@@ -191,7 +191,7 @@ A valid license is an encrypted blob of at least 800 bytes. You can check the co
 
    nextron@unix:~$ xxd license.lic
 
-If you find a ``Error: HTTP-401`` in the file, than you've most likely used an invalid API key.
+If you find an ``Error: HTTP-401`` in the file, than you've most likely used an invalid API key.
 
 Network Share (Windows)
 -----------------------
@@ -315,12 +315,13 @@ It features templates for scan runs and lets you plan and schedule
 distributed sweeps with the lowest impact on system resources. Other
 services are:
 
-* **Quarantine Service** - file quarantine via Bifrost protocol
 * **Update Service** - automatic updates for THOR scanners
 * **License Service** - central registration and sub license generation
 * **Asset Management Service** - central inventory and status dashboard
 * **IOC Management** – manage and scan with custom IOC and YARA rule sets
 * **Evidence Collection** – collect evidences (files and memory) from asset
+
+TODO: Update screenshots
 
 .. figure:: ../images/image5.png
    :alt: ASGARD Management Center
@@ -721,7 +722,7 @@ A YAML file with a list of hosts looks like this:
 
 .. code-block:: yaml
    
-   remote:
+   remote-host:
    - winatl001.dom.int
    - winatl002.dom.int
    - winnyk001.dom2.int
@@ -759,10 +760,7 @@ view the progress of the scans, view and scroll through the log files of
 the different remote systems.
 
 .. figure:: ../images/image11.png
-   :alt: THOR Remote Interface I
-
-.. figure:: ../images/image12.png
-   :alt: THOR Remote Interface II
+   :alt: THOR Remote Interface
 
    THOR Remote Interface
 

@@ -1,6 +1,6 @@
 Feature;Normal;Quick;Soft;Intense
 Sigma Scan;Disabled;Disabled;Disabled;Enabled
-EXE Decompression [5]_;Enabled;Enabled;Disabled;Enabled
+EXE Decompression [6]_;Enabled;Enabled;Disabled;Enabled
 Archive Scan;Enabled;Enabled;Enabled;Enabled
 Double Pulsar Check [5]_;Enabled;Enabled;Disabled;Enabled
 Groups XML Analysis;Enabled;Enabled;Enabled;Enabled

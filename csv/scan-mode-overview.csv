@@ -1,4 +1,4 @@
-Module;Normal;Quick;Soft;Intense
+Module;Normal;Fast;Soft;Deep
 At Entries Check;Enabled;Enabled;Enabled;Enabled
 Autoruns Check;Enabled;Enabled;Enabled;Enabled
 Crontab Check;Enabled;Enabled;Enabled;Enabled
@@ -19,7 +19,7 @@ Mutex Check;Enabled;Enabled;Disabled;Enabled
 Named Pipes Check;Enabled;Enabled;Enabled;Enabled
 Network Sessions Check [2]_;Enabled;Enabled;Disabled;Enabled
 Network Share Check;Enabled;Enabled;Disabled;Enabled
-Process Check;Enabled;Enabled;Reduced [3]_;Enabled
+Process Check;Enabled;Enabled;Enabled;Enabled
 Registry Scan [2]_;Enabled;Enabled;Enabled;Enabled
 Rootkit Check;Enabled;Enabled;Enabled;Enabled
 Scheduled Tasks Analysis;Enabled;Enabled;Enabled;Enabled

@@ -1,35 +1,54 @@
-Feature;Callers
-Sigma Scan;Eventlog, Log file scanning
-EXE Decompression;File Scan
-Archive Scan;File Scan
-Double Pulsar Check;Rootkit Check
-Groups XML Analysis;File Scan
-Vulnerability Check;File Scan
-Web Server Dir Scan;Process Check
-WMI Persistence;File Scan
-Registry Hive Scan;File Scan
-AmCache Analysis;File Scan
-Process Handle Check;Process Check
-Process Memory Check;Process Check
-Process Connections Check;Process Check
-Windows Error Report (WER);File Scan
-Windows At Job File Analysis;File Scan
-EVTX File Scanning;File Scan
-Prefetch Library Scanning;File Scan
-Memory Dump DeepDive;File Scan
-Text Log File Scanning;File Scan
-Shellbag Entry Analysis;Registry Hive Scan
-Authorized Key File Analysis;File Scan
-Bifrost File Upload;File Scan
-Malicious Domain Check;File Scan
-File Scan;Most modules and features
-Cobalt Strike Beacon Parsing;File Scan, Process Check
-Process Integrity Check;Process Check
-SHIM Cache Analysis;SHIM Cache Scan, Registry Hive
-ETL File Scanning;File Scan
-VBE Decoding;File Scan
-ICS File Parsing;File Scan
-ShimDB parsing;File Scan
-Tesseract;File Scan
-Jumplist parsing;File Scan
-PS module analysis cache parsing;File Scan
+Feature;Object type worked on;Object type generated
+Sigma;all[1];
+LogScan;file;log line
+Yara;all[2];
+Stix;file,registry value;
+Archive;file;file
+C2;process connection,DNS cache entry,web page visit,web download,firewall rule,hosts file entry
+ProcessHandles;process;process handle
+ProcessConnections;process;process connection
+Amcache;file;AmCache entry
+RegistryChecks;file;registry key,registry value
+ExeDecompress;file;file
+WebdirScan;process connection;
+VulnerabilityCheck;file;;
+Prefetch;file;prefetch info
+GroupsXML;file;groups.xml user
+WMIPersistence;file;WMI element
+Lnk;file;
+WER;file;
+Eventlog;file;eventlog entry
+AuthorizedKeys;file;authorized_keys entry
+Eml;file;file
+ETL;file;eventlog entry
+AtJobs;file;at job
+CronParser;file;cron job,environment variable
+Filescan;file;
+Logger;all;
+MagicHeader;file;
+OLE;file;file
+ParseCobaltStrike;file,file chunk,process;
+RecycleBin;file;
+SHIMCache;registry value;shim cache,shim cache entry
+TeamViewer;registry value;TeamViewer password
+VirusTotal;file;
+AuditTrail;all
+DumpScan;file;file chunk
+ProcessIntegrity;process;
+ICS;file;file
+VBEDecoder;file;file
+ShimDB;file;shim database entry
+Tesseract;file
+JumpList;file;jump list entry
+ModuleAnalysisCache;file;PowerShell module analysis cache module entry
+Plugin;any;data from plugin
+Journald;file;journal log entry
+Auditlog;file;audit log entry
+QuarantineDB;file;quarantine event
+CHM;file;file
+Unescaper;file;file
+WebHistory;file;web page visit,web download
+MPLog;log line;DetectionAdd MPLog entry,EstimatedImpact MPLog entry,SDN query MPLog entry,EMS detection MPLog entry
+EseDB;file;
+MFTFile;file;MFT entry
+UserAccessLog;User Access Log Entry

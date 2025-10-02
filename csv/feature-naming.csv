@@ -1,59 +1,63 @@
-Feature;Feature Name;Disable Feature
-Use a persistent database for holding information across scans;ThorDB;--nothordb
-Scan with Sigma signatures;Sigma;**THOR 10.6** per default disabled, use ``--sigma`` to enable\
-;;**THOR 10.7** ``--nosigma``
-Scan log file (identified by .log extension or location) entries one by one;LogScan;--nologscan
+Feature;Feature Name;Feature Activation
+Use a persistent database for holding information across scans;ThorDB;
+Scan structured data with Sigma signatures;Sigma;
+Scan log file (identified by .log extension or location) entries one by one;LogScan;
 Check files, processes or blobs with YARA;Yara;
-Check files with STIX;Stix;--nostix
-Extract files contained in archives;Archive;--noarchive
-Scan files contained in archives;ArchiveScan;--noarchive
-Run checks for known C2 Domains;C2;--noc2
-Analyze process handles;ProcessHandles;--noprochandles
-Analyze process connections;ProcessConnections;--noprocconnections
-Analyze entries in Amcache files;Amcache;--noamcache
-Parse and analyze registry hives;RegistryHive;--noregistryhive
-Decompress and scan UPX or SFX packed portable executables;ExeDecompress;--noexedecompress
-Analyze web directories that were found in process handles;WebdirScan;--nowebdirscan
-Search for configuration file vulnerabilities (e.g. weak Tomcat passwords);VulnerabilityCheck;--novulnerabilitycheck
-Parse Windows prefetch directories;Prefetch;--noprefetch
-Parse groups.xml files (for AD permissions) and search for vulnerabilities;GroupsXML;--nogroupsxml
-Parse WMI Persistence directories;WMIPersistence;--nowmipersistence
-Parse and analyze LNK files;Lnk;--nolnk
-Check Knowledge DB on Mac OS;KnowledgeDB;--noknowledgedb
-Parse .wer crash dump files;WER;--nower
-Parse EVTX eventlogs and scan the contained log entries;EVTX;--noevtx
-Analyze authorized_keys SSH files;AuthorizedKeys;--noauthorizedkeys
-Parse and analyze .eml Email files;Eml;--noeml
-Parse Windows Event Trace Logging files and scan the contained logs;ETL;--noetl
-Parse jobs files scheduled with the 'at' tool;AtJobs;--noatjobs
-Upload suspicious files to a server running the Bifrost 2 quarantine service;Bifrost2;per default disabled, use ``--bifrost2Server`` to enable
-Scan multiple entries as a single block;BulkScan;can't be disabled
-Disable cpulimit check;CPULimit;--nocpulimit
-Run filename IOC, keyword IOC, and YARA rules on a chunk of data;CheckString;can't be disabled
-Parse crontab files and analyze their entries;CronParser;can't be disabled
-Check for DoublePulsar Backdoor in the rootkit module;DoublePulsar;--nodoublepulsar
-Gather additional information (like hashes, owner, timestamps, ...) about file paths ;EnrichFileInfo;can't be disabled
+Check files with STIX;Stix;
+Extract files contained in archives;Archive;
+Apply C2 IOCs on IPs or domains;C2;
+Analyze process handles;ProcessHandles;
+Analyze process connections;ProcessConnections;
+Analyze entries in Amcache files;Amcache;
+Parse and analyze registry hives;RegistryChecks;
+Decompress UPX packed portable executables;ExeDecompress;
+Analyze web directories that were found in process handles;WebdirScan;
+Search for configuration file vulnerabilities (e.g. weak Tomcat passwords);VulnerabilityCheck;
+Parse Windows prefetch directories;Prefetch;
+Parse groups.xml files (for Active Directory permissions) and search for vulnerabilities;GroupsXML;
+Parse WMI files and search for entries that persist via it;WMIPersistence;
+Parse and analyze LNK files;Lnk;
+Parse .wer crash dump files;WER;
+Parse EVTX eventlogs and scan the contained log entries;Eventlog;
+Analyze authorized_keys SSH files;AuthorizedKeys;
+Parse and analyze .eml Email files;Eml;
+Parse Windows Event Trace Logging files and scan the contained logs;ETL;
+Parse job information stored by the 'at' tool;AtJobs;
+Upload suspicious files to an ASGARD;Bifrost2;automatically enabled when using ASGARD
+Slow down THOR scan when system is under heavy load to avoid slowing down critical applications;CPULimit;
+Parse crontab files and analyze their entries;CronParser;
+Check for DoublePulsar Backdoor in the rootkit module;DoublePulsar;
 Apply filename IOCs;FilenameIOCs;can't be disabled
-Scan files and similar objects;Filescan;can't be disabled
-Apply keyword IOCs;KeywordIOCs;can't be disabled
+Scan files and similar objects;Filescan;
 Log information during a THOR run;Logger;can't be disabled
 Detect a file's type based on its first bytes;MagicHeader;can't be disabled
-Parse OLE files (e.g. old MS office documents, or MS Office macros);OLE;can't be disabled
-Parse additional information from a detected CobaltStrike beacon;ParseCobaltStrike;can't be disabled
+Parse OLE files (e.g. old MS office documents, or MS Office macros);OLE;
+Parse additional information from a detected CobaltStrike beacon;ParseCobaltStrike;
 Keep and display information about THOR's current activity;ProgressTracker;can't be disabled
-Parse additional information from files in a Windows recycle bin;RecycleBin;can't be disabled
-Check whether the system is running out of RAM, and end THOR, if this is the case;Rescontrol;--norescontrol
-Parse SHIM Caches from registry and analyze their entries;SHIMCache;--noshimcache
+Parse additional information from files in a Windows recycle bin;RecycleBin;
+Check whether the system is running out of RAM, and end THOR, if this is the case;Rescontrol;
+Parse SHIM Caches from registry and analyze their entries;SHIMCache;
 React to interrupts from outside THOR in a controlled manner;SignalHandler;can't be disabled
-Look for unencrypted TeamViewer passwords in registry hives;TeamViewer;can't be disabled
+Look for unencrypted TeamViewer passwords in registry hives;TeamViewer;
 Add additional information from Virustotal to detected files;VirusTotal;per default disabled, use ``--vtkey`` to enable
-Run a user defined command for detected files;Action;per default disabled, use ``--action_command`` to enable
 Write a detailed output file with information about all scanned elements;AuditTrail;per default disabled, use ``--audit-trail`` to enable
-Scan memory dump files in chunks;DumpScan;per default disabled, use ``--dumpscan`` to enable
+Scan memory dump files in chunks;DumpScan;
 Analyze processes in-depth with PE-Sieve and thread analysis (Windows only);ProcessIntegrity;per default disabled, use ``--processintegrity`` to enable
 Parse ICS files (calendar entries);ICS;
-Decode VBE files (obfuscated VB scripts);VBE;
+Decode VBE files (obfuscated VB scripts);VBEDecoder;
 Parse Shim databases;ShimDB;
 Check for filesystem anomalies;Tesseract;Use ``--tesseract-model`` to enable
-Parse jumplist files (used by Windows to protocol opened files);JumpList;
+Parse jumplist files (used by Windows to keep track of opened files);JumpList;
 Parse PS module analysis cache (gives information about once loaded PS modules);ModuleAnalysisCache;
+Compile and apply user provided plugins;Plugin;Only runs if user provides any plugins
+Parse Journald files on Linux;Journald;
+Parse Auditlog files on Linux;Auditlog;
+Parse QuarantineDB on MacOS;QuarantineDB;
+Parse CHM files and scan their contents;CHM;
+Deobfuscate scripts or webshells;Unescaper;
+Parse browser databases and extract their web history;WebHistory;
+Parse the Microsoft Defender protection log for quarantined threats;MPLog;
+Parse and categorize ESE DB files;EseDB;
+Parse MFT index files to extract the MFT entries;MFTFile;
+Parse the User Access Log on Windows;UserAccessLog;
+Receive and execute commands from a controlling program (e.g. ASGARD Agent and THOR CLoud Launcher);CommandListener;

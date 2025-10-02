@@ -28,7 +28,6 @@ THOR Scanner User Manual
    usage/debugging
    usage/analysis-and-info
    usage/use-cases
-   usage/known-issues
    usage/links-and-references
    changelog/index
 

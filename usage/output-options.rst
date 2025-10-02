@@ -9,7 +9,7 @@ THOR creates several files during and at the end of the scan.
 
 * **Real Time**
   
-  * the text log file is written during the scan process.
+  * the text and json log files are written during the scan process.
     Also the SYSLOG output is sent in real-time to one or more remote
     systems.
 
@@ -18,7 +18,7 @@ THOR creates several files during and at the end of the scan.
   * the full HTML report and CSV file with all file scan
     elements reported as suspicious are written at the end of the scan.
 
-You can define different formatting options for each the FILE and the
+You can define different formatting options for both text log and
 SYSLOG output.
 
 Placeholders
@@ -27,28 +27,36 @@ Placeholders
 Two placeholders can be used in command line parameters to facilitate
 the use of parameter on different operating systems.
 
-* \:hostname\:
-* \:time\:
+* <hostname>
+* <time>
 
 These can be used in command line parameters and scan templates across
 all platforms.
 
 .. code-block:: doscon
 
-   C:\thor>thor64.exe -a FileScan -p S:\\ -o :hostname:\_:time:.csv
+   C:\thor>thor64.exe -a FileScan -p S:\\ -o "<hostname>\_<time>.csv"
+
+JSON File Output (.json)
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+The JSON log file is written by default. It provides the scan results
+in a structured, machine readable format. See https://github.com/NextronSystems/jsonlog
+for a detailed description and schema of the output format.
+
+* **--no-json**
+  
+  * Don't create a JSON log file
 
 Log File Output (.txt)
 ^^^^^^^^^^^^^^^^^^^^^^
 
-The standard log file is written by default.
+The text log file is written only when explicitly enabled. It provides the
+text log format that was default for THOR 10.
 
-* **--nolog**
+* **--text log.txt**
   
-  * Don't create a log file
-
-* **--logfile filename**
-  
-  * Set a filename for the log file
+  * Create a text log file
 
 The log file's format aligns with the format of SYSLOG messages. This
 way it can easily be imported to most SIEM or log analysis systems.
@@ -66,15 +74,8 @@ CSV File Output:
    :language: none
    :linenos:
 
-Be aware that archives with matches show up as
-“archive.zip\|file-with-finding.js” (pipe separator) in the second
-column.
-
-If you need more columns in that CSV, consider processing the JSON
-output instead. To do this, you can use ``thor-util`` to convert
-logs from one format to the other:
-
-https://thor-util-manual.nextron-systems.com/en/latest/usage/log-conversion.html
+If you need more information than the CSV provides, consider processing the JSON
+output instead.
 
 CSV Stats
 ^^^^^^^^^
@@ -82,93 +83,50 @@ CSV Stats
 The CSV stats file is an optional output file that contains only the
 scan statistics. It contains a single line with:
 
-Hostname, scan start, scan end, THOR version, used command line flags,
-number of alerts, number of warnings, number of notices and number of
-errors
+ - Hostname
+ - Scan start
+ - Scan end
+ - THOR version
+ - Command line flags
+ - number of alerts
+ - number of warnings
+ - number of notices
+ - number of errors
 
 CSV Stats Output:
 
 .. list-table::
 
-   * - HYPERION,2021-02-17 17:01:25,2021-02-17 17:01:28,10.6.2,--lab -p C:\temp -o HYPERION:time:.csv --csvstats,5,2,3,0
+   * - HYPERION,2025-02-17 17:01:25,2025-02-17 17:01:28,11.0.0,--lab --path C:\temp --stats-file HYPERION.csv,5,2,3,0
 
-JSON Output (.json)
-^^^^^^^^^^^^^^^^^^^
+Console Output
+^^^^^^^^^^^^^^
 
-The JSON output file can be configured with these options:
+The output THOR writes to the console is based on the text log format, but excludes some information in the header
+(e.g. the time for each log entry).
 
-* **--json** (deprecated since THOR 10.7, use ``--jsonv2``)
+It can be customized with the following flags:
+
+* **--console-json**
   
-  * Create a JSON output file
-
-* **--jsonv2** (THOR >= 10.7)
-
-  * Use the JSON v2 format, which is easier to parse than the old v1 format.
-  * This can be used with ``--jsonfile``.
-
-* **--jsonfile filename**
-  
-  * Log file for JSON output. If no value is specified, defaults to ``:hostname:_thor_:time:.json``.
-
-* **--cmdjson**
-  
-  * Print JSON format into the command line (e.g. used with Splunk
+  * Print JSON format into the console (e.g. used with Splunk
     scripted input)
 
-* **--syslog [syslogtarget]:[port]:SYSLOGJSON**
+* **--console-key-value**
   
-  * Send syslog messages with JSON formatting
-
-Key Value Output
-^^^^^^^^^^^^^^^^
-
-THOR provides the option to create a "Key/Value" pair output that
-simplifies the SIEM integration.
-
-By using the "**--keyval**" option you get the text and syslog output
-transformed as shown in the following example. The command line output
-stays untouched by this setting.
-
-There are three different Key Value Pair Formatting flags:
-
-* **--keyval**
-  
-  * Write key/value pairs to the log file
-
-* **--cmdkeyval**
-  
-  * Print key/value pairs in the command line (e.g. used with Splunk
+  * Print console output in a ``KEY="VALUE"``format (e.g. used with Splunk
     scripted input)
-* **--syslog [syslogtarget]:[port]:SYSLOGKV**
-  
-  * Send syslog messages with proper key/value formatting
-
-.. list-table::
-   :header-rows: 1
-
-   * - Default - Without "--keyval" parameter
-   * - Jul 10 09:08:47 PROMETHEUS/10.0.2.15 THOR: Alert: MODULE: SHIMCache MESSAGE: Malware name found in Shim Cache Entry ENTRY: C:\\Users\\neo\\Desktop\\ncat.exe KEYWORD: \\\\ncat\\.exe DATE: 07/29/13 05:16:04 TYPE: system HIVEFILE: None EXTRAS: N/A N/A True
-
-.. list-table::
-   :header-rows: 1
-
-   * - Key/Value Pairs - With "--keyval" parameter
-   * - Jul 10 09:07:59 PROMETHEUS/10.0.2.15 THOR : Alert: MODULE="SHIMCache" MESSAGE="Malware name found in Shim Cache Entry" ENTRY="C:\\Users\\neo\\Desktop\\ncat.exe" KEYWORD="\\\\ncat\\.exe" DATE="07/29/13 05:16:04" TYPE="system" HIVEFILE="None" EXTRAS="N/A N/A True"
 
 Audit trail
 ^^^^^^^^^^^
 
-Audit trail output is available starting from THOR 10.8.
+Audit trail output contains different output from the other output options.
+Usually, THOR only prints elements (e.g. files, or registry entries) that have been matched on by some signature.
+Audit trail mode, on the other hand, contains _all_ scanned elements, even those that THOR considers inconspicious,
+as well as their relations to each other.
 
-It contains different output from the other output options. Usually, THOR only prints elements (e.g. files, or registry entries)
-that have been matched on by some signature. Audit trail mode, on the other hand, contains _all_ scanned elements, even those that THOR considers inconspicious,
-as well as their (known) connections to each other.
-
-This information can be used to visualize these elements, and help with grouping suspicious elements or laterally finding more suspicious elements.
-
-.. warning::
-
-   Audit trail output comes with an overhead since THOR usually does not calculate all the information contained in the audit trail.
+This information can be used to visualize these elements, and help with grouping suspicious elements or laterally
+finding more suspicious elements.
 
 Output format
 ~~~~~~~~~~~~~
@@ -180,28 +138,30 @@ The file contains newline delimited JSON. where each contained JSON object follo
 
    {
       "id": "string",
-      "details": {
-         "...": "...",
+      "object": {
+         "...": "..."
       },
       "timestamps": {
-         "...": "...",
+         "...": "..."
       },
       "reasons": [
          {
             "summary": "string",
             "score": "int",
-            "...": "...",
+            "...": "..."
          }
       ],
       "references": [
          {
-            "target-id": "string"
+            "target_id": "string",
+            "relation_name": "string",
+            "relation_type": "string"
          }
       ]
    }
 
 - ``id`` contains a unique ID for the element that was matched on
-- ``details`` contains the element that was matched on
+- ``object`` contains the element that was matched on
 - ``timestamps`` contains all timestamps found within this element
 - ``reasons`` contains a list of signatures that matched on this element
 - ``references`` contains a list of IDs of other elements that this element referred to in some way
@@ -238,8 +198,7 @@ format described in RFC 3339. In contrast to the default time stamps RFC
 SCAN ID
 ^^^^^^^
 
-The former parameter ``-i``, which has been used for so-called case IDs
-(CID) has been repurposed to allow users to set a certain scan ID
+The parameter ``-scan-id`` allows users to set a certain scan ID
 (SCANID) that appears in every log line.
 
 The scan ID helps SIEM and analysis systems to correlate the scan lines
@@ -260,30 +219,30 @@ characters: ``a-zA-Z0-9_-``
    * - S-Rooa61RfuuM
    * - S-0vRKu-1\_p7A
 
-Users can overwrite the scan ID with ``-i myscanid`` to assign the logs of
+Users can overwrite the scan ID with ``-scan-id myscanid`` to assign the logs of
 multiple scan runs to a single logical scan, e.g. if multiple partitions
 of a system get scanned in the lab in different scan runs, but should be
 shown as a single scan in Analysis Cockpit or your SIEM of choice.
 
-In a log line, it looks like (set newlines for readability):
+In a log line, it looks like (set newlines and shortened for readability):
 
 .. code-block:: none
 
-   Jul 10 09:08:47 PROMETHEUS/10.0.2.15 THOR: Alert:
-     MODULE: SHIMCache
-     SCANID: S-r4GhEhEiIRg
-     MESSAGE: Malware name found in Shim Cache Entry
-     ENTRY: C:\Users\neo\Desktop\ncat.exe
-     KEYWORD: \\ncat\.exe
-     DATE: 07/29/13 05:16:04
-     TYPE: system
-     HIVEFILE: None
-     EXTRAS: N/A N/A True
+    Oct  2 11:19:14 arch/10.1.1.1 THOR: Warning: 
+      MODULE: Filescan
+      MESSAGE: Suspicious file found
+      SCANID: S-Oro8r7WLkGA
+      FILE: /samples//DSU.py EXTENSION: .py TYPE: Script
+      SHA256: a1c06037ec4a23763b97911511991ec8c45d48df678dbf30602d8eaf0774abd3
+      MODIFIED: Wed Sep  2 17:18:04.000 2020
+      SIZE: 21811
+      SCORE: 65
+      REASON_1: YARA rule SUSP_Chmod_SetUid_Temp_Folder_Jul23 / Detects suspicious command that sets the setuid for a file in temp folders
 
 Custom Scan ID Prefix
 ~~~~~~~~~~~~~~~~~~~~~
 
-Since THOR version 10.5 you are able to set you custom prefix by using
+You are able to set you custom prefix by using
 ``--scanid-prefix``. The fixed character "S" can be replaced with any
 custom string. This allows users to set an identifier for a group of
 scans that can be grouped together in a SIEM or Analysis Cockpit.
@@ -294,7 +253,7 @@ Syslog or TCP/UDP Output
 Target Definition
 ^^^^^^^^^^^^^^^^^
 
-THOR version 10 comes with a very flexible Syslog target definition. You
+THOR version 10 comes with a very flexible remote log target definition. You
 can define as many targets as you like and give them different ports,
 protocols and formats.
 
@@ -304,21 +263,26 @@ targets with different formats.
 
 .. code-block:: doscon
    
-   C:\nextron\thor>thor.exe -s syslog1.server.net -s arsight.server.net:514:CEF
+   C:\nextron\thor>thor64.exe -s syslog1.server.net -s arsight.server.net:514:CEF
 
-The definition consists of 4 elements:
+THOR supports two different definitions:
 
 +----------+-----+--------+-----+--------+-----+------------+
-| System   | :   | Port   | :   | Type   | :   | Protocol   |
+| System   | :   | Port   | :   | Format | :   | Protocol   |
 +----------+-----+--------+-----+--------+-----+------------+
 
-The available options for each element are:
+Or: 
 
-.. code-block:: none
++----------+-----+--------+
+| URL      | :   | Format |
++----------+-----+--------+
 
-   (target ip):(target port):(DEFAULT/CEF/JSON/SYSLOGJSON/SYSLOGKV):(UDP/TCP/TCPTLS)
+In the latter case, no protocol is specified as the URL's protocol (HTTP or HTTPS) is used.
 
-The available type field values require an explication:
+Available formats
+~~~~~~~~~~~~~~~~~
+
+The available formats are:
 
 .. list-table::
    :header-rows: 1
@@ -337,33 +301,49 @@ The available type field values require an explication:
    * - SYSLOGKV
      - syslog messages that contain strict key/value pairs
 
-There are default values, which do not have to be defined explicitly:
+If not specified, the DEFAULT type is used.
 
-.. code-block:: none
 
-   (your target system ip):514:DEFAULT:UDP
+Protocols
+~~~~~~~~~
+
+The protocols that can be specified are:
+
+- UDP
+- TCP
+- TCPTLS
+
+The default protocol is UDP.
+
+
+Examples
+~~~~~~~~
 
 Sending Syslog to a target on a port that differs from the default port
 514/udp looks like this:
 
 .. code-block:: none
 
-   --syslog 10.0.0.4:2514
+   --remote-log 10.0.0.4:2514
 
-Sending Syslog to a receiving server using an SSL/TLS encrypted TCP
+Sending logs to a receiving server using an SSL/TLS encrypted TCP
 connection:
 
 .. code-block:: none
 
-   --syslog 10.0.0.4:6514:DEFAULT:TCPTLS
+   --remote-log 10.0.0.4:6514:DEFAULT:TCPTLS
 
-You can define as many targets as you like.
+Sending JSON logs to an HTTP webhook:
 
-An often used combination sends JSON formatted messages to a certain UDP port:
+.. code-block:: none
+
+   --remote-log https://my-webhook.internal:6514/receive:JSON
+
+Sending JSON formatted messages to a certain UDP port:
 
 .. code-block:: none 
 
-   --syslog 10.0.0.4:5444:JSON:UDP
+   --remote-log 10.0.0.4:5444:JSON:UDP
 
 Common Event Format (CEF)
 ^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -404,20 +384,18 @@ Encrypted Output Files
 ----------------------
 
 THOR allows to encrypt the output files of each scan using the
-``--encrypt`` parameter. A second parameter ``--pubkey`` can be used to
-specify a public key to use. The public key must be an RSA key of 1024,
+``--encryption-key`` parameter. This parameter must receive an RSA public key of 1024,
 2048 or 4096 bit size in PEM format.
 
 .. code-block:: doscon
  
-   C:\nextron\thor>thor64.exe --encrypt --pubkey mykey.pub
+   C:\nextron\thor>thor64.exe --encryption-key mykey-public.pem
 
-If you don't specify a public key, THOR uses a default key. The private
-key for this default key is stored in "thor-util", which can be used to
-decrypt output files encrypted with the default key.
+
+THOR Util can be used to decrypt the logs later on: 
 
 .. code-block:: console
 
-   nextron@unix:~$ thor-util decrypt file.txt
+   nextron@unix:~$ thor-util decrypt --privkey mykey-private.pem thorlog.json
 
 For more information on "thor-util" see the separate `THOR Util manual <https://thor-util-manual.nextron-systems.com/>`__.

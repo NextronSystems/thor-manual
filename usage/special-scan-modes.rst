@@ -6,23 +6,24 @@ change THOR's mode of operation or activate particular
 features. Some of these modes need a special license
 which is highlighted in the ``note`` box. If you have
 any questions regarding pricing of those licenses,
-please contact our sales department at sales@nextron-systems.com
+please contact our sales department at sales@nextron-systems.com.
 
 Lab Scanning
 ------------
 
-Lab scanning mode that is activated with ``--lab`` (formerly
-``--fsonly``). It is used to scan mounted forensic images or a single
+Lab scanning mode that is activated with ``--lab``.
+It is used to scan mounted forensic images or a single
 directory on a forensic workstation. All resource control functions are
-disabled and intense mode is activated by default.
+disabled and deep mode is activated by default.
 
 The ``--lab`` parameter automatically activates the following other
 options:
 
-* intense (scan every file intensively regardless of its extension or magic header)
-* norescontrol (do not limit system resources or interrupt scan on low memory)
-* nosoft (do not automatically activate soft mode on systems with single core CPUs or low memory)
-* nodoublecheck (do not check for other THOR instances on the same system and do not interrupt scan if another instance has been found)
+* deep (scan every file intensively regardless of its extension or magic header, larger file size limit)
+* no-resource-check (do not limit system resources or interrupt scan on low memory)
+* no-soft (do not automatically activate soft mode on systems with single core CPUs or low memory)
+* no-scan-lock (do not check for other THOR instances on the same system and do not interrupt scan if another instance has been found)
+* cross-platform-paths (apply filename IOCs to both Unix and Windows style paths)
 * multi-threading (it automatically sets the number of threads to use to the number of CPU cores found on the workstation)
 
 The chapter :ref:`usage/use-cases:use cases` contains some use cases in which this scan mode is used. You may find the guides useful. 
@@ -47,15 +48,15 @@ You can get a similar but not an equally thorough scan using the following comma
 
 .. code-block:: doscon 
 
-   C:\nextron\thor>thor64.exe -a Filescan --intense --norescontrol --cross-platform -p path-to-scan
+   C:\nextron\thor>thor64.exe -a Filescan --deep --no-resource-check --cross-platform-paths -p path-to-scan --threads 0
    
-Without a valid lab license, you cannot use multiple instances of THOR on a single system 
-or switch into multi-threaded scanning. The features mentioned in the following sub chapters
+Without a valid lab license, you cannot use multiple instances of THOR on a single system.
+The features mentioned in the following sub chapters
 are also limited to a lab license.
 
 `This article <https://www.nextron-systems.com/2020/11/11/thor-forensic-lab-license-features/>`__ explains that advantages of a lab licenses.
 
-Virtual Drive Mapping
+Path Remapping
 ^^^^^^^^^^^^^^^^^^^^^
 
 Since THOR enriches messages with more details, it could be problematic
@@ -68,12 +69,12 @@ drive "F:" on the forensic lab workstation. A SHIMCache entry points to
 that file and couldn't find anything, since that file doesn't exist on
 the forensic lab workstation.
 
-Virtual drive mapping allows you to virtually map that drive to its
+Path remapping allows you to virtually map that drive to its
 original name. The syntax is as follows:
 
 .. code-block:: none
 
-   --virtual-map current-location:original-location
+   --path-remap current-location:original-location
 
 Some examples:
 
@@ -82,21 +83,21 @@ drive "F:" on the forensic lab workstation:
 
 .. code-block:: none
 
-   --virtual-map F:C
+   --path-remap F:C
 
 A original mount point "/" has been mounted to "/mnt/image1" on a Linux
 forensic lab workstation:
 
 .. code-block:: none
 
-   --virtual-map /mnt/image1:/
+   --path-remap /mnt/image1:/
 
 A Windows image of drive "C:" mounted to "/mnt/image1" on a Linux
 forensic lab workstation:
 
 .. code-block:: none
 
-   --virtual-map /mnt/image1:C
+   --path-remap /mnt/image1:C
 
 
 .. note::
@@ -123,12 +124,11 @@ retrieved as the value for that parameter.
 Artefact Collector
 ^^^^^^^^^^^^^^^^^^
 
-THOR 10.7.8 introduces the ``Artefact Collector`` module. The purpose of
-this module is to be able to quickly collect and archive system
+The purpose of this module is to be able to quickly collect and archive system
 artifacts into a single ZIP via THOR.
 It can be activated via ``--collector`` (running the collector module at
 the end of a THOR run) or ``--collector-only`` (only running the
-collector module) and uses ``:hostname:_collector.zip`` as output path
+collector module) and uses ``<hostname>_collector.zip`` as output path
 for the ZIP archive per default. The default ZIP archive path can be
 changed with ``--collector-output <path>``.
 The ZIP archive includes all found artifacts and a special file called
@@ -136,17 +136,17 @@ The ZIP archive includes all found artifacts and a special file called
 (e.g. timestamps, hashes, filesize, ...)
 
 The artifacts which are collected per default (GLOB patterns) can be seen
-with ``--collector-print-config``. To change the default settings use
+with ``--collector-config-preview``. To change the default settings use
 ``--collector-config <file>``.
 
 .. tip::
-   Pipe the output of ``--collector-print-config`` to a file and use a
+   Pipe the output of ``--collector-config-preview`` to a file and use a
    modified version of it.
 
-For testing the collector config you can use ``--collector-dry-run`` -
+For testing the collector config you can use ``--collector-preview`` -
 this only prints the artifacts which would be collected to stdout - no
 output ZIP archive will be created. It is also possible to limit the
-artifact size via the ``--collector-max-filesize`` flag.
+artifact size via the ``--collector-file-size-limit`` flag.
 
 If run on Windows, the collector module will parse the MFT and collect
 files based on the extracted information. This allows the collection of
@@ -171,7 +171,7 @@ look like this:
 
 .. code-block:: doscon
 
-   C:\nextron\thor>thor64.exe --lab -p S:\ --virtual-map S:C –j WKS001 -e C:\reports
+   C:\nextron\thor>thor64.exe --lab -p S:\ --path-remap S:C -j WKS001 -e C:\reports
 
 It instructs THOR to scan the mounted partition S: in lab scanning mode,
 maps the current partition “S:” to a virtual drive “C:”, replaces the
@@ -216,7 +216,6 @@ modules:
 * ``FileScan:`` Skipping files that are unchanged since the specified lookback period.
 * ``Registry:`` Avoiding redundant analysis of registry keys or entries that have not been modified.
 * ``Services:`` Focusing on service configurations or states that have changed.
-* ``Registry Hives:`` Limiting scanning to hives with updates.
 * ``EVTX Scan:`` Excluding log entries that predate the lookback threshold.
 
 By setting the flags ``--global-lookback --lookback 2`` you instruct
@@ -233,18 +232,19 @@ Drop Zone Mode
 The drop zone mode allows you to define a folder on your local hard
 drive that is monitored for changes. If a new file is created in that
 folder, THOR scans this file and writes a log message if suspicious
-indicators have been found. The optional parameter ``--dropdelete`` can
+indicators have been found. The optional parameter ``--dropzone-purge`` can
 be used to remove the dropped file once it has been scanned. Example:
 
 .. code-block:: doscon
 
-   C:\thor>thor64.exe --dropzone –p C:\dropzone
+   C:\thor>thor64.exe --dropzone C:\dropzone
 
 .. warning::
 
     If another process writes a file to the drop zone, this is prone to
     a race condition: THOR might read the file when no or not all data
-    has been written yet.
+    has been written yet. THOR tries to detect these cases, but especially
+    slow writes (e.g. via network) have been known to cause issues.
 
     For consistent scan results, move files from another folder to the
     dropzone.
@@ -268,101 +268,69 @@ defined dropzone to test if findings are shown properly:
 .. figure:: ../images/thor_dropzone_mode_example1.png
    :alt: Example of a THOR Drop Zone Mode finding
 
-Or you can print all output with ``--printall`` - this might clutter the output:
+Or you can print all files with ``--log-object-type file`` - this might clutter the output:
 
 .. figure:: ../images/thor_dropzone_mode_example2.png
    :alt: Example of a THOR Drop Zone Mode finding
 
-Image File Scan Mode
---------------------
+Dump Scan Mode
+--------------
 
-The image file scan mode has a misleading name. It isn't meant to be
-used for forensic image scanning but for the scan of un-mountable images
+The dump scan mode is meant for the scan of un-mountable images
 or memory dumps only. If you have a forensic image of a remote system,
-it is always recommended to mount the image as a Windows drive and scan
+it is always recommended to mount the image and scan
 it using the Lab Scanning (--lab) mode.
 
-The Image File Scan mode performs a deep dive on a given data file.
+The Dump Scan mode performs a deep dive on a given data file.
 Therefore, the file type, structure or size of that file is not
-relevant. The DeepDive module processes the file in overlapping 3
-Megabyte chunks and checks these chunks using the given YARA rule base
+relevant. The DeepDive module processes the file in overlapping chunks
+and checks these chunks using the given YARA rule base
 only (including custom YARA signatures).
 
 The only suitable use case is the scan of a memory dump using your own
 YARA signatures placed in the "./custom-signatures/yara" sub folder.
 
-.. code-block:: doscon
+File Restoration
+^^^^^^^^^^^^^^^^
 
-   C:\nextron\thor>thor.exe –m systemX123.mem –j systemX123 –e C:\reports
+The dump scan parses out every executable file and applies all
+YARA signatures.
 
-.. note::
-
-    This feature requires a `forensic lab license <https://www.nextron-systems.com/2020/11/11/thor-forensic-lab-license-features/>`__
-    type which is meant to be used in forensic labs. 
-
-DeepDive
---------
-
-The DeepDive module allows a surface scan of a given memory dump.
-
-This check processes every byte of the memory dump.
-
-DeepDive is not recommended for triage sweeps in a whole network as it
-generates more false positives than a normal file system scan. This is
-mainly caused by the fact that chunks of data read from the dump are
-processed regardless of their corresponding file's type, name or
-extension. It processes Antivirus signatures, pagefile contents and
-other data that may trigger an alert.
-
-In the current stage of development, the DeepDive check parses out every
-executable file and applies all included Yara signatures. A positive
-match is reported according to the score as "Notice", "Warning" or
-"Alert".
+As a side effect of this dissection, all the embedded executables in
+other file formats like RTF or PDF are also detected, provided that
+they aren't further obfuscated.
 
 There are some disadvantages linked with the DeepDive detection engine:
 
 * The file name cannot be extracted from the raw executable code
 * The file path of the reported sample is unknown
 
-THOR uses other attributes to report these findings:
+These files can also be written to disk. When you provide a directory to
+``--memory-dump-extraction-directory``, THOR will write extracted
+PE files that some YARA rules matched on to this directory, including the 
+offset they were extracted from and the score they were matched with.
 
-* Offsets
-  
-  * THOR reports the location on the disk, so that forensic
-    investigators are able to check and extract the file from an image
-    of the hard drive.
+By default, all files with score 50 or higher will be written to disk;
+this can be customized with ``--memory-dump-extraction-score``.
 
-* Restore
-  
-  * THOR is able to restore the whole file to a given directory. It
-    uses the system's NetBIOS name, rule name, the score and the offset
-    to create a file name for the extracted file.
+Examples
+^^^^^^^^
 
-As a side effect of this dissection all the embedded executables in
-other file formats like RTF or PDF are detected regardless of their way
-of concealment.
+.. code-block:: doscon
 
-To perform a surface scan, use the "``--image_file``" option. To restore
-all detected files to a restore directory additionally use the "``-r
-directory``" option.
+   C:\nextron\thor>thor64.exe --memory-dump-file systemX123.mem -j systemX123 -e C:\reports
 
-.. list-table::
-  :header-rows: 1
-  :widths: 20, 80
+.. note::
 
-  * - Option
-    - Description
-  * - **--image_file**
-    - Activate DeepDive for a specific image file, i.e. ``--image_file C:\\tmp\memory.hdmp``
-  * - **-r directory**
-    - Recovery directory for files found by DeepDive 
+    This feature requires a `forensic lab license <https://www.nextron-systems.com/2020/11/11/thor-forensic-lab-license-features/>`__
+    type which is meant to be used in forensic labs. 
 
 Eventlog Analysis
 -----------------
 
 The Eventlog scan mode allows scanning certain Windows Eventlogs.
 
-In intense mode, all Eventlogs are scanned. In normal or soft mode, the following Eventlogs are scanned:
+In deep mode, all Eventlogs are scanned. In normal or soft mode, the following Eventlogs are scanned:
 
 - System
 - Application
@@ -396,10 +364,9 @@ Eventlog's full name.
 
 .. code-block:: doscon
 
-   C:\nextron\thor>thor64.exe -a Eventlog –n "Microsoft-Windows-Sysmon/Operational"
+   C:\nextron\thor>thor64.exe -a Eventlog -n "Microsoft-Windows-Sysmon/Operational"
 
-From THOR 10.7.13 onwards, ``-n`` can also be used to scan all event logs
-by using ``-n *``.
+``-n`` can also be used to scan all event logs by using ``-n all``.
 
 You can get the full name of a Windows Eventlog by right clicking the
 Eventlog in Windows Event Viewer and selecting "Properties".
@@ -423,25 +390,9 @@ MFT Analysis
 
 The MFT analysis module reads the "Master File Table" (MFT) of a
 partition and parses its contents. The MFT analysis takes a significant
-amount of time and is only active in “intense” scan mode by default.
+amount of time and is only active in deep scan mode by default.
 
 You can activate MFT analysis in any mode by using ``--mft``.
-
-The way THOR handles the MFT Analysis can be influenced by the following
-parameters:
-
-.. list-table::
-  :header-rows: 1
-  :widths: 25, 75
-
-  * - Option
-    - Description
-  * - **--mft**
-    - Activate MFT analysis
-  * - **--nomft**
-    - Do not perform any MFT analysis whatsoever (only useful in combination with ``--intense``)
-  * - **--maxmftsize MB**
-    - The maximum MFT size in Megabytes to process (default: 200 MB)
 
 Pure YARA mode
 --------------
@@ -450,12 +401,11 @@ In the pure YARA mode (``--pure-yara``) THOR only applies
 the internal and all custom YARA rules to the submitted samples.
 It's lightweight and fast.
 
-The full-featured mode is the default. In this mode THOR also
-parses and analyses Windows Eventlogs (EVTX), registry hives, memory
-dumps, Windows error reports (WER) and more. It's not just a YARA scan,
-but a full forensic processing.
+However, THOR does not parse and analyse most file formats in this mode,
+including Windows Eventlogs (EVTX), registry hives, memory
+dumps, Windows error reports (WER) and more, which are parsed otherwise.
 
-Under normal circumstances, we recommend using the full-featured mode,
-since most files are not of a type that triggers an intense parsing
+Under normal circumstances, we recommend using the full-featured mode.
+Since most files do not trigger an intense parsing
 function, the processing speed should be similar to the “pure-yara”
 mode.

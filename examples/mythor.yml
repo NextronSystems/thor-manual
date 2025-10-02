@@ -1,7 +1,7 @@
 resume: true
-cpulimit: 40
-intense: true
-max_file_size: 7500000
-syslog:
+cpu-limit: 40
+deep: true
+file-size-limit: 75MB
+remote-log:
    - foo.nextron
    - bar.nextron:514:TCP

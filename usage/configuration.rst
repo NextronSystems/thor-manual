@@ -4,7 +4,7 @@ Configuration
 Scan Templates
 --------------
 
-THOR 10 accepts config files (called "templates") in YAML format. They
+THOR accepts config files (called "templates") in YAML format. They
 reflect all command options to make them flexible and their use as
 comfortable as possible.
 
@@ -49,23 +49,23 @@ Content of Config File ``mythor.yml``:
 
 The default scan template is always applied first. Custom templates can
 then overwrite settings in the default template. In the example above,
-the ``cpulimit`` and ``max_file_size`` parameters are overwritten by
+the ``cpu-limit`` and ``file-size-limit`` parameters are overwritten by
 the custom template.
 
 As you can see in the example file, you have to use the long form of the
-command line parameter (e.g. ``syslog``) and not the short form (e.g.
+command line parameter (e.g. ``remote-log``) and not the short form (e.g.
 ``-s``) in the template files. The long forms can be looked up in the
-command line help using ``--help``.
+command line help using ``--help full``.
 
 .. figure:: ../images/image20.png
-   :alt: Lookup command line parameter long forms using -help
+   :alt: Lookup command line parameter long forms using --help full
 
-   Lookup command line parameter long forms using ``–help``
+   Lookup command line parameter long forms using ``--help full``
 
-CPU Limit (--cpulimit)
-----------------------
+CPU Limit (--cpu-limit)
+-----------------------
 
-Since the ``--cpulimit`` behavior can cause some confusion, we will
+Since the ``--cpu-limit`` behavior can cause some confusion, we will
 explain the functionality of it a bit more in detail here.
 
 This argument will take an integer (default 95; minimum 15), which
@@ -76,14 +76,14 @@ This can be helpful to reduce the load on server systems with real-time
 services, or to reduce the noise produced by fans in laptops.
       
 The specified value instructs THOR to pause (all scanning), if the load
-of the systems CPU is higher than the ``cpulimit``. One example would be,
+of the systems CPU is higher than the ``cpu-limit``. One example would be,
 if a user is doing something CPU intensive, and THOR is running at the same
-time, THOR will pause and wait until the CPU load drops below the ``cpulimit``
+time, THOR will pause and wait until the CPU load drops below the limit
 before continuing.
 
 To illustrate this a bit, please see the table below:
 
-.. list-table:: --cpulimit 40
+.. list-table:: --cpu-limit 40
    :header-rows: 1
 
    * - Total CPU load of system
@@ -100,47 +100,28 @@ To illustrate this a bit, please see the table below:
    process. Please see ``Irix Mode`` in the man page of
    ``top``: https://man7.org/linux/man-pages/man1/top.1.html
 
-Maximum File Size
------------------
+File Size Limit
+---------------
 
-The default maximum file size for deeper investigations (hash
-calculation and YARA scanning) is 30 MB. The maximum file size for the
-``-intense`` scan mode is 100 MB.
+The default file size limit for deeper investigations (hash
+calculation and YARA scanning) is 30 MB. The file size limit for the
+``--deep`` scan mode is 200 MB.
 
 You can adjust the values in ``./config/thor.yml``. This file does not
 get overwritten by an update or upgrade.
 
 Special scan features like the EVTX or Memory Dump scan ignore these
-limits.
-
-Features that obey the file size limit:
-
-- YARA Matching
-- Hash calculation
-- STIX IOC application
-- ArchiveScan 
-
-Features that ignore the file size limit: 
-
-- LogScan
-- RegistryHive scanning 
-- EVTX scanning 
-- DeepDive on memory dumps (selected by .dmp and magic headers)
-- Filename IOCs 
-- YARA meta rules (only check the first 100 bytes of a file and all meta data)
-
-If the ``--intense`` flag is used, a different file size limit is applied. 
-
-The only exception is ``ArchiveScan`` (e.g. ZIP file analysis) that has no file size limit in intense scan. 
+limits. See :ref:`usage/scan-modes:Features` for a full list of features
+and how they interact with the file size limit.
 
 Chunk Size in DeepDive
 ^^^^^^^^^^^^^^^^^^^^^^
 
 The chunk size in DeepDive module is set to the value defined as 
-**maximum file size**. DeepDive uses overlapping chunks of this size for 
+``--chunk-size``. DeepDive uses overlapping chunks of this size for 
 YARA rule scanning.
 
-Example: If the maximum file size is set to a default of 12 MB, DeepDive use the
+Example: If the chunk size is set to a default of 12 MB, DeepDive use the
 following chunks in its scan to apply the YARA rule set:
 
 .. code-block:: 
@@ -291,7 +272,7 @@ You can start a short test run on a certain directory with:
 Personal Information
 ^^^^^^^^^^^^^^^^^^^^
 
-THOR features an option named ``--brd`` that allows to filter the output
+THOR features an option named ``--no-personal-data`` that allows to filter the output
 messages and replace all known locations and fields that can contain
 user names or user ids with the value ``ANONYMIZED_BY_THOR``.
 

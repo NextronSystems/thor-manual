@@ -4,12 +4,12 @@
 Requirements
 ============
 
-THOR runs in any Windows, Linux and macOS environment without any
+THOR runs in any Windows, Linux, macOS or AIX environment without any
 further requirements. Everything needed is already included in the
 program package.
 
 To use the full potential of THOR, you should execute it with administrative
-privileges - ``LOCAL_SYSTEM`` on Windows and ``root`` on Linux/macOS
+privileges - ``LOCAL_SYSTEM`` on Windows and ``root`` on Linux/macOS/AIX
 systems.
 
 Operating Systems
@@ -25,15 +25,15 @@ requirements** to run THOR. Any newer version will also work with THOR.
   * - Linux
     - Windows
     - macOS
-  * - RHEL/CentOS 6
-    - Windows 7 x86/x64
-    - macOS 10.14 (Mojave)
-  * - SuSE SLES 11
-    - Windows Server 2008 R2
-    - macOS 11 (Intel)
+  * - RHEL/CentOS 7
+    - Windows 10 x86/x64
+    - macOS 11 (Big Sur)
+  * - SuSE SLES 12.2
+    - Windows Server 2016
+    -
   * - Ubuntu 16 LTS
     - 
-    - macOS 11 (ARM, Apple M1)
+    -
   * - Debian 9
     - 
     - 
@@ -53,30 +53,33 @@ details on how to download and use THOR Legacy.
   * - OS
     - Architecture
     - Support
-  * - Windows Server 2008
+  * - Windows Server 2012
     - x86 and x64
     - yes
-  * - Windows Server 2003 SP2
+  * - Windows Server 2008 R2
     - x86 and x64
-    - limited
-  * - Windows Server 2003 SP1
+    - yes
+  * - Windows Server 2008
     - x86 and x64
-    - limited
-  * - Windows Server 2003
+    - no
+  * - Windows 8
     - x86 and x64
-    - limited
-  * - Windows XP SP3
+    - yes
+  * - Windows 7
     - x86 and x64
-    - limited
-  * - Windows XP SP2
+    - yes
+  * - Windows XP
     - x86 and x64
-    - limited
+    - no
+  * - CentOS 6
+    - x86 and x64
+    - yes
 
 THOR for AIX
 ^^^^^^^^^^^^
 
 We offer a special version for AIX. Currently only a small number of versions
-are supported. We are extensively testing THOR on AIX 7.2 with Power7/Power8. 
+are supported. We are extensively testing THOR on AIX 7.2 with Power9. 
 THOR for AIX will not run on older versions of AIX. If you are running a newer
 version and are interested in THOR for AIX, we can always provide a test license
 to verify if everything is working as expected.

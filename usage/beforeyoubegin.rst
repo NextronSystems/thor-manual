@@ -13,7 +13,7 @@ Licensing
 THOR needs a valid license to run. After you :ref:`usage/beforeyoubegin:generate
 a license`, place the license file in the THOR program folder. THOR checks the
 program folder and all sub folders for valid license files (``*.lic``).
-Alternatively, you can specify a path to search in with ``--licensepath
+Alternatively, you can specify a path to search in with ``--license-path
 <path>``. For details, refer to :ref:`usage/beforeyoubegin:About License Files`.
 For automation purposes, THOR also supports :ref:`usage/beforeyoubegin:license
 injection via environment`.
