@@ -114,7 +114,7 @@ It can be customized with the following flags:
 
 * **--console-key-value**
   
-  * Print console output in a ``KEY="VALUE"``format (e.g. used with Splunk
+  * Print console output in a ``KEY="VALUE"`` format (e.g. used with Splunk
     scripted input)
 
 Audit trail
@@ -165,7 +165,6 @@ The file contains newline delimited JSON. where each contained JSON object follo
 - ``timestamps`` contains all timestamps found within this element
 - ``reasons`` contains a list of signatures that matched on this element
 - ``references`` contains a list of IDs of other elements that this element referred to in some way
-
 
 Timestamps
 ^^^^^^^^^^
@@ -390,7 +389,6 @@ THOR allows to encrypt the output files of each scan using the
 .. code-block:: doscon
  
    C:\nextron\thor>thor64.exe --encryption-key mykey-public.pem
-
 
 THOR Util can be used to decrypt the logs later on: 
 
