@@ -74,24 +74,22 @@ please see the table below.
    :delim: ;
    :header-rows: 1
 
-Hashes
-^^^^^^
+Hash IOCs
+^^^^^^^^^
 
 Hash IOC must be MD5, SHA1, SHA256, or PE import hashes. They are applied to the hashes
 of all files that THOR scans.
 
-
-File Names
-^^^^^^^^^^
+File Name IOCs
+^^^^^^^^^^^^^^
 
 Filename IOC files allow you to define IOCs based on filename and filepath.
 
 This can also be used to define false positives, or reduce the
 score of well-known files and locations, by using negative scores.
 
-
-Keywords
-^^^^^^^^
+Keyword IOCs
+^^^^^^^^^^^^
 
 .. warning::
    Keyword IOCs are deprecated. If you use keyword IOCs, consider switching to
@@ -103,8 +101,8 @@ using ``--log-object-type``.
 One use case would be to have different strings which you encountered in Scheduled Tasks
 within Windows.
 
-Domains
-^^^^^^^
+Domain IOCs
+^^^^^^^^^^^
 
 Domain IOCs (also called C2 IOCs) specify remote servers which are known to be malicious.
 This can include:
@@ -117,9 +115,8 @@ This can include:
 These IOCs are applied to the connections of examined processes
 and can optionally be used to search process memory.
 
-
-Mutexes or Events
-^^^^^^^^^^^^^^^^^
+Mutexe or Event IOCs
+^^^^^^^^^^^^^^^^^^^^
 
 Mutex or Event IOCs are applied to the processes' handles.
 
@@ -129,8 +126,8 @@ will be applied to any scope.
 
 Unlike most other IOCs, which check for "contains", plain text mutex or event IOCs are applied as "equals".
 
-Named Pipes
-^^^^^^^^^^^
+Named Pipe IOCs
+^^^^^^^^^^^^^^^
 
 Named Pipe IOCs are applied to Windows Named Pipes. The ``\\\\.\\pipe\\``
 prefix should not be part of the IOC.
@@ -1000,9 +997,11 @@ This means that during the scan, the following happens:
 - THOR gathers objects that need to be scanned.
 - When sufficiently many entries are gathered, all of them are combined (separated
   by line breaks) and passed to YARA.
+
    - The ruleset that is used is a modified one, where THOR tries to remove false positive conditions.
      Otherwise, false positive strings that occur in one entry could prevent another entry from being
      detected.
+
 - If any YARA rule matches, the entries that contain the match strings are scanned
   separately with YARA to determine whether any YARA rule matches for these specific entries.
 
