@@ -9,11 +9,8 @@ THOR allows for a more flexible way to fetch licenses,
 besides the classic way of placing a license file in
 the program folder. See :ref:`usage/deployment:Licensing` for details.
 
-Evidence Collection
--------------------
-
-Process Memory Dumps (--process-dump)
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Process Memory Dumps
+--------------------
 
 THOR supports process dumping to backup volatile
 malware information. This can be enabled with ``--dump-procs``.
@@ -168,7 +165,7 @@ calculated with the following formula:
 
 .. code-block :: none
 
-  100 * (1 - (1 - s_0 / 100 / 2^0) * (1 - s_1 / 100 / 2^1)  * (1 - s_2 / 100 / 2^2) * ...)
+   100 * (1 - (1 - s_0 / 100 / 2^0) * (1 - s_1 / 100 / 2^1)  * (1 - s_2 / 100 / 2^2) * ...)
 
 This means, scores are "capped" at a maximum of 100, and multiple lower
 scores are weighted far less.
@@ -179,14 +176,14 @@ threshold of 75 to turn classify this as an alert:
 
 .. code-block:: python
 
-  subscore0 = 1 - 70 / 100 / pow(2, 0)
-  subscore1 = 1 - 70 / 100 / pow(2, 1)
-  subscore2 = 1 - 50 / 100 / pow(2, 2)
-  subscore3 = 1 - 40 / 100 / pow(2, 3)
-  subscore4 = 1 - 40 / 100 / pow(2, 4)
-  score = 100 * (1 - (subscore0 * subscore1 * subscore2 * subscore3 * subscore4))
-  print(score)
-  84.195859375
+   subscore0 = 1 - 70 / 100 / pow(2, 0)
+   subscore1 = 1 - 70 / 100 / pow(2, 1)
+   subscore2 = 1 - 50 / 100 / pow(2, 2)
+   subscore3 = 1 - 40 / 100 / pow(2, 3)
+   subscore4 = 1 - 40 / 100 / pow(2, 4)
+   score = 100 * (1 - (subscore0 * subscore1 * subscore2 * subscore3 * subscore4))
+   print(score)
+   84.195859375
 
 THOR DB
 -------
