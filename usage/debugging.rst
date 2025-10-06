@@ -121,20 +121,19 @@ doesn't have a relevant file extension:
    .txt, .conf, .cfg, .conf, .config, .psd1, .psm1, .ps1xml, .clixml, .psc1, .pssc,
    .pl, .www, .rdp, .jar, .docm, .ace, .job, .temp, .plg, .asm
 
-**Solution**: Add a custom meta rule with the ``DEEPSCAN``tag.
+**Solution**: Add a custom meta rule with the ``DEEPSCAN`` tag.
 See :ref:`usage/custom-signatures:Specific YARA Rules` for details about meta rules.
-
 
 .. code-block:: yara
    :caption: custom-meta-rule.yar
 
-        rule MyCustomInspection : DEEPSCAN {
-                meta:
-                        description = "Selects .myo files for the scan"
-                        score = 0
-                condition:
-                        extension == ".myo"
-        }
+   rule MyCustomInspection : DEEPSCAN {
+      meta:
+         description = "Selects .myo files for the scan"
+         score = 0
+      condition:
+         extension == ".myo"
+   }
 
 THOR fails to initialize custom rules with the correct type
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
