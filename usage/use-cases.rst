@@ -256,7 +256,7 @@ In general, the following options are not recommended but can help in special sc
 
   * Disable features like scanning Eventlogs (``--exclude-component Eventlog``), if your share contains
     files that trigger special feature checks of THOR, that are not desired. Please see
-    :ref:`usage/scan-modes:scan module names` and :ref:`usage/scan-modes:feature names`
+    :ref:`usage/scan-modes:scan module names` and :ref:`usage/scan-modes:features`
     for a list of module/feature names that can be passed to ``--exclude-component``.
 
 * ``--files-all``
