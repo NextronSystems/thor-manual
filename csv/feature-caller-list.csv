@@ -1,7 +1,7 @@
 Feature;Object type worked on;Object type generated
-Sigma;all[1];
+Sigma;all [5]_;
 LogScan;file;log line
-Yara;all[2];
+Yara;all [6]_;
 Stix;file,registry value;
 Archive;file;file
 C2;process connection,DNS cache entry,web page visit,web download,firewall rule,hosts file entry
@@ -11,7 +11,7 @@ Amcache;file;AmCache entry
 RegistryChecks;file;registry key,registry value
 ExeDecompress;file;file
 WebdirScan;process connection;
-VulnerabilityCheck;file;;
+VulnerabilityCheck;file;
 Prefetch;file;prefetch info
 GroupsXML;file;groups.xml user
 WMIPersistence;file;WMI element
@@ -51,4 +51,4 @@ WebHistory;file;web page visit,web download
 MPLog;log line;DetectionAdd MPLog entry,EstimatedImpact MPLog entry,SDN query MPLog entry,EMS detection MPLog entry
 EseDB;file;
 MFTFile;file;MFT entry
-UserAccessLog;User Access Log Entry
+UserAccessLog;User Access Log Entry;

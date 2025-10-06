@@ -12,19 +12,19 @@ Firewall Config Check;Enabled;Disabled;Disabled;Enabled
 Hosts File Check;Enabled;Enabled;Disabled;Enabled
 Hotfix Check;Enabled;Disabled;Enabled;Enabled
 KnowledgeDB Check;Enabled;Enabled;Enabled;Enabled
-Logged In Check [2]_;Enabled;Enabled;Disabled;Enabled
+Logged In Check [1]_;Enabled;Enabled;Disabled;Enabled
 LSA Sessions Analysis;Enabled;Enabled;Disabled;Enabled
 MFT Analysis;Disabled;Disabled;Disabled;Enabled
 Mutex Check;Enabled;Enabled;Disabled;Enabled
 Named Pipes Check;Enabled;Enabled;Enabled;Enabled
-Network Sessions Check [2]_;Enabled;Enabled;Disabled;Enabled
+Network Sessions Check [1]_;Enabled;Enabled;Disabled;Enabled
 Network Share Check;Enabled;Enabled;Disabled;Enabled
 Process Check;Enabled;Enabled;Enabled;Enabled
-Registry Scan [2]_;Enabled;Enabled;Enabled;Enabled
+Registry Scan [1]_;Enabled;Enabled;Enabled;Enabled
 Rootkit Check;Enabled;Enabled;Enabled;Enabled
 Scheduled Tasks Analysis;Enabled;Enabled;Enabled;Enabled
 Service Check;Enabled;Enabled;Enabled;Enabled
 SHIM Cache Scan;Enabled;Enabled;Enabled;Enabled
-User Account Check [2]_;Enabled;Enabled;Enabled;Enabled
-User Profile Check [2]_;Enabled;Disabled;Enabled;Enabled
+User Account Check [1]_;Enabled;Enabled;Enabled;Enabled
+User Profile Check [1]_;Enabled;Disabled;Enabled;Enabled
 WMI Startup Check;Enabled;Enabled;Enabled;Enabled

@@ -1,13 +1,13 @@
 Feature;Normal;Quick;Soft;Intense
 Sigma Scan;Disabled;Disabled;Disabled;Enabled
-EXE Decompression [6]_;Enabled;Enabled;Disabled;Enabled
+EXE Decompression [4]_;Enabled;Enabled;Disabled;Enabled
 Archive Scan;Enabled;Enabled;Enabled;Enabled
-Double Pulsar Check [5]_;Enabled;Enabled;Disabled;Enabled
+Double Pulsar Check [3]_;Enabled;Enabled;Disabled;Enabled
 Groups XML Analysis;Enabled;Enabled;Enabled;Enabled
 Vulnerability Check;Enabled;Enabled;Enabled;Enabled
 Web Server Dir Scan;Enabled;Disabled;Enabled;Enabled
 WMI Persistence;Enabled;Enabled;Enabled;Enabled
-Registry Hive Scan;Enabled [4]_;Enabled;Enabled;Enabled
+Registry Hive Scan;Enabled [2]_;Enabled;Enabled;Enabled
 AmCache Analysis;Enabled;Enabled;Enabled;Enabled
 Process Handle Check;Enabled;Enabled;Enabled;Enabled
 Process Connections Check;Enabled;Enabled;Enabled;Enabled
@@ -23,9 +23,9 @@ Bifrost File Upload;Enabled;Enabled;Enabled;Enabled
 Malicious Domain Check;Enabled;Enabled;Enabled;Enabled
 File Scan;Enabled;Enabled;Enabled;Enabled
 Cobalt Strike Beacon Parsing;Enabled;Enabled;Enabled;Enabled
-Process Integrity Check [5]_;Disabled;Disabled;Disabled;Enabled
+Process Integrity Check [3]_;Disabled;Disabled;Disabled;Enabled
 SHIM Cache Analysis;Enabled;Enabled;Enabled;Enabled
-ETL File Scanning [5]_;Enabled;Enabled;Enabled;Enabled
+ETL File Scanning [3]_;Enabled;Enabled;Enabled;Enabled
 VBE Decoding;Enabled;Enabled;Enabled;Enabled
 ICS File Parsing;Enabled;Enabled;Enabled;Enabled
 ShimDB parsing;Enabled;Enabled;Enabled;Enabled

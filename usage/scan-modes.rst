@@ -129,7 +129,7 @@ with the different scan modes. For OS compatibility, see
   :delim: ;
   :header-rows: 1
 
-.. [2] Disabled on Domain Controllers
+.. [1] Disabled on Domain Controllers
 
 Scan Module Names
 ^^^^^^^^^^^^^^^^^
@@ -156,13 +156,11 @@ the ``Sigma Scan`` feature on certain eventlog entries.
   Please see chapter :ref:`usage/other-topics:archive scan` for a list
   of supported archive formats.
 
-
 .. csv-table::
   :file: ../csv/feature-naming.csv
   :widths: 33, 33, 33
   :delim: ;
   :header-rows: 1
-
 
 Feature Scan Mode Overview
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -173,9 +171,9 @@ Feature Scan Mode Overview
   :delim: ;
   :header-rows: 1
 
-.. [4] Disabled on Domain Controllers
-.. [5] Only supported on Windows
-.. [5] Only supported on Windows and Linux
+.. [2] Disabled on Domain Controllers
+.. [3] Only supported on Windows
+.. [4] Only supported on Windows and Linux
 
 Feature caller list
 ^^^^^^^^^^^^^^^^^^^
@@ -189,10 +187,8 @@ how they are called by the different modules and other features.
   :delim: ;
   :header-rows: 1
 
-.. [1] Dependent on object type, different Sigma rulesets are applied; see :ref:`usage/custom-signatures:Sigma Rules`
-.. [2] Dependent on object type, different YARA rulesets are applied; see :ref:`usage/custom-signatures:YARA Rules`
-
-
+.. [5] Dependent on object type, different Sigma rulesets are applied; see :ref:`usage/custom-signatures:Sigma Rules`
+.. [6] Dependent on object type, different YARA rulesets are applied; see :ref:`usage/custom-signatures:YARA Rules`
 
 Feature selectors
 ^^^^^^^^^^^^^^^^^
