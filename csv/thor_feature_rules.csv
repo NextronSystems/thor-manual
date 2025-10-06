@@ -1,6 +1,6 @@
 Name;Type;Keyword rules;Log rules;Registry rules;Generic rules;Sigma Rules
 Amcache;Feature;Yes;No;No;No;No
-Antivirus;Module;No;No;No;No
+Antivirus;Module;No;No;No;No;
 Archive;Feature;No;No;No;Yes;No
 AtJobs;Feature;Yes;No;No;No;No
 AtJobs;Module;Yes;No;No;No;No
