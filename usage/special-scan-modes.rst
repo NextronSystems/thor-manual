@@ -313,8 +313,8 @@ offset they were extracted from and the score they were matched with.
 By default, all files with score 50 or higher will be written to disk;
 this can be customized with ``--memory-dump-extraction-score``.
 
-Examples
-^^^^^^^^
+Usage Examples
+^^^^^^^^^^^^^^
 
 .. code-block:: doscon
 
