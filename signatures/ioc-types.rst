@@ -19,7 +19,7 @@ IOC Types
 =========
 
 IOCs are indicators of compromise that are applied during a scan.
-They are categorized based on their :ref:`signatures/iocs:IOC types`, and can be specified
+They are categorized based on their :ref:`signatures/ioc-types:IOC types`, and can be specified
 as either :ref:`signatures/ioc-formats:YAML IOC files` or  :ref:`signatures/ioc-formats:Simple IOC files`.
 
 All IOCs are text based and can either be regular expressions or plain strings. Furthermore, each IOC has:

@@ -74,32 +74,32 @@ The following tags for simple IOCs are currently supported:
 
 * "**c2**" or "**domains**"
   
-  * for :ref:`signatures/iocs:Domains`
+  * for :ref:`signatures/ioc-types:Domains`
 
 * "**filename**" or "**filenames**"
 
-  * for :ref:`signatures/iocs:File Names`
+  * for :ref:`signatures/ioc-types:File Names`
 
 * "**hash**" or "**hashes**"
 
-  * :ref:`signatures/iocs:Hashes`
+  * :ref:`signatures/ioc-types:Hashes`
 
 * "**keyword**" or "**keywords**"
 
-  * for :ref:`signatures/iocs:Keywords`
+  * for :ref:`signatures/ioc-types:Keywords`
 
 * "**trusted-hash**" or "**trusted-hashes**"
   or "**falsepositive-hash**" or "**falsepositive-hashes**"
 
-  * for :ref:`signatures/iocs:Hashes` that you trust (implicitly gets score -100)
+  * for :ref:`signatures/ioc-types:Hashes` that you trust (implicitly gets score -100)
 
 * "**handles**"
 
-  * for :ref:`signatures/iocs:Mutexes or Events`
+  * for :ref:`signatures/ioc-types:Mutexes or Events`
 
 * "**pipes**" or "**pipe**"
 
-  * for :ref:`signatures/iocs:Named Pipes`
+  * for :ref:`signatures/ioc-types:Named Pipes`
 
 .. list-table::
    :header-rows: 1
@@ -190,7 +190,7 @@ Keyword IOCs are specified in the following format:
 
 The keyword-based IOC files contain plaintext strings that are matched
 against the console output of THOR. Not all console output is being used for those
-IOCs, you can find the full list here: :ref:`signatures/iocs:IOC types`.
+IOCs, you can find the full list here: :ref:`signatures/ioc-types:IOC types`.
 
 Every line is treated as case-sensitive string. A comment can be specified
 with a line starting with a ``#`` and applies to all following IOCs until
