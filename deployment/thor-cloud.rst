@@ -3,16 +3,16 @@
 THOR Cloud
 ==========
 
-We launched a Service called **THOR Cloud**, which allows you to
-download and run THOR on multiple endpoints with a single
-binary. This avoids the pain of distributing THOR and collecting its
-output in bigger environments, as you can just run the launcher
-binary and watch the scan slowly finish.
+**THOR Cloud** is a cloud service which allows you to download
+and run THOR on multiple endpoints with a single binary, without
+installing an agent. This avoids the pain of distributing THOR
+and collecting its output in bigger environments, as you can just
+run the launcher binary and watch the scan slowly finish.
 
 .. figure:: ../images/thor-cloud.png
-   :alt: Downloading THOR Clouds Launcher
+   :alt: Downloading THOR Cloud's Launcher
 
-   Downloading THOR Clouds Launcher
+   Downloading THOR Cloud's Launcher
 
 Within THOR Cloud you can create different campaigns, which all
 can be configured with different scan options. Every campaign
