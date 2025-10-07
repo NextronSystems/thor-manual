@@ -1,7 +1,7 @@
 .. Index:: Yara Rules
 
 YARA Rules
-~~~~~~~~~~
+==========
 
 THOR allows you include your own custom YARA rules.
 YARA rules must have the **.yar** extension for plain text YARA rules

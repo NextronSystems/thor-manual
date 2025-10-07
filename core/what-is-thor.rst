@@ -1,3 +1,4 @@
+.. Index:: What is THOR?
 
 What is THOR?
 =============

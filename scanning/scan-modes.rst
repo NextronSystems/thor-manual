@@ -1,3 +1,5 @@
+.. Index:: Scan Modes
+
 Scan Modes
 ==========
 

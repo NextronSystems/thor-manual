@@ -1,3 +1,5 @@
+.. Index:: Changelog
+
 Changelog
 =========
 

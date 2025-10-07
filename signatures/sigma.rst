@@ -1,7 +1,7 @@
 .. Index:: Sigma Rules
 
 Sigma Rules
-~~~~~~~~~~~
+===========
 
 Sigma is a generic rule format for detections on structured data. Sigma is for
 log data, what Snort is for network packets and YARA is for files.

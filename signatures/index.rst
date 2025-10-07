@@ -6,7 +6,7 @@ Custom Signatures
 .. toctree::
     :caption: Contents
 
-    iocs
+    ioc-types
     ioc-formats
     rules
     sigma

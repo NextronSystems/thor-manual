@@ -1,3 +1,5 @@
+.. Index:: Special Scan Modes
+
 Special Scan Modes
 ==================
 

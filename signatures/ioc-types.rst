@@ -16,7 +16,7 @@
    </style>
 
 IOC Types
-~~~~~~~~~
+=========
 
 IOCs are indicators of compromise that are applied during a scan.
 They are categorized based on their :ref:`signatures/iocs:IOC types`, and can be specified

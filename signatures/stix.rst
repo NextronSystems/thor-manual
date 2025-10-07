@@ -1,7 +1,7 @@
 .. Index:: STIX IOCs
 
 STIX IOCs
-~~~~~~~~~
+=========
 
 THOR can read and apply IOCs provided in STIXv2 JSON files.
 They must have the ``.json`` extension for unencrypted STIXv2 files

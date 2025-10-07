@@ -1,4 +1,6 @@
 
+.. Index:: Links & References
+
 Links and References
 ====================
 
