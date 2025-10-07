@@ -28,7 +28,7 @@ Sigma matching on THOR output
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Sigma rules can also be written to match on THOR content.
-These rules need to have a logsource with `product: THOR`
+These rules need to have a log source with `product: THOR`
 and `service: object-type`.
 
 The available object types that can be matched on can be listed with

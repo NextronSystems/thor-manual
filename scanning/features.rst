@@ -1,5 +1,23 @@
 .. Index:: Features
 
+.. raw:: html
+
+   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+   <script>
+   $(document).ready(function() {
+   $('table p:contains("Supported")').not(':contains("Not")').parent().addClass('enabled');
+   $('table p:contains("Not Supported")').parent().addClass('disabled');
+   $('table p:contains("Reduced")').parent().addClass('reduced');
+   $('table p:contains("Enabled")').parent().addClass('enabled');
+   $('table p:contains("Disabled")').parent().addClass('disabled');
+   });
+   </script>
+   <style>
+   .enabled {text-align: center;}
+   .reduced {background-color:#cccccc !important; text-align: center;}
+   .disabled {background-color:#888888 !important; text-align: center;}
+   </style>
+
 Features
 --------
 
@@ -13,7 +31,7 @@ Another example would be the ``Eventlog Analysis`` Module, which might invoke
 the ``Sigma Scan`` feature on certain eventlog entries.
 
 .. hint:: 
-  Please see chapter :ref:`other/other-topics:archive scan` for a list
+  Please see chapter :ref:`scanning/features:archive scan` for a list
   of supported archive formats.
 
 .. csv-table::
@@ -66,3 +84,22 @@ you can add additional rules with these tags as custom signatures.
   :widths: 40, 40, 50
   :delim: ;
   :header-rows: 1
+
+Archive Scan
+^^^^^^^^^^^^
+
+The ``Archive`` feature supports the following archive types:
+
+- ZIP
+- RAR
+- TAR
+- GZIP
+- 7ZIP
+- CAB
+- BZIP2
+
+When scanning a file within any of these file types, THOR will append
+the path within the archive to the archive's own path for reporting and scan purposes
+(like filename IOCs or YARA rules). For example, an archive ``C:\temp\test.zip``
+containing a file ``path/in/zip.txt`` will cause the simulated path to
+be ``C:\temp\test.zip\path\in\zip.txt``.

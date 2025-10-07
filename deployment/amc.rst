@@ -29,14 +29,12 @@ services are:
 * **IOC Management** – manage and scan with custom IOC and YARA rule sets
 * **Evidence Collection** – collect evidences (files and memory) from asset
 
-TODO: Update screenshots
-
-.. figure:: ../images/image5.png
+.. figure:: ../images/amc-assets.png
    :alt: ASGARD Management Center
 
    ASGARD Management Center
 
-.. figure:: ../images/image6.png
+.. figure:: ../images/amc-response.png
    :alt: ASGARD Response Control
 
    ASGARD Response

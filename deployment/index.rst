@@ -9,12 +9,14 @@ of these methods are OS specific.
 .. toctree::
     :caption: Contents
 
+    thor-cloud
     smb
     amc
     thunderstorm
     thor-remote
     thor-seed
     ansible
+    velociraptor
     offline
     load
     

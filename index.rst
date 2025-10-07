@@ -19,8 +19,8 @@ This document contains information about the
    output/index
    signatures/index
    use-cases/index
-   other/other-topics
-   other/debugging
+   other/index
+   debugging/index
    other/links-and-references
    changelog/index
 

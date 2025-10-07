@@ -32,10 +32,10 @@ The key features are:
 * Several Export Formats – Syslog (JSON/Key-Value/CEF), HTML, TXT, JSON, CSV
 * Throttling of the scan process to reduce the system load to a minimum
 
-Package
--------
+THOR Contents
+-------------
 
-The THOR Package includes the following files and directories:
+The THOR package contains the following files and directories:
 
 .. list-table:: 
    :widths: 30, 70

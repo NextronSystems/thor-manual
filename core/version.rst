@@ -6,8 +6,8 @@ Which version to use?
 The different THOR versions offered can be a bit confusing in the beginning.
 To avoid more confusion down the line, you should read the below information.
 
-Choose The Right THOR Variant
------------------------------
+Which THOR Variant?
+-------------------
 
 We offer THOR in different variants.
 
@@ -103,8 +103,8 @@ our portal (recommended; continue at step 5), or follow these steps:
 
 6. Place your Legacy license inside this folder and start using THOR Legacy
 
-Choose The Right Architecture
------------------------------
+Which Architecture?
+-------------------
 
 You will find a 32 and 64-bit version of the executable in the program folder. Never run
 the 32-bit version of THOR named ``thor.exe`` on a 64-bit system. The 32-bit version has some
@@ -113,12 +113,14 @@ on disk and registry versions).
 
 Make sure to run the correct binary for your target architecture.
 
-Choose The Right Command Line Flags
------------------------------------
+What Command Line Flags?
+------------------------
 
-The recommended way to run THOR has already been put into the default. So, the recommended
-way to start a THOR is **without any additional command line flags**.
+THOR was built to be production ready. That means 99% of the time you
+do not need to specify any extra flags. Our recommended way to use THOR
+is **without any additional command line flags**.
 
-However, special circumstances can lead to different requirements and thus a different set
-of command line flags. See chapter :ref:`scanning/using-thor:using thor` for often used flags.
+However, special circumstances can lead to different requirements and
+thus a different set of command line flags. See chapter
+:ref:`scanning/using-thor:using thor` for often used flags.
 

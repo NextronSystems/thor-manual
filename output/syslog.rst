@@ -20,7 +20,7 @@ targets with different formats.
 
 .. code-block:: doscon
    
-   C:\nextron\thor>thor64.exe -s syslog1.server.net -s arsight.server.net:514:CEF
+   C:\nextron\thor>thor64.exe -s syslog1.server.net -s arcsight.server.net:514:CEF
 
 THOR supports two different definitions:
 

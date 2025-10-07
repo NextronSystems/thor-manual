@@ -39,10 +39,10 @@ Check whether the system is running out of RAM, and end THOR, if this is the cas
 Parse SHIM Caches from registry and analyze their entries;SHIMCache;
 React to interrupts from outside THOR in a controlled manner;SignalHandler;can't be disabled
 Look for unencrypted TeamViewer passwords in registry hives;TeamViewer;
-Add additional information from Virustotal to detected files;VirusTotal;per default disabled, use ``--vtkey`` to enable
-Write a detailed output file with information about all scanned elements;AuditTrail;per default disabled, use ``--audit-trail`` to enable
+Add additional information from Virustotal to detected files;VirusTotal;Use ``--vtkey`` to enable
+Write a detailed output file with information about all scanned elements;AuditTrail;Use ``--audit-trail`` to enable
 Scan memory dump files in chunks;DumpScan;
-Analyze processes in-depth with PE-Sieve and thread analysis (Windows only);ProcessIntegrity;per default disabled, use ``--processintegrity`` to enable
+Analyze processes in-depth with PE-Sieve and thread analysis (Windows only);ProcessIntegrity;Use ``--processintegrity`` to enable
 Parse ICS files (calendar entries);ICS;
 Decode VBE files (obfuscated VB scripts);VBEDecoder;
 Parse Shim databases;ShimDB;

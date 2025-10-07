@@ -29,11 +29,11 @@ Apply Custom Scan Templates
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The following command line provides a custom scan template named
-``mythor.yml``.
+``mythor.yml`` in the ``config`` directory.
 
 .. code-block:: doscon
    
-  C:\nextron\thor>thor.exe -t mythor.yml
+  C:\nextron\thor>thor.exe -t config\mythor.yml
 
 Example Templates
 ^^^^^^^^^^^^^^^^^

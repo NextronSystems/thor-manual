@@ -1,4 +1,4 @@
-.. Index:: Stix IOCs
+.. Index:: STIX IOCs
 
 STIX IOCs
 ~~~~~~~~~
@@ -7,9 +7,10 @@ THOR can read and apply IOCs provided in STIXv2 JSON files.
 They must have the ``.json`` extension for unencrypted STIXv2 files
 and the ``.jsos`` extension for encrypted STIXv2 files.
 
-TODO: Update
+.. hint::
+  STIXv1 is not supported
 
-.. figure:: ../images/image32.png
+.. figure:: ../images/stix-init.png
    :alt: STIXv2 Initialization during startup
 
    STIXv2 Initialization during startup
@@ -111,7 +112,3 @@ The following observables are supported.
   * **=**
   * **!=**
 
-STIX v1
-^^^^^^^
-
-STIX version 1 is not supported.

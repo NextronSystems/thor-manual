@@ -10,11 +10,10 @@ THOR needs a valid license to run. After you generated and downloaded a
 license file, place it inside the THOR program folder. THOR checks the
 program folder and all sub folders for valid license files (``*.lic``).
 We recommend to create a folder called ``licenses`` within THOR's program
-folger to keep organized.
-Alternatively, you can specify a path to search in with ``--license-path
-<path>``. For details, refer to :ref:`core/licensing:About License Files`.
-For automation purposes, THOR also supports :ref:`core/licensing:license
-injection via environment`.
+directory to keep organized. Alternatively, you can specify a path to
+search in with ``--license-path <path>``. For details, refer to
+:ref:`core/licensing:About License Files`. For automation purposes, THOR
+also supports :ref:`core/licensing:license injection via environment`.
 
 Generate a License
 ^^^^^^^^^^^^^^^^^^
@@ -204,10 +203,10 @@ To retrieve a licenses from the customer portal, you need a portal key. The port
    API functionality needs to be activated by Nextron. Please contact support/sales
    to activate the API functionality.
 
-.. figure:: ../images/portal-api-key.png
-   :alt: My Settings > API Key
+.. figure:: ../images/portal_api_key.png
+   :alt: Settings > API Key
 
-   My Settings > API Key
+   Settings > API Key
 
 You can retrieve an appropriate THOR license at the scan start using the built-in
 ``--portal-api-key`` and ``--portal-contracts`` parameters. The ``--portal-contracts``
@@ -217,7 +216,7 @@ will automatically retrieve licenses from a contract of the right type. (e.g.
 retrieve workstation license from the first still valid contract that has
 workstation licenses available)
 
-.. figure:: ../images/portal-ids.png
+.. figure:: ../images/portal_contract_ids.png
    :alt: Contracts IDs in Customer Portal
 
    Contract IDs in Customer Portal

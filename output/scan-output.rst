@@ -120,7 +120,7 @@ Audit trail
 
 Audit trail output contains different output from the other output options.
 Usually, THOR only prints elements (e.g. files, or registry entries) that have been matched on by some signature.
-Audit trail mode, on the other hand, contains _all_ scanned elements, even those that THOR considers inconspicious,
+Audit trail mode, on the other hand, contains _all_ scanned elements, even those that THOR considers inconspicuous,
 as well as their relations to each other.
 
 This information can be used to visualize these elements, and help with grouping suspicious elements or laterally

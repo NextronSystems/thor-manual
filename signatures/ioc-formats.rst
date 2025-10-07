@@ -3,7 +3,7 @@
 IOC Formats
 ===========
 
-THOR checks the contents of the ``./custom-signatures`` subfolders;
+THOR checks the contents of the ``./custom-signatures`` sub-directories;
 there is a subfolder here for each signature type (e.g. YARA, Sigma, or
 IOCs). Files must be placed in the correct subfolder to be loaded.
 

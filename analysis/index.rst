@@ -8,4 +8,3 @@ Analysis
 
     thor-logs
     valhalla
-    metadata

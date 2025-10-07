@@ -14,21 +14,21 @@ OS Module Overview
  
 .. raw:: html
 
-        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-        <script>
-        $(document).ready(function() {
-        $('table p:contains("Supported")').not(':contains("Not")').parent().addClass('enabled');
-        $('table p:contains("Not Supported")').parent().addClass('disabled');
-        $('table p:contains("Reduced")').parent().addClass('reduced');
-        $('table p:contains("Enabled")').parent().addClass('enabled');
-        $('table p:contains("Disabled")').parent().addClass('disabled');
-        });
-        </script>
-        <style>
-        .enabled {text-align: center;}
-        .reduced {background-color:#cccccc !important; text-align: center;}
-        .disabled {background-color:#888888 !important; text-align: center;}
-        </style>
+   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+   <script>
+   $(document).ready(function() {
+   $('table p:contains("Supported")').not(':contains("Not")').parent().addClass('enabled');
+   $('table p:contains("Not Supported")').parent().addClass('disabled');
+   $('table p:contains("Reduced")').parent().addClass('reduced');
+   $('table p:contains("Enabled")').parent().addClass('enabled');
+   $('table p:contains("Disabled")').parent().addClass('disabled');
+   });
+   </script>
+   <style>
+   .enabled {text-align: center;}
+   .reduced {background-color:#cccccc !important; text-align: center;}
+   .disabled {background-color:#888888 !important; text-align: center;}
+   </style>
 
 .. csv-table::
   :file: ../csv/os-module-overview.csv

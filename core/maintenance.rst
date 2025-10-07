@@ -4,8 +4,8 @@ Maintenance
 ===========
 
 This chapter focuses on the maintenance aspect of THOR.
-We will explain updating THOR or its signatures, using
-different signature versions, or including signatures
+We will explain how to update THOR and its signatures,
+using different signature versions, or including signatures
 from the `YARA Forge <https://yarahq.github.io/>`_ project.
 
 Upgrade THOR

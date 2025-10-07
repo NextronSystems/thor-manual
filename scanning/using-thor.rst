@@ -12,8 +12,8 @@ your scans and yield potentially better results for your use cases.
 
 There is no "one fits all" command line argument, but we designed
 THOR to cover the broadest area with minimal impact in the default
-operating mode. Default in this case means no additional command
-line arguments.
+operating mode. Default in this case means **no additional command
+line arguments**.
 
 Quick Start
 -----------
@@ -36,7 +36,7 @@ Follow these steps to complete your first THOR scan
    f. ``thor-aix`` on AIX
 
 4. Wait until the scan has completed (this can take between 20 and 180 minutes)
-5. When the scan is finsihed, check the HTML report or JSON log in the THOR program directory
+5. When the scan is finished, check the HTML report or JSON log in the THOR program directory
 
 Often Used Parameters
 ---------------------
@@ -71,7 +71,7 @@ Parameters possibly relevant for your Use Case
     - By default THOR scans only the C: partition on Windows machines and other files/folders only
       in cases in which some reference points to a different partition (e.g. configured web root of IIS
       is on ``D:\inetpub``, registered service runs from ``D:\vendor\service``).
-      This changes the behaviour to scan all local hard drives (network paths or drives are still ignored).
+      This changes the behavior to scan all local hard drives (network paths or drives are still ignored).
   * - **--lookback <days>**
 
       **--lookback-global**
@@ -119,7 +119,7 @@ This list contains flags that are often used by analysts to tweak the scan in us
   * - **--timestamp-utc**
     - Print all timestamps in UTC (helpful when creating timelines)
   * - **--match-context num-chars**
-    - Number of characters preceeding and following the string match to show in the output
+    - Number of characters preceding and following the string match to show in the output
 
 Help and Debugging
 ------------------
@@ -315,8 +315,8 @@ as benevolent processes.
 
 PE-Sieve is part of the ProcessIntegrity feature, which can be activated
 by using the ``--process-integrity`` flag. It runs on Windows as part of
-the ProcessCheck module and is capable of
-detecting advanced techniques such as Process Doppelganging.
+the ProcessCheck module and is capable of detecting advanced techniques
+such as "Process Doppelganging".
 
 When investigating infections, you can also raise
 the sensitivity of the integrated PE-Sieve beyond the default with

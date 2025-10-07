@@ -26,7 +26,7 @@ Themed scan modes:
 
   This mode disables all modules and checks that could be risky for system stability. It furthermore
   tries to reduce RAM usage of THOR.
-  It is automatically activated on (more details in chapter :ref:`other/other-topics:Automatic Soft Mode`):
+  It is automatically activated on (more details in chapter :ref:`other/rescontrol:Automatic Soft Mode`):
   
   - Systems with only a single CPU core
   
