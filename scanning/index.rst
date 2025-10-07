@@ -7,7 +7,9 @@ Scanning
     :caption: Contents
 
     using-thor
+    limits
     scan-modes
+    special-scan-modes
+    excludes
     modules
     features
-    special-scan-modes

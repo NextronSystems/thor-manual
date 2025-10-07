@@ -44,7 +44,7 @@ in the help screen.
    THOR Remote Usage
 
 As you can see, a list of target hosts can be provided with the help of
-the new YAML config files. See :ref:`core/configuration:configuration` for more
+the new YAML config files. See :ref:`core/templates:scan templates` for more
 details.
 
 A YAML file with a list of hosts looks like this:

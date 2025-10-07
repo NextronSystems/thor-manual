@@ -59,7 +59,7 @@ The THOR package contains the following files and directories:
        Windows: **thor-util.exe**
 
        Unix: **thor-util**
-   * - Configuration Files (see :ref:`core/configuration:configuration`)
+   * - Configuration Files (see :ref:`core/templates:scan templates`)
      - In subfolder ``./config`` - (**thor.yml**, **thor-util.yml**, **sigma.yml**, **false\_positive\_filters.cfg**)
    * - Main Signature Database
      - In subfolder ``./signatures``

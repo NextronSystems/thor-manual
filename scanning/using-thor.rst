@@ -66,7 +66,7 @@ Parameters possibly relevant for your Use Case
   * - **-c, --cpu-limit integer**
     - Instruct THOR to pause all scanning if the systems CPU load is higher than the value specified.
 
-      Please see :ref:`core/configuration:cpu limit` for more information.
+      Please see :ref:`scanning/limits:cpu limit` for more information.
   * - **--all-hard-drives**
     - By default THOR scans only the C: partition on Windows machines and other files/folders only
       in cases in which some reference points to a different partition (e.g. configured web root of IIS

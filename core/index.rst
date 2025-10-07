@@ -17,7 +17,7 @@ extend.
     requirements
     version
     licensing
-    configuration
+    templates
     flags
     maintenance
     av-edr-exclusions

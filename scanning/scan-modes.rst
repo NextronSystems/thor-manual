@@ -34,21 +34,6 @@ Themed scan modes:
   
   - Systems with less than 1024 MB of RAM
 
-* **Lab Scan** ``--lab``
-
-  This mode scans only the file system and disables all other modules.
-  (see :ref:`scanning/special-scan-modes:lab scanning` for more details
-  and flags used in this scan mode)
-  
-  Example: 
-  
-  .. code-block:: console
-    
-    user@unix:~/thor$ ./thor64 --lab -p /mnt/image_c/
-
-  .. note::
-    "Lab Scanning" requires a special forensic license.
-
 * **Deep** ``--deep``
 
   This mode is meant for system scanning in a non-productive or lab environment. It
