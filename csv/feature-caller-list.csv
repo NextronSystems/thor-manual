@@ -2,13 +2,13 @@ Feature;Object type worked on;Object type generated
 Sigma;all [5]_;
 LogScan;file;log line
 Yara;all [6]_;
-Stix;file,registry value;
+Stix;file, registry value;
 Archive;file;file
-C2;process connection,DNS cache entry,web page visit,web download,firewall rule,hosts file entry
+C2;process connection, DNS cache entry, web page visit, web download, firewall rule, hosts file entry
 ProcessHandles;process;process handle
 ProcessConnections;process;process connection
 Amcache;file;AmCache entry
-RegistryChecks;file;registry key,registry value
+RegistryChecks;file;registry key, registry value
 ExeDecompress;file;file
 WebdirScan;process connection;
 VulnerabilityCheck;file;
@@ -22,14 +22,14 @@ AuthorizedKeys;file;authorized_keys entry
 Eml;file;file
 ETL;file;eventlog entry
 AtJobs;file;at job
-CronParser;file;cron job,environment variable
+CronParser;file;cron job, environment variable
 Filescan;file;
 Logger;all;
 MagicHeader;file;
 OLE;file;file
-ParseCobaltStrike;file,file chunk,process;
+ParseCobaltStrike;file, file chunk, process;
 RecycleBin;file;
-SHIMCache;registry value;shim cache,shim cache entry
+SHIMCache;registry value;shim cache, shim cache entry
 TeamViewer;registry value;TeamViewer password
 VirusTotal;file;
 AuditTrail;all
@@ -47,8 +47,8 @@ Auditlog;file;audit log entry
 QuarantineDB;file;quarantine event
 CHM;file;file
 Unescaper;file;file
-WebHistory;file;web page visit,web download
-MPLog;log line;DetectionAdd MPLog entry,EstimatedImpact MPLog entry,SDN query MPLog entry,EMS detection MPLog entry
+WebHistory;file;web page visit, web download
+MPLog;log line;DetectionAdd MPLog entry, EstimatedImpact MPLog entry, SDN query MPLog entry, EMS detection MPLog entry
 EseDB;file;
 MFTFile;file;MFT entry
 UserAccessLog;User Access Log Entry;
