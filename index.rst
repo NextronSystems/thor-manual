@@ -5,7 +5,7 @@ Nextron Systems - THOR Scanner
 
 Welcome to Nextron System's Manual for THOR 11.
 
-This document contains information about the 
+This document contains information about the usage of THOR 11.
 
 .. toctree::
    :maxdepth: 2
