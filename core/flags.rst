@@ -760,7 +760,7 @@ Active Modules
 
            This allows you to disable specific modules or features that are not needed, or cause issues on your system.
 
-           https://thor-manual.nextron-systems.com/latest/usage/scan-modes.html contains a full list of modules and features, including a short description of each component.
+           https://thor-manual.nextron-systems.com/en/latest/usage/scan-modes.html contains a full list of modules and features, including a short description of each component.
 
            Alias:
              --disable-module
@@ -850,7 +850,7 @@ Module Extras
 
            If omitted, THOR scans the most relevant event logs. The complete list of these can be found at:
 
-           https://thor-manual.nextron-systems.com/latest/usage/special-scan-modes.html#eventlog-analysis
+           https://thor-manual.nextron-systems.com/en/latest/usage/special-scan-modes.html#eventlog-analysis
 
            Example:
              --eventlog-target Security,Microsoft-Windows-Sysmon/Operational

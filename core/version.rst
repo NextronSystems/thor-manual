@@ -48,7 +48,7 @@ The TechPreview version should be used for:
 * Single system live forensics on systems that don't have the highest priority on stability
 
 You can find the information on how to get the TechPreview version in
-the `THOR Util manual <https://thor-util-manual.nextron-systems.com/latest/usage/download-packages.html#thor-techpreview-version>`__.
+the `THOR Util manual <https://thor-util-manual.nextron-systems.com/en/latest/usage/download-packages.html#thor-techpreview-version>`__.
 
 THOR Legacy
 ^^^^^^^^^^^
