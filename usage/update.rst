@@ -9,7 +9,7 @@ Running ``thor-util --help`` shows two options that look very similar:
 - **upgrade** : program and signature updates
 - **update** : signature updates only
 
-For more information on "thor-util" see the separate `THOR Util manual <https://thor-util-manual.nextron-systems.com/en/latest/>`__.
+For more information on "thor-util" see the separate `THOR Util manual <https://thor-util-manual.nextron-systems.com>`__.
 
 Update Locations
 -----------------

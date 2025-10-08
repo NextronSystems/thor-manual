@@ -268,7 +268,7 @@ A Note on McAfee
 It is not an easy task to define exclusions for THOR in all the different services
 when running McAfee products. You have to exclude the process in different sections
 (AV, EDR, On-Access). We've compiled a list of exclusions for our ASGARD customers,
-which you can find `here <https://asgard-manual.nextron-systems.com/en/latest/requirements/av_edr.html#mcafee-edr-exclusions>`__.
+which you can find `here <https://asgard-manual.nextron-systems.com/latest/requirements/av_edr.html#mcafee-edr-exclusions>`__.
 
 Grant Full Disk Access on macOS
 -------------------------------
@@ -343,7 +343,7 @@ The TechPreview version should be used for:
 * Single system live forensics on systems that don't have the highest priority on stability
 
 You can find the information on how to get the TechPreview version in
-the `THOR Util manual <https://thor-util-manual.nextron-systems.com/en/latest/usage/download-packages.html#thor-techpreview-version>`__.
+the `THOR Util manual <https://thor-util-manual.nextron-systems.com/latest/usage/download-packages.html#thor-techpreview-version>`__.
 
 THOR Legacy
 ^^^^^^^^^^^
@@ -451,7 +451,7 @@ You can verify the executable files in the THOR package with
 * thor-util's "verify" feature
 * openssl verifying the integrity of executables manually
 
-Find more information on THOR Util in its dedicated `online manual <https://thor-util-manual.nextron-systems.com/en/latest/>`__.
+Find more information on THOR Util in its dedicated `online manual <https://thor-util-manual.nextron-systems.com>`__.
 
 .. hint::
    THOR Util automatically verifies the signatures of the contained

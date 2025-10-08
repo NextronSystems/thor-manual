@@ -20,7 +20,7 @@ not be detected.
 If you do not wish to place your custom IOCs on potentially compromised systems
 during an engagements, you can use thor-util to encrypting custom signatures.
 This is described in detail in the
-`THOR Util manual <https://thor-util-manual.nextron-systems.com/en/latest/>`_
+`THOR Util manual <https://thor-util-manual.nextron-systems.com>`_
 
 .. this is for the formatting of the Feature/Module lists.
 .. raw:: html
