@@ -19,22 +19,6 @@ THOR creates several files during and at the end of the scan.
 You can define different formatting options for both text log and
 SYSLOG output.
 
-Placeholders
-^^^^^^^^^^^^
-
-Two placeholders can be used in command line parameters to facilitate
-the use of parameter on different operating systems.
-
-* <hostname>
-* <time>
-
-These can be used in command line parameters and scan templates across
-all platforms.
-
-.. code-block:: doscon
-
-   C:\thor>thor64.exe -a FileScan -p S:\\ -o "<hostname>\_<time>.csv"
-
 JSON File Output (.json)
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -93,9 +77,25 @@ scan statistics. It contains a single line with:
 
 CSV Stats Output:
 
-.. list-table::
+.. code-block::
 
-   * - HYPERION,2025-02-17 17:01:25,2025-02-17 17:01:28,11.0.0,--lab --path C:\temp --stats-file HYPERION.csv,5,2,3,0
+   HYPERION,2025-02-17 17:01:25,2025-02-17 17:01:28,11.0.0,--lab --path C:\temp --stats-file HYPERION.csv,5,2,3,0
+
+Placeholders
+^^^^^^^^^^^^
+
+Two placeholders can be used in command line parameters to facilitate
+the use of parameter on different operating systems.
+
+* <hostname>
+* <time>
+
+These can be used in command line parameters and scan templates across
+all platforms.
+
+.. code-block:: doscon
+
+   C:\thor>thor64.exe -a FileScan -p S:\\ -o "<hostname>\_<time>.csv"
 
 Console Output
 ^^^^^^^^^^^^^^
@@ -118,7 +118,7 @@ It can be customized with the following flags:
 Audit trail
 ^^^^^^^^^^^
 
-Audit trail output contains different output from the other output options.
+Audit trail output is different from the other output options.
 Usually, THOR only prints elements (e.g. files, or registry entries) that have been matched on by some signature.
 Audit trail mode, on the other hand, contains _all_ scanned elements, even those that THOR considers inconspicuous,
 as well as their relations to each other.
@@ -128,6 +128,7 @@ finding more suspicious elements.
 
 Output format
 ~~~~~~~~~~~~~
+
 Audit trail output is a gzipped JSON file. The file can be specified with ``--audit-trail my-target-file.json.gz``.
 
 The file contains newline delimited JSON. where each contained JSON object follows the following schema:
@@ -229,7 +230,7 @@ In a log line, it looks like (set newlines and shortened for readability):
       MODULE: Filescan
       MESSAGE: Suspicious file found
       SCANID: S-Oro8r7WLkGA
-      FILE: /samples//DSU.py EXTENSION: .py TYPE: Script
+      FILE: /samples/DSU.py EXTENSION: .py TYPE: Script
       SHA256: a1c06037ec4a23763b97911511991ec8c45d48df678dbf30602d8eaf0774abd3
       MODIFIED: Wed Sep  2 17:18:04.000 2020
       SIZE: 21811
@@ -243,3 +244,19 @@ You are able to set you custom prefix by using
 ``--scanid-prefix``. The fixed character "S" can be replaced with any
 custom string. This allows users to set an identifier for a group of
 scans that can be grouped together in a SIEM or Analysis Cockpit.
+
+Personal Information
+^^^^^^^^^^^^^^^^^^^^
+
+THOR features an option named ``--no-personal-data`` that allows to filter the output
+messages and replace all known locations and fields that can contain
+user names or user ids with the value ``ANONYMIZED_BY_THOR``.
+
+What it does is:
+
+* Replace all "USER" and "OWNER" field values of all modules with the anonymized string value
+* Replaced the subfolder names of ``C:\Users`` and ``C:\Documents and Settings`` with the anonymized string value
+
+There is no guarantee that all user IDs will be removed by the filter,
+as they may appear in the most unexpected locations, but in most cases
+this approach is sufficient to comply with data protection requirements.

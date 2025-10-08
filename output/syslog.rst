@@ -1,9 +1,9 @@
 .. Index:: Syslog Output
 
-Syslog Output
--------------
+Remote Log Output
+-----------------
 
-THOR can also send its scan output to one or multiple syslog targets.
+THOR can also send its scan output to one or multiple remote targets.
 In the below chapter we will show a few examples and how to configure
 this option.
 
@@ -48,7 +48,7 @@ The available formats are:
    * - Option
      - Format
    * - DEFAULT
-     - standard THOR log format
+     - THOR text log format
    * - CEF
      - Common Event Format (ArcSight)
    * - JSON
@@ -60,6 +60,56 @@ The available formats are:
 
 If not specified, the DEFAULT type is used.
 
+
+DEFAULT
+"""""""
+
+This format uses the old THOR 10 text log, as output by ``--text``, prefixed with a `<priority>` string for syslog compatibility.
+
+Example:
+
+``<190>Oct  8 11:37:54 arch/127.0.0.1 THOR: Info: MODULE: Startup MESSAGE: Thor Version: 10.8.0 SCANID: S-KybbdhFvHhc``
+
+Common Event Format (CEF)
+"""""""""""""""""""""""""
+
+CEF is a format introduced by ArcSight for information exchange. 
+See the `whitepaper <https://community.opentext.com/cfs-file/__key/telligent-evolution-components-attachments/00-224-01-00-00-15-93-98/CEF-White-Paper-071709.pdf>`__ about it for details.
+
+The level logged to this format can be specified with the ``--syslog-cef-level`` flag.
+
+Example:
+
+``Oct  8 11:45:05 arch CEF:0|Nextron Systems GmbH|THOR|10|611c94|Thor Version: 10.8.0|3|sproc=Startup msg=Thor Version: 10.8.0``
+
+JSON
+""""
+
+This is the standard JSON log format as used in the ``--json`` log.
+
+Example:
+
+``{"type":"THOR message","meta":{"time":"2025-10-08T13:47:09.410735961+02:00","level":"Info","module":"Startup","scan_id":"S-YQ9tIENkusM","event_id":"","hostname":"arch"},"message":"Thor Version: 10.8.0","fields":{},"log_version":"v3.0.0"}``
+
+
+SYSLOGJSON
+""""""""""
+
+This is the same as the JSON format above; however, it is prefixed with a syslog compatible header.
+
+Example:
+
+``<190>Oct  8 11:48:37 maxarch/127.0.0.1 THOR: {"type":"THOR message","meta":{"time":"2025-10-08T13:48:37.297583483+02:00","level":"Info","module":"Startup","scan_id":"S-KG8o5HhgmIk","event_id":"","hostname":"arch"},"message":"Thor Version: 10.8.0","fields":{},"log_version":"v3.0.0"}``
+
+SYSLOGKV
+""""""""
+
+This is similar to the DEFAULT format, but instead of `KEY: value` pairs, `KEY='value'` formatting is used.
+
+Example:
+
+``<190>Oct  8 11:49:52 arch/127.0.0.1 THOR: Info: MODULE='Startup' MESSAGE='Thor Version: 10.8.0' SCANID='S-maU4LPgIAFM'``
+
 Protocols
 ~~~~~~~~~
 
@@ -70,6 +120,9 @@ The protocols that can be specified are:
 - TCPTLS
 
 The default protocol is UDP.
+
+TCPTLS will by default use the system root certificates to verify the server it connects to.
+This behaviour can be adjusted with the ``--ca`` and ``--insecure`` flags.
 
 Examples
 ~~~~~~~~
@@ -100,16 +153,6 @@ Sending JSON formatted messages to a certain UDP port:
 
    --remote-log 10.0.0.4:5444:JSON:UDP
 
-Common Event Format (CEF)
-^^^^^^^^^^^^^^^^^^^^^^^^^
-
-THOR supports the CEF format for easy integration into ArcSight SIEM
-systems. The CEF mapping is applied to a log line if the syslog target
-has the CEF format set, e.g.:
-
-.. code-block:: doscon
-
-   C:\nextron\thor>thor.exe -s syslog1.server.local:514:CEF
 
 Local Syslog
 ^^^^^^^^^^^^

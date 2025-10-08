@@ -19,18 +19,21 @@ resulting log message.
   :header-rows: 1
   :widths: 20, 20, 60
 
-  * - Score
+  * - Minimum score
     - Level
-    - Condition
-  * - >= 40
+    - Flag
+  * - 30
+    - Info
+    - ``--score-info``
+  * - 40
     - Notice
-    - 
-  * - >= 60
+    - ``--score-notice``
+  * - 60
     - Warning
-    - 
-  * - > 80
+    - ``--score-warning``
+  * - 81
     - Alert
-    - At least 1 sub score more than 75
+    - ``--score-alert``
 
 .. note::
   All scores are between 0 and 100. The score is a metric that expresses

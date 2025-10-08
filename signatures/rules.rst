@@ -55,30 +55,3 @@ This means that during the scan, the following happens:
    YARA conditions can be very complex, and while we've done our best to make the modifications to the bulk scans robust,
    in case of very complex conditions (e.g. loops, or conditions looking at the string offsets), not all false positive
    conditions may be removed. If you have rules with these constructs, be careful with these rules in cases where bulk scanning is applied.
-
-Restrict Yara Rule Matches
-^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-On top of the keyword based initialization you can restrict Yara rules
-to match on certain objects only. It is sometimes necessary to restrict
-rules that e.g. cause many false positives on process memory to file
-object detection only. Use the meta attribute "limit" to define if the
-rule should only be applied by specific components.
-
-Apply rule on file objects only:
-
-.. code-block:: yara
-   :linenos:
-
-   rule Malware_in_fileobject {
-        meta:
-             description = "Think Tank Campaign"
-             limit = "Filescan"
-        strings:
-             $s1 = "evilstring-infile-only"
-        condition:
-             1 of them
-   }
-
-See :ref:`scanning/modules:modules` and :ref:`scanning/features:features`
-for a list of all available components.

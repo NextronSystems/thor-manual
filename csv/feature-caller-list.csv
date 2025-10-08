@@ -1,4 +1,4 @@
-Feature;Object type worked on;Object type generated
+Feature;Object type consumed;Object type produced
 Sigma;all [5]_;
 LogScan;file;log line
 Yara;all [6]_;

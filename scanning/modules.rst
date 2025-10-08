@@ -9,9 +9,36 @@ scan your file system, or the ``User Account Check`` will scan your system for u
 accounts. Modules can invoke one or multiple :ref:`scanning/features:features`,
 which we will explain further down in this section.
 
+By default, all modules listed below will run in a THOR scan, except the ``MFT`` module
+(see :ref:`scanning/special-scan-modes:MFT Analysis`). The enabled modules can be controlled
+with the following flags:
+
+.. list-table::
+   :header-rows: 1
+   :widths: 35, 50
+
+   * - Flag
+     - Description
+   * - ``--module``
+     - Enable only the specified module(s)
+   * - ``--exclude-component``
+     - Disable the specified module(s)
+
+Available Modules
+^^^^^^^^^^^^^^^^^
+
+.. csv-table::
+  :file: ../csv/scan-module-naming.csv
+  :widths: 33, 33, 33
+  :delim: ;
+  :header-rows: 1
+
 OS Module Overview
 ^^^^^^^^^^^^^^^^^^
  
+Not all modules are available on all platforms, e.g. the `RegistryChecks` module is only available on Windows.
+The following list gives an overview of which modules are available for which OS.
+
 .. raw:: html
 
    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
@@ -36,10 +63,6 @@ OS Module Overview
   :delim: ;
   :header-rows: 1
 
-.. hint:: 
-  For a list of module names and how to turn them off, please
-  see :ref:`scanning/modules:scan module names`
-
 Scan Mode Overview
 ^^^^^^^^^^^^^^^^^^
 
@@ -59,12 +82,3 @@ with the different scan modes. For OS compatibility, see
   :header-rows: 1
 
 .. [1] Disabled on Domain Controllers
-
-Scan Module Names
-^^^^^^^^^^^^^^^^^
-
-.. csv-table::
-  :file: ../csv/scan-module-naming.csv
-  :widths: 33, 33, 33
-  :delim: ;
-  :header-rows: 1

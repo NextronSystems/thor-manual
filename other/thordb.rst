@@ -7,13 +7,12 @@ THOR creates an SQLite database by default.
 The location differs by OS and whether THOR runs as administrator / root:
 
 .. list-table::
-   :header-rows: 1
    :widths: 50, 50
 
    * - Windows (as administrator)
-     - **C:\ProgramData\thor\thor10.db**
+     - **C:\\ProgramData\\thor\\thor10.db**
    * - Windows (not as administrator)
-     - **%LOCALAPPDATA%\thor\thor10.db**
+     - **%LOCALAPPDATA%\\thor\\thor10.db**
    * - Unix (as administrator)
      - **/var/lib/thor/thor10.db**
    * - Unix (not as administrator)

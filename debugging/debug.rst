@@ -18,7 +18,7 @@ If you found the culprit for your problematic scan, try scanning that
 specific element with the ``--debug`` parameter set.
 
 To run a scan only with certain modules only use the ``--module`` (short hand ``-a``)
-command line switch (see :ref:`scanning/modules:scan module names` for
+command line switch (see :ref:`scanning/modules:modules` for
 a full list of module names):
 
 .. code-block:: doscon

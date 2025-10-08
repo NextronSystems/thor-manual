@@ -27,12 +27,15 @@ might find a ``.zip`` file during a scan and invoke the ``Archive Scan``
 feature. The ``Archive Scan`` feature in return will extract the zip file
 and scan all the files in it with the ``File System Scan``.
 
+.. hint:: 
+  See :ref:`scanning/features:archive scan` below for a list
+  of supported archive formats.
+
 Another example would be the ``Eventlog Analysis`` Module, which might invoke
 the ``Sigma Scan`` feature on certain eventlog entries.
 
-.. hint:: 
-  Please see chapter :ref:`scanning/features:archive scan` for a list
-  of supported archive formats.
+By default, all features are enabled unless specified differently below.
+Features can be disabled by using the ``--exclude-component <featurename>`` flag.
 
 .. csv-table::
   :file: ../csv/feature-naming.csv
@@ -56,8 +59,12 @@ Feature Scan Mode Overview
 Feature caller list
 ^^^^^^^^^^^^^^^^^^^
 
-The following table gives an overview of THOR's features and
-how they are called by the different modules and other features.
+When features are invoked, they are passed specific objects that
+they work on; some features may extract new objects from these objects.
+The following table gives an overview of all features and what objects
+they consume and produce.
+
+For a list of all object types, see the `THOR Log definition <https://github.com/NextronSystems/jsonlog>`__.
 
 .. csv-table::
   :file: ../csv/feature-caller-list.csv

@@ -139,19 +139,3 @@ You can start a short test run on a certain directory with:
 .. code-block:: doscon
    
    C:\nextron\thor>thor.exe -a FileScan --intense -p C:\\TestDir
-
-Personal Information
-^^^^^^^^^^^^^^^^^^^^
-
-THOR features an option named ``--no-personal-data`` that allows to filter the output
-messages and replace all known locations and fields that can contain
-user names or user ids with the value ``ANONYMIZED_BY_THOR``.
-
-What it does is:
-
-* Replace all "USER" and "OWNER" field values of all modules with the anonymized string value
-* Replaced the subfolder names of ``C:\Users`` and ``C:\Documents and Settings`` with the anonymized string value
-
-There is no guarantee that all user IDs will be removed by the filter,
-as they may appear in the most unexpected locations, but in most cases
-this approach is sufficient to comply with data protection requirements.

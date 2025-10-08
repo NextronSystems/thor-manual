@@ -291,6 +291,24 @@ only (including custom YARA signatures).
 The only suitable use case is the scan of a memory dump using your own
 YARA signatures placed in the "./custom-signatures/yara" sub folder.
 
+Chunk Size in DeepDive
+^^^^^^^^^^^^^^^^^^^^^^
+
+The chunk size in DeepDive module is set to the value defined as 
+``--chunk-size``. DeepDive uses overlapping chunks of this size for 
+YARA rule scanning.
+
+Example: If the chunk size is set to a default of 12 MB, DeepDive use the
+following chunks in its scan to apply the YARA rule set:
+
+.. code-block:: 
+
+   Chunk 1: Offset 0 – 12
+   Chunk 2: Offset 6 – 18
+   Chunk 3: Offset 12 – 24
+   Chunk 4: Offset 18 – 30
+
+
 File Restoration
 ^^^^^^^^^^^^^^^^
 

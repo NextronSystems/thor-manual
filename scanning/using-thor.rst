@@ -169,26 +169,9 @@ calculation and YARA scanning) is 30 MB. The file size limit for the
 You can adjust the values in ``./config/thor.yml``. This file does not
 get overwritten by an update or upgrade.
 
-Special scan features like the EVTX or Memory Dump scan ignore these
-limits. See :ref:`scanning/scan-modes:scan modes` for a full list of features
+Some features like the EVTX or Memory Dump scan ignore these
+limits. See :ref:`scanning/features:Features` for a full list of features
 and how they interact with the file size limit.
-
-Chunk Size in DeepDive
-^^^^^^^^^^^^^^^^^^^^^^
-
-The chunk size in DeepDive module is set to the value defined as 
-``--chunk-size``. DeepDive uses overlapping chunks of this size for 
-YARA rule scanning.
-
-Example: If the chunk size is set to a default of 12 MB, DeepDive use the
-following chunks in its scan to apply the YARA rule set:
-
-.. code-block:: 
-
-   Chunk 1: Offset 0 – 12
-   Chunk 2: Offset 6 – 18
-   Chunk 3: Offset 12 – 24
-   Chunk 4: Offset 18 – 30
 
 Help and Debugging
 ------------------
@@ -204,17 +187,18 @@ You can use the following parameters help you to understand THOR and the output 
   * - **--debug**
     - Get debug information if errors occur
   * - **--help (short|full|detailed)**
-    - Get a help with a variable amount of information:
-      - short: summaries of the most important scan options
-      - full: summaries of all options
-      - detailed: long descriptions of all options
+    - Print a help with a variable amount of information:
+
+      - **short**: Summaries of the most important scan options
+      - **full**: Summaries of all options
+      - **detailed**: Long descriptions of all options
 
 Run a Scan with Specific Modules
 --------------------------------
 
 With the parameter ``-a`` you can run a single module or select a set of
 modules that you'd like to run. All available modules can be found in the
-section :ref:`scanning/modules:scan module names`.
+section :ref:`scanning/modules:modules`.
 
 Run a Rootkit check only:
 
@@ -276,6 +260,34 @@ The main advantages of a reduced signature set are:
 
 - improved scan speed
 - lower memory usage
+
+
+List loaded signatures
+----------------------
+
+By using the ``--print-signatures`` flag, you can get a list of all
+initialized YARA and Sigma rules.
+
+.. figure:: ../images/image35.png
+   :alt: Signature Metadata
+
+   Signature Metadata
+
+This information can also be printed machine readable as JSON by using the ``--print-signatures-json`` flag.
+
+The output of this argument also reflects any signature selectors or filters
+set via command line argument. Please see :ref:`scanning/using-thor:select or filter signatures during initialization`
+for more information.
+
+This can be a nice way to verify which signatures will be used during a
+scan when setting specific arguments. Additionally, this way of looking
+for a specific signature or vulnerability can show you quickly if
+we have any signatures for your specific use case available.
+
+.. figure:: ../images/signatures-include-print-signatures.png
+   :alt: Signatures-Include with Print-Signatures
+
+   Signatures-Include with Print-Signatures
 
 PE-Sieve Integration
 --------------------
@@ -362,7 +374,7 @@ Plugins need to be placed in the ``plugins`` folder in the THOR directory. For
 details on how to write a plugin, required ingredients, limitations and
 examples, refer to https://github.com/NextronSystems/thor-plugin.
 
-To disable the feature thus all plugins, use ``--no-plugins``.
+To disable the feature and thus all plugins, use ``--no-plugins``.
 
 .. warning::
   Plugins contain executable code that is run by THOR. For this reason, never run any plugins that do

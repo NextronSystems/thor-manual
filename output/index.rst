@@ -8,5 +8,4 @@ Output
 
     scan-output
     syslog
-    metadata
     encryption
