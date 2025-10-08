@@ -74,7 +74,7 @@ If you need more columns in that CSV, consider processing the JSON
 output instead. To do this, you can use ``thor-util`` to convert
 logs from one format to the other:
 
-https://thor-util-manual.nextron-systems.com/en/latest/usage/log-conversion.html
+https://thor-util-manual.nextron-systems.com/latest/usage/log-conversion.html
 
 CSV Stats
 ^^^^^^^^^
@@ -464,4 +464,4 @@ decrypt output files encrypted with the default key.
 
    nextron@unix:~$ thor-util decrypt file.txt
 
-For more information on "thor-util" see the separate `THOR Util manual <https://thor-util-manual.nextron-systems.com/en/latest/>`__.
+For more information on "thor-util" see the separate `THOR Util manual <https://thor-util-manual.nextron-systems.com>`__.
