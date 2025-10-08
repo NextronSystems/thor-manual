@@ -5,7 +5,7 @@ In this manual you can find all the information regarding
 THOR. This version of the manual focuses on our stable version
 of THOR, which is version **10.7**. If you are looking for
 information on older versions, like **10.6**, you can have
-a look `here <https://thor-manual.nextron-systems.com/v10.6/>`_.
+a look `here <https://thor-manual.nextron-systems.com/en/v10.6/>`_.
 
 .. toctree::
    :maxdepth: 2
