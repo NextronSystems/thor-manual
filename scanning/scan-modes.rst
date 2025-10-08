@@ -13,13 +13,13 @@ You can select between six different scan modes in THOR:
   In default mode, THOR automatically chooses  the "**Soft**" mode if the system has only limited
   CPU and RAM resources.
 
-- **Quick** ``--quick``
+- **Fast** ``--fast``
 
   This mode is the fastest one and oriented on the "Pareto Principle", covering 80% of
-  the modules and checks in 20% of the normal scan time. In "quick" mode, THOR skips
+  the modules and checks in 20% of the normal scan time. In fast mode, THOR skips
   elements that have not been created or modified within the last 2 days in the "Eventlog",
   "Registry" and "Filescan" modules. A set of 40+ predefined directories will still be checked
-  completely (e.g. AppData, Recycler, System32). "Quick" mode is known to be the
+  completely (e.g. AppData, Recycler, System32). Fast mode is known to be the
   "preventive" scan mode – less intense and very fast.
 
 Themed scan modes:
@@ -42,16 +42,16 @@ Themed scan modes:
   could corrupt your database due to the high load of the server. Snapshots/backups
   are advised before using this mode.
 
-* **Difference** ``--diff``
+* **Difference** ``--delta
 
-  The Diff Mode looks for a last scan and last finished modules in the local THOR
+  The Delta mode looks for a last scan and last finished modules in the local THOR
   DB and scans only elements on disk that have been changed or created since the last
   scan start. This mode applies shortcuts to the "Filesystem", "Eventlog" and "Registry"
-  modules. Diff scans are typically the shortest scans but require a completed previous
+  modules. Delta scans are typically the shortest scans but require a completed previous
   scan. This scan mode is also susceptible to the so-called "Timestomping".
 
-These scan modes can also be combined, e.g. for ``--soft --diff``, though not
-all combinations may make sense, e.g. ``--soft --intense``.
+These scan modes can also be combined, e.g. for ``--soft --delta``, though not
+all combinations may make sense, e.g. ``--soft --deep``.
 
 The following tables give an overview on the active modules and features
 in the different scan modes. The :ref:`scanning/modules:modules` section lists

@@ -68,7 +68,7 @@ Keywords
    either keyword YARA rules or Sigma rules.
 
 Keyword IOCs are applied to the text formatted objects as they are printed when
-using ``--log-object-type``.
+using ``--log-object``.
 
 One use case would be to have different strings which you encountered in Scheduled Tasks
 within Windows.

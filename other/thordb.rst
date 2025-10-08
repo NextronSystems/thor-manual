@@ -18,7 +18,7 @@ The location differs by OS and whether THOR runs as administrator / root:
    * - Unix (not as administrator)
      - **~/.local/state/thor/thor10.db**
 
-You can deactivate THOR DB and all its features by using the ``--nothordb`` flag.
+You can deactivate THOR DB and all its features by using the ``--exclude-component ThorDB`` flag.
 
 It stores persistent information over several scan runs:
 
@@ -47,7 +47,7 @@ The THOR DB related command line options are:
      - Disables THOR DB completely. All related features will be disabled as well.
    * - **--thordb-path [string]**
      - Allows to define a location of the THOR database file. File names or path names are allowed. If a path is given, the database file ``thor10.db`` will be created in the directory. Environment variables are expanded.
-   * - **--resume**
+   * - **--resume-scan**
      - Resumes a previous scan (if scan state information is still available and the exact same command line arguments are used)
    * - **--resume-only**
      - Only resume a scan if a scan state is available. Do not run a full scan if no scan state can be found.
@@ -55,21 +55,21 @@ The THOR DB related command line options are:
 Resume a Scan
 ^^^^^^^^^^^^^
 
-THOR tries to resume a scan when you set the ``--resume`` parameter.
+THOR tries to resume a scan when you set the ``--resume-scan`` parameter.
 
 It will only resume the previous scan if
 
-1. You have started the scan with ``--resume``
+1. You have started the scan with ``--resume-scan``
 
 2. The argument list is exactly the same as in the first scan attempt
 
 3. You haven't disabled the :ref:`other/thordb:THOR DB`
 
 4. Scan state information is still available (could have been cleared by
-   running THOR a second time without the ``--resume`` parameter)
+   running THOR a second time without the ``--resume-scan`` parameter)
 
 You can always clear the resume state and discard an old state by
-running thor.exe once without using the ``--resume`` parameter.
+running thor.exe once without using the ``--resume-scan`` parameter.
 
 Delta Comparison
 ^^^^^^^^^^^^^^^^

@@ -1,15 +1,13 @@
 # This is the default config for THOR
-# Terminate THOR if he runs longer than 72 hours
-max_runtime: 72
-# Minimum score to report is 40
-min: 40
-# Skip files bigger than 12000000 bytes
-max_file_size: 12000000
-# Skip files bigger than 30000000 bytes in intense mode (--fsonly, --intense)
-max_file_size_intense: 30000000
+# Skip files bigger than 64MB
+file-size-limit: 64MB
+# Terminate THOR if it runs longer than 168 hours
+timeout: 168
 # Limit THOR's CPU usage to 95%
-cpulimit: 95
-# The minimum amount of free physical memory to proceed (in MB)
-minmem: 50
+cpu-limit: 95
+# Terminate if the amount of free physical memory drops below 50MB
+memory-limit: 50MB
 # Truncate THOR's field values after 2048 characters
 truncate: 2048
+# Minimum score to report as a notice is 40
+score-notice: 40

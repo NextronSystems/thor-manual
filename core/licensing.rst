@@ -155,11 +155,11 @@ The download token can be configured in the ``Downloads`` section of you ASGARD 
    Downloads > Download Token Configuration
 
 You can retrieve an appropriate THOR license at the scan start using the built-in
-``--asgard`` and ``--asgard-token`` parameters.
+``--asgard-host`` and ``--asgard-token`` parameters.
 
 .. code-block:: doscon 
 
-   C:\temp\thor>thor64.exe --asgard my-asgard.internal --asgard-token OCU92GW1CyOJLzaHkGrim1v2O0_ZkHPu0A
+   C:\temp\thor>thor64.exe --asgard-host my-asgard.internal --asgard-token OCU92GW1CyOJLzaHkGrim1v2O0_ZkHPu0A
 
 If everything works as expected, you'll see an INFO level message in the output that looks like:
 

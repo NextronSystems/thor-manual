@@ -39,17 +39,17 @@ You can try to reduce the scope of a module even further by using lookbacks:
 .. code-block:: doscon
 
    C:\nextron\thor>thor64.exe -a Eventlog --lookback 3
-   C:\nextron\thor>thor64.exe -a FileScan -p C:\Windows\System32 --global-lookback --lookback 1
+   C:\nextron\thor>thor64.exe -a FileScan -p C:\Windows\System32 --lookback-global --lookback 1
 
 To find out why a certain file couldn't be detected, use
-``--debug`` with ``--log-object-type file`` and try to switch into ``--intense`` mode.
+``--debug`` with ``--log-object file`` and try to switch into ``--deep`` mode.
 
 .. code-block:: doscon
 
-   C:\nextron\thor>thor64.exe -a Filescan -p C:\testfolder --debug --log-object-type file
-   C:\nextron\thor>thor64.exe -a Filescan -p C:\testfolder --debug --log-object-type file --intense
+   C:\nextron\thor>thor64.exe -a Filescan -p C:\testfolder --debug --log-object file
+   C:\nextron\thor>thor64.exe -a Filescan -p C:\testfolder --debug --log-object file --deep
 
-If it has been detected in ``--intense`` mode but not in default mode,
+If it has been detected in ``--deep`` mode but not in default mode,
 the file extension or the magic header is most likely the problem.
 You can adjust ``file-size-limit`` in ``./config/thor.yml`` or add a
 magic header in ``./signatures/misc/file-type-signatures.cfg``.

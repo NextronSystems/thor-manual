@@ -38,7 +38,7 @@ Probable causes:
 2. THOR's scanning of certain elements requires a lot of memory
 3. You've set ulimit values that are too restrictive
 4. You are using the wrong THOR version for your architecture
-5. You've activated a feature that consumes a lot of memory (e.g. ``--mft`` or ``--deep``)
+5. You've activated a feature that consumes a lot of memory (e.g. ``--mft-analysis`` or ``--deep``)
 
 Whenever THOR recognizes a low amount of free memory, it checks the
 top three memory consumers on the system and includes them in the log message,

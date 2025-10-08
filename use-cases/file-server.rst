@@ -20,13 +20,13 @@ The recommended flags to run THOR are:
 If needed or desired, the scan can be adapted using the following flags.
 In general, the following options are not recommended but can help in special scenarios.
 
-* ``--resume``
+* ``--resume-scan``
 
   * If a previous scan failed (e.g. because of a exceeded max. runtime)
     the scan can be resumed, if the same flags (and additional the resume
     flag) are used to start the scan.
 
-* ``--rimwour 0``
+* ``--timeout 0``
 
   * Default timeout is 7 days, 0 means no timeout. Change this value if your scans need more time.
 
@@ -53,7 +53,7 @@ In general, the following options are not recommended but can help in special sc
 
   * Only scans new files or files that were modified since the last scan.
     Faster scan time but vulnerable to timestomping attacks. THOR DB is
-    needed for diff, so cannot be used in combination with ``--nothordb``.
+    needed for diff, so cannot be used in combination with ``--exclude-component ThorDB``.
 
 * ``--file-size-limit ?????``
  

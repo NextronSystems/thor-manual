@@ -14,7 +14,7 @@ THOR applies Sigma rules to all objects it encounters. This is most relevant
 for Windows Eventlogs and log files on disk (``.log``).
 
 By default only the results of Sigma rules of level critical and high are shown.
-If called with the ``--intense`` flag, medium level rules are applied as well.
+If called with the ``--deep`` flag, medium level rules are applied as well.
 
 Custom Sigma rules must have the ``.yml`` extension for unencrypted sigma rules
 and the ``.yms`` extension for encrypted sigma rules.
@@ -33,7 +33,7 @@ and `service: object-type`.
 
 The available object types that can be matched on can be listed with
 ``--describe-object-type all``. All objects of a specific type can also be
-printed by using ``--log-object-type specificobjecttype``. This can be helpful
+printed by using ``--log-object specificobjecttype``. This can be helpful
 to determine available fields for matching.
 
 Sigma Examples

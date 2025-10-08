@@ -30,7 +30,7 @@ The following table contains all Thunderstorm command line flags:
 The underlying THOR instance can be configured with additional flags
 using the THOR template (see :configuration:) to e.g.:
 
- - Forward logs with ``--syslog``
+ - Forward logs with ``--remote-log``
  - Specify a custom log location
  - Disable some features
  - ...

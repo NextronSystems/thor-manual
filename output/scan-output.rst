@@ -79,7 +79,7 @@ CSV Stats Output:
 
 .. code-block::
 
-   HYPERION,2025-02-17 17:01:25,2025-02-17 17:01:28,11.0.0,--lab --path C:\temp --stats-file HYPERION.csv,5,2,3,0
+   HYPERION,2025-02-17 17:01:25,2025-02-17 17:01:28,11.0.0,--lab --path C:\temp --stats-csv HYPERION.csv,5,2,3,0
 
 Placeholders
 ^^^^^^^^^^^^
@@ -180,12 +180,12 @@ https://go.dev/src/time/format.go
 UTC
 ~~~
 
-The ``--utc`` parameter allows to use UTC in all timestamps.
+The ``--timestamp-utc`` parameter allows to use UTC in all timestamps.
 
 RFC3339 Time Stamps
 ~~~~~~~~~~~~~~~~~~~
 
-The parameter ``--rfc3339`` generates time stamps for UTC time in the
+The parameter ``--timestamp-rfc3339`` generates time stamps for UTC time in the
 format described in RFC 3339. In contrast to the default time stamps RFC
 3339 timestamps include a year and look like this:
 
@@ -241,7 +241,7 @@ Custom Scan ID Prefix
 ~~~~~~~~~~~~~~~~~~~~~
 
 You are able to set you custom prefix by using
-``--scanid-prefix``. The fixed character "S" can be replaced with any
+``--scan-id-prefix``. The fixed character "S" can be replaced with any
 custom string. This allows users to set an identifier for a group of
 scans that can be grouped together in a SIEM or Analysis Cockpit.
 

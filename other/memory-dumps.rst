@@ -4,7 +4,7 @@ Process Memory Dumps
 --------------------
 
 THOR supports process dumping to backup volatile
-malware information. This can be enabled with ``--dump-procs``.
+malware information. This can be enabled with ``--process-dump``.
 
 When enabled, THOR on Windows creates a process dump of any process that is considered
 malicious. Maliciousness is determined as anything that triggers a

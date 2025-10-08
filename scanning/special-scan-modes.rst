@@ -155,7 +155,7 @@ all files including special files like ``$UsnJrnl``. The downside of MFT
 parsing is that it takes a bit longer. If you do not care about special
 files and want to speed up the collection process, use ``--collector-no-mft``.
 
-All flags can be found in the THOR full help (``--fullhelp``).
+All flags can be found in the THOR full help (``--help full``).
 
 .. note::
    A special license called ``THOR Deep Forensics`` is needed to use the
@@ -219,7 +219,7 @@ modules:
 * ``Services:`` Focusing on service configurations or states that have changed.
 * ``EVTX Scan:`` Excluding log entries that predate the lookback threshold.
 
-By setting the flags ``--global-lookback --lookback 2`` you instruct
+By setting the flags ``--lookback-global --lookback 2`` you instruct
 THOR to scan only elements that have been created or modified during the
 last 2 days. This reduces the scan duration significantly.
 
@@ -269,7 +269,7 @@ defined dropzone to test if findings are shown properly:
 .. figure:: ../images/thor_dropzone_mode_example1.png
    :alt: Example of a THOR Drop Zone Mode finding
 
-Or you can print all files with ``--log-object-type file`` - this might clutter the output:
+Or you can print all files with ``--log-object file`` - this might clutter the output:
 
 .. figure:: ../images/thor_dropzone_mode_example2.png
    :alt: Example of a THOR Drop Zone Mode finding
@@ -410,7 +410,7 @@ The MFT analysis module reads the "Master File Table" (MFT) of a
 partition and parses its contents. The MFT analysis takes a significant
 amount of time and is only active in deep scan mode by default.
 
-You can activate MFT analysis in any mode by using ``--mft``.
+You can activate MFT analysis in any mode by using ``--mft-analysis``.
 
 Pure YARA mode
 --------------

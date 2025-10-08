@@ -89,7 +89,7 @@ when the error occurred.
 
 .. code-block:: doscon
 
-   C:\thor>thor64.exe --quick -e D:\logs -p C:\Windows\System32
+   C:\thor>thor64.exe --fast -e D:\logs -p C:\Windows\System32
 
 Provide a diagnostics pack or crash output
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -110,7 +110,7 @@ problem occurred adding the ``--debug`` command line flag.
 
 .. code-block:: doscon
 
-   C:\thor>thor64.exe --quick -e D:\logs -p C:\Windows\System32 --debug
+   C:\thor>thor64.exe --fast -e D:\logs -p C:\Windows\System32 --debug
 
 If you're able to pinpoint the error to a certain module, you could limit
 the scan to that module to get to the problematic element more quickly.

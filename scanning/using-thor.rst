@@ -90,11 +90,11 @@ This list contains flags that should better be avoided unless you know exactly w
     - Description
   * - **--deep**
     - long runtime, stability issues due to disabled resource control
-  * - **--c2-in-memory**
+  * - **--c2-memory-analysis**
     - many false positives on user workstations (especially browser memory)
   * - **--all-drives**
     - long runtime, stability issues due to scan on network drives or other remote file systems
-  * - **--mft**
+  * - **--mft-analysis**
     - stability issues due to high memory usage
   * - **--process-dump**
     - stability issues, possibly high disk space usage (free disk space checks are implemented but may fail)
@@ -112,9 +112,9 @@ This list contains flags that are often used by analysts to tweak the scan in us
 
   * - Parameter
     - Description
-  * - **--max-reasons**
+  * - **--alert-reason-limit**
     - Show more reasons than the default (2) that led to a certain score
-  * - **--log-object-type**
+  * - **--log-object**
     - Print all objects of a specific type (e.g. SHIM cache entries) into the log
   * - **--timestamp-utc**
     - Print all timestamps in UTC (helpful when creating timelines)
@@ -265,7 +265,7 @@ The main advantages of a reduced signature set are:
 List loaded signatures
 ----------------------
 
-By using the ``--print-signatures`` flag, you can get a list of all
+By using the ``--list-signatures`` flag, you can get a list of all
 initialized YARA and Sigma rules.
 
 .. figure:: ../images/image35.png
@@ -273,7 +273,7 @@ initialized YARA and Sigma rules.
 
    Signature Metadata
 
-This information can also be printed machine readable as JSON by using the ``--print-signatures-json`` flag.
+This information can also be printed machine readable as JSON by using the ``--list-signatures-json`` flag.
 
 The output of this argument also reflects any signature selectors or filters
 set via command line argument. Please see :ref:`scanning/using-thor:select or filter signatures during initialization`
@@ -287,7 +287,7 @@ we have any signatures for your specific use case available.
 .. figure:: ../images/signatures-include-print-signatures.png
    :alt: Signatures-Include with Print-Signatures
 
-   Signatures-Include with Print-Signatures
+   Signatures-Include with --list-signatures
 
 PE-Sieve Integration
 --------------------

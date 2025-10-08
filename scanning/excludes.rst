@@ -31,11 +31,11 @@ for a full element name, at the beginning, at the end or somewhere in the
 element name.
 
 .. note::
-   If used in combination with flags like ``--virtual-map`` that
+   If used in combination with flags like ``--path-remap`` that
    change the original path on the filesystem, the exclusions are
    applied to the real path on the filesystem, not the original path.
 
-   For example, when using ``--virtual-map F:C`` and
+   For example, when using ``--path-remap F:C`` and
    scanning a file located at ``F:\Windows\explorer.exe``,
    THOR will check if ``F:\Windows\explorer.exe`` is excluded,
    not if ``C:\Windows\explorer.exe`` is excluded.
@@ -138,4 +138,4 @@ You can start a short test run on a certain directory with:
 
 .. code-block:: doscon
    
-   C:\nextron\thor>thor.exe -a FileScan --intense -p C:\\TestDir
+   C:\nextron\thor>thor.exe -a FileScan --deep -p C:\\TestDir
