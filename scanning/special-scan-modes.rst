@@ -28,7 +28,7 @@ options:
 * cross-platform-paths (apply filename IOCs to both Unix and Windows style paths)
 * multi-threading (it automatically sets the number of threads to use to the number of CPU cores found on the workstation)
 
-The chapter :ref:`use-cases/index:use cases` contains some use cases in which this scan mode is used. You may find the guides useful. 
+The chapter :ref:`use-cases/index:common use cases` contains some use cases in which this scan mode is used. You may find the guides useful. 
 
 .. note::
 

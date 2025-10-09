@@ -1,7 +1,7 @@
-.. Index:: Use Cases
+.. Index:: Common Use Cases
 
-Use Cases
-=========
+Common Use Cases
+================
 
 This chapter will highlight a few use cases which are widely
 used among our customers.
