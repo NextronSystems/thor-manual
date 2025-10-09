@@ -42,7 +42,7 @@ Themed scan modes:
   could corrupt your database due to the high load of the server. Snapshots/backups
   are advised before using this mode.
 
-* **Difference** ``--delta
+* **Difference** ``--delta``
 
   The Delta mode looks for a last scan and last finished modules in the local THOR
   DB and scans only elements on disk that have been changed or created since the last
