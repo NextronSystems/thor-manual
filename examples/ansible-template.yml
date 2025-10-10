@@ -1,23 +1,46 @@
 ---
 - hosts: all
-#remote_user: root become: true tasks:
-- name: Create folder for temporary RAM drive
-command: mkdir /mnt/temp_ram creates=/mnt/temp_ram
-- name: Create THOR RAM drive on target
-command: mount -t ramfs -o size=60M ramfs /mnt/temp_ram/ ignore_warnings: true
--  name: Copy THOR to RAM drive
-copy: src=../thor-linux-pack/ dest=/mnt/temp_ram/ ignore_warnings: true
--  name: Make THOR Executeable
-file: path=/mnt/temp_ram/thor-x64 state=touch mode="0555"
-- name: Execute THOR
-command: /mnt/temp_ram/thor64 -l /mnt/temp_ram/thor.txt creates=/mnt/temp_ram/thor.html
-- name: Fetch Log file
-fetch: src=/mnt/temp_ram/thor.txt dest=../thoransible-output/{{inventory_hostname}}/thor.txt flat=true
--  name: Unmount temporary RAM drive
-mount:
-path: /mnt/temp_ram
-state: unmounted
--  name: check Mount
-command: mount
--  name: Delete folder for temporary RAM drive
-command: rmdir /mnt/temp_ram/
+  become: true
+  tasks:
+    - name: Create folder for temporary RAM drive
+      command: mkdir /mnt/temp_ram
+      args:
+        creates: /mnt/temp_ram
+
+    - name: Create THOR RAM drive on target
+      command: mount -t ramfs -o size=60M ramfs /mnt/temp_ram/
+      ignore_errors: true
+
+    - name: Copy THOR to RAM drive
+      copy:
+        src: ../thor-linux-pack/
+        dest: /mnt/temp_ram/
+      ignore_errors: true
+
+    - name: Make THOR executable
+      file:
+        path: /mnt/temp_ram/thor-x64
+        mode: "0555"
+        state: file
+
+    - name: Execute THOR
+      command: /mnt/temp_ram/thor-x64 -l /mnt/temp_ram/thor.txt
+      args:
+        creates: /mnt/temp_ram/thor.html
+
+    - name: Fetch log file
+      fetch:
+        src: /mnt/temp_ram/thor.txt
+        dest: ../thoransible-output/{{ inventory_hostname }}/thor.txt
+        flat: true
+
+    - name: Unmount temporary RAM drive
+      mount:
+        path: /mnt/temp_ram
+        state: unmounted
+
+    - name: Check mount
+      command: mount
+
+    - name: Delete folder for temporary RAM drive
+      command: rmdir /mnt/temp_ram/

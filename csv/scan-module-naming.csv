@@ -1,33 +1,32 @@
-Scan Mode;Module Name;Disable Module
-File System Scan;Filescan;--nofilesystem
-Registry Scan;RegistryChecks;--noreg
-SHIM Cache Scan;SHIMCache;--noshimcache
-Mutex Check;Mutex;--nomutex
-Named Pipes Check;Pipes;--nopipes
-DNS Cache Check;DNSCache;--nodnscache
-Hotfix Check;HotfixCheck;--nohotfixes
-Hosts File Check;Hosts;--nohosts
-Firewall Config Check;Firewall;--nofirewall
-Network Share Check;NetworkShares;--nonetworkshares
-Logged In Check;LoggedIn;--nologons
-Process Check;ProcessCheck;--noprocs
-Service Check;ServiceCheck;--noservices
-Autoruns Check;Autoruns;--noautorons
-Rootkit Check;Rootkit;--norootkits
-LSA Sessions Analysis;LSASessions;--nolsasessions
-User Account Check;Users;--nousers
-User Profile Check;UserDir;--noprofiles
-Network Sessions Check;NetworkSessions;--nonetworksessions
-Scheduled Tasks Analysis;ScheduledTasks;--notasks
-WMI Startup Check;WMIStartup;--nowmi
-At Entries Check;AtJobs;--noatjobs
-MFT Analysis;MFT;--nomft
-Eventlog Analysis;Eventlog;--noeventlog
-KnowledgeDB Check;KnowledgeDB;--noknowledgedb
-Environment Variables Check;EnvCheck;--noenv
-Crontab Check;Cron;
-Integrity Check;Integritycheck;--nointegritycheck
-Event Check;Events;--noevents
-ETW Watcher;EtwWatcher;--noetwwatcher
-Timestomp Check;Timestomp;--notimestomp
-Antivirus Installation Check;Antivirus;
+Scan Mode;Module Name;Explanation
+File System Scan;Filescan;This module traverses the path given by ``--path`` (or the full disk, if no path is provided) and scans all encountered files. Other modules may also pass files to this module for scanning:
+Registry Scan;RegistryChecks;This module traverses the live registry (on Windows systems), and parses any registry hive file encountered by **Filescan**. It scans all keys and values within these registries.
+Mutex Check;Mutex;This module checks for specific known, malicious Windows Mutexes.
+Named Pipes Check;Pipes;This module enumerates and scans all Windows Named Pipes.
+DNS Cache Check;DNSCache;This module scans all DNS entries in the local DNS cache.
+Hotfix Check;HotfixCheck;This module enumerates all Windows hotfixes that are installed.
+Hosts File Check;Hosts;This module scans entries in the hosts file.
+Firewall Config Check;Firewall;This module scans all local firewall rules.
+Network Share Check;NetworkShares;This module lists all network shares that are offered by this machine and checks for malicious indicators.
+Logged In Check;LoggedIn;This module lists all logged in users.
+Process Check;ProcessCheck;This module scans all running processes.
+Service Check;ServiceCheck;This module scans all services installed on the system.
+Autoruns Check;Autoruns;This module scans all autorun entries.
+Rootkit Check;Rootkit;This module checks for known rootkit indicators.
+LSA Sessions Analysis;LSASessions;This module enumerates all LSA sessions on Windows machines and checks for suspicious activity.
+User Account Check;Users;This module lists all users that are listed on the system.
+User Profile Check;UserDir;This module lists all profiles in the user directory.
+Network Sessions Check;NetworkSessions;This module lists all network sessions that users from other machines have open on this machine.
+Scheduled Tasks Analysis;ScheduledTasks;This module scans all Windows scheduled tasks.
+WMI Startup Check;WMIStartup;This module lists all programs that will automatically start via WMI.
+At Entries Check;AtJobs;This module lists all at jobs that run regularly on the machine.
+MFT Analysis;MFT;This module analyzes the MFT (Master File Table) of an NTFS partition on a Windows machine.
+Eventlog Analysis;Eventlog;This module enumerates and scans Windows Eventlogs on the system.
+KnowledgeDB Check;KnowledgeDB;This module scans entries from the MacOS knowledge DB.
+Environment Variables Check;EnvCheck;This module enumerates the environment variables that are set.
+Crontab Check;Cron;This module scans all tasks running regularly via cron.
+Integrity Check;Integritycheck;This module checks with the package manager if all files are intact.
+Event Check;Events;This module checks for known malicious Windows Events.
+ETW Watcher;EtwWatcher;This module runs in the background during the THOR scan and checks for suspicious network activity.
+Timestomp Check;Timestomp;This module checks if the timestamps of files have been tampered with.
+Antivirus Installation Check;Antivirus;This module checks for a running AV and (for Windows Defender) lists its exclusions.

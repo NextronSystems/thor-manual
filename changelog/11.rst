@@ -1,0 +1,61 @@
+THOR 11 (Techpreview)
+#####################
+
+.. hint::
+   This version is currently in development and not yet released
+   for the public. The features and changes listed here are subject
+   to change until the final release.
+
+THOR 11.0
+~~~~~~~~~
+
+.. list-table::
+    :header-rows: 1
+    :widths: 15, 85
+
+    * - Type
+      - Description
+    * - Feature
+      - Added ``.bz2`` support in the ``Archive`` feature
+    * - Feature
+      - New ``--sigma-ruleset`` flag to use the Core, Core+ or Core++ Sigma ruleset
+    * - Feature
+      - New plugin system. Plugins for THOR can be placed in the plugins/ folder and will be loaded on start, unless ``--no-plugins`` is specified. See https://github.com/NextronSystems/thor-plugin for the plugin interface.
+    * - Feature
+      - PowerShell module analysis cache parsing is now supported. This can be disabled with ``--nomoduleanalysiscache``.
+    * - Feature
+      - ICS file parsing is now supported. This can be disabled with ``--noics``.
+    * - Feature
+      - VBE decoding is now supported. This can be disabled with ``--novbe``.
+    * - Feature
+      - Shim Database parsing is now supported. This can be disabled with ``--noshimdb``.
+    * - Feature
+      - New ``--hex-matches`` flag for displaying all match strings as hex
+    * - Feature
+      - New ``--print-deepscan-criteria`` flag for displaying information on which files are analyzed with YARA rules
+    * - Feature
+      - New ``--describe-object-type``, ``--log-object-type`` and ``--list-object-types`` flags for querying information about how THOR handles objects internally
+    * - Feature
+      - Tesseract is now available to search for anomalous files (based on a model of known files)
+    * - Feature
+      - Jumplist parsing is now supported. This can be disabled with ``--nojumplist``.
+    * - Feature
+      - New ``--max-log-size`` flag to limit the size of the log file (used to be a fixed 64 MB)
+    * - Feature
+      - New ``--info`` flag, that, analogous to ``--notice``, ``--warning`` and ``--alert``, prints findings above a specified score as Info messages
+    * - Change
+      - Multiple THOR modules now use APIs to query information (instead of using system utilities)
+    * - Change
+      - THOR Remote upload directory now defaults to ``C:\Program Files\Thor-Remote\Temp``; as before, it can be changed with ``--remote-dir``
+    * - Change
+      - Update to Golang v1.20.13
+    * - Change
+      - Update to OpenSSL v3.1.3
+    * - Change
+      - Update to YARA v4.5.0
+    * - Change
+      - ``--resume`` now restore passed parameters from the resumed scan. If no resumable scan exists, it fails. This change makes ``--resumeonly`` obsolete.
+    * - Change
+      - ``--min`` has been deprecated. Use ``--notice`` instead.
+    * - Change
+      - Bifrost feature has been removed (it was already deprecated; users should migrate to Bifrost 2).

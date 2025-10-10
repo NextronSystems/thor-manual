@@ -1,3 +1,5 @@
+.. Index:: Changelog
+
 Changelog
 =========
 
@@ -8,12 +10,4 @@ Current version naming can be found in the index below.
     :maxdepth: 1
     :caption: Contents
 
-    108
-    107
-    106
-    105
-    104
-    103
-    102
-    101
-    100
+    11
