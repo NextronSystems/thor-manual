@@ -12,7 +12,7 @@ The recommended flags to run THOR are:
 
 .. code-block:: doscon
 
-   C:\temp\thor>thor64.exe --threads 0 --module Filescan --all-drives --path X: --path Y: --path Z:
+   C:\thor>thor64.exe --threads 0 --module Filescan --all-drives --path X: --path Y: --path Z:
 
 .. note:: 
     The ``--all-drives`` flag is only available with a lab license

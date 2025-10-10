@@ -138,4 +138,4 @@ You can start a short test run on a certain directory with:
 
 .. code-block:: doscon
    
-   C:\nextron\thor>thor.exe -a FileScan --deep -p C:\\TestDir
+   C:\thor>thor.exe -a FileScan --deep -p C:\\TestDir

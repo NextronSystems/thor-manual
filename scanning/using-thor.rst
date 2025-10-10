@@ -202,15 +202,15 @@ section :ref:`scanning/modules:modules`.
 
 Run a Rootkit check only:
 
-.. code-block:: none
+.. code-block:: doscon
 
-  thor64.exe -a Rootkit
+  C:\thor>thor64.exe -a Rootkit
 
 Run the Eventlog and file system scan:
 
-.. code-block:: none
+.. code-block:: doscon
 	
-  thor64.exe -a Eventlog -a Filescan
+  C:\thor>thor64.exe -a Eventlog -a Filescan
 
 Select or filter Signatures during Initialization
 -------------------------------------------------
@@ -232,21 +232,21 @@ Here are some examples:
 
 Scan only with ProxyShell related signatures:
 
-.. code-block:: none
+.. code-block:: doscon
 
-  thor64.exe --signature-include ProxyShell
+  C:\thor>thor64.exe --signature-include ProxyShell
 
 You can pass multiple selector keywords separated by comma:
 
-.. code-block:: none
+.. code-block:: doscon
 
-  thor64.exe --signature-include RANSOM,Lockbit
+  C:\thor>thor64.exe --signature-include RANSOM,Lockbit
 
 Or filter a set of signatures that only cause false positives in your environment:
 
-.. code-block:: none
+.. code-block:: doscon
 
-  thor64.exe --signature-exclude AutoIt
+  C:\thor>thor64.exe --signature-exclude AutoIt
 
 It is important to note that while these features offer flexibility
 and customization, we recommend utilizing a limited signature set only
@@ -260,7 +260,6 @@ The main advantages of a reduced signature set are:
 
 - improved scan speed
 - lower memory usage
-
 
 List loaded signatures
 ----------------------

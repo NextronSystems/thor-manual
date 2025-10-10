@@ -47,14 +47,14 @@ Eventlogs (``-a Eventlog``)
 
 .. code-block:: doscon
 
-   C:\tools\thor>thor64.exe -a Eventlog
+   C:\thor>thor64.exe -a Eventlog
 
 Perform a scan with the Sigma rules on logs of Linux systems (-a
 LogScan) only
 
 .. code-block:: doscon
 
-   C:\tools\thor>thor64 -a Filesystem -p /var/log
+   C:\thor>thor64 -a Filesystem -p /var/log
 
 Matching on Amcache with a custom Sigma rule
 ********************************************

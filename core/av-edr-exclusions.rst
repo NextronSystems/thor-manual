@@ -28,7 +28,7 @@ PowerShell:
 
 .. code-block:: ps1con
 
-   PS C:\Users\nextron> Add-MpPreference -ExclusionProcess 'c:\temp\thor\thor64.exe'
+   PS C:\Users\nextron>Add-MpPreference -ExclusionProcess 'c:\temp\thor\thor64.exe'
 
 For more information, visit `https://docs.microsoft.com <https://docs.microsoft.com/en-us/microsoft-365/security/defender-endpoint/configure-process-opened-file-exclusions-microsoft-defender-antivirus?view=o365-worldwide>`__.
 

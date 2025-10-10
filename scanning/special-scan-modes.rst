@@ -50,7 +50,7 @@ You can get a similar but not an equally thorough scan using the following comma
 
 .. code-block:: doscon 
 
-   C:\nextron\thor>thor64.exe -a Filescan --deep --no-resource-check --cross-platform-paths -p path-to-scan --threads 0
+   C:\thor>thor64.exe -a Filescan --deep --no-resource-check --cross-platform-paths -p path-to-scan --threads 0
    
 Without a valid lab license, you cannot use multiple instances of THOR on a single system.
 The features mentioned in the following sub chapters
@@ -172,7 +172,7 @@ look like this:
 
 .. code-block:: doscon
 
-   C:\nextron\thor>thor64.exe --lab -p S:\ --path-remap S:C -j WKS001 -e C:\reports
+   C:\thor>thor64.exe --lab -p S:\ --path-remap S:C -j WKS001 -e C:\reports
 
 It instructs THOR to scan the mounted partition S: in lab scanning mode,
 maps the current partition “S:” to a virtual drive “C:”, replaces the
@@ -190,14 +190,14 @@ The command line of a THOR scan in collector-only mode would like this:
 
 .. code-block:: doscon
 
-   C:\nextron\thor>thor.exe --collector-only
+   C:\thor>thor.exe --collector-only
 
 If you want THOR to run in its "classic" way and afterwards collect
 artifacts, use: 
 
 .. code-block:: doscon
 
-   C:\nextron\thor>thor.exe <normal-THOR-flags> --collector
+   C:\thor>thor.exe <normal-THOR-flags> --collector
 
 .. note::
    This feature requires a `forensic lab license <https://www.nextron-systems.com/2020/11/11/thor-forensic-lab-license-features/>`__
@@ -301,13 +301,12 @@ YARA rule scanning.
 Example: If the chunk size is set to a default of 12 MB, DeepDive use the
 following chunks in its scan to apply the YARA rule set:
 
-.. code-block:: 
+.. code-block:: none
 
    Chunk 1: Offset 0 – 12
    Chunk 2: Offset 6 – 18
    Chunk 3: Offset 12 – 24
    Chunk 4: Offset 18 – 30
-
 
 File Restoration
 ^^^^^^^^^^^^^^^^
@@ -337,7 +336,7 @@ Usage Examples
 
 .. code-block:: doscon
 
-   C:\nextron\thor>thor64.exe --memory-dump-file systemX123.mem -j systemX123 -e C:\reports
+   C:\thor>thor64.exe --memory-dump-file systemX123.mem -j systemX123 -e C:\reports
 
 .. note::
 
@@ -382,7 +381,7 @@ Eventlog's full name.
 
 .. code-block:: doscon
 
-   C:\nextron\thor>thor64.exe -a Eventlog -n "Microsoft-Windows-Sysmon/Operational"
+   C:\thor>thor64.exe -a Eventlog -n "Microsoft-Windows-Sysmon/Operational"
 
 ``-n`` can also be used to scan all event logs by using ``-n all``.
 
@@ -401,7 +400,7 @@ and instructs the Eventlog module to scan only the “Security” and
 
 .. code-block:: doscon
 
-   C:\nextron\thor>thor64.exe -n Security -n System
+   C:\thor>thor64.exe -n Security -n System
 
 MFT Analysis
 ------------

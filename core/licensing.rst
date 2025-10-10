@@ -163,7 +163,7 @@ You can retrieve an appropriate THOR license at the scan start using the built-i
 
 If everything works as expected, you'll see an INFO level message in the output that looks like:
 
-.. code-block:: batch 
+.. code-block:: none 
 
    Info: Init License file found LICENSE: my-asgard.internal OWNER: my-company ASGARD: ACME Inc TYPE: Workstation STARTS: 2021/06/18 EXPIRES: 2022/06/18 SCANNER: All Scanners VALID: true REASON:
 

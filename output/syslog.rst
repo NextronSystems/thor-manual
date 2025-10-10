@@ -20,7 +20,7 @@ targets with different formats.
 
 .. code-block:: doscon
    
-   C:\nextron\thor>thor64.exe -s syslog1.server.net -s arcsight.server.net:514:CEF
+   C:\thor>thor64.exe -s syslog1.server.net -s arcsight.server.net:514:CEF
 
 THOR supports two different definitions:
 
@@ -60,7 +60,6 @@ The available formats are:
 
 If not specified, the DEFAULT type is used.
 
-
 DEFAULT
 """""""
 
@@ -90,7 +89,6 @@ This is the standard JSON log format as used in the ``--json`` log.
 Example:
 
 ``{"type":"THOR message","meta":{"time":"2025-10-08T13:47:09.410735961+02:00","level":"Info","module":"Startup","scan_id":"S-YQ9tIENkusM","event_id":"","hostname":"arch"},"message":"Thor Version: 10.8.0","fields":{},"log_version":"v3.0.0"}``
-
 
 SYSLOGJSON
 """"""""""
@@ -152,7 +150,6 @@ Sending JSON formatted messages to a certain UDP port:
 .. code-block:: none 
 
    --remote-log 10.0.0.4:5444:JSON:UDP
-
 
 Local Syslog
 ^^^^^^^^^^^^

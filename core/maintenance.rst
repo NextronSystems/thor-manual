@@ -17,7 +17,7 @@ Windows:
 
 .. code-block:: doscon
 
-   C:\nextron\thor>thor-util.exe upgrade
+   C:\thor>thor-util.exe upgrade
 
 Linux:
 
@@ -44,7 +44,7 @@ Windows:
 
 .. code-block:: doscon
 
-   C:\nextron\thor>thor-util.exe update
+   C:\thor>thor-util.exe update
 
 Linux:
 
@@ -70,7 +70,7 @@ Windows:
 
 .. code-block:: doscon
 
-    C:\nextron\thor>thor-util.exe update --sigdev
+    C:\thor>thor-util.exe update --sigdev
 
 Linux:
 
@@ -96,7 +96,7 @@ Windows:
 
 .. code-block:: doscon
 
-    C:\nextron\thor>thor-util.exe yara-forge download --ruleset core
+    C:\thor>thor-util.exe yara-forge download --ruleset core
 
 Linux:
 
@@ -112,7 +112,7 @@ Windows:
 
 .. code-block:: doscon
 
-    C:\nextron\thor>thor-util.exe yara-forge remove
+    C:\thor>thor-util.exe yara-forge remove
 
 Linux:
 

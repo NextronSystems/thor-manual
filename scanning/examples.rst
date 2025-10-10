@@ -13,9 +13,9 @@ The following command creates a JSON log file on a share called
 "rep" on system "sys" if the user running the command has the respective
 access rights on the share.
 
-.. code-block:: none
+.. code-block:: doscon
 
-  thor64.exe --no-html --no-csv --json \\sys\rep\%COMPUTERNAME%_thor.json
+  C:\thor>thor64.exe --no-html --no-csv --json \\sys\rep\%COMPUTERNAME%_thor.json
 
 Logging to Syslog Server
 ^^^^^^^^^^^^^^^^^^^^^^^^
@@ -23,30 +23,30 @@ Logging to Syslog Server
 The following command instructs THOR to log to a remote syslog server
 only.
 
-.. code-block:: none
+.. code-block:: doscon
 
-  thor64.exe --no-html --no-csv --no-json --remote-log syslog.server.net
+  C:\thor>thor64.exe --no-html --no-csv --no-json --remote-log syslog.server.net
 
 Scan a Single Directory
 ^^^^^^^^^^^^^^^^^^^^^^^
 
-.. code-block:: none
+.. code-block:: doscon
 
-  thor64.exe -a Filescan -p C:\temp
+  C:\thor>thor64.exe -a Filescan -p C:\temp
 
 Change the output directory
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-.. code-block:: none
+.. code-block:: doscon
 
-  thor64.exe -e Z:\
+  C:\thor>thor64.exe -e Z:\
 
 Only scan the last 7 days of (Windows) Event Logs
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-.. code-block:: none
+.. code-block:: doscon
 
-  thor64.exe --lookback 7
+  C:\thor>thor64.exe --lookback 7
 
 By default the ``--lookback`` flag/value only applies to (Windows) Event Logs.
 To apply it to all modules, use the ``--lookback-global`` flag.
@@ -64,23 +64,23 @@ Windows and Linux.
 Mounted as Drive Z (drive C on the source system)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. code-block:: none
+.. code-block:: doscon
 
-  thor64.exe --lab -p Z:\ --path-remap Z:C
+  C:\thor>thor64.exe --lab -p Z:\ --path-remap Z:C
 
 Mounted as /mnt
 ~~~~~~~~~~~~~~~
 
-.. code-block:: none
+.. code-block:: doscon
 
-  thor64.exe --lab -p /mnt --path-remap /mnt:/
+  C:\thor>thor64.exe --lab -p /mnt --path-remap /mnt:/
 
 Scan Multiple Paths
 ^^^^^^^^^^^^^^^^^^^
 
-.. code-block:: none
+.. code-block:: doscon
 
-  thor64.exe --lab -p C:\\ D:\\webapps E:\\inetpub
+  C:\thor>thor64.exe --lab -p C:\\ D:\\webapps E:\\inetpub
 
 .. hint::
    non-existent directories will be automatically skipped
@@ -88,15 +88,15 @@ Scan Multiple Paths
 Scan All Hard Drives (Windows Only)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-.. code-block:: none
+.. code-block:: doscon
 
-  thor64.exe --all-hard-drives
+  C:\thor>thor64.exe --all-hard-drives
 
 Don't Scan Recursively
 ^^^^^^^^^^^^^^^^^^^^^^
 
 To instruct THOR to scan a folder non-recursively use the ``:NOWALK`` suffix.
 
-.. code-block:: none
+.. code-block:: doscon
 
-  thor64.exe -a FileScan -p C:\Windows\System32:NOWALK
+  C:\thor>thor64.exe -a FileScan -p C:\Windows\System32:NOWALK

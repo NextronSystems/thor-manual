@@ -9,7 +9,7 @@ THOR allows to encrypt the output files of each scan using the
 
 .. code-block:: doscon
  
-   C:\nextron\thor>thor64.exe --encryption-key mykey-public.pem
+   C:\thor>thor64.exe --encryption-key mykey-public.pem
 
 THOR Util can be used to decrypt the logs later on: 
 
