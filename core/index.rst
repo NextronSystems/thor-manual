@@ -21,4 +21,5 @@ extend.
     flags
     maintenance
     av-edr-exclusions
+    score
 

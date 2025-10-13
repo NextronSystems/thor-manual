@@ -3,17 +3,20 @@
 Scoring System
 --------------
 
-The scoring system is one of THOR's most prominent features. Both YARA
-signatures and filename IOCs contain a score field. The score is an
-integer value that can be negative to reduce the score on elements that
-are prone to false positives.
+The scoring system is one of THOR's most prominent features.
+The score is a metric that expresses
+a combination of confidence and severity in percent.
 
-Only YARA rules and Filename IOCs support a user defined score. But
-since you are able to write YARA rules for almost every module, the
-scoring system is very flexible.
+All signatures have a score, and all findings that THOR reports
+have a score based on the signature matches that are included. The
+exact formula for this is described in :ref:`core/score:Accumulated Scores`.
 
-The total score of an element determines the level/severity of the
-resulting log message.
+All finding scores are between 0 and 100. 
+This means a finding with a score of 95 can be seen as a severe finding with a
+high confidence. Exceptions might be - as always - obvious false
+positives like unencrypted or in-memory AV signatures.
+
+The finding's score determines the level/severity of the resulting log message:
 
 .. list-table::
   :header-rows: 1
@@ -35,32 +38,6 @@ resulting log message.
     - Alert
     - ``--score-alert``
 
-.. note::
-  All scores are between 0 and 100. The score is a metric that expresses
-  a combination of confidence and severity in percent. This means a
-  finding with a score of 95 can be seen as a severe finding with a
-  high confidence. Exceptions might be - as always - obvious false
-  positives like unencrypted or in-memory AV signatures.
-
-Scoring per Signature Type Match
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-.. list-table::
-  :header-rows: 1
-  :widths: 25, 75
-
-  * - Type
-    - Score
-  * - YARA match
-    - Defined in the meta data of the YARA rule as integer value (e.g. "score = 50")
-  * - IOC match
-    - Defined in the IOC (dependent on the format, see :ref:`signatures/ioc-formats:YAML IOC files`)
-  * - Sigma rule match
-    - Based on the Sigma rule's level:
-      - Level low translates to score 40
-      - Level medium translates to score 50
-      - Level high translates to score 70
-      - Level critical translates to score 100
 
 Accumulated Scores
 ^^^^^^^^^^^^^^^^^^

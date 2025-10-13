@@ -24,6 +24,16 @@ and the ``.yms`` extension for encrypted sigma rules.
 
    Example Sigma match on Windows Eventlog
 
+Scores
+^^^^^^
+
+The :ref:`score<signatures/scores:Scoring>` of a Sigma match is based on the Sigma rule's level:
+
+ - Level low translates to score 40
+ - Level medium translates to score 50
+ - Level high translates to score 70
+ - Level critical translates to score 100
+
 Sigma matching on THOR output
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 

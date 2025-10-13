@@ -8,8 +8,7 @@ Custom Signatures
 
     ioc-types
     ioc-formats
-    rules
     sigma
     yara
-    creating-yara-rules
     stix
+    scores

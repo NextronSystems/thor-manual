@@ -31,9 +31,7 @@ This document contains information about the usage of THOR 11.
    output/index
    signatures/index
    use-cases/index
-   other/index
    debugging/index
-   other/links-and-references
    changelog/index
 
 Indices and Tables
