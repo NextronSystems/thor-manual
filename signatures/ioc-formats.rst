@@ -45,7 +45,7 @@ They must have the `.yml` extension, or, if encrypted, the `.yms` extension.
       hashes:
          value: 0c2674c3a97c53082187d930efb645c2
          score: 70
-      file_patterns:
+      files:
          value: \my_malicious_filename.txt
          type: plain # Can be plain or regex. Defaults to plain if not specified.
          case_sensitive: true
@@ -53,8 +53,8 @@ They must have the `.yml` extension, or, if encrypted, the `.yms` extension.
          false_positives:
             value: \legitimate_usage\
             # Could use type or case_sensitive, just like the value above
-      # Other IOC formats which are supported (in addition to hashes and file_patterns above) are:
-      # - c2_iocs
+      # Other IOC formats which are supported (in addition to hashes and files above) are:
+      # - c2s
       # - named_pipes
       # - mutexes
       # - events
