@@ -141,7 +141,7 @@ to escape all backslashes):
 Remember that you have to use the keyword **registry** in the file name in order to
 initialize the YARA rule file as registry rule set (e.g. "**registry\_exe\_in\_value.yar**").
 
-Registry scanning uses bulk scanning. See :ref:`signatures/rules:Bulk Scanning` for more details.
+Registry scanning uses bulk scanning. See :ref:`signatures/yara:Bulk Scanning` for more details.
 
 THOR YARA Rules for Log Detection
 *********************************
@@ -154,7 +154,7 @@ YARA Rules for logs are applied as follows:
   where each key / value pair is an entry in EventData or UserData in the XML representation of the event.
 
 Log (both text log and event log) scanning uses bulk scanning.
-See :ref:`signatures/rules:Bulk Scanning` for more details.
+See :ref:`signatures/yara:Bulk Scanning` for more details.
 
 Remember that you have to use the keyword **log** in the file name in order to
 initialize the YARA rule file as registry rule set (e.g. ``my_log_rule.yar``).
@@ -358,6 +358,29 @@ Apply rule on file objects only:
 See :ref:`scanning/modules:modules` and :ref:`scanning/features:features`
 for a list of all available components.
 
+Bulk Scanning
+^^^^^^^^^^^^^
+
+THOR scans objects (e.g. registry values or log lines) in bulks since each YARA
+invocation has a relatively high overhead.
+This means that during the scan, the following happens:
+
+- THOR gathers objects that need to be scanned.
+- When sufficiently many entries are gathered, all of them are combined (separated
+  by line breaks) and passed to YARA.
+
+   - The ruleset that is used is a modified one, where THOR tries to remove false positive conditions.
+     Otherwise, false positive strings that occur in one entry could prevent another entry from being
+     detected.
+
+- If any YARA rule matches, the entries that contain the match strings are scanned
+  separately with YARA to determine whether any YARA rule matches for these specific entries.
+
+.. warning:
+
+   YARA conditions can be very complex, and while we've done our best to make the modifications to the bulk scans robust,
+   in case of very complex conditions (e.g. loops, or conditions looking at the string offsets), not all false positive
+   conditions may be removed. If you have rules with these constructs, be careful with these rules in cases where bulk scanning is applied.
 
 Creating Yara Rules
 ^^^^^^^^^^^^^^^^^^^

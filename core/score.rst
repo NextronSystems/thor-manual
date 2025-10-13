@@ -39,36 +39,6 @@ The finding's score determines the level/severity of the resulting log message:
     - ``--score-alert``
 
 
-
-
-All signatures contain a score. Signature scores can be between -100 and 100;
-negative values are used to reduce the score on elements that are prone
-to false positives, positive scores increase the score of elements that they
-match on.
-
-When multiple signatures match on the same element, the 
-
-
-Scoring per Signature Type Match
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-.. list-table::
-  :header-rows: 1
-  :widths: 25, 75
-
-  * - Type
-    - Score
-  * - YARA match
-    - Defined in the meta data of the YARA rule as integer value (e.g. "score = 50")
-  * - IOC match
-    - Defined in the IOC (dependent on the format, see :ref:`signatures/ioc-formats:YAML IOC files`)
-  * - Sigma rule match
-    - Based on the Sigma rule's level:
-      - Level low translates to score 40
-      - Level medium translates to score 50
-      - Level high translates to score 70
-      - Level critical translates to score 100
-
 Accumulated Scores
 ^^^^^^^^^^^^^^^^^^
 

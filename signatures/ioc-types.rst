@@ -36,21 +36,15 @@ All IOCs are text based and can either be regular expressions or plain strings. 
    of THOR. This should help you to create your own IOC files.
 
 THOR supports different types of IOCs. An IOC's type determines on which data it is
-applied during the scan.
-
-For a list of Features/Modules which use the different IOC types,
-please see the table below.
-
-.. csv-table::
-   :file: ../csv/thor_feature_iocs.csv
-   :delim: ;
-   :header-rows: 1
+applied during the scan, see below.
 
 Hashes
 ------
 
-Hash IOC must be MD5, SHA1, SHA256, or PE import hashes. They are applied to the hashes
-of all files that THOR scans.
+Hash IOC must be MD5, SHA1, SHA256, or PE import hashes. They are applied to: 
+
+ - the hashes of all files that THOR scans
+ - Hashes in the Amcache that THOR finds
 
 File Names
 ----------
@@ -60,6 +54,8 @@ Filename IOC files allow you to define IOCs based on filename and filepath.
 This can also be used to define false positives, or reduce the
 score of well-known files and locations, by using negative scores.
 
+Filename IOCs are applied to _all_ fields of all objects that THOR encounters.
+
 Keywords
 --------
 
@@ -67,8 +63,8 @@ Keywords
    Keyword IOCs are deprecated. If you use keyword IOCs, consider switching to
    either keyword YARA rules or Sigma rules.
 
-Keyword IOCs are applied to the text formatted objects as they are printed when
-using ``--log-object``.
+Keyword IOCs are applied to all objects; more specifically, to text formatted objects
+as they are printed when using ``--log-object``.
 
 One use case would be to have different strings which you encountered in Scheduled Tasks
 within Windows.
@@ -84,13 +80,24 @@ This can include:
  - Single IPs
  - IP address ranges in CIDR notation
 
-These IOCs are applied to the connections of examined processes
-and can optionally be used to search process memory.
+These IOCs are applied to:
+ - DNS cache entries
+ - Web page visits and downloads
+ - Firewall rules
+ - Hosts file entries
+ - the connections of examined processes
+ - Auditlog / Journald / Windows Eventlog entries
+ - Log lines
+
+With ``--c2-memory-analysis``, they are also applied to process memory.
 
 Mutexes or Events
 -----------------
 
-Mutex or Event IOCs are applied to the processes' handles.
+Mutex or Event IOCs are applied to:
+
+ - encountered mutexes / events
+ - process handles
 
 You can decide if you want to set a scope by using ``Global\\``
 or ``BaseNamedObjects\\`` as a prefix. If you decide to use none, your expression
