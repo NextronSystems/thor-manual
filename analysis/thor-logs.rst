@@ -61,7 +61,7 @@ to get a better overview on distributed runs on multiple systems.
 
 THOR APT Scanner App: https://splunkbase.splunk.com/app/3717/
 
-THOR Add-On:https://splunkbase.splunk.com/app/3718/
+THOR Add-On: https://splunkbase.splunk.com/app/3718/
 
 THOR Util Report Feature
 ------------------------
