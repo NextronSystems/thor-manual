@@ -137,7 +137,7 @@ also create a screenshot of a panic shown in the command line window.
 Provide the THOR database (Optional)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The :ref:`other/thordb:THOR DB` helps us debug situations in which
+The :ref:`scanning/special-scan-modes:THOR DB` helps us debug situations in which
 the THOR scan timed out or didn't complete at all. It contains statistics on the
 run time of all used modules and the durations of all folders up to the second
 folder level from the root of a partition. (e.g. ``C:\Windows\SysWow64``).

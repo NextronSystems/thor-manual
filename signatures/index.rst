@@ -11,5 +11,5 @@ Custom Signatures
     rules
     sigma
     yara
-    creating-yara-rules
     stix
+    scores
