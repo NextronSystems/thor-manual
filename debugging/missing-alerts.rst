@@ -40,7 +40,7 @@ doesn't have a relevant file extension:
    .pl, .www, .rdp, .jar, .docm, .ace, .job, .temp, .plg, .asm
 
 **Solution**: Add a custom meta rule with the ``DEEPSCAN`` tag.
-See :ref:`signatures/yara:Specific YARA Rules` for details about meta rules.
+See :ref:`signatures/yara:Deepscan Rules` for details.
 
 .. code-block:: yara
    :caption: custom-meta-rule.yar
@@ -61,7 +61,7 @@ forget to include the correct keyword in the filename of the IOC or YARA
 rule file.
 
 The correct use of keywords is described in the chapters :ref:`signatures/ioc-formats:Simple IOC files`
-for IOCs and :ref:`signatures/yara:Specific YARA Rules` for YARA rules.
+for IOCs and :ref:`signatures/yara:YARA Rules` for YARA rules.
 
 A wrong or missing keyword leads to situations in which a file that contains
 YARA rules that are meant to be applied to log files, but doesn't contain a "log"
