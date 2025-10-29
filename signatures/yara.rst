@@ -22,8 +22,11 @@ There are three YARA rule types that you can define in THOR:
 The rule type is determined by specific keywords within the filename:
 
  - If a filename contains the keyword ``meta``, the rules within are meta rules.
- - If a filename contains the keyword ``keyword``, ``registry``, or ``log``, the rules within are keyword rules (possibly with the specified subtype).
- - If a filename contains the keyword ``process``, or none of the keywords listed above, the rules within are generic rules (with the ``process`` subtype, if specified).
+ - If a filename contains the keyword ``keyword``, ``registry``, or ``log``, the
+   rules within are keyword rules (possibly with the specified subtype).
+
+ - If a filename contains the keyword ``process``, or none of the keywords listed
+   above, the rules within are generic rules (with the ``process`` subtype, if specified).
 
 
 The following table shows which rule type is used for which examplary filename.
@@ -78,8 +81,8 @@ Meta rules are also applied to irregular files. In this case, the bytes that are
  - When directories are scanned with the meta rules, the file content is the directory listing (as file names, separated by newlines).
 
 .. tip::
-    Meta rules are most commonly used to trigger other features (see :ref:`scanning/features:Feature selectors`) or choose a file for a scan with the Generic Rules
-    (see :ref:`signatures/yara:Deepscan Rules`).
+    Meta rules are most commonly used to trigger other features (see :ref:`scanning/features:Feature selectors`)
+    or choose a file for a scan with the Generic Rules (see :ref:`signatures/yara:Deepscan Rules`).
 
 Deepscan Rules
 **************
