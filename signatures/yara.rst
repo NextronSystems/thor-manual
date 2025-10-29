@@ -10,90 +10,105 @@ and the **.yas** extension for encrypted YARA rules. (the rules can be encrypted
 Custom YARA rules have to be saved to the ``.\custom-signatures\yara`` folder.
 In order to apply only custom YARA rules and IOCs, use the ``--custom-signatures-only`` flag. 
 
-There are two custom YARA rule types that you can define in THOR:
+There are three YARA rule types that you can define in THOR:
 
-- Generic Rules
-- Specific Rules
+- Generic rules
+    - Subtype: Process rules
+- Meta rules
+- Keyword rules
+    - Subtype: Registry rules
+    - Subtype: Log rules
 
-Generic YARA Rules
-^^^^^^^^^^^^^^^^^^
+The rule type is determined by specific keywords within the filename:
 
-All YARA rules which do not contain any specific tag (see :ref:`signatures/yara:Specific YARA Rules`)
-are considered generic YARA rules.
+ - If a filename contains the keyword ``meta``, the rules within are meta rules.
+ - If a filename contains the keyword ``keyword``, ``registry``, or ``log``, the
+   rules within are keyword rules (possibly with the specified subtype).
 
-The generic YARA rules are applied to the following elements:
+ - If a filename contains the keyword ``process``, or none of the keywords listed
+   above, the rules within are generic rules (with the ``process`` subtype, if specified).
 
-* | Files
-  | THOR applies the Yara rules to all files that are smaller than the size limit set in the **thor.yml** and matches specific rules. :ref:`signatures/yara:Additional Attributes` are available.
-* | Process Memory
-  | THOR scans the process memory of all processes with a working set memory size up to a certain limit. This limit can be altered by the "**--process-size-limit**" parameter.
-* | Data Chunks
-  | The rules are applied to the data chunks read during the DeepDive scan.
 
-The following table shows in which modules the Generic YARA rules are
-applied to content.
+The following table shows which rule type is used for which examplary filename.
 
 .. list-table::
    :header-rows: 1
    :widths: 55, 45
 
-   * - Applied in Module
-     - Examples
-   * - Filescan, ProcessCheck, DeepDive
-     - incident-feb17.yar
-       
-       misp-3345-samples.yar
+   * - Filename
+     - Rule type
+   * - incident-feb17.yar
+     - Generic rule
+   * - event-**log**-rules.yar
+     - Log rule
+   * - custom-**meta**.yar
+     - Meta rule
+   * - incident-feb17-**registry**.yar
+     - Registry rule
+   * - case-a23-**process**-rules.yar
+     - Process rule
 
-Specific YARA Rules
-^^^^^^^^^^^^^^^^^^^
 
-The specific YARA rules contain certain tags in their filename to
-differentiate them further:
+Generic YARA Rules
+^^^^^^^^^^^^^^^^^^
 
-* | Registry Keys
-  | Tag: **'registry'**
-  | Rules are applied to a whole key with all of its values. See :ref:`signatures/yara:THOR YARA Rules for Registry Detection` for more details.
-* | Log Files
-  | Tag: **'log'**
-  | Rules are applied to each log entry. See :ref:`signatures/yara:THOR YARA Rules for Log Detection` for more details.
-* | Process Memory
-  | Tag: **'process'** or **'memory'**
-  | Rules are applied to process memory only.
-* | All String Checks
-  | Tag: **'keyword'**
-  | Rules are applied to all objects that are checked.
-* | Metadata Checks
-  | Tag: **'meta'**
-  | Rules are applied to all files without exception, including directories, symlinks and the like, but can only access the THOR specific external variables (see :ref:`signatures/yara:Additional Attributes`) and the first 64KB of the file.
-  | If a metadata rule has the special tag DEEPSCAN, THOR will perform a YARA scan on the full file with the default rule set (see :ref:`signatures/yara:Generic YARA Rules`).
-  | When symlinks are scanned with the meta rules, the file content is their target path.
-  | When directories are scanned with the meta rules, the file content is the directory listing (as file names, separated by newlines).
+The generic YARA rules are applied to the following elements:
 
-The following table shows in which modules the specific YARA rules are
-applied to content.
+* All files that are smaller than the ``--file-size-limit`` and that have been matched by the :ref:`signatures/yara:Deepscan Rules`.
+* The process memory of all processes with a working set memory size smaller than the ``--process-size-limit``.
+* The data chunks read during the DeepDive scan.
 
-.. list-table::
-  :header-rows: 1
-  :widths: 20, 45, 35
+.. note::
+    Rules with the ``process`` subtype are only applied to process memory and the DeepDive chunks, not to files.
 
-  * - Tag in File Name
-    - Applied in Module
-    - Examples
-  * - registry
-    - RegistryChecks, RegistryHive
-    - incident-feb17-**registry**.yar
-  * - log
-    - Eventlog, Logscan, EVTX, ETL, Auditlog, Journald
-    - general-**log**-strings.yar
-  * - process
-    - ProcessCheck (only on process memory)
-    - case-a23-**process**-rules.yar
-  * - keyword
-    - All
-    - misp-3345-**keyword**-extract.yar
-  * - meta
-    - Filescan
-    - **meta**-rules.yar
+:ref:`signatures/yara:Additional Attributes` are available for generic rules:
+
+* For files, they are based on the file itself.
+* For process memory, they are based on the process's image.
+* For data chunks, they are based on the file where the data chunk originates.
+
+.. warning::
+    As described above, only files that are actively selected by :ref:`signatures/yara:Deepscan Rules` are scanned with the generic YARA rules.
+
+Meta YARA Rules
+^^^^^^^^^^^^^^^
+
+Meta rules are applied to all files without exception.
+However, they can only access the :ref:`signatures/yara:Additional Attributes` and the first 64KB of the file.
+
+Meta rules are also applied to irregular files. In this case, the bytes that are scanned are provided by THOR:
+ - When symlinks are scanned with the meta rules, the file content is their target path.
+ - When directories are scanned with the meta rules, the file content is the directory listing (as file names, separated by newlines).
+
+.. tip::
+    Meta rules are most commonly used to trigger other features (see :ref:`scanning/features:Feature selectors`)
+    or choose a file for a scan with the Generic Rules (see :ref:`signatures/yara:Deepscan Rules`).
+
+Deepscan Rules
+**************
+
+If a meta rule which has the special tag ``DEEPSCAN`` matches on a file, THOR will scan the file with the :ref:`signatures/yara:Generic YARA Rules`.
+
+.. note::
+    THOR's signatures already contain a wide array of deepscan rules that cover the file types most commonly used by attackers.
+
+    These rules are used even if ``--custom-signatures-only`` is used.
+
+    However, you can always add your own deepscan rules if you encounter uncommon file types that THOR does not pick up by default.
+
+If such a rule has the special tag ``FORCE``, it even ignores the file size limit and will always cause a scan with the generic YARA rules.
+
+.. warning::
+    Use ``FORCE`` with care since you can easily cause massive increases in scan times with this.
+
+Keyword YARA Rules
+^^^^^^^^^^^^^^^^^^
+
+Keyword rules are applied to all objects that are checked.
+
+The *registry* and *log* subtypes of keyword rules are only applied to registry keys or log lines / event log entries / journald log entries / ..., respectively.
+
+Keyword rule scanning (including registry keys and logs) uses :ref:`signatures/yara:Bulk Scanning`.
 
 THOR YARA Rules for Registry Detection
 **************************************
@@ -141,8 +156,6 @@ to escape all backslashes):
 Remember that you have to use the keyword **registry** in the file name in order to
 initialize the YARA rule file as registry rule set (e.g. "**registry\_exe\_in\_value.yar**").
 
-Registry scanning uses bulk scanning. See :ref:`signatures/yara:Bulk Scanning` for more details.
-
 THOR YARA Rules for Log Detection
 *********************************
 
@@ -152,12 +165,6 @@ YARA Rules for logs are applied as follows:
 - For Windows Event Logs, each event is serialized as follows for the YARA rules:
   ``Key1: Value1  Key2: Value2  ...``
   where each key / value pair is an entry in EventData or UserData in the XML representation of the event.
-
-Log (both text log and event log) scanning uses bulk scanning.
-See :ref:`signatures/yara:Bulk Scanning` for more details.
-
-Remember that you have to use the keyword **log** in the file name in order to
-initialize the YARA rule file as registry rule set (e.g. ``my_log_rule.yar``).
 
 Score
 ^^^^^
