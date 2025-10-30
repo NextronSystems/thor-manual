@@ -5,6 +5,20 @@ THOR 10.6 is currently still supported, but we advise customers to switch
 to the newest productive version, `10.7 <https://thor-manual.nextron-systems.com>`_.
 We will stop supporting 10.6 in the near future.
 
+THOR 10.6.28
+~~~~~~~~~~~~
+
+.. list-table::
+	  :header-rows: 1
+	  :widths: 15, 85
+
+    * - Type
+      - Description
+    * - Bugfix
+      - Handle new IOC format in signature package correctly
+    * - Bugfix
+      - Support configuring custom score for Bifrost 2 upload from ASGARD
+
 THOR 10.6.27
 ~~~~~~~~~~~~
 
