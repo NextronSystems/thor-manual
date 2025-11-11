@@ -97,11 +97,7 @@ JSON Output (.json)
 
 The JSON output file can be configured with these options:
 
-* **--json** (deprecated since THOR 10.7, use ``--jsonv2``)
-  
-  * Create a JSON output file
-
-* **--jsonv2** (THOR >= 10.7)
+* **--jsonv2**
 
   * Use the JSON v2 format, which is easier to parse than the old v1 format.
   * This can be used with ``--jsonfile``.
