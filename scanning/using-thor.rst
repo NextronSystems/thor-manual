@@ -104,22 +104,56 @@ This list contains flags that should better be avoided unless you know exactly w
 Lesser Known But Useful Flags
 -----------------------------
 
-This list contains flags that are often used by analysts to tweak the scan in useful ways.
+This section contains flags that are often used by analysts to tweak the scan in useful ways.
 
-.. list-table::
+Alert Reason Limit
+^^^^^^^^^^^^^^^^^^
+``--alert-reason-limit <limit>`` configures the number of reasons that are shown
+for each finding. Reasons with higher score are prioritized over those
+with lower score.
+
+By default this is 2, but depending on your use case, higher values
+or zero (unlimited) might be useful.
+
+Object Logging
+^^^^^^^^^^^^^^
+
+``--log-object "object type"`` specifies that objects of a specific type should
+be logged as informational messages, even if they don't reach the ``--score-info`` score.
+
+To avoid flooding the log with these messages, it's also possible to specify a limit per
+object type. This limit only applies to objects logged by this feature, and does not inhibit
+the logging of elements that reach the ``--score-info`` score.
+It can be set with ``--log-object "object type:limit"``.
+
+``--log-object`` comes with an extensive default list:
+
+.. csv-table::
+  :file: ../csv/log-object-defaults.csv
+  :widths: 50, 33
+  :delim: ;
   :header-rows: 1
-  :widths: 30, 70
 
-  * - Parameter
-    - Description
-  * - **--alert-reason-limit**
-    - Show more reasons than the default (2) that led to a certain score
-  * - **--log-object**
-    - Print all objects of a specific type (e.g. SHIM cache entries) into the log
-  * - **--timestamp-utc**
-    - Print all timestamps in UTC (helpful when creating timelines)
-  * - **--match-context num-chars**
-    - Number of characters preceding and following the string match to show in the output
+These defaults can overwritten by specifying a custom limit for an object type.
+
+To disable an entry from this default list, use ``--log-object "object-type:0"``:
+this overwrites the default limit with zero, therefore disabling ``--log-object``
+for this object type.
+
+UTC Timestamps
+^^^^^^^^^^^^^^
+
+With ``--timestamp-utc``, all timestamps will be printed as UTC instead of
+the local timezone. This can be helpful when creating timelines.
+
+Match Context
+^^^^^^^^^^^^^
+
+``--match-context num-chars`` controls the number of characters preceding
+and following the string match that are shown in the output. These characters
+don't contribute to the match itself, but they often provide valuable information
+to an analyst. By default, 50 characters preceding and following each match are printed.
+
 
 CPU Limit
 ---------

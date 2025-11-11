@@ -1,0 +1,29 @@
+Object type;Limit
+AmCache entry;100
+DNS cache entry;100
+Unix user;unlimited
+WMI element;100
+WMI startup command;100
+Windows service;unlimited
+Windows user;unlimited
+antivirus exclusion;unlimited
+antivirus product;unlimited
+at job;100
+authorized_keys entry;20
+autorun entry;100
+cron job;100
+event;100
+firewall rule;100
+hosts file entry;20
+init.d service;unlimited
+mutex;100
+named pipe;100
+network session;unlimited
+network share;unlimited
+process;unlimited
+quarantine event;20
+raw firewall rule;100
+registry scheduled task;100
+scheduled task;100
+shim cache entry;2048
+systemd service;unlimited

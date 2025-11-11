@@ -39,6 +39,11 @@ The finding's score determines the level/severity of the resulting log message:
     - ``--score-alert``
 
 
+.. note::
+
+    Besides the score, the :ref:`scanning/using-thor:Object Logging` flag also contributes
+    towards logging objects.
+
 Accumulated Scores
 ^^^^^^^^^^^^^^^^^^
 
