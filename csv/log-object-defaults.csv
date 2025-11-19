@@ -1,6 +1,7 @@
 Object type;Limit
 AmCache entry;100
 DNS cache entry;100
+Linux kernel module;unlimited
 Unix user;unlimited
 WMI element;100
 WMI startup command;100
