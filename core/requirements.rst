@@ -81,7 +81,7 @@ THOR for AIX
 ^^^^^^^^^^^^
 
 We offer a special version for AIX. Currently only a small number of versions
-are supported. We are extensively testing THOR on AIX 7.2 with Power9. 
+are supported. We are extensively testing THOR on AIX 7.3 with Power9. 
 THOR for AIX will not run on older versions of AIX. If you are running a newer
 version and are interested in THOR for AIX, we can always provide a test license
 to verify if everything is working as expected.
