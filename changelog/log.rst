@@ -5,12 +5,24 @@ THOR 10.6 is currently still supported, but we advise customers to switch
 to the newest productive version, `10.7 <https://thor-manual.nextron-systems.com>`_.
 We will stop supporting 10.6 in the near future.
 
+THOR 10.6.29
+~~~~~~~~~~~~
+
+.. list-table::
+    :header-rows: 1
+    :widths: 15, 85
+
+    * - Type
+      - Description
+    * - Bugfix
+      - Fix an issue where some IOCs with regex escape sequences were applied incorrectly
+
 THOR 10.6.28
 ~~~~~~~~~~~~
 
 .. list-table::
-	  :header-rows: 1
-	  :widths: 15, 85
+    :header-rows: 1
+    :widths: 15, 85
 
     * - Type
       - Description
