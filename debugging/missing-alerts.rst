@@ -60,7 +60,7 @@ It happens very often that users that prepare custom IOCs or YARA rules
 forget to include the correct keyword in the filename of the IOC or YARA
 rule file.
 
-The correct use of keywords is described in the chapters :ref:`signatures/ioc-formats:Simple IOC files`
+The correct use of keywords is described in the chapters :ref:`signatures/ioc-formats:Simple IOC files (deprecated)`
 for IOCs and :ref:`signatures/yara:YARA Rules` for YARA rules.
 
 A wrong or missing keyword leads to situations in which a file that contains

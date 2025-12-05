@@ -20,7 +20,7 @@ IOC Types
 
 IOCs are indicators of compromise that are applied during a scan.
 They are categorized based on their :ref:`signatures/ioc-types:IOC types`, and can be specified
-as either :ref:`signatures/ioc-formats:YAML IOC files` or  :ref:`signatures/ioc-formats:Simple IOC files`.
+as either :ref:`signatures/ioc-formats:YAML IOC files` or  :ref:`signatures/ioc-formats:Simple IOC files (deprecated)`.
 
 All IOCs are text based and can either be regular expressions or plain strings. Furthermore, each IOC has:
 
@@ -46,6 +46,8 @@ Hash IOC must be MD5, SHA1, SHA256, or PE import hashes. They are applied to:
  - the hashes of all files that THOR scans
  - Hashes in the Amcache that THOR finds
 
+Hash IOCs are always applied case insensitively and regex hash IOCs are not supported.
+
 File Names
 ----------
 
@@ -56,8 +58,8 @@ score of well-known files and locations, by using negative scores.
 
 Filename IOCs are applied to _all_ fields of all objects that THOR encounters.
 
-Keywords
---------
+Keywords (deprecated)
+---------------------
 
 .. warning::
    Keyword IOCs are deprecated. If you use keyword IOCs, consider switching to
