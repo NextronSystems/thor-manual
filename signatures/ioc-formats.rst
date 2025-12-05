@@ -59,8 +59,8 @@ They must have the `.yml` extension, or, if encrypted, the `.yms` extension.
       # - mutexes
       # - events
 
-Simple IOC files
-~~~~~~~~~~~~~~~~
+Simple IOC files (deprecated)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Simple IOC files are basically CSV files that include the IOC and
 comments. Simple IOC files must have the extension ``.txt``.
@@ -86,7 +86,7 @@ The following tags for simple IOCs are currently supported:
 
 * "**keyword**" or "**keywords**"
 
-  * for :ref:`signatures/ioc-types:Keywords`
+  * for :ref:`signatures/ioc-types:Keywords (deprecated)`
 
 * "**trusted-hash**" or "**trusted-hashes**"
   or "**falsepositive-hash**" or "**falsepositive-hashes**"
