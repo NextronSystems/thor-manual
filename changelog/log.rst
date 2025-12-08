@@ -3,6 +3,22 @@ Changelog
 
 In this chapter you can find all the changes for THOR 10.7
 
+THOR 10.7.26
+~~~~~~~~~~~~
+
+.. list-table::
+    :header-rows: 1
+    :widths: 15, 85
+
+    * - Type
+      - Description
+    * - Bugfix
+      - Fix an issue where filesystems without file ID information were skipped
+    * - Bugfix
+      - Fix an issue where scheduled tasks were reported as at jobs
+    * - Bugfix
+      - Fix an issue where IOCs with regex escape sequences were sometimes not applied correctly
+
 THOR 10.7.25
 ~~~~~~~~~~~~
 
@@ -12,6 +28,8 @@ THOR 10.7.25
 
     * - Type
       - Description
+    * - Change
+      - Upgrade YARA to v4.5.5
     * - Bugfix
       - Fix an issue where THOR for Windows could show incorrect parent process information in case of process ID reuse
 
