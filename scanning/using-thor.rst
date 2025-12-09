@@ -228,8 +228,8 @@ that could have caused the memory exhaustion.
 File Size Limit
 ---------------
 
-The default file size limit for deeper investigations (hash
-calculation and YARA scanning) is 30 MB. The file size limit for the
+The default file size limit for content checks (hash
+calculation and YARA scanning) is 64 MB. The file size limit for the
 ``--deep`` scan mode is 200 MB.
 
 You can adjust the values in ``./config/thor.yml``. This file does not

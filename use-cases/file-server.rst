@@ -57,7 +57,7 @@ In general, the following options are not recommended but can help in special sc
 
 * ``--file-size-limit ?????``
  
-  * Maximum file size (specify as e.g. ``50MB``)). The default is 30 MB. If you need to scan bigger files,
+  * Maximum file size (specify as e.g. ``50MB``)). The default is 64 MB. If you need to scan bigger files,
     you might need to increase the file size limit.
 
 * ``--exclude-component``
