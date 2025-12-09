@@ -91,7 +91,7 @@ in the config file ``./config/thor.yml``.
 
 .. code-block:: doscon
 
-   C:\nextron\thor>thor64.exe --max_file_size 206233600 # setting max file size to 100 MB
+   C:\nextron\thor>thor64.exe --max_file_size 206233600 # setting max file size to 200 MB
 
 .. literalinclude:: ../examples/thor.yaml
    :caption: Default thor.yaml
