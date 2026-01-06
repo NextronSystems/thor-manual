@@ -3,6 +3,18 @@ Changelog
 
 In this chapter you can find all the changes for THOR 10.7
 
+THOR 10.7.27
+~~~~~~~~~~~~
+
+.. list-table::
+    :header-rows: 1
+    :widths: 15, 85
+
+    * - Type
+      - Description
+    * - Bugfix
+      - Scheduled tasks now list all commands instead of only the first one
+
 THOR 10.7.26
 ~~~~~~~~~~~~
 
