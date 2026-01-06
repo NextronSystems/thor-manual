@@ -19,9 +19,14 @@ disabled and intense mode is activated by default.
 The ``--lab`` parameter automatically activates the following other
 options:
 
-* intense (scan every file intensively regardless of its extension or magic header)
+* Enable intense mode, which causes several changes:
+
+  * scan every file intensively regardless of its extension or magic header
+  * Use ``--max_file_size_intense`` (200MB by default) instead of ``--max_file_size``
+  * Set ``--max-reasons`` to unlimited
+  * Reduce ``--minimum-sigma-level`` to medium
+  * Set ``--nosoft`` (do not automatically activate soft mode on systems with single core CPUs or low memory)
 * norescontrol (do not limit system resources or interrupt scan on low memory)
-* nosoft (do not automatically activate soft mode on systems with single core CPUs or low memory)
 * nodoublecheck (do not check for other THOR instances on the same system and do not interrupt scan if another instance has been found)
 * multi-threading (it automatically sets the number of threads to use to the number of CPU cores found on the workstation)
 
