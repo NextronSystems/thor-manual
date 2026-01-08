@@ -22,13 +22,13 @@ THOR 11.0
     * - Feature
       - New plugin system. Plugins for THOR can be placed in the plugins/ folder and will be loaded on start, unless ``--no-plugins`` is specified. See https://github.com/NextronSystems/thor-plugin for the plugin interface.
     * - Feature
-      - PowerShell module analysis cache parsing is now supported. This can be disabled with ``--nomoduleanalysiscache``.
+      - PowerShell module analysis cache parsing is now supported. This can be disabled with ``--exclude-component ModuleAnalysisCache``.
     * - Feature
-      - ICS file parsing is now supported. This can be disabled with ``--noics``.
+      - ICS file parsing is now supported. This can be disabled with ``--exclude-component ICS``.
     * - Feature
-      - VBE decoding is now supported. This can be disabled with ``--novbe``.
+      - VBE decoding is now supported. This can be disabled with ``--exclude-component VBEDecoder``.
     * - Feature
-      - Shim Database parsing is now supported. This can be disabled with ``--noshimdb``.
+      - Shim Database parsing is now supported. This can be disabled with ``--exclude-component ShimDB``.
     * - Feature
       - New ``--hex-matches`` flag for displaying all match strings as hex
     * - Feature
@@ -38,7 +38,7 @@ THOR 11.0
     * - Feature
       - Tesseract is now available to search for anomalous files (based on a model of known files)
     * - Feature
-      - Jumplist parsing is now supported. This can be disabled with ``--nojumplist``.
+      - Jumplist parsing is now supported. This can be disabled with ``--exclude-component JumpList``.
     * - Feature
       - New ``--max-log-size`` flag to limit the size of the log file (used to be a fixed 64 MB)
     * - Feature
