@@ -34,7 +34,9 @@ THOR 11.0
     * - Feature
       - New ``--print-deepscan-criteria`` flag for displaying information on which files are analyzed with YARA rules
     * - Feature
-      - New ``--describe-object-type``, ``--log-object-type`` and ``--list-object-types`` flags for querying information about how THOR handles objects internally
+      - New ``--log-object`` flag for defining which objects are printed by THOR.
+    * - Feature
+      - New ``--describe-object-type`` flag for inspecting the JSON schema for objects printed by THOR.
     * - Feature
       - Tesseract is now available to search for anomalous files (based on a model of known files)
     * - Feature
