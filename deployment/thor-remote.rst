@@ -100,7 +100,7 @@ System Error 5 occurred – Access Denied
 """""""""""""""""""""""""""""""""""""""
 
 See:
-https://helgeklein.com/blog/2011/08/access-denied-trying-to-connect-to-administrative-shares-on-windows-7/
+https://helgeklein.com/blog/access-denied-trying-to-connect-to-administrative-shares-on-windows-7/
 
 Running THOR from a Network Share
 """""""""""""""""""""""""""""""""

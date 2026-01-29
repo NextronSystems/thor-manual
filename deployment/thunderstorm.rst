@@ -27,8 +27,8 @@ The following table contains all Thunderstorm command line flags:
   :delim: ;
   :header-rows: 1
 
-THOR flags can be passed after the thunderstorm flags using
-``./tools/thunderstorm <thunderstorm-flags> -- <thor-flags> `` or be set
+THOR flags can be passed after the thunderstorm flags using ``./tools/thunderstorm
+<thunderstorm-flags> -- <thor-flags>`` or be set
 via the THOR template (see :configuration:). This can be used to e.g.:
 
  - Forward logs with ``--remote-log``
