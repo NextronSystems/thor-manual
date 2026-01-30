@@ -15,7 +15,7 @@ access rights on the share.
 
 .. code-block:: doscon
 
-  C:\thor>thor64.exe --no-html --no-csv --json \\sys\rep\%COMPUTERNAME%_thor.json
+  C:\thor>thor64.exe --no-html --no-csv --json \\sys\rep\%COMPUTERNAME%_thor.jsonl
 
 Logging to Syslog Server
 ^^^^^^^^^^^^^^^^^^^^^^^^
