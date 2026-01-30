@@ -19,8 +19,8 @@ THOR creates several files during and at the end of the scan.
 You can define different formatting options for both text log and
 SYSLOG output.
 
-JSON File Output (.json)
-^^^^^^^^^^^^^^^^^^^^^^^^
+JSON File Output (.jsonl)
+^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The JSON log file is written by default. It provides the scan results
 in a structured, machine readable format. See https://github.com/NextronSystems/jsonlog
