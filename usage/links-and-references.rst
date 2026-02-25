@@ -8,7 +8,7 @@ Nextron Customer Portal: https://portal.nextron-systems.com
 
 Nextron Support Portal: https://support.nextron-systems.com
 
-Nextron Knowledge Base: https://knowldege.nextron-systems.com
+Nextron Knowledge Base: https://knowledge.nextron-systems.com
 
 Nextron Hosts & IP: https://knowledge.nextron-systems.com/general/hosts-ip-addresses
 
