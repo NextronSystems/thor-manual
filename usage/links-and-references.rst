@@ -8,6 +8,10 @@ Nextron Customer Portal: https://portal.nextron-systems.com
 
 Nextron Support Portal: https://support.nextron-systems.com
 
+Nextron Knowledge Base: https://knowledge.nextron-systems.com
+
+Nextron Hosts & IP: https://knowledge.nextron-systems.com/general/hosts-ip-addresses
+
 Nextron Software Update Status: https://update1.nextron-systems.com/info.php
 
 YARA Documentation: https://yara.readthedocs.io/en/latest/

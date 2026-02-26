@@ -116,7 +116,7 @@ This list contains flags that are often used by analysts to tweak the scan in us
 
   * - Parameter
     - Description
-  * - **--allreasons**
+  * - **--max-reasons 0**
     - Show all reasons that led to a certain score
   * - **--printshim**
     - Print all available SHIM cache entries into the log
