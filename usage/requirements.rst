@@ -30,7 +30,7 @@ requirements** to run THOR. Any newer version will also work with THOR.
     - Windows 7 x86/x64
     - macOS 10.14 (Mojave)
     - 7.2 (PowerPC 8)
-  * - SuSE SLES 11
+  * - SuSE SLES 11 SP1
     - Windows Server 2008 R2
     - macOS 11 (Intel)
     - 
@@ -44,8 +44,10 @@ requirements** to run THOR. Any newer version will also work with THOR.
     -
 
 .. hint::
-  Other rolling linux variants, like Arch, might also work,
-  but are not explicitly tested by us.
+   A minimum Linux kernel version of ``2.6.32`` is required to run THOR.
+   Linux operating systems older than those listed above might work, but are not
+   tested by us anymore, so support cannot be guaranteed. In any case,
+   verifying the kernel version before running THOR is recommended.
 
 Legacy Systems
 ^^^^^^^^^^^^^^
