@@ -242,7 +242,7 @@ Output Options
       --max-reasons int                                   Show at most X reasons why a match is considered dangerous (0 = no limit) (default 2)
       --printshim                                         Include all SHIM cache entries in the output as 'info' level messages
       --printamcache                                      Include all AmCache entries in the output as 'info' level messages
-      -j, --overwrite-hostname string                         Override the local hostname value with a static value (useful when scanning mounted images in the lab. Requires a Forensic Lab license. (default "goetz-debian12-client")
+      -j, --overwrite-hostname string                         Override the local hostname value with a static value (useful when scanning mounted images in the lab. Requires a Forensic Lab license.
       -i, --scanid string                                     Specify a scan identifier (useful to filter on the scan ID, should be unique)
       --scanid-prefix string                              Specify a prefix for the scan ID that is concatenated with a random ID if neither --scanid nor --noscanid are specified (default "S-")
       --noscanid                                          Do not automatically generate a scan identifier if none is specified
