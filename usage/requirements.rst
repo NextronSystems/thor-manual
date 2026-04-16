@@ -52,10 +52,11 @@ requirements** to run THOR. Any newer version will also work with THOR.
 Legacy Systems
 ^^^^^^^^^^^^^^
 
-These versions are scannable with THOR Legacy. The legacy version
-of THOR is usually running on those systems, but if you encounter
-any problems, we will not be able to fix them. Contact us for
-details on how to download and use THOR Legacy.
+These versions can be scanned with a valid ``THOR Legacy`` license and a
+special ``THOR Legacy`` version. The legacy version of THOR is usually
+running on those systems, but if you encounter any problems, we will
+not be able to fix them. Contact us for details on how to download and
+use ``THOR Legacy``. any problems, we will not be able to fix them.
 
 .. list-table:: 
   :widths: 50, 25, 25
