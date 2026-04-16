@@ -872,8 +872,8 @@ These external variables are:
 
 * **filepath**
 
-  * file path without file name
-  * Example: ``C:\temp``
+  * file path without file name and without trailing path delimiter
+  * Example: ``C:\temp`` or ``/var/log``
 
 * **extension**
 
