@@ -3,6 +3,42 @@ Changelog
 
 In this chapter you can find all the changes for THOR 10.7
 
+THOR 10.7.30
+~~~~~~~~~~~~
+
+.. list-table::
+    :header-rows: 1
+    :widths: 15, 85
+
+    * - Type
+      - Description
+    * - Feature
+      - New ``--wsl`` flag to enable scanning of WSL filesystems on Windows
+    * - Change
+      - THOR Util was updated to 2.0.0
+    * - Change
+      - THOR Lite can now use ``--image_file``
+    * - Bugfix
+      - ``--vt-mode`` usage now works from a template
+    * - Bugfix
+      - THOR for AIX now shows correct RAM information and better host information
+    * - Bugfix
+      - DNS lookup on Windows now respects the hosts file
+    * - Bugfix
+      - Fix an issue where SHIM cache entries would miss a file path
+
+THOR 10.7.29
+~~~~~~~~~~~~
+
+.. list-table::
+    :header-rows: 1
+    :widths: 15, 85
+
+    * - Type
+      - Description
+    * - Change
+      - THOR Lite Licenses can now enable additional features and modules beyond the default ones 
+
 THOR 10.7.28
 ~~~~~~~~~~~~
 
