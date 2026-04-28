@@ -47,15 +47,15 @@ The scanning of mounted disk images, memory images, or network shares is a use c
 It requires a `forensic lab license <https://www.nextron-systems.com/2020/11/11/thor-forensic-lab-license-features/>`__ 
 which is meant to be used in corporate digital forensic labs.
 
-All other license types are meant for other use cases. (usually live system scanning)
+All other license types are meant for other use cases. (usually live system scanning).
 You can get a similar but not an equally thorough scan using the following command line flags 
 
 .. code-block:: doscon 
 
    C:\nextron\thor>thor64.exe -a Filescan --intense --norescontrol --cross-platform -p path-to-scan
    
-Without a valid lab license, you cannot use multiple instances of THOR on a single system 
-or switch into multi-threaded scanning. The features mentioned in the following sub chapters
+Without a valid lab license, you cannot use multiple instances of THOR on a single system.
+The features mentioned in the following sub chapters
 are also limited to a lab license.
 
 `This article <https://www.nextron-systems.com/2020/11/11/thor-forensic-lab-license-features/>`__ explains that advantages of a lab licenses.
