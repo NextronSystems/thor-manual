@@ -458,7 +458,7 @@ Find more information on THOR Util in its dedicated `online manual <https://thor
    binaries in an update package and exits if one or more signatures cannot
    be verified. You don't have to check them manually unless you distrust
    the THOR Util itself. In this case, you can use the public key published
-   on `our web page <https://www.nextron-systems.com/resources/keys/>`__.
+   on `our knowledge base <https://knowledge.nextron-systems.com/general/key-certificates>`__.
 
 After downloading the public key the signatures can be manually verified with the following command:
 

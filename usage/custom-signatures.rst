@@ -551,13 +551,7 @@ A useful Yara Rule Generator called "yarGen" provided by our
 developers can be downloaded from Github. It takes a target directory
 as input and generates rules for all files in this directory and so
 called "super rules" if characteristics from different files can be
-used to generate a single rule to match them all. (https://github.com/Neo23x0/yarGen)
-
-Another project to mention is the "Yara Generator", which creates a
-single Yara rule from one or multiple malware samples. Placing several
-malware files of the same family in the directory that gets analyzed by
-the generator will lead to a signature that matches all descendants of
-that family. (https://github.com/Xen0ph0n/YaraGenerator)
+used to generate a single rule to match them all. (https://github.com/Neo23x0/yarGen-Go)
 
 We recommend testing the Yara rule with the "yara" binary before
 including it into THOR because THOR does not provide a useful debugging

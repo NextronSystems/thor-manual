@@ -16,7 +16,7 @@ Nextron Software Update Status: https://update1.nextron-systems.com/info.php
 
 YARA Documentation: https://yara.readthedocs.io/en/latest/
 
-yarGen - YARA Rule Generator: https://github.com/Neo23x0/yarGen/
+yarGen - YARA Rule Generator: https://github.com/Neo23x0/yarGen-Go
 
 THOR APT Scanner App and Add-on v2: https://splunkbase.splunk.com/app/3717/ and https://splunkbase.splunk.com/app/3718/
 
