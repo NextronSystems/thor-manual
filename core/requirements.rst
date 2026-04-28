@@ -80,24 +80,13 @@ THOR Legacy is available for the systems listed below.
 THOR for AIX
 ^^^^^^^^^^^^
 
-We build and maintain native THOR scanner packages for IBM AIX. Because
-the package includes Go-based code and native C components, build
-environment, compiler and runtime dependencies, and binary compatibility
-are important factors for packaging, testing, and support.
+We provide native THOR scanner packages for IBM AIX.
 
-Our current AIX focus is on IBM AIX 7.2 and 7.3. Example environments
+THOR for AIX supports IBM AIX 7.2 and 7.3. Build and test environments
 currently available to us include AIX 7.2 TL5 SP11 and AIX 7.3 TL3 SP0.
 
-The exact build baseline, regular test matrix, and minimum supported TL/SP
-level are still being evaluated. Current compatibility guidance indicates
-that forward compatibility is generally more realistic than backward
-compatibility on AIX, so binaries built on older supported levels are more
-likely to run on newer supported levels than the reverse.
-
-Our current objective is to establish a compatibility-oriented strategy
-for AIX 7.2 and 7.3 that provides reliable support coverage without
-unnecessary build fragmentation. Contact us if you would like to validate
-compatibility in your environment with a test license.
+Older AIX versions are not supported. If you would like to validate
+compatibility in your environment, please contact us for a test license.
 
 Unsupported
 ^^^^^^^^^^^
