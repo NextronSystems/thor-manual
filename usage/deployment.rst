@@ -394,7 +394,7 @@ following:
 To learn more about Ansible inventory files and how to use them, please
 refer to the official documentation:
 
-https://docs.ansible.com/ansible/latest/inventory_guide/intro_inventory.html
+https://docs.ansible.com/projects/ansible/latest/inventory_guide/intro_inventory.html
 
 Ansible Playbook Template
 ^^^^^^^^^^^^^^^^^^^^^^^^^
