@@ -1,22 +1,22 @@
 .. Index:: Scoring System
 
 Scoring System
---------------
+==============
 
-The scoring system is one of THOR's most prominent features.
-The score is a metric that expresses
-a combination of confidence and severity in percent.
+The scoring system is one of THOR's core features. A score expresses a
+combination of severity and confidence as a percentage.
 
-All signatures have a score, and all findings that THOR reports
-have a score based on the signature matches that are included. The
-exact formula for this is described in :ref:`core/score:Accumulated Scores`.
+All signatures have a score, and every finding reported by THOR also has
+a score derived from the matching signatures. The exact formula is
+described in :ref:`core/score:Accumulated Scores`.
 
-All finding scores are between 0 and 100. 
-This means a finding with a score of 95 can be seen as a severe finding with a
-high confidence. Exceptions might be - as always - obvious false
-positives like unencrypted or in-memory AV signatures.
+All finding scores are between 0 and 100. For example, a finding with a
+score of 95 can generally be interpreted as severe and high-confidence.
+As always, exceptions can occur, for example in the case of obvious
+false positives such as unencrypted or in-memory AV signatures.
 
-The finding's score determines the level/severity of the resulting log message:
+The finding score determines the level or severity of the resulting log
+message:
 
 .. list-table::
   :header-rows: 1
@@ -41,34 +41,35 @@ The finding's score determines the level/severity of the resulting log message:
 
 .. note::
 
-    Besides the score, the :ref:`scanning/using-thor:Object Logging` flag also contributes
-    towards logging objects.
+    In addition to the score, the
+    :ref:`scanning/using-thor:Object Logging` flag also affects whether
+    objects are logged.
 
 Accumulated Scores
 ^^^^^^^^^^^^^^^^^^
 
-If multiple signatures match on an element, the scores of all signatures
-will be accumulated and calculated into one final score.
-The following chapters show you how those scores are calculated.
+If multiple signatures match the same element, their scores are combined
+into one final score. The following section explains how that score is
+calculated.
 
-Please keep in mind that only positive scores and the top two reasons are
-shown by default. You can use ``--alert-reason-limit`` to customize the number of
-reasons shown.
+By default, only positive scores and the top two reasons are shown. You
+can use ``--alert-reason-limit`` to adjust the number of displayed
+reasons.
 
-Reason scores are not added up for the total score. Instead, given a number
-of scores (s_0, s_1, ...) that are ordered descending. The total score is
-calculated with the following formula:
+Reason scores are not added up directly. Instead, given a number of
+scores ``(s_0, s_1, ...)`` sorted in descending order, the total score
+is calculated with the following formula:
 
-.. code-block :: none
+.. code-block:: none
 
    100 * (1 - (1 - s_0 / 100 / 2^0) * (1 - s_1 / 100 / 2^1)  * (1 - s_2 / 100 / 2^2) * ...)
 
-This means, scores are "capped" at a maximum of 100, and multiple lower
-scores are weighted far less.
+This means that scores are effectively capped at 100, while multiple
+lower scores contribute much less to the total.
 
-You can use python to calculate the score and try the formula. Please note
-that we use an example with five sub-scores and no sub-score higher than the
-threshold of 75 to turn classify this as an alert:
+You can use Python to try the formula yourself. The following example
+uses five subscores, with none of them individually exceeding the alert
+threshold of 75:
 
 .. code-block:: python
 
