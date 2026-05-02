@@ -3,8 +3,8 @@
 Deployment
 ==========
 
-This chapter lists different ways to deploy THOR in an environment. Most
-of these methods are OS specific.
+This chapter describes different ways to deploy THOR in an environment.
+Most of these methods are OS-specific.
 
 .. toctree::
     :caption: Contents
