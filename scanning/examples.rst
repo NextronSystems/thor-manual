@@ -1,27 +1,27 @@
 .. Index:: Examples
 
 Examples
---------
+========
 
-Below are a few examples on how you can use THOR for specific
+This page shows a few common examples of how to use THOR in specific
 scenarios.
 
-Logging to a Network Share
-^^^^^^^^^^^^^^^^^^^^^^^^^^
+Log to a Network Share
+^^^^^^^^^^^^^^^^^^^^^^
 
-The following command creates a JSON log file on a share called
-"rep" on system "sys" if the user running the command has the respective
-access rights on the share.
+The following command writes a JSON log file to the ``rep`` share on the
+system ``sys``, provided that the user running the command has the
+required access rights.
 
 .. code-block:: doscon
 
   C:\thor>thor64.exe --no-html --no-csv --json \\sys\rep\%COMPUTERNAME%_thor.jsonl
 
-Logging to Syslog Server
-^^^^^^^^^^^^^^^^^^^^^^^^
+Log to a Syslog Server
+^^^^^^^^^^^^^^^^^^^^^^
 
-The following command instructs THOR to log to a remote syslog server
-only.
+The following command instructs THOR to log only to a remote syslog
+server.
 
 .. code-block:: doscon
 
@@ -34,32 +34,33 @@ Scan a Single Directory
 
   C:\thor>thor64.exe -a Filescan -p C:\temp
 
-Change the output directory
+Change the Output Directory
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code-block:: doscon
 
   C:\thor>thor64.exe -e Z:\
 
-Only scan the last 7 days of (Windows) Event Logs
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Only Scan the Last 7 Days of Windows Event Logs
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code-block:: doscon
 
   C:\thor>thor64.exe --lookback 7
 
-By default the ``--lookback`` flag/value only applies to (Windows) Event Logs.
-To apply it to all modules, use the ``--lookback-global`` flag.
+By default, the ``--lookback`` flag applies only to Windows Event Logs.
+To apply the same limit to all supported modules, use
+``--lookback-global``.
 
 Intense Scan and DeepDive on a Mounted Image
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The following are two examples on how to scan a mounted image on
-Windows and Linux.
+The following examples show how to scan a mounted image on Windows and
+Linux.
 
 .. important::
-  Lab scanning mode requires a `forensic lab license <https://www.nextron-systems.com/2020/11/11/thor-forensic-lab-license-features/>`__
-  type, which is meant to be used in forensic labs.
+  Lab scanning mode requires a `forensic lab license <https://www.nextron-systems.com/2020/11/11/thor-forensic-lab-license-features/>`__,
+  which is intended for forensic lab use.
 
 Mounted as Drive Z (drive C on the source system)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -83,7 +84,7 @@ Scan Multiple Paths
   C:\thor>thor64.exe --lab -p C:\\ D:\\webapps E:\\inetpub
 
 .. hint::
-   non-existent directories will be automatically skipped
+   Non-existent directories are skipped automatically.
 
 Scan All Hard Drives (Windows Only)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -92,10 +93,11 @@ Scan All Hard Drives (Windows Only)
 
   C:\thor>thor64.exe --all-hard-drives
 
-Don't Scan Recursively
-^^^^^^^^^^^^^^^^^^^^^^
+Do Not Scan Recursively
+^^^^^^^^^^^^^^^^^^^^^^^
 
-To instruct THOR to scan a folder non-recursively use the ``:NOWALK`` suffix.
+To instruct THOR to scan a folder without recursion, use the
+``:NOWALK`` suffix.
 
 .. code-block:: doscon
 
