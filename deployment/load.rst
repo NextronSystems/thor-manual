@@ -1,19 +1,19 @@
 .. Index:: System Load Considerations
 
 System Load Considerations
---------------------------
+==========================
 
-We recommend staging the THOR Run in order to avoid resource bottlenecks
-(network or on VMware host systems). Especially during the THOR start,
-program files and signatures get pulled over the network, which is about
-30 MB per system. Additionally, the modules which take only a few
-seconds or minutes to complete run first so that the load is higher
-during the first 10 to 15 minutes of the scan.
+We recommend staggering THOR scans to avoid resource bottlenecks,
+especially on shared network links or VMware host systems. At the start
+of a scan, each system retrieves program files and signatures over the
+network, which amounts to roughly 30 MB per system. In addition, the
+modules that complete within seconds or a few minutes run first, so
+system and network load are usually highest during the first 10 to 15
+minutes of the scan.
 
-It is therefore recommended to define sets of systems that will run at
-the same time and let other systems start at intervals of an hour.
+We therefore recommend grouping systems into scan waves and starting
+additional groups at intervals of about one hour.
 
-It is typically no problem to start a big set of physical machines at
-the same time. But if you start a scan on numerous virtual guests or on
-remote locations connected through slow WAN lines, you should define
-smaller scan groups.
+Starting a large number of physical systems at the same time is usually
+not a problem. If you scan many virtual machines or remote locations
+connected over slow WAN links, use smaller scan groups.
