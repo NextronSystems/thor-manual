@@ -3,20 +3,21 @@
 What is THOR?
 =============
 
-THOR is a portable scanner for attacker tools and activity on suspicious
-or compromised server systems.
+THOR is a portable scanner designed to detect attacker tools and traces
+of malicious activity on suspicious or compromised systems.
 
-It covers a big set of basic checks and in depth analysis of the local
-event log, registry and file system. THOR aims to be a sensitive auditor
-noticing files and behavior traces a common Antivirus may have missed.
-An integrated "Scoring System" enables THOR to rate elements based on
-numerous characteristics to give hints on unknown malware.
+It combines a broad set of basic checks with in-depth analysis of the
+local event log, registry, and file system. THOR is designed to identify
+files and behavioral traces that a traditional antivirus solution may
+miss. Its integrated scoring system helps assess suspicious elements
+based on multiple characteristics and can provide indicators of
+previously unknown malware.
 
-THOR can be easily expanded to handle individual, client-specific attack
-patterns (e.g. the detection of specific malware files or certain log
-entries on the basis of a forensic analysis).
+THOR can also be extended to detect customer-specific attack patterns,
+for example specific malware files or log entries identified during a
+forensic investigation.
 
-It is a portable and agent-less "APT Scanner".
+THOR is a portable, agentless "APT scanner".
 
 .. figure:: ../images/image3.png
    :alt: THOR Coverage and Comparison to Antivirus and Intrusion Detection
@@ -25,51 +26,56 @@ It is a portable and agent-less "APT Scanner".
 
 The key features are:
 
-* Scans for hack tools and attacker activity (with multiple detection mechanisms)
+* Scans for hack tools and attacker activity using multiple detection
+  mechanisms
 * Portable – no installation required
-* Runs on Windows, Linux, macOS and AIX platforms without any prerequisites
-* Adaptable to the specific tools and activity of new APT cases
-* Scoring System – providing a way to detect previously unknown software
-* Several Export Formats – Syslog (JSON/Key-Value/CEF), HTML, TXT, JSON, CSV
-* Throttling of the scan process to reduce the system load to a minimum
+* Runs on supported Windows, Linux, macOS, and AIX systems without
+  additional runtime prerequisites
+* Can be adapted to detect tools and activity specific to new APT cases
+* Integrated scoring system to help identify suspicious or previously
+  unknown malware
+* Supports multiple export formats: Syslog (JSON/Key-Value/CEF), HTML,
+  TXT, JSON, and CSV
+* Can throttle scan activity to reduce system load
 
 THOR Contents
 -------------
 
 The THOR package contains the following files and directories:
 
-.. list-table:: 
+.. list-table::
    :widths: 30, 70
    :header-rows: 1
 
-   * - 
+   * - Component
      - Files/Directories
    * - THOR Binaries
      - Windows: **thor.exe** and **thor64.exe**
-       
+
        Linux: **thor-linux** and **thor-linux-64**
-       
-       MacOS: **thor-macosx**
-       
+
+       macOS: **thor-macosx**
+
        AIX: **thor-aix**
    * - THOR Utility
-     - Helper tool for updates, encryption, report generation, signature verification
-       and other tasks – see `THOR Util Manual <https://thor-util-manual.nextron-systems.com/>`_
-       
+     - Helper utility for updates, encryption, report generation, signature
+       verification, and other tasks. See `THOR Util Manual <https://thor-util-manual.nextron-systems.com/>`_
+
        Windows: **thor-util.exe**
 
        Unix: **thor-util**
    * - Configuration Files (see :ref:`core/templates:scan templates`)
-     - In subfolder ``./config`` - (**thor.yml**, **thor-util.yml**, **sigma.yml**, **false\_positive\_filters.cfg**)
+     - Located in ``./config`` (**thor.yml**, **thor-util.yml**,
+       **sigma.yml**, **false\_positive\_filters.cfg**)
    * - Main Signature Database
-     - In subfolder ``./signatures``
+     - Located in ``./signatures``
    * - Custom Signatures and IOCs (see :ref:`signatures/index:custom signatures`)
-     - In subfolder ``./custom-signatures``
+     - Located in ``./custom-signatures``
    * - THOR Changelog
      - **changes.log**
    * - Additional Tools
-     - In subfolder ``./tools`` - helpers for unpacking files
+     - Located in ``./tools``; helpers for unpacking files
    * - THOR Manuals
-     - In subfolder ``./docs``
+     - Located in ``./docs``
    * - Plugins (see :ref:`scanning/using-thor:plugins`)
-     - In subfolder ``./plugins``
+     - Located in ``./plugins``
