@@ -1,14 +1,14 @@
 .. Index:: Memory Image Analysis
 
 Memory Image Analysis with Volatility
--------------------------------------
+=====================================
 
-In this use case, we show a way to run a THOR scan on a full memory image
-of a target system. 
+This use case shows one way to run a THOR scan on a full memory image
+of a target system.
 
-In volatility, we first evaluate the right profile for a memory image.
-You can use the ``imageinfo`` command or select one manually from the
-list that is show when you run ``vol.py --info``.
+In Volatility, the first step is to determine the correct profile for
+the memory image. You can use the ``imageinfo`` command or select one
+manually from the list shown by ``vol.py --info``.
 
 .. code-block:: console
 
@@ -30,13 +30,15 @@ list that is show when you run ``vol.py --info``.
                Image date and time : 2021-06-15 08:25:08 UTC+0000
          Image local date and time : 2021-06-15 10:25:08 +0200
     
-We then create a directory that will store all our process memory images. 
+Next, create a directory that will store the extracted process memory
+images.
 
 .. code-block:: console
 
     user@linux:~$ mkdir procs
 
-Now we can extract all process memory images and save them to the new directory. 
+You can then extract all process memory images and save them to the new
+directory.
 
 .. code-block:: console
 
@@ -64,25 +66,27 @@ Now we can extract all process memory images and save them to the new directory.
     ************************************************************************
     Writing fontdrvhost.ex [   748] to 748.dmp
 
-We recommend saving that output for mapping purposes, since THOR will only
-report the file names upon a YARA rule match, e.g. ``748.dmp``, and not
-the name of the executable ``fontdrvhost.exe``.
+We recommend saving this output for mapping purposes, because THOR
+reports only the dump file name on a YARA match, for example
+``748.dmp``, and not the original executable name such as
+``fontdrvhost.exe``.
 
-Using THOR, we can now scan the extracted process memory images.
+You can now scan the extracted process memory images with THOR.
 
 .. code-block:: console 
 
     user@linux:~$ ./thor-linux-64 --lab -p /mnt/mem-dumps/procs/
 
-Without a valid lab license, we can simulate that behaviour using the
-following command (see :ref:`scanning/special-scan-modes:lab scanning`
-for more details and flags used in lab scan mode):
+Without a valid lab license, you can simulate this behavior with the
+following command. See
+:ref:`scanning/special-scan-modes:lab scanning` for more details about
+lab scan mode and the flags it enables.
 
 .. code-block:: console
 
     user@linux:~$ ./thor-linux-64 -a Filescan --deep -p /mnt/mem-dumps/procs/
 
-The output of such a scan will look like this 
+The output of such a scan looks similar to the following example:
 
 .. code-block:: none
 
@@ -99,7 +103,8 @@ The output of such a scan will look like this
     ORIGIN_CREATED: Mon Oct  6 14:22:35.775 2025
     ORIGIN_SIZE: 248972314 ORIGIN_OWNER: max ORIGIN_GROUP: max ORIGIN_PERMISSIONS: rw-------
 
-The match includes an offset, e.g. ``CHUNK_OFFSET: 0x600000``, and a
-matching string, e.g. ``MATCHED_1: VzZXItQWdlbnQ6IE1vemlsbGEv`` which help
-you to locate the correct section in the dump file using a hex editor
-for further analysis.
+The match includes an offset, for example
+``CHUNK_OFFSET: 0x600000``, and a matching string, for example
+``MATCHED_1: VzZXItQWdlbnQ6IE1vemlsbGEv``. These values help you locate
+the relevant section in the dump file with a hex editor for further
+analysis.
