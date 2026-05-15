@@ -1,17 +1,18 @@
 .. Index:: Modules
 
 Modules
--------
+=======
 
-Modules are standalone jobs, which are being executed one after the other by THOR.
-Those modules are invoking one job, for example the ``File System Scan`` module will
-scan your file system, or the ``User Account Check`` will scan your system for user
-accounts. Modules can invoke one or multiple :ref:`scanning/features:features`,
-which we will explain further down in this section.
+Modules are standalone jobs that THOR executes one after another. Each
+module performs a specific task. For example, the ``File System Scan``
+module scans the file system, while ``User Account Check`` inspects the
+system for user accounts. Modules can invoke one or more
+:ref:`scanning/features:features`, which are described in the following
+chapter.
 
-By default, all modules listed below will run in a THOR scan, except the ``MFT`` module
-(see :ref:`scanning/special-scan-modes:MFT Analysis`). The enabled modules can be controlled
-with the following flags:
+By default, all modules listed below run during a THOR scan except the
+``MFT`` module; see :ref:`scanning/special-scan-modes:MFT Analysis`.
+Enabled modules can be controlled with the following flags:
 
 .. list-table::
    :header-rows: 1
@@ -36,12 +37,13 @@ Available Modules
 OS Module Overview
 ^^^^^^^^^^^^^^^^^^
  
-Not all modules are available on all platforms, e.g. the `RegistryChecks` module is only available on Windows.
-The following list gives an overview of which modules are available for which OS.
+Not all modules are available on every platform. For example,
+``RegistryChecks`` is available only on Windows. The following table
+shows which modules are available on each operating system.
 
 .. raw:: html
 
-   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
    <script>
    $(document).ready(function() {
    $('table p:contains("Supported")').not(':contains("Not")').parent().addClass('enabled');
@@ -66,14 +68,14 @@ The following list gives an overview of which modules are available for which OS
 Scan Mode Overview
 ^^^^^^^^^^^^^^^^^^
 
-The table below shows you which modules will be active
-with the different scan modes. For OS compatibility, see
+The following table shows which modules are active in the different scan
+modes. For operating system compatibility, see
 :ref:`scanning/modules:os module overview`.
 
 - Normal: THOR without any flags regarding modules or features
-- Fast: THOR scan with ``--fast`` flag
-- Soft: THOR scan with ``--soft`` flag
-- Deep: THOR scan with ``--deep`` flag
+- Fast: THOR scan with ``--fast``
+- Soft: THOR scan with ``--soft``
+- Deep: THOR scan with ``--deep``
 
 .. csv-table::
   :file: ../csv/scan-mode-overview.csv
