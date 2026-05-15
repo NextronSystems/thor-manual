@@ -1,19 +1,18 @@
 .. Index:: Offline Distribution
 
 Distribute to Offline Networks / Field Offices
-----------------------------------------------
+==============================================
 
-The quickest and most simple way to run THOR is by providing the ZIP
-archive to the colleagues in the remote location, letting them run the
-THOR executable and collect the report files afterwards.
+The quickest and simplest way to run THOR in offline networks or field
+offices is to provide the ZIP archive to colleagues at the remote
+location, let them run the THOR executable locally, and collect the
+report files afterwards.
 
-The most usable format in this use case is the HTML report if only a few
-reports have to be analyzed. If the number of collected reports is high,
-we recommend using ASGARD Analysis Cockpit or Splunk with the free App
-and Add-on.
+If only a few reports need to be reviewed, the HTML report is usually
+the most practical format. If you expect to collect a larger number of
+reports, we recommend using ASGARD Analysis Cockpit or Splunk with the
+free app and add-on.
 
-ASGARD Analysis Cockpit: https://portal.nextron-systems.com/ui/downloads
-
-THOR APT Scanner App: https://splunkbase.splunk.com/app/3717/
-
-THOR Add-On: https://splunkbase.splunk.com/app/3718/
+* `ASGARD Analysis Cockpit <https://portal.nextron-systems.com/ui/downloads>`_
+* `THOR APT Scanner App for Splunk <https://splunkbase.splunk.com/app/3717/>`_
+* `THOR Add-On for Splunk <https://splunkbase.splunk.com/app/3718/>`_
