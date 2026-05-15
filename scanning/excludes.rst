@@ -1,34 +1,32 @@
 .. Index:: Exclude Elements
 
 Exclude Elements
-----------------
+================
 
-This chapter shows how specific paths and/or elements
-can be excluded from your THOR scan.
+This chapter explains how to exclude specific paths and other elements
+from a THOR scan.
 
 Files and Directories
 ^^^^^^^^^^^^^^^^^^^^^
 
-You may use the ``--exclude-path`` flag to exclude directories and
-files from the scan.
+Use the ``--exclude-path`` flag to exclude directories and files from a
+scan.
 
 .. note::
    As with other CLI flags, you can also use `exclude-path:` in
    ``thor.yml`` to avoid having to specify excludes each time.
 
-THOR will not scan the contents of these directories. This
-configuration is meant to avoid scanning sensitive
-files like databases or directories with a lot of content. If you want
-to suppress false positives that are generated in these directories,
-please see the following chapter and how to suppress them by using
-``false_positive_filters.cfg``.
+THOR does not scan the contents of these directories. This is useful for
+excluding sensitive files such as databases or directories with very
+large amounts of content. If you want to suppress false positives
+generated in these directories, see the section on
+``false_positive_filters.cfg`` below.
 
-The flag receives regular expressions that are applied to each
-scanned element. Each element consists of the file path and file name
-(e.g. ``C:\IBM\temp_tools\custom.exe``). If one of the defined
-expressions matches, the element is excluded. Exclusions can be defined
-for a full element name, at the beginning, at the end or somewhere in the
-element name.
+The flag accepts regular expressions that are applied to each scanned
+element. Each element consists of the full file path and file name, for
+example ``C:\IBM\temp_tools\custom.exe``. If one of the defined
+expressions matches, the element is excluded. Exclusions can match the
+full element name, the beginning, the end, or any part of the name.
 
 .. note::
    If used in combination with flags like ``--path-remap`` that
@@ -40,8 +38,8 @@ element name.
    THOR will check if ``F:\Windows\explorer.exe`` is excluded,
    not if ``C:\Windows\explorer.exe`` is excluded.
 
-As the configured exclusions are treated as regular expressions, special
-characters must be masqueraded by backslash. This applies at least for:
+Because exclusions are treated as regular expressions, special
+characters must be escaped with a backslash. This applies at least to:
 ``[]\^$.\|?\*+()-``
 
 .. list-table::
@@ -64,13 +62,12 @@ characters must be masqueraded by backslash. This applies at least for:
 Eventlogs
 ^^^^^^^^^
 
-Eventlog sources can be excluded as whole with
-"**--exclude-eventlog**".
+Event Log sources can be excluded entirely with
+``--exclude-eventlog``.
 
-The flag can be specified multiple times and
-expects a regular expression each time that it applies
-on the name of the Eventlog.
-(e.g. ``Microsoft-Windows-Windows Defender/Operational``)
+The flag can be specified multiple times. Each instance expects a
+regular expression that is applied to the Event Log name, for example
+``Microsoft-Windows-Windows Defender/Operational``.
 
 .. list-table::
    :header-rows: 1
@@ -86,12 +83,13 @@ on the name of the Eventlog.
 Registry
 ^^^^^^^^
 
-Registry paths/keys can be excluded with ``--exclude-registry-key``.
+Registry paths and keys can be excluded with
+``--exclude-registry-key``.
 
-The flag can be specified multiple times and
-expects a regular expression each time that it applies to each
-registry key (e.g. “Software\\WOW6432Node“). Don't
-include the root of the key, e.g. HKLM.
+The flag can be specified multiple times. Each instance expects a
+regular expression that is applied to each registry key, for example
+``Software\\WOW6432Node``. Do not include the root of the key, for
+example ``HKLM``.
 
 .. list-table::
    :header-rows: 1
@@ -107,10 +105,10 @@ Process
 
 Processes can be excluded with ``--exclude-process``.
 
-The flag can be specified multiple times and
-expects a regular expression each time.
-These regular expressions are applied to process name, image path, and
-command line; if any of these match, the process is not analyzed.
+The flag can be specified multiple times. Each instance expects a
+regular expression. The expressions are applied to the process name,
+image path, and command line. If any of these match, the process is not
+analyzed.
 
 Processes are also excluded if their executable file is excluded with
 ``--exclude-path``.
@@ -118,23 +116,24 @@ Processes are also excluded if their executable file is excluded with
 False Positives
 ^^^^^^^^^^^^^^^
 
-The false positive filters work like the directory/file excludes. A
-regular expression is applied to the **full** event, excluding the event
-header (e.g. ``Sep 14 12:07:07 some-hostname/192.168.0.20``).
+False positive filters work similarly to directory and file exclusions.
+A regular expression is applied to the **full** event, excluding the
+event header, for example
+``Sep 14 12:07:07 some-hostname/192.168.0.20``.
 
-E.g. if you want to Exclude all messages that contain the string
-``Trojan_Buzus_dev`` you just add this string to the
-``false_positive_filters.cfg`` file. The file works with regular
-expressions so you could also define something like
+For example, if you want to exclude all messages that contain the string
+``Trojan_Buzus_dev``, add this string to the
+``false_positive_filters.cfg`` file. Because the file uses regular
+expressions, you can also define patterns such as
 ``chinese_(charcode|keyboard)``.
 
 Filter Verification
 ^^^^^^^^^^^^^^^^^^^
 
-If you are unsure about the filters you just set, we recommend a test
-run on a certain directory that matches the criteria.
+If you are unsure whether the configured filters behave as expected, we
+recommend a short test run on a directory that matches the criteria.
 
-You can start a short test run on a certain directory with:
+You can start such a test run with:
 
 .. code-block:: doscon
    
