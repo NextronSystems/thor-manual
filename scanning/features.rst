@@ -25,8 +25,8 @@ Features are invoked by :ref:`scanning/modules:modules` or by other
 features and provide additional processing or details for an item. For
 example, the ``File System Scan`` may find a ``.zip`` file during a
 scan and invoke the ``Archive Scan`` feature. The ``Archive Scan``
-feature then extracts the ZIP archive and scans the contained files with
-``File System Scan``.
+feature then extracts the archive contents in memory and scans the
+contained files with the ``File System Scan``.
 
 .. hint:: 
   See :ref:`scanning/features:archive scan` below for a list
@@ -112,3 +112,6 @@ the internal path to the archive path for reporting and scan purposes,
 for example for filename IOCs or YARA rules. For example, an archive
 ``C:\temp\test.zip`` containing a file ``path/in/zip.txt`` is reported
 with the simulated path ``C:\temp\test.zip\path\in\zip.txt``.
+
+Use ``--archive-depth`` to limit how deeply THOR scans nested archives.
+The default value is ``4``.
