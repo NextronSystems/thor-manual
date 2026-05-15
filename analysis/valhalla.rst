@@ -3,22 +3,20 @@
 Valhalla
 ========
 
-The new rule info pages allow you to get more information on a certain
-rule. You can find all the meta data, as well as past rule matches and
-previous antivirus verdicts. A second tab contains statistics. You can
-also report false positives that you've encountered with that rule using
-the button in the tab bar.
+The rule info pages allow you to retrieve more information about a
+specific rule. They show metadata, past rule matches, and previous
+antivirus verdicts. A second tab contains statistics. You can also
+report false positives for that rule using the button in the tab bar.
 
-Note that the rule info lookups in the web GUI are rate limited. If you
-query rule infos too often, you get blocked.
+Please note that rule info lookups in the web GUI are rate limited. If
+you query rule information too frequently, access may be temporarily
+blocked.
 
-The rule info pages can be access using this URL scheme:
+Rule info pages can be accessed using the following URL scheme:
 
 :samp:`https://valhalla.nextron-systems.com/info/rule/RULE\_NAME`
 
-For example:
-
-https://valhalla.nextron-systems.com/info/rule/HKTL_Empire_ShellCodeRDI_Dec19_1
+[Example rule info page](https://valhalla.nextron-systems.com/info/rule/HKTL_Empire_ShellCodeRDI_Dec19_1)
 
 .. figure:: ../images/image34.png
    :alt: Rule Info Page
