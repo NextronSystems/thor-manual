@@ -2,7 +2,7 @@
 
 .. raw:: html
 
-   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
    <script>
    $(document).ready(function() {
    $('table p:contains("Supported")').not(':contains("Not")').parent().addClass('enabled');
@@ -19,23 +19,25 @@
    </style>
 
 Features
---------
+========
 
-Features are invoked by :ref:`scanning/modules:modules` or other features and provide
-further ``Details`` about an item. For example, the ``File System Scan``
-might find a ``.zip`` file during a scan and invoke the ``Archive Scan``
-feature. The ``Archive Scan`` feature in return will extract the zip file
-and scan all the files in it with the ``File System Scan``.
+Features are invoked by :ref:`scanning/modules:modules` or by other
+features and provide additional processing or details for an item. For
+example, the ``File System Scan`` may find a ``.zip`` file during a
+scan and invoke the ``Archive Scan`` feature. The ``Archive Scan``
+feature then extracts the archive contents in memory and scans the
+contained files with the ``File System Scan``.
 
 .. hint:: 
   See :ref:`scanning/features:archive scan` below for a list
   of supported archive formats.
 
-Another example would be the ``Eventlog Analysis`` Module, which might invoke
-the ``Sigma Scan`` feature on certain eventlog entries.
+Another example is the ``Eventlog Analysis`` module, which may invoke
+the ``Sigma Scan`` feature for selected Event Log entries.
 
-By default, all features are enabled unless specified differently below.
-Features can be disabled by using the ``--exclude-component <featurename>`` flag.
+By default, all features are enabled unless noted otherwise below.
+Features can be disabled with
+``--exclude-component <feature-name>``.
 
 .. csv-table::
   :file: ../csv/feature-naming.csv
@@ -59,10 +61,10 @@ Feature Scan Mode Overview
 Feature caller list
 ^^^^^^^^^^^^^^^^^^^
 
-When features are invoked, they are passed specific objects that
-they work on; some features may extract new objects from these objects.
-The following table gives an overview of all features and what objects
-they consume and produce.
+When features are invoked, they receive specific objects to work on.
+Some features may also extract new objects from those inputs. The
+following table gives an overview of all features and the objects they
+consume and produce.
 
 For a list of all object types, see the `THOR Log definition <https://github.com/NextronSystems/jsonlog>`__.
 
@@ -77,14 +79,14 @@ For a list of all object types, see the `THOR Log definition <https://github.com
 
 Feature selectors
 ^^^^^^^^^^^^^^^^^
-Some features in THOR are triggered by YARA rules.
+Some THOR features are triggered by YARA rules.
 
-When a (meta or generic) YARA rule with a specific tag matches on a file, the
-corresponding feature is started and parses the file.
+When a meta or generic YARA rule with a specific tag matches a file, the
+corresponding feature is started and parses that file.
 
-The standard signatures contain a number of rules with these tags. However, if these rules
-do not match on an artifact, but should,
-you can add additional rules with these tags as custom signatures.
+The standard signatures already contain a number of rules with these
+tags. However, if a relevant artifact is not matched, you can add
+additional custom signatures with the same tags.
 
 .. csv-table::
   :file: ../csv/feature-selector-list.csv
@@ -105,8 +107,11 @@ The ``Archive`` feature supports the following archive types:
 - CAB
 - BZIP2
 
-When scanning a file within any of these file types, THOR will append
-the path within the archive to the archive's own path for reporting and scan purposes
-(like filename IOCs or YARA rules). For example, an archive ``C:\temp\test.zip``
-containing a file ``path/in/zip.txt`` will cause the simulated path to
-be ``C:\temp\test.zip\path\in\zip.txt``.
+When scanning a file inside one of these archive types, THOR appends
+the internal path to the archive path for reporting and scan purposes,
+for example for filename IOCs or YARA rules. For example, an archive
+``C:\temp\test.zip`` containing a file ``path/in/zip.txt`` is reported
+with the simulated path ``C:\temp\test.zip\path\in\zip.txt``.
+
+Use ``--archive-depth`` to limit how deeply THOR scans nested archives.
+The default value is ``4``.
