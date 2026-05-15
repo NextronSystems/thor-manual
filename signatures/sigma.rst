@@ -3,21 +3,23 @@
 Sigma Rules
 ===========
 
-Sigma is a generic rule format for detections on structured data. Sigma is for
-log data, what Snort is for network packets and YARA is for files.
+Sigma is a generic rule format for detections on structured data. Sigma
+is to log data what Snort is to network packets and YARA is to files.
 
-THOR ships with the public Sigma rule set, which
-is maintained by the community at `<https://github.com/SigmaHQ/sigma>`_,
-as well as additional Nextron internal rules.
+THOR ships with the public Sigma rule set, maintained by the community
+at `<https://github.com/SigmaHQ/sigma>`_, as well as additional Nextron
+rules.
 
-THOR applies Sigma rules to all objects it encounters. This is most relevant
-for Windows Eventlogs and log files on disk (``.log``).
+THOR applies Sigma rules to all objects it encounters. This is
+especially relevant for Windows Event Logs and log files on disk
+(``.log``).
 
-By default only the results of Sigma rules of level critical and high are shown.
-If called with the ``--deep`` flag, medium level rules are applied as well.
+By default, only the results of ``critical`` and ``high`` Sigma rules
+are shown. When THOR is run with ``--deep``, ``medium`` level rules are
+applied as well.
 
-Custom Sigma rules must have the ``.yml`` extension for unencrypted sigma rules
-and the ``.yms`` extension for encrypted sigma rules.
+Custom Sigma rules must use the ``.yml`` extension for unencrypted
+rules and the ``.yms`` extension for encrypted rules.
 
 .. figure:: ../images/image31.png
    :alt: Example Sigma match on Windows Eventlog
@@ -27,7 +29,8 @@ and the ``.yms`` extension for encrypted sigma rules.
 Scores
 ^^^^^^
 
-The :ref:`score<signatures/scores:Scoring>` of a Sigma match is based on the Sigma rule's level:
+The :ref:`score<signatures/scores:Scoring>` of a Sigma match is based on
+the Sigma rule level:
 
  - Level low translates to score 40
  - Level medium translates to score 50
@@ -37,21 +40,22 @@ The :ref:`score<signatures/scores:Scoring>` of a Sigma match is based on the Sig
 Sigma matching on THOR output
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Sigma rules can also be written to match on THOR content.
-These rules need to have a log source with `product: THOR`
-and `service: object-type`.
+Sigma rules can also be written to match THOR-generated content. These
+rules must use a logsource with ``product: THOR`` and
+``service: object-type``.
 
-The available object types that can be matched on can be listed with
-``--describe-object-type all``. All objects of a specific type can also be
-printed by using ``--log-object specificobjecttype``. This can be helpful
-to determine available fields for matching.
+The available object types can be listed with
+``--describe-object-type all``. All objects of a specific type can also
+be printed by using ``--log-object specificobjecttype``. This helps you
+determine which fields are available for matching.
 
 Writing Custom Sigma Rules for THOR Object Types
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-THOR v11 allows you to write Sigma rules that match on **any object type** THOR produces,
-not just Windows Event Logs. This means you can detect suspicious processes, persistence
-mechanisms, fileless malware, and much more using the open Sigma standard.
+THOR 11 allows you to write Sigma rules that match **any object type**
+produced by THOR, not just Windows Event Logs. This allows you to
+detect suspicious processes, persistence mechanisms, fileless malware,
+and much more by using the open Sigma standard.
 
 This feature is available in both **THOR** and **THOR Lite**.
 
@@ -90,7 +94,8 @@ Example: Log process objects during a scan:
 Object Type Reference
 *********************
 
-THOR includes 90 object types. Here are the most commonly used for detection rules:
+THOR includes many object types. The following are among the most
+commonly used in detection rules:
 
 **Process and Memory:**
    ``process``, ``process connection``, ``process handle``, ``thread``
@@ -136,13 +141,14 @@ To target a THOR object type, use this logsource configuration:
        product: THOR
        service: <Object Type Name>
 
-The ``service`` field must match the object type name exactly (e.g., ``Linux kernel module``,
-``AmCache entry``, ``cron job``).
+The ``service`` field must match the object type name exactly, for
+example ``Linux kernel module``, ``AmCache entry``, or ``cron job``.
 
 Field Naming Convention
 ***********************
 
-Fields from the JSON schema are converted to **UPPERCASE** in Sigma rules:
+Fields from the JSON schema are converted to **UPPERCASE** in Sigma
+rules:
 
 .. list-table::
    :header-rows: 1
@@ -168,12 +174,11 @@ To match null/empty fields:
 Detection Examples
 ******************
 
-**Example 1: Execution of Known Malicious Hash via Amcache**
+**Example 1: Execution of Known Malicious Hash via AmCache**
 
 .. code-block:: yaml
 
    title: Execution of Known Malicious Hash via Amcache
-   level: critical
    logsource:
        product: THOR
        service: AmCache entry
@@ -287,14 +292,14 @@ Detection Examples
 Scanning Logfiles with Sigma
 ****************************
 
-Perform a scan with the Sigma rules on the different local Windows
-Eventlogs (``-a Eventlog``):
+Perform a scan with Sigma rules on the local Windows Event Logs by
+using ``-a Eventlog``:
 
 .. code-block:: doscon
 
    C:\thor>thor64.exe -a Eventlog
 
-Perform a scan with the Sigma rules on logs of Linux systems:
+Perform a scan with Sigma rules on Linux log files:
 
 .. code-block:: console
 
@@ -303,15 +308,15 @@ Perform a scan with the Sigma rules on logs of Linux systems:
 Deploying Custom Sigma Rules
 ****************************
 
-1. Save your rule as a ``.yml`` file
-2. Copy to the THOR custom signatures folder:
+1. Save the rule as a ``.yml`` file.
+2. Copy it to the THOR custom signatures folder:
 
    .. code-block:: console
 
       $ cp my-rule.yml /path/to/thor/custom-signatures/sigma/
 
-3. For encrypted rules, use the ``.yms`` extension
-4. Verify rules loaded with ``--list-signatures``:
+3. For encrypted rules, use the ``.yms`` extension.
+4. Verify that the rule was loaded with ``--list-signatures``:
 
    .. code-block:: console
 
@@ -326,7 +331,7 @@ Examine real objects before writing rules:
 
    $ ./thor-linux-64 --module ProcessCheck --log-object "process:10" --console-json
 
-Adjust the Sigma threshold to see lower-level matches:
+Adjust the Sigma threshold if you want to see lower-level matches:
 
 .. code-block:: console
 
