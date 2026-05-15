@@ -3,8 +3,8 @@
 Debugging
 =========
 
-This chapter contains information and help if you need
-to debug issues or runtime errors of THOR.
+This chapter contains guidance for troubleshooting THOR issues,
+unexpected behavior, and runtime errors.
 
 .. toctree::
     :caption: Contents
