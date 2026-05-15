@@ -3,10 +3,11 @@
 Most Frequent Causes of Missing Alerts
 --------------------------------------
 
-Below you can find the most frequent causes of missing alerts.
+Below are some of the most common reasons why expected alerts may be
+missing.
 
-THOR didn't scan file due to file size restrictions
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+THOR did not scan a file because of file size restrictions
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 **Solution**: Use the ``--file-size-limit`` parameter or set it permanently
 in the config file ``./config/thor.yml``.
@@ -21,14 +22,16 @@ in the config file ``./config/thor.yml``.
    :linenos:
    :emphasize-lines: 3
 
-THOR didn't scan the file due to a skipped deeper inspection
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+THOR did not scan a file because deeper inspection was skipped
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-This can be caused by two reasons:
+This usually happens when both of the following are true:
 
-The magic header of that file is not in the list of interesting magic
-headers (see ``./signatures/misc/file-type-signatures.cfg``) AND file
-doesn't have a relevant file extension:
+* The file's magic header is not in the list of interesting magic
+  headers (see ``./signatures/misc/file-type-signatures.cfg``).
+* The file does not have a relevant file extension.
+
+Relevant file extensions include:
 
 .. code-block:: none
 
@@ -53,28 +56,28 @@ See :ref:`signatures/yara:Deepscan Rules` for details.
          extension == ".myo"
    }
 
-THOR fails to initialize custom rules with the correct type
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+THOR does not initialize custom rules with the correct type
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-It happens very often that users that prepare custom IOCs or YARA rules
-forget to include the correct keyword in the filename of the IOC or YARA
-rule file.
+Users who prepare custom IOCs or YARA rules often forget to include the
+correct keyword in the filename of the IOC or YARA rule file.
 
 The correct use of keywords is described in the chapters :ref:`signatures/ioc-formats:Simple IOC files (deprecated)`
 for IOCs and :ref:`signatures/yara:YARA Rules` for YARA rules.
 
-A wrong or missing keyword leads to situations in which a file that contains
-YARA rules that are meant to be applied to log files, but doesn't contain a "log"
-keyword in it's filename.
+A wrong or missing keyword can lead to situations in which a file
+contains YARA rules meant for log files, but its filename does not
+contain the keyword ``log``.
 
-You can review a correct initialization in the command line output or log file.
+You can verify correct initialization in the command-line output or log
+file.
 
 .. code-block:: none
 
    Info Adding rule set from my-log-rules.yar as 'log' type
 
-Using the keyword **c2** for C2 IOCs in a filename should result in a line like
-the following:
+Using the keyword ``c2`` in a filename for C2 IOCs should result in a
+line like the following:
 
 .. code-block:: none
 
