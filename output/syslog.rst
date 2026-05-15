@@ -1,40 +1,41 @@
 .. Index:: Syslog Output
 
 Remote Log Output
------------------
+=================
 
 THOR can also send its scan output to one or multiple remote targets.
-In the below chapter we will show a few examples and how to configure
-this option.
+This chapter shows how to configure that option and provides a few
+common examples.
 
 Target Definition
 ^^^^^^^^^^^^^^^^^
 
-THOR version 10 comes with a very flexible remote log target definition. You
-can define as many targets as you like and give them different ports,
-protocols and formats.
+THOR provides a flexible remote log target definition. You can define as
+many targets as needed and assign different ports, protocols, and
+formats to each one.
 
-For example, if you want to send the THOR log entries to a Syslog server
-and an ArcSight SIEM at the same time, you just have to define two log
-targets with different formats.
+For example, if you want to send THOR log entries to a syslog server
+and an ArcSight SIEM at the same time, define two log targets with
+different formats.
 
 .. code-block:: doscon
    
    C:\thor>thor64.exe -s syslog1.server.net -s arcsight.server.net:514:CEF
 
-THOR supports two different definitions:
+THOR supports two different target definitions:
 
 +----------+-----+--------+-----+--------+-----+------------+
 | System   | :   | Port   | :   | Format | :   | Protocol   |
 +----------+-----+--------+-----+--------+-----+------------+
 
-Or: 
+Or:
 
 +----------+-----+--------+
 | URL      | :   | Format |
 +----------+-----+--------+
 
-In the latter case, no protocol is specified as the URL's protocol (HTTP or HTTPS) is used.
+In the latter case, the URL protocol (HTTP or HTTPS) is used, so no
+separate protocol needs to be specified.
 
 Available formats
 ~~~~~~~~~~~~~~~~~
@@ -63,7 +64,8 @@ If not specified, the DEFAULT type is used.
 DEFAULT
 """""""
 
-This format uses the old THOR 10 text log, as output by ``--text``, prefixed with a `<priority>` string for syslog compatibility.
+This format uses the THOR 10-style text log, as produced by ``--text``,
+prefixed with a ``<priority>`` string for syslog compatibility.
 
 Example:
 
@@ -72,8 +74,9 @@ Example:
 Common Event Format (CEF)
 """""""""""""""""""""""""
 
-CEF is a format introduced by ArcSight for information exchange. 
-See the `whitepaper <https://community.opentext.com/cfs-file/__key/telligent-evolution-components-attachments/00-224-01-00-00-15-93-98/CEF-White-Paper-071709.pdf>`__ about it for details.
+CEF is a format introduced by ArcSight for information exchange. See
+the `whitepaper <https://community.opentext.com/cfs-file/__key/telligent-evolution-components-attachments/00-224-01-00-00-15-93-98/CEF-White-Paper-071709.pdf>`__
+for details.
 
 The level logged to this format can be specified with the ``--syslog-cef-level`` flag.
 
@@ -93,7 +96,8 @@ Example:
 SYSLOGJSON
 """"""""""
 
-This is the same as the JSON format above; however, it is prefixed with a syslog compatible header.
+This is the same as the JSON format above, but prefixed with a
+syslog-compatible header.
 
 Example:
 
@@ -102,7 +106,8 @@ Example:
 SYSLOGKV
 """"""""
 
-This is similar to the DEFAULT format, but instead of `KEY: value` pairs, `KEY='value'` formatting is used.
+This is similar to the DEFAULT format, but uses ``KEY='value'`` instead
+of ``KEY: value`` pairs.
 
 Example:
 
@@ -119,20 +124,21 @@ The protocols that can be specified are:
 
 The default protocol is UDP.
 
-TCPTLS will by default use the system root certificates to verify the server it connects to.
-This behaviour can be adjusted with the ``--ca`` and ``--insecure`` flags.
+By default, ``TCPTLS`` uses the system root certificates to verify the
+server it connects to. This behavior can be adjusted with the ``--ca``
+and ``--insecure`` flags.
 
 Examples
 ~~~~~~~~
 
-Sending Syslog to a target on a port that differs from the default port
-514/udp looks like this:
+Sending syslog to a target on a port other than the default
+``514/udp`` looks like this:
 
 .. code-block:: none
 
    --remote-log 10.0.0.4:2514
 
-Sending logs to a receiving server using an SSL/TLS encrypted TCP
+Sending logs to a receiving server using an SSL/TLS-encrypted TCP
 connection:
 
 .. code-block:: none
@@ -155,22 +161,23 @@ Local Syslog
 ^^^^^^^^^^^^
 
 If your Linux system is already configured to forward syslog messages,
-you might just want to write to your local syslog and use the existing
-system configuration to forward the events. This can be achieved by
-using the ``--local-syslog`` flag.
+you may prefer to write to the local syslog and let the existing system
+configuration forward the events. This can be achieved with the
+``--local-syslog`` flag.
 
-THOR logs to the ``local0`` facility, which is not being written to a
-file by default on every Linux distribution. By default Debian derivatives
-log it to ``/var/log/syslog``; Others such as Red Hat do not. To enable
-writing ``local0`` messages to a file a syslog configuration for
-rsyslog (e.g. ``/etc/rsyslog.conf``) could look like:
+THOR logs to the ``local0`` facility, which is not written to a file by
+default on every Linux distribution. Debian derivatives usually log it
+to ``/var/log/syslog``; others, such as Red Hat, do not. To write
+``local0`` messages to a file, an ``rsyslog`` configuration such as the
+following in ``/etc/rsyslog.conf`` can be used:
 
 .. code-block:: none
 
     # THOR --local-syslog destination
     local0.*        -/var/log/thor
 
-Do not forget to restart the syslog daemon (e.g. ``systemctl restart rsyslog.service``).
+Do not forget to restart the syslog daemon, for example with
+``systemctl restart rsyslog.service``.
 
-You then either add that file in your syslog forwarding configuration
-or write to a file that is already forwarded instead.
+You can then either add that file to your syslog forwarding
+configuration or write to a file that is already forwarded instead.
