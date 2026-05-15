@@ -21,12 +21,12 @@ There are three YARA rule types that you can define in THOR:
 
 The rule type is determined by specific keywords within the filename:
 
- - If a filename contains the keyword ``meta``, the rules within are meta rules.
- - If a filename contains the keyword ``keyword``, ``registry``, or ``log``, the
-   rules within are keyword rules (possibly with the specified subtype).
+- If a filename contains the keyword ``meta``, the rules within are meta rules.
+- If a filename contains the keyword ``keyword``, ``registry``, or ``log``, the
+  rules within are keyword rules (possibly with the specified subtype).
 
- - If a filename contains the keyword ``process``, or none of the keywords listed
-   above, the rules within are generic rules (with the ``process`` subtype, if specified).
+- If a filename contains the keyword ``process``, or none of the keywords listed
+  above, the rules within are generic rules (with the ``process`` subtype, if specified).
 
 
 The following table shows which rule type is used for which examplary filename.
@@ -77,8 +77,9 @@ Meta rules are applied to all files without exception.
 However, they can only access the :ref:`signatures/yara:Additional Attributes` and the first 64KB of the file.
 
 Meta rules are also applied to irregular files. In this case, the bytes that are scanned are provided by THOR:
- - When symlinks are scanned with the meta rules, the file content is their target path.
- - When directories are scanned with the meta rules, the file content is the directory listing (as file names, separated by newlines).
+
+- When symlinks are scanned with the meta rules, the file content is their target path.
+- When directories are scanned with the meta rules, the file content is the directory listing (as file names, separated by newlines).
 
 .. tip::
     Meta rules are most commonly used to trigger other features (see :ref:`scanning/features:Feature selectors`)
@@ -130,10 +131,10 @@ the strings that you define in your rules.
 
 Values are formatted as follows:
 
- - REG\_BINARY values are hex encoded with upper case.
- - REG\_MULTI\_SZ values are printed with ``\\0`` separating the multiple strings.
- - Numeric values are printed normally (with base 10; e.g., use ``32`` for REG_DWORD 0x00000020).
- - String values are printed normally.
+- REG\_BINARY values are hex encoded with upper case.
+- REG\_MULTI\_SZ values are printed with ``\\0`` separating the multiple strings.
+- Numeric values are printed normally (with base 10; e.g., use ``32`` for REG_DWORD 0x00000020).
+- String values are printed normally.
 
 This means that you can write a Yara rule that looks like this (remember
 to escape all backslashes):
