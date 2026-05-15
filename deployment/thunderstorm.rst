@@ -1,25 +1,26 @@
 .. Index:: THOR Thunderstorm
 
 THOR Thunderstorm Service
--------------------------
+=========================
 
-THOR Thunderstorm provides THORs scanning services as a RESTful web
-service. This service receives samples and returns a scan result.
+THOR Thunderstorm exposes THOR's scanning capabilities as a RESTful web
+service. It receives submitted samples and returns scan results.
 
 Thunderstorm Deployment
 ^^^^^^^^^^^^^^^^^^^^^^^
 
-The THOR package contains a separate binary under ``tools/thunderstorm``.
-This binary, when started, listens on a given network interface and port
-while running THOR in the background. When samples are received, it
-forwards them to THOR for scanning and returns the results.
+The THOR package contains a separate binary under
+``tools/thunderstorm``. When started, this binary listens on a selected
+network interface and port while running THOR in the background. When
+samples are received, it forwards them to THOR for scanning and returns
+the results.
 
 .. figure:: ../images/image7.png
    :alt: THOR Thunderstorm Overview
 
    THOR Thunderstorm Overview
 
-The following table contains all Thunderstorm command line flags:
+The following table lists all Thunderstorm command-line flags:
 
 .. csv-table::
   :file: ../csv/thunderstorm.csv
@@ -27,40 +28,40 @@ The following table contains all Thunderstorm command line flags:
   :delim: ;
   :header-rows: 1
 
-THOR flags can be passed after the thunderstorm flags using ``./tools/thunderstorm
-<thunderstorm-flags> -- <thor-flags>`` or be set
-via the THOR template (see :configuration:). This can be used to e.g.:
+THOR flags can be passed after the Thunderstorm flags using
+``./tools/thunderstorm <thunderstorm-flags> -- <thor-flags>`` or set via
+a THOR template (see :ref:`core/templates:scan templates`). This can be
+used, for example, to:
 
- - Forward logs with ``--remote-log``
- - Specify a custom log location
- - Disable some features
- - ...
+* forward logs with ``--remote-log``
+* specify a custom log location
+* disable selected features
 
 Service License Type
 ^^^^^^^^^^^^^^^^^^^^
 
 To run THOR in Thunderstorm service mode, you need a special license
-type named "Service License" that allows this mode of operation.
+type named ``Service License`` that allows this mode of operation.
 
-After the launch of THOR Thunderstorm, we may allow other license types
-to run THOR in service mode for a limited period of time, so that
-customers can test the service and its integration into other solutions.
+For limited evaluation periods, we may also allow other license types to
+run THOR in service mode so customers can test the service and its
+integration into other solutions.
 
 Thunderstorm Collectors
 ^^^^^^^^^^^^^^^^^^^^^^^
 
-There are several collectors, both as binary and as scripts, available in
+We provide several collectors, both as binaries and as scripts, in
 `our GitHub repository <https://github.com/NextronSystems/thunderstorm-collector/>`_.
-These collectors can be used to automatically transmit all (or a subset of) files
-from an endpoint to a Thunderstorm instance.
+These collectors can be used to automatically transmit all files, or a
+selected subset of files, from an endpoint to a Thunderstorm instance.
 
 Thunderstorm API Client
 ^^^^^^^^^^^^^^^^^^^^^^^
 
-We provide a free and open source command line client written in Python
-to communicate with the Thunderstorm service.
+We provide a free and open-source command-line client written in Python
+to communicate with the Thunderstorm service:
 
-https://github.com/NextronSystems/thunderstormAPI
+`thunderstormAPI on GitHub <https://github.com/NextronSystems/thunderstormAPI>`_
 
 It can be installed with:
 
@@ -71,7 +72,7 @@ It can be installed with:
 Thunderstorm API Documentation
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-An API documentation is integrated into the web service.
+The API documentation is integrated into the web service.
 
 Simply visit the service URL, e.g.: :samp:`http://my-server:8080/`
 
@@ -83,30 +84,28 @@ Simply visit the service URL, e.g.: :samp:`http://my-server:8080/`
 Server Installer Script for Linux
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-A script that facilitates the installation on Linux systems can be found
-in our github repository.
+A script that simplifies installation on Linux systems is available in
+our GitHub repository:
 
-https://github.com/NextronSystems/nextron-helper-scripts/blob/master/thunderstorm/thunderstorm-installer.sh
+`thunderstorm-installer.sh <https://github.com/NextronSystems/nextron-helper-scripts/blob/master/thunderstorm/thunderstorm-installer.sh>`_
 
-The installation of a full THOR Thunderstorm server requires only two
-steps.
+Installing a full THOR Thunderstorm server requires only two steps:
 
 1. Download and place a THOR Service license file in the current working
    directory
 
-2. Run the following command
+2. Run the following command:
 
 .. code-block:: console
 
    nextron@unix:~$ wget -O - https://raw.githubusercontent.com/NextronSystems/nextron-helper-scripts/master/thunderstorm/thunderstorm-installer.sh | bash
 
-.. warning:: 
+.. warning::
    Please inspect scripts from the internet before executing them!
 
-Everything else will automatically be handled by the installer script.
-It even supports an “uninstall” flag to remove all files and folders
-from the system to get the system clean again after a successful
-proof-of-concept.
+The installer script handles the remaining steps automatically. It also
+supports an ``uninstall`` flag to remove all files and folders from the
+system after a proof-of-concept.
 
 .. figure:: ../images/image9.png
    :alt: Thunderstorm Service Installer
@@ -121,15 +120,16 @@ The log file of the service can be found in ``/var/log/thunderstorm``.
 Thunderstorm Update
 ^^^^^^^^^^^^^^^^^^^
 
-The Thunderstorm service gets updated just as THOR does. Use "thor-util
-update" to update signatures or "thor-util upgrade" to update binaries
-and signatures. The service has to be stopped during the updates.
+The Thunderstorm service is updated in the same way as THOR. Use
+``thor-util update`` to update signatures or ``thor-util upgrade`` to
+update binaries and signatures. The service must be stopped during the
+update.
 
 Update signatures:
 
 .. code-block:: console
 
-   nextron@unix:~$ thor-util update 
+   nextron@unix:~$ thor-util update
 
 Upgrade signatures:
 
@@ -137,15 +137,16 @@ Upgrade signatures:
 
    nextron@unix:~$ thor-util upgrade
 
-See the `THOR Util Manual <https://thor-util-manual.nextron-systems.com>`_  manual for details on how to use these functions.
+See the `THOR Util Manual <https://thor-util-manual.nextron-systems.com>`_
+for details on how to use these functions.
 
 Thunderstorm Update Script
 """"""""""""""""""""""""""
 
-The Thunderstorm installer script for Linux automatically places an
-updater script in the PATH of the server system.
+The Linux installer script automatically places an updater script in the
+server system's ``PATH``.
 
-https://github.com/NextronSystems/nextron-helper-scripts/tree/master/thunderstorm
+`Thunderstorm helper scripts <https://github.com/NextronSystems/nextron-helper-scripts/tree/master/thunderstorm>`_
 
 Update binaries and signatures:
 
@@ -163,41 +164,39 @@ service:
 Source Identification
 ^^^^^^^^^^^^^^^^^^^^^
 
-The log file generated by THOR Thunderstorm doesn't contain the current
-host as hostname in each line. By default, it contains the sending
-source's FQDN or IP address if a name cannot be resolved using the
-locally configured DNS server.
+The log file generated by THOR Thunderstorm does not include the current
+host as the hostname in each line. By default, it uses the sender's
+FQDN or IP address if the local DNS server cannot resolve a name.
 
-However, every source can set a “source” value in the request and
-overwrite the automatically evaluated hostname. This way users can use
-custom values that are evaluated or set on the sending on the end
-system.
+However, each source can set a ``source`` value in the request and
+override the automatically determined hostname. This allows users to use
+custom values collected or set on the sending endpoint.
 
 .. code-block:: console
 
    nextron@unix:~$ curl -X POST "http://myserver:8080/api/check?source=test" -F "file=@sample.exe"
 
-Synchronous and Asynchronous Mode
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Synchronous and Asynchronous Modes
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-It is also important to mention that Thunderstorm supports two ways
-to submit samples, a synchronous and an asynchronous mode.
+Thunderstorm supports two submission modes: synchronous and
+asynchronous.
 
-The default is synchronous submission. In this mode, the sender waits
-for the scan result, which can be empty in case of no detection or
-contains match elements in cases in which a threat could be identified.
+Synchronous submission is the default. In this mode, the sender waits
+for the scan result. The result is empty if no detection occurs, or
+contains matching elements if a threat is identified.
 
-In asynchronous mode, the submitter doesn't wait for the scan result but
-always gets a send receipt with an id, which can just be discarded or
-used to query the service at a later point in time. This mode is best
-for use cases in which the submitter doesn't need to know the scan
-results and batch submission should be as fast as possible.
+In asynchronous mode, the sender does not wait for the scan result.
+Instead, it always receives a receipt with an ID, which can either be
+discarded or used to query the service later. This mode is best suited
+for use cases where the sender does not need immediate scan results and
+batch submission speed is the priority.
 
 .. list-table::
    :header-rows: 1
    :widths: 30, 30, 40
 
-   * - 
+   * - Aspect
      - Synchronous
      - Asynchronous
    * - Server API Endpoint
@@ -207,34 +206,31 @@ results and batch submission should be as fast as possible.
      -
      - --asyn
    * - Advantage
-     - Returns Scan Result
+     - Returns scan result
      - Faster submission
    * - Disadvantage
-     - Client waits for result of each sample
+     - Client waits for the result of each sample
      - No immediate scan result on the client side
 
-In asynchronous mode, the Thunderstorm service keeps the samples in a
-queue on disk and scans them with THOR as it has time
-to scan them. The number of files in this queue can be queried at the
-status endpoint **/api/status** and checked on the landing page of the
-web GUI.
+In asynchronous mode, the Thunderstorm service keeps submitted samples
+in an on-disk queue and scans them as resources become available. The
+number of queued files can be queried through the status endpoint
+``/api/status`` and viewed on the landing page of the web GUI.
 
 SSL/TLS
 ^^^^^^^
 
-We do not recommend the use of SSL/TLS since it impacts the submission
-performance. In cases in which you transfer files through networks with
-IDS/IPS appliances, the submission in an SSL/TLS protected tunnel
-prevents IDS alerts and connection resets by the IPS.
+We generally do not recommend SSL/TLS because it can reduce submission
+performance. However, if you transfer files through networks with
+IDS/IPS appliances, using an SSL/TLS-protected tunnel can help prevent
+IDS alerts and IPS-triggered connection resets.
 
-Depending on the average size of the samples, the submission frequency
-and the number of different sources that submit samples, the
-transmission could take up to twice as much time.
+Depending on average sample size, submission frequency, and the number
+of different sources, transmission can take up to twice as much time.
 
-Note: The thunderstormAPI client doesn't verify the server's certificate
-by default as in this special case, secrecy isn't important. The main
-goal of the SSL/TLS encryption is an obscured method to transport
-potentially malicious samples over network segments that could be
-monitored by IDS/IPS systems. You can activate certificate checks with
-the ``--verify`` command line flag or ``verify`` parameter in API
-library's method respectively.
+The thunderstormAPI client does not verify the server certificate by
+default. In this use case, the main goal of SSL/TLS is often to
+transport potentially malicious samples through monitored network
+segments without triggering IDS/IPS controls. You can enable
+certificate verification with the ``--verify`` command-line flag or the
+corresponding ``verify`` parameter in the API library.
