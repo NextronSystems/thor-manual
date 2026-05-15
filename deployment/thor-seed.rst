@@ -1,11 +1,11 @@
 .. Index:: THOR Seed
 
 THOR Seed
----------
+=========
 
-THOR Seed is a powershell script which aims towards automated deployments
-within your environment. It is often used for response scenarios within
-the capabilities of EDR Tools.
+THOR Seed is a PowerShell script designed for automated deployments
+within your environment. It is often used in response scenarios through
+the capabilities of EDR tools.
 
-For more information, please visit our public
-`github repository <https://github.com/NextronSystems/nextron-helper-scripts/tree/master/thor-seed>`_
+For more information, see our public
+`GitHub repository <https://github.com/NextronSystems/nextron-helper-scripts/tree/master/thor-seed>`_.
