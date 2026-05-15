@@ -3,30 +3,30 @@
 Using THOR
 ==========
 
-This chapter is a quick introduction on how to run a THOR scan
-and how to personalize scans to better fit your environment and
-expectations.
+This chapter provides a quick introduction to running THOR and
+adjusting scans to better fit your environment and use case.
 
-Please note, the command line arguments are used to fine tune
-your scans and yield potentially better results for your use cases.
+Command-line arguments allow you to fine-tune scans and improve
+results for specific environments and investigations.
 
-There is no "one fits all" command line argument, but we designed
-THOR to cover the broadest area with minimal impact in the default
-operating mode. Default in this case means **no additional command
-line arguments**.
+There is no "one-size-fits-all" set of command-line arguments. THOR is
+designed to provide broad coverage with minimal impact in its default
+operating mode, which means running it with **no additional command-line
+arguments**.
 
 Quick Start
 -----------
 
-Follow these steps to complete your first THOR scan
+Follow these steps to complete your first THOR scan:
 
-1. Open a command line as administrative user
+1. Open a command line with administrative privileges
 
-   a. Administrator on Windows
-   b. root on Linux, macOS or AIX
+   a. Use ``Administrator`` on Windows
+   b. Use ``root`` on Linux, macOS, or AIX
 
-2. Navigate to the folder in which you've extracted the THOR package and placed the license file(s)
-3. Start THOR on your command line
+2. Navigate to the folder where you extracted the THOR package and
+   placed the license file or files
+3. Start the appropriate THOR binary:
 
    a. ``thor64.exe`` on 64-bit Windows systems
    b. ``thor.exe`` on 32-bit Windows systems
@@ -35,8 +35,10 @@ Follow these steps to complete your first THOR scan
    e. ``thor-macos`` on macOS
    f. ``thor-aix`` on AIX
 
-4. Wait until the scan has completed (this can take between 20 and 180 minutes)
-5. When the scan is finished, check the HTML report or JSON log in the THOR program directory
+4. Wait for the scan to complete. Depending on the system, this can
+   take between 20 and 180 minutes
+5. When the scan has finished, review the HTML report or JSON log in
+   the THOR program directory
 
 Often Used Parameters
 ---------------------
@@ -48,14 +50,17 @@ Often Used Parameters
   * - Parameter
     - Description
   * - **--soft**
-    - Reduce CPU usage, skip all checks that can consume a lot of memory (even if only for a few seconds)
+    - Reduce CPU usage by skipping checks that may consume a lot of
+      memory, even if only briefly
   * - **--fast**
-    - Perform a fast scan (skips Eventlog and checks only recent files and the most relevant folders); see :ref:`scanning/scan-modes:scan modes`
+    - Perform a faster scan. This skips Eventlog checks and limits file
+      scanning to recent files and the most relevant folders; see
+      :ref:`scanning/scan-modes:scan modes`
   * - **-e target-folder**
     - Write all output files to the given folder
 
-Parameters possibly relevant for your Use Case
------------------------------------------------
+Parameters Possibly Relevant to Your Use Case
+---------------------------------------------
 
 .. list-table::
   :header-rows: 1
@@ -64,23 +69,31 @@ Parameters possibly relevant for your Use Case
   * - Parameter
     - Description
   * - **-c, --cpu-limit integer**
-    - Instruct THOR to pause all scanning if the systems CPU load is higher than the value specified.
+    - Pause scanning when the system CPU load rises above the specified
+      value
 
       Please see :ref:`scanning/using-thor:cpu limit` for more information.
   * - **--all-hard-drives**
-    - By default THOR scans only the C: partition on Windows machines and other files/folders only
-      in cases in which some reference points to a different partition (e.g. configured web root of IIS
-      is on ``D:\inetpub``, registered service runs from ``D:\vendor\service``).
-      This changes the behavior to scan all local hard drives (network paths or drives are still ignored).
+    - By default, THOR scans only the ``C:`` partition on Windows.
+      Files and folders on other local partitions are scanned only when
+      an artifact points to them, for example when an IIS web root is on
+      ``D:\inetpub`` or a registered service runs from
+      ``D:\vendor\service``. This flag changes that behavior and scans
+      all local hard drives. Network paths and network drives are still
+      ignored
   * - **--lookback <days>**
 
       **--lookback-global**
-    - Only check the elements changed or created during the last X days in all available modules (reduces the scan duration significantly)
+    - Limit checks to elements created or modified during the last
+      ``X`` days. ``--lookback`` applies to Windows Event Logs by
+      default; ``--lookback-global`` applies the limit to all supported
+      modules
 
 Risky Flags
 -----------
 
-This list contains flags that should better be avoided unless you know exactly what you're doing.
+This list contains flags that should generally be avoided unless you
+know exactly what you are doing.
 
 .. list-table::
   :header-rows: 1
@@ -89,42 +102,48 @@ This list contains flags that should better be avoided unless you know exactly w
   * - Parameter
     - Description
   * - **--deep**
-    - long runtime, stability issues due to disabled resource control
+    - Long runtime and possible stability issues because resource
+      control is disabled
   * - **--c2-memory-analysis**
-    - many false positives on user workstations (especially browser memory)
+    - Many false positives on user workstations, especially in browser
+      memory
   * - **--all-drives**
-    - long runtime, stability issues due to scan on network drives or other remote file systems
+    - Long runtime and possible stability issues because network drives
+      or other remote file systems may be scanned
   * - **--mft-analysis**
-    - stability issues due to high memory usage
+    - Possible stability issues due to high memory usage
   * - **--process-dump**
-    - stability issues, possibly high disk space usage (free disk space checks are implemented but may fail)
+    - Possible stability issues and high disk space usage. Free disk
+      space checks are implemented but may still fail
   * - **--no-builtin-registry-excludes**
-    - longer runtime, low positive impact
+    - Longer runtime with limited benefit
 
 Lesser Known But Useful Flags
 -----------------------------
 
-This section contains flags that are often used by analysts to tweak the scan in useful ways.
+This section contains flags that analysts often use to refine scan
+behavior.
 
 Alert Reason Limit
 ^^^^^^^^^^^^^^^^^^
-``--alert-reason-limit <limit>`` configures the number of reasons that are shown
-for each finding. Reasons with higher score are prioritized over those
-with lower score.
+``--alert-reason-limit <limit>`` configures how many reasons are shown
+for each finding. Reasons with higher scores are prioritized over those
+with lower scores.
 
-By default this is 2, but depending on your use case, higher values
-or zero (unlimited) might be useful.
+The default is ``2``, but depending on your use case, higher values or
+``0`` (unlimited) may be useful.
 
 Object Logging
 ^^^^^^^^^^^^^^
 
-``--log-object "object type"`` specifies that objects of a specific type should
-be logged as informational messages, even if they don't reach the ``--score-info`` score.
+``--log-object "object type"`` specifies that objects of a specific type
+should be logged as informational messages, even if they do not reach
+the ``--score-info`` threshold.
 
-To avoid flooding the log with these messages, it's also possible to specify a limit per
-object type. This limit only applies to objects logged by this feature, and does not inhibit
-the logging of elements that reach the ``--score-info`` score.
-It can be set with ``--log-object "object type:limit"``.
+To avoid flooding the log, you can also specify a limit per object
+type. This limit applies only to messages generated by this feature and
+does not suppress elements that already reach the ``--score-info``
+threshold. Set it with ``--log-object "object type:limit"``.
 
 ``--log-object`` comes with an extensive default list:
 
@@ -134,47 +153,49 @@ It can be set with ``--log-object "object type:limit"``.
   :delim: ;
   :header-rows: 1
 
-These defaults can overwritten by specifying a custom limit for an object type.
+These defaults can be overwritten by specifying a custom limit for an
+object type.
 
 To disable an entry from this default list, use ``--log-object "object-type:0"``:
-this overwrites the default limit with zero, therefore disabling ``--log-object``
-for this object type.
+this overwrites the default limit with zero and disables
+``--log-object`` for that object type.
 
 UTC Timestamps
 ^^^^^^^^^^^^^^
 
-With ``--timestamp-utc``, all timestamps will be printed as UTC instead of
-the local timezone. This can be helpful when creating timelines.
+With ``--timestamp-utc``, all timestamps are printed in UTC instead of
+the local time zone. This can be helpful when creating timelines.
 
 Match Context
 ^^^^^^^^^^^^^
 
-``--match-context num-chars`` controls the number of characters preceding
-and following the string match that are shown in the output. These characters
-don't contribute to the match itself, but they often provide valuable information
-to an analyst. By default, 50 characters preceding and following each match are printed.
+``--match-context num-chars`` controls how many characters before and
+after a string match are shown in the output. These characters are not
+part of the match itself, but they often provide useful context to an
+analyst. By default, THOR prints 50 characters before and after each
+match.
 
 
 CPU Limit
 ---------
 
-Since the ``--cpu-limit`` behavior can cause some confusion, we will
-explain the functionality of it a bit more in detail here.
+Because the behavior of ``--cpu-limit`` can be confusing at first, it is
+explained in more detail here.
 
-This argument will take an integer (default 95; minimum 15), which
-represents the maximum CPU load at which THOR will be actively scanning.
-The value can be seen as percentage of the systems maximum CPU load.
+This argument accepts an integer (default ``95``; minimum ``15``) that
+represents the maximum CPU load at which THOR will actively scan. The
+value is interpreted as a percentage of the system's total CPU
+capacity.
 
-This can be helpful to reduce the load on server systems with real-time
-services, or to reduce the noise produced by fans in laptops.
-      
-The specified value instructs THOR to pause (all scanning), if the load
-of the systems CPU is higher than the ``cpu-limit``. One example would be,
-if a user is doing something CPU intensive, and THOR is running at the same
-time, THOR will pause and wait until the CPU load drops below the limit
-before continuing.
+This can help reduce load on server systems with real-time services or
+reduce fan noise on laptops.
 
-To illustrate this a bit, please see the table below:
+If the system's CPU load rises above the configured limit, THOR pauses
+scanning and resumes only after the load falls below that limit. For
+example, if a user starts a CPU-intensive task while THOR is running,
+THOR waits until enough CPU capacity is available again.
+
+To illustrate this, see the table below:
 
 .. list-table:: --cpu-limit 40
    :header-rows: 1
@@ -189,32 +210,37 @@ To illustrate this a bit, please see the table below:
      - running
 
 .. hint::
-   A tool like ``top`` might show values greater than 100% for a running THOR
+   A tool such as ``top`` might show values greater than 100% for a running THOR
    process. Please see ``Irix Mode`` in the man page of
    ``top``: https://man7.org/linux/man-pages/man1/top.1.html
 
 Resource Control
 ----------------
 
-THOR's internal resource control feature puts the system's stability and
-the responsiveness of running services first.
+THOR's internal resource control prioritizes system stability and the
+responsiveness of running services.
 
-Resource control is active by default. You can deactivate it using
+Resource control is active by default. You can disable it with
 **--no-resource-check**.
 
-Be advised that due to Resource Control, the THOR scan may terminate its
-completion. The scan gets terminated under the following conditions:
+Because of resource control, THOR may terminate a scan before it
+completes. This happens under the following conditions:
 
-1. If the available physical memory drops below 50MB (can be customized with ``--memory-limit``)
+1. If available physical memory drops below ``50 MB`` (can be
+   customized with ``--memory-limit``)
 
-2. | If more than 60 MB of log data have been written (disk / syslog) (can be customized with ``--log-size-limit``)
-   | In this case, THOR switches in the "reduced-logging" mode in which it only transmits "Notices, Warnings and Alerts" and after another 4 MB of log data THOR terminates itself in order to prevent log flooding due to a high number of false positives.
+2. | If more than ``60 MB`` of log data have been written to disk or
+   | syslog (can be customized with ``--log-size-limit``)
+   | In this case, THOR switches to "reduced-logging" mode, in which it
+   | transmits only "Notices, Warnings and Alerts". After another
+   | ``4 MB`` of log data, THOR terminates itself to prevent log
+   | flooding caused by a large number of false positives.
 
-If the scan terminates repeatedly you should check what causes the
-performance issues or choose times with less workload (e.g. weekends,
-night). To debug such states, you can check the last warning that THOR
-generates before exiting the scan. It includes the top memory consumers
-that could have caused the memory exhaustion.
+If scans terminate repeatedly, check what is causing the performance
+issues or choose times with less workload, for example at night or on
+weekends. To troubleshoot such situations, inspect the last warning that
+THOR writes before exiting the scan. It includes the top memory
+consumers that may have caused the memory exhaustion.
 
 .. figure:: ../images/image25.png
    :alt: Resource Control Scan Termination
@@ -222,27 +248,28 @@ that could have caused the memory exhaustion.
    Resource Control Scan Termination
 
 .. warning:: 
-  Deactivating Resource Control on systems with exhausted
-  resources can put the system's stability at risk.
+  Disabling Resource Control on already constrained systems can put
+  system stability at risk.
 
 File Size Limit
 ---------------
 
-The default file size limit for content checks (hash
-calculation and YARA scanning) is 64 MB. The file size limit for the
-``--deep`` scan mode is 200 MB.
+The default file size limit for content checks such as hash calculation
+and YARA scanning is ``64 MB``. In ``--deep`` scan mode, the limit is
+``200 MB``.
 
 You can adjust the values in ``./config/thor.yml``. This file does not
 get overwritten by an update or upgrade.
 
-Some features like the EVTX or Memory Dump scan ignore these
+Some features, such as EVTX or memory dump scanning, ignore these
 limits. See :ref:`scanning/features:Features` for a full list of features
 and how they interact with the file size limit.
 
 Help and Debugging
 ------------------
 
-You can use the following parameters help you to understand THOR and the output better.
+You can use the following parameters to better understand THOR and its
+output.
 
 .. list-table::
   :header-rows: 1
@@ -251,9 +278,9 @@ You can use the following parameters help you to understand THOR and the output 
   * - Parameter
     - Description
   * - **--debug**
-    - Get debug information if errors occur
+    - Print debug information if errors occur
   * - **--help (short|full|detailed)**
-    - Print a help with a variable amount of information:
+    - Print help with different levels of detail:
 
       - **short**: Summaries of the most important scan options
       - **full**: Summaries of all options
@@ -262,8 +289,8 @@ You can use the following parameters help you to understand THOR and the output 
 Run a Scan with Specific Modules
 --------------------------------
 
-With the parameter ``-a`` you can run a single module or select a set of
-modules that you'd like to run. All available modules can be found in the
+With the ``-a`` parameter, you can run a single module or select a set
+of modules. All available modules can be found in the
 section :ref:`scanning/modules:modules`.
 
 Run a Rootkit check only:
@@ -281,12 +308,12 @@ Run the Eventlog and file system scan:
 Select or filter Signatures during Initialization
 -------------------------------------------------
 
-The ``Signature Includes``  and ``Signature Excludes`` functionalities alow users to
-fine-tune and customize their scanning process for
-improved accuracy and efficiency.
+The ``--signature-include`` and ``--signature-exclude`` options allow
+you to fine-tune the initialized signature set for improved focus and
+efficiency.
 
-You can use these flags to limit the signature set to a certain campaign,
-threat or threat actor.
+You can use these flags to limit the signature set to a specific
+campaign, threat, or threat actor.
 
 The filter values are applied to:
 
@@ -296,31 +323,28 @@ The filter values are applied to:
 
 Here are some examples:
 
-Scan only with ProxyShell related signatures:
+Scan only with ProxyShell-related signatures:
 
 .. code-block:: doscon
 
   C:\thor>thor64.exe --signature-include ProxyShell
 
-You can pass multiple selector keywords separated by comma:
+You can pass multiple selector keywords separated by commas:
 
 .. code-block:: doscon
 
   C:\thor>thor64.exe --signature-include RANSOM,Lockbit
 
-Or filter a set of signatures that only cause false positives in your environment:
+Or exclude a set of signatures that cause false positives in your
+environment:
 
 .. code-block:: doscon
 
   C:\thor>thor64.exe --signature-exclude AutoIt
 
-It is important to note that while these features offer flexibility
-and customization, we recommend utilizing a limited signature set only
-for specific use cases. This approach is particularly suitable when
-scanning exclusively for indicators related to a specific campaign.
-By understanding the proper utilization of Signature Includes and Excludes, 
-users can optimize their scanning process and effectively
-identify targeted threats.
+These options are most useful for targeted use cases, for example when
+you want to scan only for indicators related to a specific campaign. A
+reduced signature set can improve scan speed and lower memory usage.
 
 The main advantages of a reduced signature set are:
 
@@ -330,7 +354,7 @@ The main advantages of a reduced signature set are:
 List loaded signatures
 ----------------------
 
-By using the ``--list-signatures`` flag, you can get a list of all
+Using the ``--list-signatures`` flag, you can print a list of all
 initialized YARA and Sigma rules.
 
 .. figure:: ../images/image35.png
@@ -338,16 +362,17 @@ initialized YARA and Sigma rules.
 
    Signature Metadata
 
-This information can also be printed machine readable as JSON by using the ``--list-signatures-json`` flag.
+This information can also be printed as machine-readable JSON by using
+the ``--list-signatures-json`` flag.
 
-The output of this argument also reflects any signature selectors or filters
-set via command line argument. Please see :ref:`scanning/using-thor:select or filter signatures during initialization`
+The output also reflects any signature selectors or filters set via
+command-line arguments. Please see
+:ref:`scanning/using-thor:select or filter signatures during initialization`
 for more information.
 
-This can be a nice way to verify which signatures will be used during a
-scan when setting specific arguments. Additionally, this way of looking
-for a specific signature or vulnerability can show you quickly if
-we have any signatures for your specific use case available.
+This is a useful way to verify which signatures THOR will initialize
+for a specific command line. It can also help you quickly check whether
+signatures for a particular vulnerability or use case are available.
 
 .. figure:: ../images/signatures-include-print-signatures.png
    :alt: Signatures-Include with Print-Signatures
@@ -358,17 +383,17 @@ PE-Sieve Integration
 --------------------
 
 THOR integrates `PE-Sieve <https://github.com/hasherezade/pe-sieve>`__,
-an open-source tool by @hasherezade to check for malware masquerading
-as benevolent processes.
+an open-source tool by @hasherezade to check for malware masquerading as
+legitimate processes.
 
 PE-Sieve is part of the ProcessIntegrity feature, which can be activated
-by using the ``--process-integrity`` flag. It runs on Windows as part of
-the ProcessCheck module and is capable of detecting advanced techniques
-such as "Process Doppelganging".
+with the ``--process-integrity`` flag. It runs on Windows as part of the
+ProcessCheck module and can detect advanced techniques such as "Process
+Doppelganging".
 
-When investigating infections, you can also raise
-the sensitivity of the integrated PE-Sieve beyond the default with
-``--process-integrity-full`` (at the cost of possible false positives).
+When investigating infections, you can also increase the sensitivity of
+the integrated PE-Sieve beyond the default with
+``--process-integrity-full`` at the cost of possible false positives.
 
 THOR reports PE-Sieve results as follows:
 
@@ -397,21 +422,20 @@ for more details on these values.
 Multi-Threading
 ---------------
 
-THOR supports scanning a system with multiple
-threads in parallel, allowing for a significant increase in speed in
-exchange for a higher CPU usage.
+THOR can scan a system with multiple threads in parallel, which can
+significantly increase scan speed at the cost of higher CPU usage.
 
-To use this feature, use the ``--threads`` flag which allows you to
-specify THOR's number of parallel threads.
+To use this feature, set the ``--threads`` flag to the desired number of
+parallel threads.
 
 When using the ``--lab`` (Lab Scanning), ``--dropzone`` (sample drop
 zone) or ``--thunderstorm`` (Thunderstorm) command line flags, THOR will
-default to using as many threads as the system has CPU cores; otherwise,
-THOR will default to running with a single thread.
+default to using as many threads as the system has CPU cores. Otherwise,
+THOR defaults to running with a single thread.
 
 .. note::
-  The above listed modes are only available with the "Lab", "Thunderstorm"
-  and "Incident Response" license type.
+  The modes listed above are available only with the "Lab",
+  "Thunderstorm", and "Incident Response" license types.
 
 Enabled Modules
 ^^^^^^^^^^^^^^^
@@ -428,19 +452,18 @@ Not all modules support multi-threading. It is currently supported for:
 Plugins
 -------
 
-THOR 11 supports plugins. They can support a THOR scan in several ways:
+THOR 11 supports plugins. They can assist a THOR scan in several ways:
 
-* Parsing a file format that THOR does not (yet) support
+* Parsing file formats that THOR does not yet support
 * Checking more complex conditions that cannot be written as custom IOCs or rules
 * Extending THOR output in custom, user-defined ways
-* ...
 
-Plugins need to be placed in the ``plugins`` folder in the THOR directory. For
-details on how to write a plugin, required ingredients, limitations and
-examples, refer to https://github.com/NextronSystems/thor-plugin.
+Plugins must be placed in the ``plugins`` folder in the THOR directory.
+For details on how to write a plugin, required components, limitations,
+and examples, refer to https://github.com/NextronSystems/thor-plugin.
 
-To disable the feature and thus all plugins, use ``--no-plugins``.
+To disable all plugins, use ``--no-plugins``.
 
 .. warning::
-  Plugins contain executable code that is run by THOR. For this reason, never run any plugins that do
-  not come from a trusted source.
+  Plugins contain executable code that is run by THOR. For this reason,
+  never run plugins that do not come from a trusted source.
