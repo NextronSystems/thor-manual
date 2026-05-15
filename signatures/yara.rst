@@ -3,14 +3,15 @@
 YARA Rules
 ==========
 
-THOR allows you include your own custom YARA rules.
-YARA rules must have the **.yar** extension for plain text YARA rules
-and the **.yas** extension for encrypted YARA rules. (the rules can be encrypted using THOR Util)
+THOR allows you to include your own custom YARA rules. Plain-text YARA
+rules must use the ``.yar`` extension and encrypted YARA rules must use
+the ``.yas`` extension. Rules can be encrypted with THOR Util.
 
-Custom YARA rules have to be saved to the ``.\custom-signatures\yara`` folder.
-In order to apply only custom YARA rules and IOCs, use the ``--custom-signatures-only`` flag. 
+Custom YARA rules must be saved in the
+``.\custom-signatures\yara`` folder. To apply only custom YARA rules
+and IOCs, use ``--custom-signatures-only``.
 
-There are three YARA rule types that you can define in THOR:
+THOR supports three YARA rule types:
 
 - Generic rules
     - Subtype: Process rules
@@ -19,17 +20,20 @@ There are three YARA rule types that you can define in THOR:
     - Subtype: Registry rules
     - Subtype: Log rules
 
-The rule type is determined by specific keywords within the filename:
+The rule type is determined by specific keywords in the file name:
 
- - If a filename contains the keyword ``meta``, the rules within are meta rules.
- - If a filename contains the keyword ``keyword``, ``registry``, or ``log``, the
-   rules within are keyword rules (possibly with the specified subtype).
+ - If a file name contains the keyword ``meta``, the rules in that file
+   are treated as meta rules.
+ - If a file name contains the keyword ``keyword``, ``registry``, or
+   ``log``, the rules are treated as keyword rules, possibly with the
+   corresponding subtype.
+ - If a file name contains the keyword ``process``, or none of the
+   keywords listed above, the rules are treated as generic rules, with
+   the ``process`` subtype if applicable.
 
- - If a filename contains the keyword ``process``, or none of the keywords listed
-   above, the rules within are generic rules (with the ``process`` subtype, if specified).
 
-
-The following table shows which rule type is used for which examplary filename.
+The following table shows which rule type is selected for several
+example file names.
 
 .. list-table::
    :header-rows: 1
@@ -52,70 +56,85 @@ The following table shows which rule type is used for which examplary filename.
 Generic YARA Rules
 ^^^^^^^^^^^^^^^^^^
 
-The generic YARA rules are applied to the following elements:
+Generic YARA rules are applied to the following elements:
 
 * All files that are smaller than the ``--file-size-limit`` and that have been matched by the :ref:`signatures/yara:Deepscan Rules`.
 * The process memory of all processes with a working set memory size smaller than the ``--process-size-limit``.
 * The data chunks read during the DeepDive scan.
 
 .. note::
-    Rules with the ``process`` subtype are only applied to process memory and the DeepDive chunks, not to files.
+    Rules with the ``process`` subtype are applied only to process
+    memory and DeepDive chunks, not to files.
 
-:ref:`signatures/yara:Additional Attributes` are available for generic rules:
+:ref:`signatures/yara:Additional Attributes` are available for generic
+rules:
 
 * For files, they are based on the file itself.
 * For process memory, they are based on the process's image.
 * For data chunks, they are based on the file where the data chunk originates.
 
 .. warning::
-    As described above, only files that are actively selected by :ref:`signatures/yara:Deepscan Rules` are scanned with the generic YARA rules.
+    As described above, only files actively selected by
+    :ref:`signatures/yara:Deepscan Rules` are scanned with generic YARA
+    rules.
 
 Meta YARA Rules
 ^^^^^^^^^^^^^^^
 
-Meta rules are applied to all files without exception.
-However, they can only access the :ref:`signatures/yara:Additional Attributes` and the first 64KB of the file.
+Meta rules are applied to all files without exception. However, they
+can access only the :ref:`signatures/yara:Additional Attributes` and
+the first 64 KB of a file.
 
-Meta rules are also applied to irregular files. In this case, the bytes that are scanned are provided by THOR:
- - When symlinks are scanned with the meta rules, the file content is their target path.
- - When directories are scanned with the meta rules, the file content is the directory listing (as file names, separated by newlines).
+Meta rules are also applied to irregular files. In these cases, THOR
+provides the bytes to be scanned:
+ - For symlinks, the file content is the target path.
+ - For directories, the file content is the directory listing, with
+   file names separated by newlines.
 
 .. tip::
-    Meta rules are most commonly used to trigger other features (see :ref:`scanning/features:Feature selectors`)
-    or choose a file for a scan with the Generic Rules (see :ref:`signatures/yara:Deepscan Rules`).
+    Meta rules are most commonly used to trigger other features
+    (see :ref:`scanning/features:Feature selectors`) or to select files
+    for scanning with generic rules (see
+    :ref:`signatures/yara:Deepscan Rules`).
 
 Deepscan Rules
 **************
 
-If a meta rule which has the special tag ``DEEPSCAN`` matches on a file, THOR will scan the file with the :ref:`signatures/yara:Generic YARA Rules`.
+If a meta rule with the special tag ``DEEPSCAN`` matches a file, THOR
+scans that file with the :ref:`signatures/yara:Generic YARA Rules`.
 
 .. note::
-    THOR's signatures already contain a wide array of deepscan rules that cover the file types most commonly used by attackers.
+    THOR already ships with a broad set of deepscan rules that cover
+    file types commonly used by attackers.
 
     These rules are used even if ``--custom-signatures-only`` is used.
 
     However, you can always add your own deepscan rules if you encounter uncommon file types that THOR does not pick up by default.
 
-If such a rule has the special tag ``FORCE``, it even ignores the file size limit and will always cause a scan with the generic YARA rules.
+If such a rule also has the special tag ``FORCE``, it ignores the file
+size limit and always triggers a scan with the generic YARA rules.
 
 .. warning::
-    Use ``FORCE`` with care since you can easily cause massive increases in scan times with this.
+    Use ``FORCE`` with care, as it can significantly increase scan
+    times.
 
 Keyword YARA Rules
 ^^^^^^^^^^^^^^^^^^
 
-Keyword rules are applied to all objects that are checked.
+Keyword rules are applied to all checked objects.
 
-The *registry* and *log* subtypes of keyword rules are only applied to registry keys or log lines / event log entries / journald log entries / ..., respectively.
+The *registry* and *log* subtypes of keyword rules are applied only to
+registry keys or to log-related objects such as log lines, Event Log
+entries, and journald entries.
 
 Keyword rule scanning (including registry keys and logs) uses :ref:`signatures/yara:Bulk Scanning`.
 
 THOR YARA Rules for Registry Detection
 **************************************
 
-THOR allows checking a complete registry key with Yara
-rules. To accomplish this, THOR composes a string from the registry key's values
-and formats them as follows:
+THOR allows you to check a complete registry key with YARA rules. To do
+so, THOR composes a string from the registry key values and formats
+them as follows:
 
 | **KEYPATH;VALUENAME;VALUE\\n**
 | **KEYPATH;VALUENAME;VALUE\\n**
@@ -123,10 +142,10 @@ and formats them as follows:
 
 **Registry Base Names**
 
-Please notice that strings like HKEY\_LOCAL\_MACHINE, HKLM, HKCU,
-HKEY\_CURRENT\_CONFIG are **not** part of the key path that your YARA rules
-are applied to. They depend on the analyzed hive and should not be in
-the strings that you define in your rules.
+Please note that strings such as ``HKEY_LOCAL_MACHINE``, ``HKLM``,
+``HKCU``, and ``HKEY_CURRENT_CONFIG`` are **not** part of the key path
+to which your YARA rules are applied. They depend on the analyzed hive
+and should not appear in the strings you define.
 
 Values are formatted as follows:
 
@@ -135,8 +154,8 @@ Values are formatted as follows:
  - Numeric values are printed normally (with base 10; e.g., use ``32`` for REG_DWORD 0x00000020).
  - String values are printed normally.
 
-This means that you can write a Yara rule that looks like this (remember
-to escape all backslashes):
+This means you can write a YARA rule such as the following. Remember to
+escape all backslashes:
 
 .. code-block:: yara
 
@@ -153,13 +172,14 @@ to escape all backslashes):
           1 of them
    }
 
-Remember that you have to use the keyword **registry** in the file name in order to
-initialize the YARA rule file as registry rule set (e.g. "**registry\_exe\_in\_value.yar**").
+To initialize a YARA rule file as a registry rule set, the file name
+must contain the keyword **registry**, for example
+``registry_exe_in_value.yar``.
 
 THOR YARA Rules for Log Detection
 *********************************
 
-YARA Rules for logs are applied as follows:
+YARA rules for logs are applied as follows:
 
 - For text logs, each line is passed to the YARA rules.
 - For Windows Event Logs, each event is serialized as follows for the YARA rules:
@@ -169,8 +189,8 @@ YARA Rules for logs are applied as follows:
 Score
 ^^^^^
 
-The :ref:`score<signatures/scores:Scoring>` of a YARA rule
-can be specified as a meta attribute in the rule:
+The :ref:`score<signatures/scores:Scoring>` of a YARA rule can be
+specified as a meta attribute in the rule:
 
 .. code-block:: yara
    :linenos:
@@ -186,50 +206,53 @@ can be specified as a meta attribute in the rule:
             1 of them
    }
 
-If no "score" field is present, the rule gets a default score of 75.
+If no ``score`` field is present, the rule receives the default score
+of ``75``.
 
-The scoring system allows you to include ambiguous, low scoring rules
-that can't be used with other scanners, as they would generate to many
-false positives. If you noticed a string that is used in malware as well
-as legitimate files, just assign a low score or combine it with other
-attributes, which are used by THOR to enhance the functionality and are
-described in :ref:`signatures/yara:Additional Attributes`.
+The scoring system allows you to include ambiguous, low-scoring rules
+that would generate too many false positives in other scanners. If a
+string appears both in malware and in legitimate files, assign a lower
+score or combine the rule with other attributes as described in
+:ref:`signatures/yara:Additional Attributes`.
 
 Additional Attributes
 ^^^^^^^^^^^^^^^^^^^^^
 
-THOR provides certain external variables in your generic and meta YARA rules.
-These external variables are:
+THOR provides a number of external variables for generic and meta YARA
+rules. These variables are:
 
 * **filename**
 
-  * single file name
+  * Single file name
   * Example: ``cmd.exe``
 
 * **filepath**
 
-  * file path without file name and without trailing path delimiter
+  * File path without the file name and without a trailing path delimiter
   * Example: ``C:\temp`` or ``/var/log``
 
 * **extension**
 
-  * file extension with a leading ``.``, lower case
+  * File extension in lower case, including the leading ``.``
   * Example: ``.exe``
 
 * **filetype**
 
-  * type of the file based on the magic header signatures
-    (for a list of valid file types see:
+  * File type based on the magic header signatures
+    (for a list of valid file types, see:
     ``./signatures/misc/file-type-signatures.cfg``)
   * Example: ``EXE`` or ``ZIP``
 
 * **timezone**
 
-  * the system's time zone (see https://golang.org/src/time/zoneinfo_abbrs_windows.go for valid values)
+  * The system time zone (see
+    https://golang.org/src/time/zoneinfo_abbrs_windows.go for valid
+    values)
 
 * **language**
 
-  * the systems language settings (see https://docs.microsoft.com/en-us/windows/win32/intl/sort-order-identifiers)
+  * The system language settings (see
+    https://docs.microsoft.com/en-us/windows/win32/intl/sort-order-identifiers)
 
 * **owner**
 
@@ -245,12 +268,15 @@ These external variables are:
 
 * **filemode**
 
-  * file mode for this file (see https://man7.org/linux/man-pages/man7/inode.7.html, "The file type and mode").
+  * File mode for this file (see
+    https://man7.org/linux/man-pages/man7/inode.7.html, "The file type
+    and mode")
   * On Windows, this variable will be an artificial approximation of a file mode since Windows is not POSIX compliant.
 
 * **filesize**
 
-  * The value contains the file size in bytes. It is provided directly by YARA and is not specific to THOR.
+  * File size in bytes. This value is provided directly by YARA and is
+    not specific to THOR
 
 * **osversion**
 
@@ -258,8 +284,9 @@ These external variables are:
 
 * **unpack_parent**
 
-  * The file's origin (e.g. "ZIP" if it was contained in a ZIP file)
-  * Possible values are:
+  * The file's origin, for example ``ZIP`` if the file was contained in
+    a ZIP archive
+  * Possible values include:
 
     * Archives: ``ZIP``, ``RAR``, ``RAR``, ``TAR``, ``TARGZ``, ``TARBZ2``, ``CAB``, ``GZIP``, ``BZIP2``, ``7ZIP``
     * From a module: ``CHM``, ``CHUNK``, ``EMAIL``, ``ICS``, ``MACROS``, ``MFT``, ``OLE``, ``REGISTRY``, ``UNESCAPE``, ``UPX``, ``VBEDECODE``
@@ -267,21 +294,25 @@ These external variables are:
 
 * **unpack_source**
 
-  * The file's origins, separated by ``>`` (e.g. ``EMAIL>ZIP`` if it was contained in a ZIP file that was an email attachment)
-  * For possible values of a file's origin, see ``unpack_parent``.
+  * The file's origins, separated by ``>``, for example ``EMAIL>ZIP``
+    if the file was contained in a ZIP archive that arrived as an email
+    attachment
+  * For possible origin values, see ``unpack_parent``
 
 * **permissions**
 
-  * The permissions of the file.
+  * The permissions of the file
   * On Unix systems, this is a string representation of the file mode.
   * On Windows, this contains the DACL of the file, separated with / (e.g "BUILTIN\Users:W / BUILTIN\Administrators:F")
 
 * **age**
 
-  * The file's age (in days), based on its creation timestamp.
-  * If the file does not have a creation timestamp (e.g. because the underlying filesystem does not provide one), this is NaN.
+  * The file's age in days, based on its creation timestamp
+  * If the file does not have a creation timestamp, for example because
+    the underlying file system does not provide one, the value is
+    ``NaN``
 
-Yara Rule with THOR External Variable:
+YARA rule using a THOR external variable:
 
 .. code-block:: yara
    :linenos:
@@ -295,14 +326,14 @@ Yara Rule with THOR External Variable:
              $a1 and filename matches /eicar.com/
    }
 
-A more complex rule using several of the THOR external variables would
-look like the one in the following listing.
+A more complex rule using several THOR external variables could look
+like the following example.
 
-This rule matches to all files containing the EICAR string, having the
-name "**eicar.com**", "**eicar.dll**" or "**eicar.exe**" and a file size
-smaller 100byte.
+This rule matches all files that contain the EICAR string, have the
+name ``eicar.com``, ``eicar.dll``, or ``eicar.exe``, and are smaller
+than 100 bytes.
 
-Yara Rule with more complex THOR Enhanced Attributes.
+YARA rule using more complex THOR-specific attributes.
 
 .. code-block:: yara
    :linenos:
@@ -341,11 +372,11 @@ Real Life Yara Rule:
 Restrict Yara Rule Matches
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-On top of the keyword based initialization you can restrict Yara rules
-to match on certain objects only. It is sometimes necessary to restrict
-rules that e.g. cause many false positives on process memory to file
-object detection only. Use the meta attribute "limit" to define if the
-rule should only be applied by specific components.
+In addition to keyword-based initialization, you can restrict YARA
+rules so they match only certain object types. This is useful, for
+example, when a rule causes many false positives in process memory but
+should still be used for file object detection. Use the ``limit`` meta
+attribute to define which components should apply the rule.
 
 Apply rule on file objects only:
 
@@ -368,79 +399,78 @@ for a list of all available components.
 Bulk Scanning
 ^^^^^^^^^^^^^
 
-THOR scans objects (e.g. registry values or log lines) in bulks since each YARA
-invocation has a relatively high overhead.
+THOR scans certain objects, such as registry values or log lines, in
+bulk because each YARA invocation has relatively high overhead.
 This means that during the scan, the following happens:
 
 - THOR gathers objects that need to be scanned.
-- When sufficiently many entries are gathered, all of them are combined (separated
-  by line breaks) and passed to YARA.
+- Once enough entries have been collected, they are combined,
+  separated by line breaks, and passed to YARA.
 
-   - The ruleset that is used is a modified one, where THOR tries to remove false positive conditions.
-     Otherwise, false positive strings that occur in one entry could prevent another entry from being
-     detected.
+   - THOR uses a modified ruleset that tries to remove false positive
+     conditions. Otherwise, false positive strings in one entry could
+     prevent another entry from being detected.
 
-- If any YARA rule matches, the entries that contain the match strings are scanned
-  separately with YARA to determine whether any YARA rule matches for these specific entries.
+- If any YARA rule matches, entries containing the matching strings are
+  scanned again individually to determine which specific entries match.
 
 .. warning:
 
-   YARA conditions can be very complex, and while we've done our best to make the modifications to the bulk scans robust,
-   in case of very complex conditions (e.g. loops, or conditions looking at the string offsets), not all false positive
-   conditions may be removed. If you have rules with these constructs, be careful with these rules in cases where bulk scanning is applied.
+   YARA conditions can be very complex. Although THOR tries to make bulk
+   scanning robust, very complex conditions such as loops or conditions
+   that inspect string offsets may prevent all false positive
+   conditions from being removed. Be careful with such rules when bulk
+   scanning is involved.
 
 Creating Yara Rules
 ^^^^^^^^^^^^^^^^^^^
 
-Using the UNIX "string" command on Linux systems or in a CYGWIN
-environment enables you to extract specific strings from your sample
-base and write your own rules within minutes. Use "**string -el**" to
-also extract the UNICODE strings from the executable.
+Using the Unix ``strings`` command on Linux systems or in a Cygwin
+environment helps you extract relevant strings from a sample set and
+write your own rules quickly. Use ``strings -el`` to extract Unicode
+strings from executables as well.
 
-A useful Yara Rule Generator called "yarGen" provided by our
-developers can be downloaded from Github. It takes a target directory
-as input and generates rules for all files in this directory and so
-called "super rules" if characteristics from different files can be
-used to generate a single rule to match them all. (https://github.com/Neo23x0/yarGen)
+A useful YARA rule generator called ``yarGen``, provided by our
+developers, can be downloaded from GitHub. It takes a target directory
+as input and generates rules for all files in that directory, including
+so-called "super rules" when common characteristics from different
+files can be used to generate one rule that matches them all.
 
-Another project to mention is the "Yara Generator", which creates a
-single Yara rule from one or multiple malware samples. Placing several
-malware files of the same family in the directory that gets analyzed by
-the generator will lead to a signature that matches all descendants of
-that family. (https://github.com/Xen0ph0n/YaraGenerator)
+Another useful project is ``YaraGenerator``, which creates a single YARA
+rule from one or more malware samples. If several malware files from
+the same family are placed in the analyzed directory, the generator can
+produce a signature that matches the family more broadly.
 
-We recommend testing the Yara rule with the "yara" binary before
-including it into THOR because THOR does not provide a useful debugging
-mechanism for Yara rules. The Yara binary can be downloaded from the
-developers' website (https://github.com/VirusTotal/yara).
+We recommend testing every YARA rule with the ``yara`` binary before
+adding it to THOR, because THOR does not provide a detailed debugging
+mechanism for YARA rules. The ``yara`` binary is available from the
+official project on GitHub.
 
-The best practice steps to generate a custom rule are:
+Recommended steps for creating a custom rule:
 
 1. | Extract information from the malware sample
    | (Strings, Byte Code, MD5 …)
 
-2. Create a new Yara rule file. It is important to:
+2. Create a new YARA rule file. It is important to:
 
-   a. Define a unique rule name – duplicates lead to errors
+   a. Define a unique rule name. Duplicate names cause errors
 
-   b. Give a description that you want to see when the signature matches
+   b. Add a description that you want to see when the signature matches
 
-   c. Define an appropriate score (optional but useful in THOR, default is 75)
+   c. Define an appropriate score. This is optional but useful in THOR;
+      the default is 75
 
-3. Check your rule by scanning the malware with the Yara binary from
-   the project's website to verify a positive match
+3. Scan the malware with the ``yara`` binary to verify a positive match
 
-4. Check your rule by scanning the "Windows" or "Program Files"
-   directory with the Yara binary from the project's website to detect
-   possible false positives
+4. Scan the ``Windows`` or ``Program Files`` directory with the
+   ``yara`` binary to identify possible false positives
 
-5. Copy the file to the "/custom-signatures/yara" folder of THOR and
-   start THOR to check if the rule integrates well and no error is
-   thrown
+5. Copy the file to THOR's ``/custom-signatures/yara`` folder and start
+   THOR to verify that the rule loads cleanly without errors
 
-There are some THOR specific add-ons you may use to enhance your rules.
+THOR also provides several enhancements that you can use in your rules.
 
-Also see these articles on how to write "simple but sound" YARA rules:
+Also see these articles on how to write simple but sound YARA rules:
 
 https://www.nextron-systems.com/2015/02/16/write-simple-sound-yara-rules/
 
@@ -449,15 +479,15 @@ https://www.nextron-systems.com/2015/10/17/how-to-write-simple-but-sound-yara-ru
 Typical Pitfalls
 ****************
 
-Some signatures - even the ones published by well-known vendors - cause
+Some signatures, including some published by well-known vendors, cause
 problems on certain files. The most common source of trouble is the use
-of regular expressions with a variable length as shown in the following
-example. This APT1 rule published by the AlienVault team caused the Yara
-Binary as well as the THOR binary to run into a loop while checking
-certain malicious files. The reason why this happened is the string
-expression "$gif1" which causes Yara to check for a "word character" of
-undefined length. Try to avoid regular expressions of undefined length
-and everything works fine.
+of regular expressions with a variable length, as shown in the
+following example. This APT1 rule published by the AlienVault team
+caused both the YARA binary and THOR to run into a loop while scanning
+certain malicious files. The problem is the string expression
+``$gif1``, which causes YARA to check for a word character of undefined
+length. Avoid regular expressions of undefined length whenever
+possible.
 
 AlientVault APT1 Rule: yara
 
@@ -477,36 +507,35 @@ AlientVault APT1 Rule: yara
              3 of them
     }
 
-Copying your rule to the signatures directory may cause THOR to fail
-during rule initialization. If this happens you should check your rule
-again with the Yara binary. Usually this is caused by a duplicate rule
-name or syntactical errors.
+If copying your rule to the signatures directory causes THOR to fail
+during rule initialization, test the rule again with the ``yara``
+binary. The most common causes are duplicate rule names or syntax
+errors.
 
 YARA Rule Performance
 *********************
 
-We compiled a set of guidelines to improve the performance of YARA
-rules. By following these guidelines you avoid rules that cause many CPU
-cycles and hamper the scan process.
+We compiled a set of guidelines to improve YARA rule performance. By
+following them, you can avoid rules that consume too many CPU cycles
+and slow down scans.
 
 https://gist.github.com/Neo23x0/e3d4e316d7441d9143c7
 
 Enhance YARA Rules with THOR Specific Attributes
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The following listing shows a typical YARA rule with the three main
-sections "meta", "strings" and "condition". The YARA Rule Manual which
-can be downloaded as PDF from the developer's website and is bundled
-with the THOR binary is a very useful guide and reference to get a
-function and keyword overview and build your own rules based on the YARA
-standard.
+The following example shows a typical YARA rule with the three main
+sections ``meta``, ``strings``, and ``condition``. The YARA Rule Manual,
+which is bundled with the THOR binary and also available from the
+official YARA project, is a useful reference for functions, keywords,
+and general rule construction.
 
-The "meta" section contains all types of meta information and can be
-extended freely to include own attributes. The "strings" section lists
-strings, regular expressions or hex string to identify the malware or
-hack tool. The condition section defines the condition on which the rule
-generates a "match". It can combine various strings and handles keywords
-like "not" or "all of them".
+The ``meta`` section contains metadata and can be extended freely with
+your own attributes. The ``strings`` section defines strings, regular
+expressions, or hex patterns that identify malware or hack tools. The
+``condition`` section defines when the rule generates a match and can
+combine multiple strings with keywords such as ``not`` or ``all of
+them``.
 
 Simple Yara Rule:
 
@@ -522,8 +551,8 @@ Simple Yara Rule:
              $a1
    }
 
-The following listing shows a more complex rule that includes a lot of
-keywords used in typical rules included in the rule set.
+The following example shows a more complex rule that uses several
+keywords commonly found in the THOR rule set.
 
 Complex Yara Rule:
 
@@ -543,15 +572,15 @@ Complex Yara Rule:
             1 of ($a*) and not $fp
    }
 
-The example above shows the most common keywords used in our THOR rule
-set. These keywords are included in the YARA standard. The rule does not
-contain any THOR specific expressions.
+The example above shows common keywords used in the THOR rule set. All
+of these keywords are part of the YARA standard; the rule itself does
+not use any THOR-specific expressions.
 
-Yara provides a lot of functionality but lacks some mayor attributes
-that are required to describe an indicator of compromise (IOC) defined
-in other standards as i.e. OpenIOC entirely. Yara's signature
-description aims to detect any kind of string or byte code within a file
-but is not able to match on meta data attributes like file names, file
-path, extensions and so on.
+YARA provides extensive functionality, but it lacks some important
+attributes that are useful for describing indicators of compromise as
+defined in standards such as OpenIOC. YARA is designed primarily to
+detect strings or byte patterns within a file, but it does not natively
+match metadata such as file names, file paths, or extensions.
 
-THOR adds functionality to overcome these limitations with :ref:`signatures/yara:Additional Attributes`.
+THOR extends YARA with additional functionality to overcome these
+limitations; see :ref:`signatures/yara:Additional Attributes`.
