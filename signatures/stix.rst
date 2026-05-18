@@ -4,18 +4,18 @@ STIX IOCs
 =========
 
 THOR can read and apply IOCs provided in STIXv2 JSON files.
-They must have the ``.json`` extension for unencrypted STIXv2 files
-and the ``.jsos`` extension for encrypted STIXv2 files.
+Unencrypted STIXv2 files must use the ``.json`` extension; encrypted
+STIXv2 files must use the ``.jsos`` extension.
 
 .. hint::
-  STIXv1 is not supported
+  STIXv1 is not supported.
 
 .. figure:: ../images/stix-init.png
    :alt: STIXv2 Initialization during startup
 
    STIXv2 Initialization during startup
 
-The following observables are supported.
+The following observables and operators are supported.
 
 * ``file:name`` with
 
@@ -96,7 +96,7 @@ The following observables are supported.
   * **LIKE**
   * **MATCHES**
 
-* ``win-registry-key:values.data with`` with
+* ``win-registry-key:values.data`` with
 
   * **=**
   * **!=**
@@ -111,4 +111,3 @@ The following observables are supported.
   * **>=**
   * **=**
   * **!=**
-
