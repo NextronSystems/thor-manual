@@ -3,8 +3,8 @@
 Common Use Cases
 ================
 
-This chapter will highlight a few use cases which are widely
-used among our customers.
+This chapter highlights a few common THOR use cases that are frequently
+used by our customers.
 
 .. toctree::
     :caption: Contents
