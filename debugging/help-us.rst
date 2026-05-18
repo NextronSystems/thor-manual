@@ -1,21 +1,21 @@
-.. Index:: Help Us Debugging
+.. Index:: Help Us Debug an Issue
 
-Help Us With The Debugging
---------------------------
+Help Us Debug an Issue
+----------------------
 
-If you cannot find the source of a problem, please contact us using the
-support@nextron-systems.com email address.
+If you cannot identify the source of a problem, please contact us at
+support@nextron-systems.com.
 
-You can help us find and debug the problem as quickly as possible by
-providing the following information.
+To help us investigate the issue as quickly as possible, please provide
+the following information.
 
-Which THOR version do you use?
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Which THOR version are you using?
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Tell us the exact THOR version you are using:
+Tell us the exact THOR version you are using, including:
 
-1. For which operating system (Windows, Linux, macOS, AIX)
-2. For which architecture (32bit, 64bit)
+1. The operating system (``Windows``, ``Linux``, ``macOS``, or ``AIX``)
+2. The architecture (``32-bit`` or ``64-bit``)
 
 Run ``thor --version`` and copy the resulting text into the email.
 
@@ -58,8 +58,8 @@ On macOS:
    Signature Database 2025/08/29-110036
    Sigma Database r2025-07-08-33-geeca352f5
 
-What is the target platform that THOR fails on?
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+What is the target platform on which THOR fails?
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Please provide the output of the following commands.
 
@@ -81,11 +81,11 @@ On macOS:
 
    user@macos:~$ system_profiler -detailLevel mini > system_profile.txt
 
-Which command line arguments do you use?
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Which command-line arguments are you using?
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Please provide a complete list of command line arguments that you've used
-when the error occurred.
+Please provide the full command line that you used when the issue
+occurred.
 
 .. code-block:: doscon
 
@@ -94,60 +94,63 @@ when the error occurred.
 Provide a diagnostics pack or crash output
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-If THOR is still running (but hanging), make sure to follow the steps in
-:ref:`debugging/diag:diagnostics pack`. If THOR crashed and
-printed some error messages like the "out of memory" message above,
-make sure to copy those and include them in your bug report.
+If THOR is still running but appears to be hanging, follow the steps in
+:ref:`debugging/diag:diagnostics pack`.
 
-Provide the log of a scan with the ``--debug`` flag (optional)
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+If THOR crashed and printed an error message such as ``out of memory``,
+please copy that output and include it in your bug report.
 
-The most important element is a scan log of a scan with the ``--debug``
-flag used.
+Provide a scan log created with ``--debug`` (optional)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The easiest way is to run the scan exactly as you've run it when the
-problem occurred adding the ``--debug`` command line flag.
+One of the most helpful artifacts is a scan log from a run with the
+``--debug`` flag enabled.
+
+The easiest way is to rerun the scan with the same parameters and add
+``--debug``.
 
 .. code-block:: doscon
 
    C:\thor>thor64.exe --fast -e D:\logs -p C:\Windows\System32 --debug
 
-If you're able to pinpoint the error to a certain module, you could limit
-the scan to that module to get to the problematic element more quickly.
+If you can narrow the issue down to a specific module, you can limit the
+scan to that module to reach the problematic element more quickly.
 
 .. code-block:: doscon
 
    C:\thor>thor64.exe -a Rootkit --debug
 
-After the scan you will find the normal text log (\*.txt) in the program folder.
-It is okay to replace confidential information like the hostname or IP addresses.
+After the scan, you will find the text log (``*.txt``) in the program
+folder. You can redact confidential information such as hostnames or IP
+addresses.
 
-Note: The debug log files can be pretty big, so please compress the file before
-submitting it to us. Normal log files have a size between 1 and 4 MB. Scans started
-with the ``--debug`` flag typically have sizes of 30-200 MB. The compression ratio is
-typically between 2-4%, so a compressed file shouldn't be larger than 10 MB.
+Debug log files can be large, so please compress them before sending
+them to us. Normal log files are usually between 1 and 4 MB. Scans run
+with ``--debug`` typically produce logs of 30 to 200 MB. These files
+usually compress well and should remain below 10 MB after compression.
 
-Provide a Screenshot (Optional)
+Provide a screenshot (optional)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Sometimes errors lead to panics of the executables, which causes the situation
-in which relevant log lines don't appear in the log file. In these cases, please
-also create a screenshot of a panic shown in the command line window.
+Some errors cause the executable to panic before the relevant log lines
+are written to disk. In these cases, please also include a screenshot of
+the command-line window.
 
-Provide the THOR database (Optional)
+Provide the THOR database (optional)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The :ref:`scanning/special-scan-modes:THOR DB` helps us debug situations in which
-the THOR scan timed out or didn't complete at all. It contains statistics on the
-run time of all used modules and the durations of all folders up to the second
-folder level from the root of a partition. (e.g. ``C:\Windows\SysWow64``).
+The :ref:`scanning/special-scan-modes:THOR DB` helps us investigate
+cases in which a THOR scan timed out or did not complete. It contains
+statistics about the run time of the modules used in the scan and the
+durations of folders up to the second directory level from the root of a
+partition, for example ``C:\Windows\SysWow64``.
 
 The default location of that file is:
 
 * Windows: ``C:\ProgramData\thor\thor10.db``
 * Linux/macOS: ``/var/lib/thor/thor10.db``
 
-Please provide that file in situations in which:
+Please provide that file in the following situations:
 
 * THOR exceeded its maximum run time
 * THOR froze and didn't complete a scan for days
@@ -156,8 +159,8 @@ Please provide that file in situations in which:
 Further Notes
 ^^^^^^^^^^^^^
 
-* If the files are too big to send, even after compression, please contact
-  us and you'll receive a file upload link that you can use
-* If a certain file or element (eventlog, registry hive) caused the issue,
-  please check if you can provide that file or element for our analysis, as those
-  files can contain sensitive information.
+* If the files are still too large to send after compression, contact us
+  and we will provide an upload link.
+* If a specific file or element, such as an event log or registry hive,
+  caused the issue, please check whether you can provide it for our
+  analysis. Such files can contain sensitive information.
