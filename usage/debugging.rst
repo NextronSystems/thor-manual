@@ -2,30 +2,31 @@
 Debugging
 =========
 
-Most unexpected behavior can be debugged by using the parameter ``--debug``.
+Most unexpected behavior can be investigated by using the ``--debug``
+parameter.
 
-If you ever encounter a situation in which:
+This can be useful if you encounter a situation in which:
 
 * THOR doesn't produce an alert on a known malicious element
 * THOR exits with an error
 * THOR takes a long time or unexpected short time on elements
 
-Collecting a Diagnostcs Pack
-----------------------------
+Collecting a Diagnostics Pack
+-----------------------------
 
 THOR Util comes with the functionality to collect a diagnostics pack for
-THOR scans. This is helpful if a scan is taking more time as expected
+THOR scans. This is helpful if a scan is taking longer than expected
 or if THOR exits unexpectedly. More details can be found in the
 `diagnostics section of THOR Util <https://thor-util-manual.nextron-systems.com/en/latest/usage/diagnostics.html>`_.
 
 Debugging Examples
 ------------------
 
-If you found the culprit for your problematic scan, try scanning that
-specific element with the ``--debug`` parameter set.
+If you identified the element that causes the issue, try scanning that
+specific element with ``--debug`` enabled.
 
-To run a scan only with certain modules only use the ``--module`` (short hand ``-a``)
-command line switch (see :ref:`usage/scan-modes:scan module names` for
+To run a scan with only specific modules, use the ``--module`` (short
+form ``-a``) command-line switch (see :ref:`usage/scan-modes:scan module names` for
 a full list of module names):
 
 .. code-block:: doscon
@@ -41,7 +42,8 @@ a full list of module names):
 
       C:\nextron\thor>thor64.exe -a Mutex -a EnvCheck -a Users
 
-You can try to reduce the scope of a module even further by using lookbacks
+You can reduce the scope of a module even further by using lookback
+parameters:
 
 .. code-block:: doscon
 
@@ -64,16 +66,17 @@ magic header in ``./signatures/misc/file-type-signatures.cfg``.
 Finding Bottlenecks
 -------------------
 
-You may get the error message ``MODULE: RuntimeWatcher MESSAGE: Maximum runtime has exceeded, killing THOR``
-or encounter very slow/never-ending scans.
+You may encounter the message ``MODULE: RuntimeWatcher MESSAGE:
+Maximum runtime has exceeded, killing THOR`` or notice that a scan is
+very slow or does not seem to finish.
 
-You can check the statistics table in ``thor10.db`` on the problematic
-endpoint after a scan to determine the last element or elements that took
-a long time to process.
+You can check the statistics table in ``thor10.db`` on the affected
+endpoint after a scan to determine the last element or elements that
+took a long time to process.
 
-We recommend using: https://sqlitebrowser.org/
+We recommend using `DB Browser for SQLite <https://sqlitebrowser.org/>`_.
 
-The THOR DB is located at: ``C:\ProgramData\thor\thor10.db``.
+On Windows, the THOR DB is located at ``C:\ProgramData\thor\thor10.db``.
 
 .. figure:: ../images/image13.png
    :alt: Find Bottlenecks
@@ -81,10 +84,11 @@ The THOR DB is located at: ``C:\ProgramData\thor\thor10.db``.
 Most Frequent Causes of Missing Alerts
 --------------------------------------
 
-Below you can find the most frequent causes of missing alerts.
+Below are some of the most common reasons why expected alerts may be
+missing.
 
-THOR didn't scan file due to file size restrictions
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+THOR did not scan a file because of file size restrictions
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 **Solution**: Use the ``--max_file_size`` parameter or set it permanently
 in the config file ``./config/thor.yml``.
@@ -99,14 +103,16 @@ in the config file ``./config/thor.yml``.
    :linenos:
    :emphasize-lines: 3
 
-THOR didn't scan the file due to a skipped deeper inspection
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+THOR did not scan a file because deeper inspection was skipped
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-This can be caused by two reasons:
+This usually happens when both of the following are true:
 
-The magic header of that file is not in the list of interesting magic
-headers (see ``./signatures/misc/file-type-signatures.cfg``) AND file
-doesn't have a relevant file extension:
+* The file's magic header is not in the list of interesting magic
+  headers (see ``./signatures/misc/file-type-signatures.cfg``).
+* The file does not have a relevant file extension.
+
+Relevant file extensions include:
 
 .. code-block:: none
 
@@ -124,28 +130,28 @@ or add the magic header to ``file-type-signatures.cfg``
    This file gets overwritten with an update;
    Intense scanning mode threatens the scan and system stability!
 
-THOR fails to initialize custom rules with the correct type
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+THOR does not initialize custom rules with the correct type
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-It happens very often that users that prepare custom IOCs or YARA rules
-forget to include the correct keyword in the filename of the IOC or YARA
-rule file.
+Users who prepare custom IOCs or YARA rules often forget to include the
+correct keyword in the filename of the IOC or YARA rule file.
 
 The correct use of keywords is described in the chapters :ref:`usage/custom-signatures:Simple IOCs`
 for IOCs and :ref:`usage/custom-signatures:Specific YARA Rules` for YARA rules.
 
-A wrong or missing keyword leads to situations in which a file that contains
-YARA rules that are meant to be applied to log files, but doesn't contain a "log"
-keyword in it's filename.
+A wrong or missing keyword can lead to situations in which a file
+contains YARA rules meant for log files, but its filename does not
+contain the keyword ``log``.
 
-You can review a correct initialization in the command line output or log file.
+You can verify correct initialization in the command-line output or log
+file.
 
 .. code-block:: none
 
    Info Adding rule set from my-log-rules.yar as 'log' type
 
-Using the keyword **c2** for C2 IOCs in a filename should result in a line like
-the following:
+Using the keyword ``c2`` in a filename for C2 IOCs should result in a
+line like the following:
 
 .. code-block:: none
 
@@ -154,10 +160,11 @@ the following:
 Most Frequent Causes of Frozen Scans
 ------------------------------------
 
-Whenever THOR stops or pauses without any traceback or panic message
-and no error messages.
+If THOR stops or appears to pause without a traceback, panic message,
+or other error output:
 
-Usually the following sources are responsible (descending order, by frequency):
+Usually the following sources are responsible (in descending order of
+frequency):
 
 1. An :ref:`usage/debugging:antivirus or edr suspends thor` (>98%)
 2. A "paused" command line window due to :ref:`usage/debugging:windows quick edit mode` (<1%)
