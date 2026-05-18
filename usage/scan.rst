@@ -2,30 +2,30 @@
 Scan
 ====
 
-This chapter is a quick introduction on how to run a THOR scan
-and how to personalize scans to better fit your environment and
-expectations.
+This chapter provides a quick introduction to running a THOR scan and
+to adjusting scans for your environment and use case.
 
-Please note, the command line arguments are used to fine tune
-your scans and yield potentially better results for your use cases.
+Command-line arguments are used to fine-tune scans and can improve
+results for specific use cases.
 
-There is no "one fits all" command line argument, but we designed
-THOR to cover the broadest area with minimal impact in the default
-operating mode. Default in this case means no additional command
-line arguments.
+There is no single command line that fits every scenario, but THOR is
+designed to provide broad coverage with minimal impact in the default
+operating mode. In this context, default means running THOR without
+additional command-line arguments.
 
 Quick Start
 -----------
 
-Follow these steps to complete your first THOR scan
+Follow these steps to complete your first THOR scan:
 
 1. Make sure you've read the :doc:`/usage/beforeyoubegin` guide
-2. Open a command line as administrative user
+2. Open a command line with administrative privileges
 
    a. Administrator on Windows
    b. root on Linux and macOS
 
-3. Navigate to the folder in which you've extracted the THOR package and placed the license file(s)
+3. Navigate to the folder where you extracted the THOR package and
+   placed the license file(s)
 4. Start THOR on your command line
 
    a. ``thor64.exe`` on 64bit Windows systems
@@ -34,8 +34,10 @@ Follow these steps to complete your first THOR scan
    d. ``thor-linux`` on i386 Linux systems
    e. ``thor-macosx`` on macOS
 
-5. Wait until the scan has completed (this can take between 20 and 180 minutes)
-6. When the scan is finished, check the text log and HTML report in the THOR program directory
+5. Wait until the scan has completed (this can take between 20 and 180
+   minutes)
+6. When the scan is finished, review the text log and HTML report in
+   the THOR program directory
 
 Often Used Parameters
 ---------------------
@@ -53,8 +55,8 @@ Often Used Parameters
   * - **-e target-folder**
     - Write all output files to the given folder
 
-Parameters possibly relevant for your Use Case
------------------------------------------------
+Parameters Possibly Relevant for Your Use Case
+----------------------------------------------
 
 .. list-table::
   :header-rows: 1
@@ -63,18 +65,21 @@ Parameters possibly relevant for your Use Case
   * - Parameter
     - Description
   * - **-c, --cpulimit integer**
-    - Instruct THOR to pause all scanning if the systems CPU load is higher than the value specified.
+    - Instruct THOR to pause scanning if the system's CPU load is
+      higher than the specified value.
 
       Please see :ref:`usage/configuration:cpu limit (--cpulimit) explained` for more information.
   * - **--allhds**
-    - By default THOR scans only the C: partition on Windows machines and other files/folders only
-
-      in cases in which some reference points to a different partition (e.g. configured web root of IIS
-      is on ``D:\inetpub``, registered service runs from ``D:\vendor\service``)
+    - By default, THOR scans only the ``C:`` partition on Windows and
+      checks other partitions only when references point to them, for
+      example if an IIS web root is located on ``D:\inetpub`` or a
+      registered service runs from ``D:\vendor\service``.
   * - **--lookback <days>**
 
       **--global-lookback**
-    - Only check the elements changed or created during the last X days in all available modules (reduces the scan duration significantly)
+    - Check only elements that were changed or created during the last
+      X days across all available modules. This can significantly
+      reduce scan duration.
 
 .. hint::
   On Linux, the ``--allhds`` flag does nothing, since THOR already scans all mounted local file system (FS) devices.
@@ -84,7 +89,8 @@ Parameters possibly relevant for your Use Case
 Risky Flags
 -----------
 
-This list contains flags that should better be avoided unless you know exactly what you're doing.
+This list contains flags that should generally be avoided unless you
+know exactly what you are doing.
 
 .. list-table::
   :header-rows: 1
@@ -108,7 +114,8 @@ This list contains flags that should better be avoided unless you know exactly w
 Lesser Known But Useful Flags
 -----------------------------
 
-This list contains flags that are often used by analysts to tweak the scan in useful ways.
+This list contains flags that analysts often use to adjust scans in
+useful ways.
 
 .. list-table::
   :header-rows: 1
@@ -128,7 +135,8 @@ This list contains flags that are often used by analysts to tweak the scan in us
 Help and Debugging
 ------------------
 
-You can use the following parameters help you to understand THOR and the output better.
+The following parameters can help you better understand THOR and its
+output.
 
 .. list-table::
   :header-rows: 1
