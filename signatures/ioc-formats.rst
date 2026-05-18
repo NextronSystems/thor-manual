@@ -3,36 +3,36 @@
 IOC Formats
 ===========
 
-THOR checks the contents of the ``./custom-signatures`` sub-directories;
-there is a subfolder here for each signature type (e.g. YARA, Sigma, or
-IOCs). Files must be placed in the correct subfolder to be loaded.
+THOR checks the contents of the ``./custom-signatures`` subdirectories.
+There is one subfolder for each signature type, for example YARA,
+Sigma, or IOCs. Files must be placed in the correct subfolder to be
+loaded.
 
-For YARA rules and simple IOC files, string tags in the file names are used to
-further distinguish the signatures.
+For YARA rules and simple IOC files, string tags in the file name are
+used to further distinguish signatures.
 
-For example, a file named ``my-c2-iocs.txt`` will be
-initialized as a file containing simple IOC indicators with
-C2 server information.
+For example, a file named ``my-c2-iocs.txt`` is initialized as a simple
+IOC file containing C2 server indicators.
 
-Internally the regex ``\Wc2\W`` is used to detect the
-tag, so ``mysource-c2-iocs.txt`` and
-``dec15-batch1-c2-indicators.txt`` would be detected correctly,
-whereas ``filenameiocs.txt`` or ``myc2iocs.txt`` would
-not be detected.
+Internally, the regex ``\Wc2\W`` is used to detect the tag. This means
+that ``mysource-c2-iocs.txt`` and
+``dec15-batch1-c2-indicators.txt`` are detected correctly, whereas
+``filenameiocs.txt`` or ``myc2iocs.txt`` are not.
 
-If you do not wish to place your custom IOCs on potentially compromised systems
-during an engagements, you can use thor-util to encrypting custom signatures.
-This is described in detail in the
-`THOR Util manual <https://thor-util-manual.nextron-systems.com>`_
+If you do not want to place your custom IOCs on potentially compromised
+systems during an engagement, you can use ``thor-util`` to encrypt
+custom signatures. This is described in detail in the `THOR Util manual
+<https://thor-util-manual.nextron-systems.com>`__.
 
 YAML IOC files
 ~~~~~~~~~~~~~~
 
-YAML IOC files contain metadata (e.g. an author, date, description, ...)
-as well as the IOCs themselves. IOCs are grouped by the IOC type and can
-optionally have false positive conditions.
+YAML IOC files contain metadata, for example author, date, and
+description, as well as the IOCs themselves. IOCs are grouped by IOC
+type and can optionally include false positive conditions.
 
-They must have the `.yml` extension, or, if encrypted, the `.yms` extension.
+They must have the ``.yml`` extension or, if encrypted, the ``.yms``
+extension.
 
 .. code-block:: yaml
    :caption: iocs-report-internal.yml
@@ -62,13 +62,13 @@ They must have the `.yml` extension, or, if encrypted, the `.yms` extension.
 Simple IOC files (deprecated)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Simple IOC files are basically CSV files that include the IOC and
-comments. Simple IOC files must have the extension ``.txt``.
-encrypted simple IOC files must have the extension ``.dat``.
+Simple IOC files are essentially CSV-style files that contain IOCs and
+comments. Simple IOC files must use the ``.txt`` extension. Encrypted
+simple IOC files must use the ``.dat`` extension.
 
 .. warning::
-   Simple IOCs are deprecated and provide less flexibility than YAML IOCs. When writing new
-   IOCs, we recommend using YAML IOCs.
+   Simple IOCs are deprecated and offer less flexibility than YAML
+   IOCs. For new IOCs, we recommend using YAML IOCs.
 
 The following tags for simple IOCs are currently supported:
 
@@ -131,21 +131,22 @@ The following tags for simple IOCs are currently supported:
 Hashes
 ------
 
-Files with the string ``hash`` or ``hashes`` in their filename
-get initialized as hash IOC sets.
+Files with the string ``hash`` or ``hashes`` in their file name are
+initialized as hash IOC sets.
 
-Hash IOCs are specified per line and may have one of two supported formats:
+Hash IOCs are specified one per line and may use one of two supported
+formats:
 
 .. code-block:: text
 
    hash;comment
    hash;score;comment
 
-In case of the first format, the score defaults to 100.
+In the first format, the score defaults to ``100``.
 
-The hash specified must be an MD5, SHA1, SHA256, or Imphash.
+The hash must be an MD5, SHA1, SHA256, or imphash.
 
-The comment can be freely chosen and will be printed as part of any match found.
+The comment can be chosen freely and is printed as part of any match.
 
 .. code-block:: text
    :caption: custom-hashes-iocs.txt
@@ -158,7 +159,8 @@ The comment can be freely chosen and will be printed as part of any match found.
 File Names
 ----------
 
-Filename IOCs are specified per line and may have one of two supported formats:
+Filename IOCs are specified one per line and may use one of two
+supported formats:
 
 .. code-block:: text
 
@@ -168,10 +170,10 @@ Filename IOCs are specified per line and may have one of two supported formats:
    # Comment
    my-filename-regex;score;my-fp-regex
 
-Filename IOCs are case insensitive if they don't use any special regex
-characters (such as ``*``, ``.``, ``[``, ...). Otherwise, they are case
-sensitive by default, but can be set as case insensitive by using ``(?i)``
-anywhere in the regex.
+Filename IOCs are case-insensitive if they do not use special regex
+characters such as ``*``, ``.``, or ``[``. Otherwise, they are
+case-sensitive by default, but can be made case-insensitive by using
+``(?i)`` anywhere in the regex.
 
 .. code-block:: text
    :caption: psexec-filename-iocs.txt
@@ -182,18 +184,18 @@ anywhere in the regex.
 Keywords
 --------
 
-Keyword IOCs are specified in the following format:
+Keyword IOCs use the following format:
 
 .. code-block:: text
 
    my-keyword-ioc
 
-The keyword-based IOC files contain plaintext strings that are matched
-against the console output of THOR. Not all console output is being used for those
-IOCs, you can find the full list here: :ref:`signatures/ioc-types:IOC types`.
+Keyword IOC files contain plain-text strings that are matched against
+THOR console output. Not all console output is used for these IOCs; see
+:ref:`signatures/ioc-types:IOC types` for the full list.
 
-Every line is treated as case-sensitive string. A comment can be specified
-with a line starting with a ``#`` and applies to all following IOCs until
+Each line is treated as a case-sensitive string. A comment can be added
+with a line starting with ``#`` and applies to all following IOCs until
 another comment is encountered.
 
 Keyword IOCs are case sensitive.
@@ -210,7 +212,7 @@ Keyword IOCs are case sensitive.
 Domains
 -------
 
-Domain IOCs are specified in one of the following formats:
+Domain IOCs use one of the following formats:
 
 .. code-block:: text
 
@@ -220,7 +222,7 @@ Domain IOCs are specified in one of the following formats:
    # Description
    <domain/IP/CIDR>;score
 
-The score defaults to 100 if none is specified.
+If no score is specified, the score defaults to ``100``.
 
 .. code-block:: text
    :caption: custom-c2-domains.txt
@@ -235,13 +237,13 @@ The score defaults to 100 if none is specified.
 Mutexes or Events
 -----------------
 
-Mutex or Event IOCs are specified in the following format:
+Mutex or Event IOCs use the following format:
 
 .. code-block:: text
 
    <mutex/event>;Description
 
-The score is always set to 70.
+The score is always set to ``70``.
 
 .. code-block:: text
    :linenos:
@@ -254,7 +256,7 @@ The score is always set to 70.
 Named Pipes
 -----------
 
-Named Pipe IOCs are specified in one of the following formats:
+Named Pipe IOCs use one of the following formats:
 
 .. code-block:: text
 
@@ -262,7 +264,7 @@ Named Pipe IOCs are specified in one of the following formats:
 
    Named pipe;Score;description
 
-If no score is present, it defaults to 100.
+If no score is present, it defaults to ``100``.
 
 .. code-block:: text
    :caption: custom-named-pipes-iocs.txt
@@ -271,4 +273,3 @@ If no score is present, it defaults to 100.
    # Incident Response Engagement
    MyMaliciousNamedPipe;Malicious pipe used by known RAT
    MyInteresting[a-z]+Pipe;50;Interesting pipe we have seen in new malware
-
