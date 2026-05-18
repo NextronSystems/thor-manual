@@ -2,75 +2,71 @@
 Before You Begin
 ================
 
-Before you begin to use THOR for the first time, you should read through
-this section to get a better understanding of what is needed to use THOR.
-
-In the following chapters, you should learn how THOR works.
+Before using THOR for the first time, read this section to understand
+what is required to use THOR effectively.
 
 Licensing
 ---------
 
-THOR needs a valid license to run. After you :ref:`usage/beforeyoubegin:generate
-a license`, place the license file in the THOR program folder. THOR checks the
-program folder and all sub folders for valid license files (``*.lic``).
-Alternatively, you can specify a path to search in with ``--licensepath
-<path>``. For details, refer to :ref:`usage/beforeyoubegin:About License Files`.
-For automation purposes, THOR also supports :ref:`usage/beforeyoubegin:license
-injection via environment`.
+THOR requires a valid license to run. After you
+:ref:`usage/beforeyoubegin:generate a license`, place the license file
+in the THOR program folder. THOR scans the program folder and all
+subfolders for valid license files (``*.lic``). Alternatively, you can
+specify a search path with ``--licensepath <path>``. For details, refer
+to :ref:`usage/beforeyoubegin:About License Files`. For automation
+purposes, THOR also supports
+:ref:`usage/beforeyoubegin:license injection via environment`.
 
 .. tip::
-   THOR is also able to fetch licenses from our licensing portal or a local
-   ASGARD Management Center. Please see chapter :ref:`usage/other-topics:license retrieval`
-   for more information about license retrieval.
+   THOR can also retrieve licenses from our licensing portal or from a
+   local ASGARD Management Center. See
+   :ref:`usage/other-topics:license retrieval` for more information.
 
 Generate a License
 ^^^^^^^^^^^^^^^^^^
 
 You can generate a valid license in our `customer portal <https://portal.nextron-systems.com/>`__.
 
-Navigate to ``Contracts & Licenses`` > ``My Contracts`` and choose the
-correct Contract Type to generate a new license. You can use ``THOR Workstation``
-or ``THOR Server & Workstation`` as the License Type.
+Navigate to ``Contracts & Licenses`` > ``My Contracts`` and select the
+appropriate contract type to generate a new license. Use either
+``THOR Workstation`` or ``THOR Server & Workstation`` as the license
+type.
 
-Here is an Overview of which type of license you need to use:
+The following overview shows which license type to use:
 
-* THOR Workstation
-
-  - Host-based THOR scanner license for Windows workstations and macOS only.
-    Not usable on Windows servers or Linux systems, regardless of their
-    actual usage (e.g. Linux Desktop systems). Usage on legacy systems,
-    such as Windows XP, requires the ``legacy`` option.
-
-* THOR Server & Workstation
-
-  - Host-based THOR scanner license for scans on all end systems, workstations,
-    servers, Windows, Linux, and macOS. Usage on legacy systems, like Windows
-    2003 or Windows 2008 before R2, requires the ``legacy`` option.
+* THOR Workstation: host-based THOR scanner license for Windows
+  workstations and macOS only. It cannot be used on Windows servers or
+  Linux systems, regardless of their role. Usage on legacy systems such
+  as Windows XP requires the ``legacy`` option.
+* THOR Server & Workstation: host-based THOR scanner license for scans
+  on workstations and servers running Windows, Linux, or macOS. Usage
+  on legacy systems such as Windows 2003 or Windows 2008 before R2
+  requires the ``legacy`` option.
 
 .. figure:: ../images/portal_contract_overview.png
    :alt: Contract Overview in the Portal
 
    Contract Overview in the Portal
 
-Click on the green ``Plus`` icon of your contract and fill all the mandatory
-fields. After clicking on ``Check Hostnames``, you can issue the license
-if all the hostnames are unique and valid.
+Click the green ``Plus`` icon for your contract and fill in all
+required fields. After clicking ``Check Hostnames``, you can issue the
+license if all hostnames are unique and valid.
 
 .. figure:: ../images/portal_generate_license.png
    :alt: Generate a License in the Portal
 
    Generate a License in the Portal
 
-For the license generation, it is necessary to use the hostname of the system
-which will run THOR. On a Windows system, you should use the ``computername``
-as hostname during license creation:
+To generate a license, use the hostname of the system on which THOR
+will run. On Windows, use the ``computername`` as the hostname during
+license creation:
 
 .. code-block:: doscon
 
    C:\Users\nextron>echo %COMPUTERNAME%
    WIN11-TESTING
 
-On Linux use the ``hostname`` command:
+On Linux, use the ``hostname`` command:
 
 .. code-block:: console
 
@@ -84,19 +80,20 @@ On macOS use the following command:
    MacBook:~ nextron$ sysctl kern.hostname
    MacBook
 
-Some more remarks regarding the hostname values:
+Additional notes on hostname values:
 
-* Use only the hostname of a FQDN (**master1** of **master1.internal.net**)
-* The casing of the letters doesn't matter (case-insensitive)
-* We do not store the hostnames anywhere in our portal
+* Use only the hostname part of an FQDN (**master1** from
+  **master1.internal.net**)
+* Letter casing does not matter (case-insensitive)
+* We do not store hostnames in the portal
 
-After you issued your license, your browser will forward you to the ``Licenses``
-section of the portal. You will be able to see all the issued licenses for the contract
-you just used earlier. You can either download a single ``License``, a ``License Bundle``,
-which contains all the selected licenses in one zip file, or a ``Software + License
-Bundle``, which contains the correct THOR version plus your license(s).
-If you want to see all your issued licenses for all of your contracts, you can remove the
-filter on the top which says ``Contract: xyz``.
+After you issue the license, your browser opens the ``Licenses``
+section of the portal. There you can see all licenses issued for the
+contract you just used. You can download a single ``License``, a
+``License Bundle`` containing all selected licenses in one ZIP file, or
+a ``Software + License Bundle`` containing the correct THOR version
+together with your license(s). To see licenses across all contracts,
+remove the filter at the top labeled ``Contract: xyz``.
 
 .. figure:: ../images/portal_licenses_overview.png
    :alt: Licenses Overview in the Portal
@@ -106,34 +103,32 @@ filter on the top which says ``Contract: xyz``.
 About License Files
 ^^^^^^^^^^^^^^^^^^^
 
-THOR processes its program folder and all sub folders in search for a
-valid license file with a ``.lic`` extension, and picks the first
-valid license it can find.
+THOR scans its program folder and all subfolders for valid ``.lic``
+files and uses the first valid license it finds.
 
-This change has been made to facilitate the rollout using the new host
-based license model.
+This behavior simplifies rollouts with the host-based license model.
 
-You can now generate licenses for a big set of systems, store all the
-licenses (e.g. ``thor-system1.lic``, ``this-system2.lic``, ``...``)
-in a sub folder called ``licenses`` and transfer the THOR program folder with
-the ``licenses`` sub folder to all the different systems, for which you have
-generated licenses and just run the ``thor64.exe`` executable. There is no
-limit on how many license files are placed in this folder.
+You can generate licenses for many systems, store them in a subfolder
+named ``licenses`` (for example ``thor-system1.lic``,
+``this-system2.lic``, ``...``), and distribute the THOR program folder
+with that subfolder to all licensed systems. On each system, you can
+then simply run ``thor64.exe``. There is no limit to the number of
+license files that can be placed in this folder.
 
-You can use this to create one thumb drive for all your systems, or have a
-network share with one version of THOR with all your licenses included.
-Another use case might be the usage of :ref:`usage/deployment:Thor Remote`,
-which requires a license for all remote systems you plan on scanning.
+This allows you to prepare one USB drive for all systems or provide a
+network share with one THOR copy that already includes all required
+licenses. Another use case is :ref:`usage/deployment:Thor Remote`,
+which requires a license for every remote system you plan to scan.
 
 License Injection via Environment
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Instead of dealing with license files, you can provide a specific license via  
-the execution environment of THOR. This is particularly useful for automation  
-purposes, such as when running THOR in a nested environment like a container.
+Instead of using license files, you can provide a specific license
+through THOR's execution environment. This is particularly useful for
+automation, for example if THOR runs inside a container.
 
-A valid license file can be stored as a **base64-encoded string** in the  
-environment variable ``THOR_LICENSE`` and used automatically by THOR.
+Use a valid license file and store its content as a **base64-encoded
+string** in the ``THOR_LICENSE`` environment variable:
 
 **Linux**
 
@@ -147,7 +142,7 @@ environment variable ``THOR_LICENSE`` and used automatically by THOR.
 
    $env:THOR_LICENSE = [Convert]::ToBase64String([System.IO.File]::ReadAllBytes("C:\path\to\thor.lic"))
 
-Once the environment variable is set, **run THOR as usual**. It will automatically detect and use the provided license.
+Then run THOR as usual.
 
 Upgrade THOR and Update The Signatures
 --------------------------------------
@@ -209,33 +204,33 @@ Linux:
    Jan 10 09:33:11 unix THOR_UTIL: Info: Downloading from: https://update1.nextron-systems.com/[...]
    Jan 10 09:33:11 unix THOR_UTIL: Info: already up-to-date
 
-It is **important** that you update THOR after you have downloaded it from
-the customer portal, since the packages do not contain the newest signature files.
-(caused by internal integrity checks)
+We strongly recommend updating THOR before running it for the first
+time, because the downloaded package or the included signatures may
+already be out of date.
 
 .. note::
-   The upgrade requires a valid license for the host that performs the update.
-   If you don't want to use a license for that host, ask us for a ``silent license``,
-   which can be used for all kinds of testing purposes and also allows to update THOR
-   and its signatures.
+   The upgrade requires a valid license for the host that performs the
+   update. If you do not want to use a regular license on that host,
+   ask us for a ``silent license``. It can be used for testing purposes
+   and also allows THOR and signature updates.
 
 Define an Antivirus / EDR Exclusion
 -----------------------------------
 
-Since THOR accesses different process memories and probes for malicious
-Mutex, Named Pipes and Event values, it is recommended to exclude THOR
-from Antivirus / EDR scanning.
+Because THOR accesses process memory and probes for suspicious mutexes,
+named pipes, and event values, we recommend excluding THOR from
+antivirus and EDR scanning.
 
-The Antivirus exclusion could also lead to a significant runtime
-reduction, since access to processes memory and files will not get
-intercepted anymore.
+Adding such exclusions can also significantly reduce runtime, because
+access to process memory and files is no longer intercepted.
 
 .. note::
-   We have seen massive runtime changes with Windows Defender since April 2021 (+50-100%).
-   It is highly recommended to exclude THOR from scanning when using Windows Defender.
+   We have seen major runtime increases with Windows Defender since
+   April 2021 (+50-100%). When using Windows Defender, we strongly
+   recommend excluding THOR from scanning.
 
-The quickest way to add an exclusion on a single system is with the following command
-(change the path in ``-ExclusionProcess`` accordingly).
+The quickest way to add an exclusion on a single system is to use the
+following command. Adjust the path in ``-ExclusionProcess`` as needed.
 
 Windows command line:
 
@@ -249,26 +244,30 @@ PowerShell:
 
    PS C:\Users\nextron> Add-MpPreference -ExclusionProcess 'c:\temp\thor\thor64.exe'
 
-For more information, visit `Microsoft <https://learn.microsoft.com/en-us/defender-endpoint/configure-process-opened-file-exclusions-microsoft-defender-antivirus?view=o365-worldwide>`__.
+For more information, see
+`the Microsoft documentation <https://learn.microsoft.com/en-us/defender-endpoint/configure-process-opened-file-exclusions-microsoft-defender-antivirus?view=o365-worldwide>`__.
 
 A Note on SentinelOne
 ^^^^^^^^^^^^^^^^^^^^^
 
-The process memory of systems running SentinelOne is polluted with suspicious strings.
-The most prevalent false positive is related to the keyword "ReflectiveLoader",
-but any other rule can match as well.
+On systems running SentinelOne, process memory may contain suspicious
+strings introduced by the product itself. The most common false
+positive is related to the keyword ``ReflectiveLoader``, but other
+rules may also match.
 
-It is unclear what SentinelOne does to the process memory of many system processes.
-We cannot exclude these signatures from the scan. Be aware that the results from
-the "ProcessCheck" module on a system running SentinelOne can contain many false positives.
+It is unclear how SentinelOne modifies the memory of many system
+processes. We cannot generally exclude these signatures from the scan.
+Be aware that results from the ``ProcessCheck`` module on a system
+running SentinelOne may contain many false positives.
 
 A Note on McAfee
 ^^^^^^^^^^^^^^^^
 
-It is not an easy task to define exclusions for THOR in all the different services
-when running McAfee products. You have to exclude the process in different sections
-(AV, EDR, On-Access). We've compiled a list of exclusions for our ASGARD customers,
-which you can find `here <https://asgard-manual.nextron-systems.com/en/latest/requirements/av_edr.html#mcafee-edr-exclusions>`__.
+Defining THOR exclusions across all relevant McAfee services is not
+straightforward. You need to exclude the process in multiple sections
+(AV, EDR, On-Access). We have compiled a list of recommended
+exclusions, which you can find
+`here <https://asgard-manual.nextron-systems.com/en/latest/requirements/av_edr.html#mcafee-edr-exclusions>`__.
 
 Grant Full Disk Access on macOS
 -------------------------------
@@ -479,5 +478,4 @@ Example Linux:
 
    user@unix:~/thor$ openssl sha256 -verify codesign.pem -signature thor-linux.sig thor-linux
    Verified OK
-
 
