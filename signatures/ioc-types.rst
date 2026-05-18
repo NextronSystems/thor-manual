@@ -3,7 +3,7 @@
 .. this is for the formatting of the IOC types table
 .. raw:: html
 
-   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
    <script>
    $(document).ready(function() {
    $("p").filter(function() {return $(this).text() === "Yes";}).parent().addClass('yes');
@@ -18,45 +18,52 @@
 IOC Types
 =========
 
-IOCs are indicators of compromise that are applied during a scan.
-They are categorized based on their :ref:`signatures/ioc-types:IOC types`, and can be specified
-as either :ref:`signatures/ioc-formats:YAML IOC files` or  :ref:`signatures/ioc-formats:Simple IOC files (deprecated)`.
+IOCs are indicators of compromise that are applied during a scan. They
+are grouped by type and can be specified as either
+:ref:`signatures/ioc-formats:YAML IOC files` or
+:ref:`signatures/ioc-formats:Simple IOC files (deprecated)`.
 
-All IOCs are text based and can either be regular expressions or plain strings. Furthermore, each IOC has:
+All IOCs are text-based and can either be regular expressions or plain
+strings. In addition, each IOC has:
 
  - A score which determines the severity of a match
  - A title that is used to identify this IOC
  - A description that may give additional information to an analyst
  - (Optional) A reference to additional information about the IOC's source
- - (Optional) false positive filters to exclude legitimate
+ - (Optional) False positive filters to exclude legitimate
    anomalies where the IOC would match otherwise.
 
 .. hint::
-   You can find IOC examples in the directory ``custom-signatures/iocs/templates``
-   of THOR. This should help you to create your own IOC files.
+   You can find IOC examples in the
+   ``custom-signatures/iocs/templates`` directory in THOR. These
+   examples can help you create your own IOC files.
 
-THOR supports different types of IOCs. An IOC's type determines on which data it is
-applied during the scan, see below.
+THOR supports several IOC types. An IOC's type determines which data it
+is applied to during a scan.
 
 Hashes
 ------
 
-Hash IOC must be MD5, SHA1, SHA256, or PE import hashes. They are applied to: 
+Hash IOCs must be MD5, SHA1, SHA256, or PE import hashes. They are
+applied to:
 
- - the hashes of all files that THOR scans
- - Hashes in the Amcache that THOR finds
+ - Hashes of all files scanned by THOR
+ - Hashes found by THOR in the Amcache
 
-Hash IOCs are always applied case insensitively and regex hash IOCs are not supported.
+Hash IOCs are always matched case-insensitively. Regex-based hash IOCs
+are not supported.
 
 File Names
 ----------
 
-Filename IOC files allow you to define IOCs based on filename and filepath.
+Filename IOCs allow you to define indicators based on file name and
+file path.
 
-This can also be used to define false positives, or reduce the
-score of well-known files and locations, by using negative scores.
+They can also be used to define false positives or reduce the score of
+well-known files and locations by using negative scores.
 
-Filename IOCs are applied to _all_ fields of all objects that THOR encounters.
+Filename IOCs are applied to *all* fields of all objects that THOR
+encounters.
 
 Keywords (deprecated)
 ---------------------
@@ -65,16 +72,17 @@ Keywords (deprecated)
    Keyword IOCs are deprecated. If you use keyword IOCs, consider switching to
    either keyword YARA rules or Sigma rules.
 
-Keyword IOCs are applied to all objects; more specifically, to text formatted objects
-as they are printed when using ``--log-object``.
+Keyword IOCs are applied to all objects, more specifically to the
+text-formatted objects that are printed when using ``--log-object``.
 
-One use case would be to have different strings which you encountered in Scheduled Tasks
-within Windows.
+One use case is matching strings that you encountered in Windows
+scheduled tasks.
 
 Domains
 -------
 
-Domain IOCs (also called C2 IOCs) specify remote servers which are known to be malicious.
+Domain IOCs, also called C2 IOCs, specify remote servers that are known
+to be malicious.
 This can include:
 
  - Domain names
@@ -87,8 +95,8 @@ These IOCs are applied to:
  - Web page visits and downloads
  - Firewall rules
  - Hosts file entries
- - the connections of examined processes
- - Auditlog / Journald / Windows Eventlog entries
+ - Connections of examined processes
+ - Auditlog / Journald / Windows Event Log entries
  - Log lines
 
 With ``--c2-memory-analysis``, they are also applied to process memory.
@@ -98,19 +106,21 @@ Mutexes or Events
 
 Mutex or Event IOCs are applied to:
 
- - encountered mutexes / events
- - process handles
+ - Encountered mutexes and events
+ - Process handles
 
-You can decide if you want to set a scope by using ``Global\\``
-or ``BaseNamedObjects\\`` as a prefix. If you decide to use none, your expression
-will be applied to any scope.
+You can set a scope by using ``Global\\`` or ``BaseNamedObjects\\`` as
+a prefix. If you do not specify a prefix, the expression is applied to
+all scopes.
 
-Unlike most other IOCs, which check for "contains", plain text mutex or event IOCs are applied as "equals".
+Unlike most other IOCs, which use a "contains" match, plain-text mutex
+or event IOCs are matched as "equals".
 
 Named Pipes
 -----------
 
-Named Pipe IOCs are applied to Windows Named Pipes. The ``\\\\.\\pipe\\``
-prefix should not be part of the IOC.
+Named Pipe IOCs are applied to Windows named pipes. The
+``\\\\.\\pipe\\`` prefix should not be part of the IOC.
 
-Unlike most other IOCs, which check for "contains", plain text named pipe IOCs are applied as "equals".
+Unlike most other IOCs, which use a "contains" match, plain-text named
+pipe IOCs are matched as "equals".
