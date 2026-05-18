@@ -3,19 +3,20 @@
 Most Frequent Causes of Failed Scans
 ------------------------------------
 
-The following examples are the most frequent causes of a failed scan.
+The following are the most frequent causes of failed scans.
 
 External Processes Terminating THOR
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Whenever THOR dies without any traceback or panic message and no error
-message in the log file, an external process terminated the THOR process.
+If THOR terminates without a traceback, panic message, or error message
+in the log file, an external process most likely terminated it.
 
-Usually the four following sources are responsible (descending order, by frequency):
+The following four sources are usually responsible (in descending order
+of frequency):
 
 1. Antivirus or EDR killed the THOR process
 2. A user killed the THOR process
-3. A management solution that noticed a high CPU load caused by the THOR process killed it
+3. A management solution terminated the THOR process after detecting high CPU load
 4. Attackers killed the THOR process
 
 .. note::
@@ -25,8 +26,8 @@ Usually the four following sources are responsible (descending order, by frequen
 Insufficient Free Memory
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
-If the system you are trying to scan runs out of free memory, you will
-encounter the following message in your scan log:
+If the system you are scanning runs out of free memory, you will see
+the following message in the scan log:
 
 .. code-block:: none
 
@@ -35,31 +36,35 @@ encounter the following message in your scan log:
 Probable causes:
 
 1. Other processes consume a lot of memory
-2. THOR's scanning of certain elements requires a lot of memory
+2. THOR needs a lot of memory to scan certain elements
 3. You've set ulimit values that are too restrictive
 4. You are using the wrong THOR version for your architecture
-5. You've activated a feature that consumes a lot of memory (e.g. ``--mft-analysis`` or ``--deep``)
+5. You enabled a feature that consumes a lot of memory (for example ``--mft-analysis`` or ``--deep``)
 
-Whenever THOR recognizes a low amount of free memory, it checks the
-top three memory consumers on the system and includes them in the log message,
-before exiting the scan.
+If THOR detects that free memory is running low, it checks the top three
+memory-consuming processes on the system and includes them in the log
+message before exiting the scan.
 
-You could try running THOR in Soft Mode (``--soft``), which will deactivate
+You can try running THOR in Soft Mode (``--soft``), which disables
 modules and features that require a lot of memory.
 
-Using the 32bit binary of THOR named ``thor.exe`` on a 64bit system
-can lead to interrupted scans with the above error message. The 32bit binary
-is not able to address as much memory as the 64bit version. Always make
-sure to use the correct THOR version for the respective architecture.
+Using the 32-bit THOR binary ``thor.exe`` on a 64-bit system can cause
+scans to abort with the error message shown above. The 32-bit binary
+cannot address as much memory as the 64-bit version. Always make sure
+to use the correct THOR binary for the respective architecture.
 
-Several ``ulimits`` might cause THOR to terminate if they are too restrictive, including:
+Several ``ulimits`` can cause THOR to terminate if they are too
+restrictive, including:
 
 * locked-in-memory size
 * address space
 * number of open file descriptors
 * maximum data size
 
-If you are certain your machine has sufficient RAM, check your ulimits with ``ulimit -a``
-and try to rerun the scan with increased limits, if necessary.
-The `man page <https://www.man7.org/linux/man-pages/man5/limits.conf.5.html>`_ for the ulimits
-configuration size gives a full overview over the limits and how to persistently modify them.
+If you are certain that the machine has sufficient RAM, check the
+current limits with ``ulimit -a`` and rerun the scan with increased
+limits if necessary.
+
+The `limits.conf man page <https://www.man7.org/linux/man-pages/man5/limits.conf.5.html>`_
+provides a full overview of these limits and explains how to modify
+them persistently.
