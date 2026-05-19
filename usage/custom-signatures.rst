@@ -2,25 +2,23 @@ Custom Signatures
 =================
 
 THOR checks the contents of the ``./custom-signatures`` folder and
-processes every file in this folder. The file extension determines the type
-of signature (e.g. a simple IOC file, a YARA rule or a Sigma rule).
-For some signature types, string tags in the file names are used to
-further distinguish the signatures.
+processes every file in this folder. The file extension determines the
+signature type, for example a simple IOC file, a YARA rule, or a Sigma
+rule. For some signature types, string tags in the filename are used to
+distinguish them further.
 
-For example, a file named ``my-c2-iocs.txt`` will be
-initialized as a file containing simple IOC indicators with
-C2 server information.
+For example, a file named ``my-c2-iocs.txt`` is initialized as a file
+containing simple IOC indicators with C2 server information.
 
-Internally the regex ``\Wc2\W`` is used to detect the
-tag, so ``mysource-c2-iocs.txt`` and
-``dec15-batch1-c2-indicators.txt`` would be detected correctly,
-whereas ``filenameiocs.txt`` or ``myc2iocs.txt`` would
-not be detected.
+Internally, the regex ``\Wc2\W`` is used to detect the tag, so
+``mysource-c2-iocs.txt`` and ``dec15-batch1-c2-indicators.txt`` are
+detected correctly, whereas ``filenameiocs.txt`` or ``myc2iocs.txt``
+are not.
 
-If you do not wish to place your custom IOCs on potentially compromised systems
-during an engagements, you can use thor-util to encrypting custom signatures.
-This is described in detail in the
-`THOR Util manual <https://thor-util-manual.nextron-systems.com>`_
+If you do not want to place custom IOCs on potentially compromised
+systems during an engagement, you can use ``thor-util`` to encrypt
+custom signatures. This is described in detail in the
+`THOR Util manual <https://thor-util-manual.nextron-systems.com>`__.
 
 .. this is for the formatting of the Feature/Module lists.
 .. raw:: html
@@ -40,9 +38,9 @@ This is described in detail in the
 Simple IOCs
 -----------
 
-Simple IOC files are basically CSV files that include the IOC and
-comments. Simple IOC files must have the extension ``.txt``.
-encrypted simple IOC files must have the extension ``.dat``.
+Simple IOC files are essentially CSV files that include the IOC and
+comments. Simple IOC files must use the ``.txt`` extension. Encrypted
+simple IOC files must use the ``.dat`` extension.
 
 The following tags for simple IOCs are currently supported:
 
