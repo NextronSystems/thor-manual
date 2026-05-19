@@ -15,9 +15,11 @@ template files in a single scan run.
 Default Template
 ^^^^^^^^^^^^^^^^
 
-By default, THOR applies only the file named ``thor.yml`` in the
+THOR always applies the default file named ``thor.yml`` in the
 ``./config`` subfolder. Additional config files can be applied with the
-``-t`` command-line parameter.
+``-t`` command-line parameter. If the same option is set in both
+``thor.yml`` and a custom template, the value from ``thor.yml`` always
+takes precedence.
 
 Apply Custom Scan Templates
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
