@@ -1,17 +1,18 @@
 Deployment
 ==========
 
-This chapter lists different ways to deploy THOR in an environment. Most
-of these methods are OS specific.
+This chapter describes different ways to deploy THOR in an environment.
+Most of these methods are OS-specific.
 
 Licensing
 ---------
 
-In almost any method of deployment, the provision of valid licenses for the scanners on the endpoints is a core issue.
-Every license is limited to one host (name) only. In any case, a valid license has to be generated before a scan, otherwise
-THOR will exit immediately.
+In almost every deployment method, providing valid licenses for the
+scanners on the endpoints is a core requirement. Each license is tied
+to a single host name. A valid license must be available before a scan
+starts; otherwise, THOR exits immediately.
 
-There are numerous options to retrieve a valid license for a host.
+There are several ways to retrieve a valid license for a host.
 
 With ASGARD:
 
@@ -21,13 +22,14 @@ With ASGARD:
 * use THOR's ``--asgard`` and ``--asgard-token`` parameters to retrieve a license
 * use ASGARD's API to retrieve a license manually
 
-Without ASGARD: 
+Without ASGARD:
 
 * generate a license in the web GUI of the `customer portal <https://portal.nextron-systems.com>`__
 * use THOR's ``--portal-key`` and ``--portal-contracts`` parameters to retrieve a license from the customer portal
 * use the Customer Portal's API to retrieve a license manually
 
-Some of the options are described in more detail in the following two chapters.
+Some of these options are described in more detail in the following
+sections.
 
 Retrieve Valid License From ASGARD
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -35,19 +37,21 @@ Retrieve Valid License From ASGARD
 Use THOR's ``--asgard`` and ``--asgard-token`` parameters
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-In ASGARD 2.5+ you're able to configure a download token to limit the download of
-THOR packages and licenses to clients with knowledge of this token. The token is
-a protection that no one without knowledge of that token can intentionally exceed
-your license quota limit or retrieve a THOR package without authorization.
+In ASGARD 2.5 and later, you can configure a download token to limit
+THOR package and license downloads to clients that know this token. It
+helps prevent unauthorized package retrieval and unintended overuse of
+your license quota.
 
-The download token can be configured in the ``Downloads`` section of you ASGARD server.
+The download token can be configured in the ``Downloads`` section of
+your ASGARD server.
 
 .. figure:: ../images/download-token.png
    :alt: Downloads > Download Token Configuration
 
    Downloads > Download Token Configuration
 
-You can retrieve an appropriate THOR license at the scan start using the built-in ``--asgard`` and ``--asgard-token`` parameters.
+You can retrieve an appropriate THOR license at scan start using the
+built-in ``--asgard`` and ``--asgard-token`` parameters.
 
 .. code-block:: doscon 
 
@@ -57,7 +61,8 @@ You can retrieve an appropriate THOR license at the scan start using the built-i
 
    C:\temp\thor>thor64.exe --asgard my-asgard.internal --asgard-token OCU92GW1CyOJLzaHkGrim1v2O0_ZkHPu0A
 
-If everything works as expected, you'll see an INFO level message in the output that looks like: 
+If everything works as expected, you will see an INFO-level message in
+the output similar to the following:
 
 .. code-block:: batch 
 
@@ -66,25 +71,26 @@ If everything works as expected, you'll see an INFO level message in the output 
 Use ASGARD's API to retrieve a license manually
 """""""""""""""""""""""""""""""""""""""""""""""
 
-You can also script the license retrieval from a local ASGARD server by using the API. The help
-box in ASGARD's ``Licensing > Generate License`` section shows curl requests that can be used
-to retrieve licenses from your ASGARD server.
+You can also automate license retrieval from a local ASGARD server by
+using the API. The help box in ASGARD's ``Licensing > Generate
+License`` section shows ``curl`` requests that can be used to retrieve
+licenses from your ASGARD server.
 
 .. figure:: ../images/asgard-license-gen.png
    :alt: Licensing > Generate Licenses
 
    Licensing > Generate Licenses
 
-All you need is: 
+All you need is:
 
 * Hostname 
 * System Type (``server`` or ``workstation``)
 
 .. hint:: 
-   Linux is always using the ``server`` license type
+   Linux always uses the ``server`` license type.
 
-If there is uncertainty it's recommended to generate ``server`` type licenses which are
-more expensive but run on both system types.
+If there is uncertainty, it is safer to generate ``server`` licenses.
+They are more expensive but work on both system types.
 
 For example: To retrieve a valid license for the servers named ``SRV001`` and ``SRV002``
 you can use the following command:

@@ -1,11 +1,11 @@
 THOR Scanner User Manual
 ========================
 
-In this manual you can find all the information regarding
-THOR. This version of the manual focuses on our stable version
-of THOR, which is version **10.7**. If you are looking for
-information on older versions, like **10.6**, you can have
-a look `here <https://thor-manual.nextron-systems.com/en/v10.6/>`_.
+This manual provides information about THOR.
+
+This version of the manual focuses on the stable ``10.7`` release. If
+you are looking for information about older versions such as ``10.6``,
+see the `THOR 10.6 manual <https://thor-manual.nextron-systems.com/en/v10.6/>`_.
 
 .. toctree::
    :maxdepth: 2
@@ -33,7 +33,7 @@ a look `here <https://thor-manual.nextron-systems.com/en/v10.6/>`_.
    usage/links-and-references
    changelog/log
 
-Indices and tables
+Indices and Tables
 ==================
 
 * :ref:`search`

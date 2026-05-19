@@ -1,7 +1,7 @@
 Changelog
 #########
 
-In this chapter you can find all the changes for THOR 10.7
+This chapter lists the changes for THOR 10.7.
 
 THOR 10.7.30
 ~~~~~~~~~~~~

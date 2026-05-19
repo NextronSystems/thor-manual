@@ -1,7 +1,8 @@
 Command Line Options
 ====================
 
-This section lists all options that THOR currently offers.
+This section lists the command-line options currently available in
+THOR.
 
 Scan Options
 ----------------------------------------------------------------------
@@ -342,4 +343,3 @@ Debugging and Info
       -h, --help                    Show help for most important options and exit
       --fullhelp                Show help for all options and exit
       --completions string      Generate shell completions for the specified shell (bash, zsh, fish, powershell)
-

@@ -2,4 +2,5 @@
 Known Issues
 ============
 
-Please visit our `Knowledge Base <https://knowledge.nextron-systems.com>`__ for known issues and workarounds.
+For known issues and available workarounds, see our
+`Knowledge Base <https://knowledge.nextron-systems.com>`__.

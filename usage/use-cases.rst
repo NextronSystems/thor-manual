@@ -2,53 +2,52 @@
 Use Cases
 =========
 
-This chapter contains use cases that users often asked for.
+This chapter contains common THOR use cases.
 
 Disk Image Analysis
 -------------------
 
 .. hint:: 
-  A lot of functions in this chapter require a **forensic lab**
-  or **lab** license. This license is geared towards forensic
-  experts. Forensic Lab Licenses are a special license type
-  with more functionality.
+  Many functions in this chapter require a **forensic lab** or
+  **lab** license. This license type is designed for forensic use cases
+  and includes additional functionality.
 
-THOR, as a scanner, does not mount disk images to a certain drive
-on your forensic workstation. You have to use 3rd party tools for
-that task. Please see :ref:`usage/use-cases:arsenal image mounter (aim)`
-and :ref:`usage/use-cases:ftkimager` for Windows or :ref:`usage/use-cases:dissect`
-for Linux to get an overview of potential tools to use. Other tools
-should also work.
+THOR does not mount disk images to a drive letter or mount point on
+your forensic workstation. You need to use third-party tools for that
+task. See :ref:`usage/use-cases:arsenal image mounter (aim)` and
+:ref:`usage/use-cases:ftkimager` for Windows, or
+:ref:`usage/use-cases:dissect` for Linux, for examples of suitable
+tools. Other tools may also work.
 
-First, you mount the image to a certain drive/path with your preferred tool.
-Afterwards you can use THOR in the lab scanning mode to analyze the
-mounted image.
+First, mount the image to a drive or path with your preferred tool.
+Afterward, use THOR in lab scanning mode to analyze the mounted image.
 
-The following example shows a recommended set of parameters, scanning
-a mounted image of a host named ``WKS0001`` on drive ``S:\`` of
-your forensic Windows workstation. 
+The following example shows a recommended set of parameters for
+scanning a mounted image of a host named ``WKS0001`` on drive ``S:\``
+of your forensic Windows workstation.
 
 .. code-block:: doscon
 
   C:\thor>thor64.exe --lab --virtual-map S:C -j WKS0001 -p S:\
 
-The following example shows the same parameters for a Linux forensic
-workstation. The drive is mounted to ``/mnt/image/fs/sysvol/``.
+The following example shows the same parameters on a Linux forensic
+workstation. The image is mounted at ``/mnt/image/fs/sysvol/``.
 
 .. code-block:: console
 
   nextron@unix:~/thor$ ./thor-linux-64 --lab --virtual-map /mnt/image/fs/sysvol/:C -j WKS0001 -p /mnt/image/fs/sysvol/ 
 
-The ``--lab`` parameter will apply several internal flags (e.g. enables
-intense mode to scan every file, enables multi-threading, disables
-resource control, removes all limitations). The ``--virtual-map``
-parameter maps every file found in elements of that image to the
-original drive letter and allows the message enrichment to work
-correctly. The ``-j HOSTNAME`` parameter can be used to write every
-log line with the hostname of the original system and not with that
-of the forensic workstation.
+The ``--lab`` parameter applies several internal flags, for example it
+enables intense mode for scanning every file, enables multi-threading,
+disables resource control, and removes several limitations. The
+``--virtual-map`` parameter maps files found in the image back to the
+original drive letter so that message enrichment works correctly. The
+``-j HOSTNAME`` parameter can be used to write each log line with the
+hostname of the original system instead of the hostname of the forensic
+workstation.
 
-You find more information on the scan parameters in the chapter :ref:`usage/special-scan-modes:lab scanning`.
+More information about these scan parameters can be found in
+:ref:`usage/special-scan-modes:lab scanning`.
 
 .. hint::
   This `blog post <https://thinkdfir.com/2021/06/03/you-want-me-to-deal-with-how-many-vmdks/>`__
@@ -59,9 +58,9 @@ Arsenal Image Mounter (AIM)
 
 We recommend using `Arsenal Image Mounter <https://arsenalrecon.com/products/arsenal-image-mounter>`_.
 
-In case you plan to use an automated setup in which you use scripts
-to automatically process images, you could try to use the command-line
-of AIM, please see the ``aim_cli.exe`` within the program folder for more help.
+If you plan to automate image processing with scripts, you can also use
+the AIM command-line interface. See ``aim_cli.exe`` in the program
+folder for details.
 
 FTKImager
 ^^^^^^^^^
@@ -76,10 +75,10 @@ to mount your image.
 Dissect
 ^^^^^^^
 
-Dissect is an incident response framework build from various parsers and implementations
-of file formats. Tying this all together, Dissect allows you to work with tools named
-``target-query`` and ``target-shell`` to quickly gain access to forensic artefacts,
-such as Runkeys, Prefetch files, and Windows Event Logs, just to name a few!
+Dissect is an incident response framework built from a collection of
+parsers and file-format implementations. It provides tools such as
+``target-query`` and ``target-shell`` to access forensic artifacts
+quickly, including run keys, prefetch files, and Windows event logs.
 
 You can find the tool here:
 https://github.com/fox-it/dissect
@@ -272,4 +271,3 @@ If you use ASGARD to launch THOR the user performing the scan is ``NT AUTHORITY\
 
 The usage of diff and lookback are generally not recommended, but can be used if your fileshare scan does not finish in the timeframe you desire.
 Another option is to use multiple dedicated systems to run scans on the fileserver shares in parallel.
-

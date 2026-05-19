@@ -4,19 +4,19 @@
 Requirements
 ============
 
-THOR runs in any Windows, Linux and macOS environment without any
-further requirements. Everything needed is already included in the
-program package.
+THOR runs on supported Windows, Linux, macOS, and AIX systems without
+additional runtime requirements. Everything needed is already included
+in the program package.
 
-To use the full potential of THOR, you should execute it with administrative
-privileges - ``LOCAL_SYSTEM`` on Windows and ``root`` on Linux/macOS
+For full scan coverage, run THOR with administrative privileges:
+``LOCAL_SYSTEM`` on Windows and ``root`` on Linux, macOS, and AIX
 systems.
 
 Operating Systems
 -----------------
 
-The following operating systems and their versions are the **minimum
-requirements** to run THOR. Any newer version will also work with THOR.
+The following operating systems and versions are the **minimum
+requirements** to run THOR. Newer versions are also expected to work.
 
 .. list-table:: 
   :widths: 23 31 23 23
@@ -45,18 +45,18 @@ requirements** to run THOR. Any newer version will also work with THOR.
 
 .. hint::
    A minimum Linux kernel version of ``2.6.32`` is required to run THOR.
-   Linux operating systems older than those listed above might work, but are not
-   tested by us anymore, so support cannot be guaranteed. In any case,
-   verifying the kernel version before running THOR is recommended.
+   Linux operating systems older than those listed above might still
+   work, but we no longer test them, so support cannot be guaranteed.
+   In any case, verify the kernel version before running THOR.
 
 Legacy Systems
 ^^^^^^^^^^^^^^
 
-These versions can be scanned with a valid ``THOR Legacy`` license and a
-special ``THOR Legacy`` version. The legacy version of THOR is usually
-running on those systems, but if you encounter any problems, we will
-not be able to fix them. Contact us for details on how to download and
-use ``THOR Legacy``. any problems, we will not be able to fix them.
+These versions can be scanned with a valid ``THOR Legacy`` license and
+a dedicated ``THOR Legacy`` version. These systems receive only limited
+support. If you encounter problems on these outdated platforms, we may
+not be able to provide a fix. Contact us for details on how to obtain
+and use ``THOR Legacy``.
 
 .. list-table:: 
   :widths: 50, 25, 25
@@ -64,34 +64,34 @@ use ``THOR Legacy``. any problems, we will not be able to fix them.
 
   * - OS
     - Architecture
-    - Support
+    - Status
   * - Windows Server 2008
     - x86 and x64
-    - yes
+    - Limited support
   * - Windows Server 2003 SP2
     - x86 and x64
-    - limited
+    - Limited support
   * - Windows Server 2003 SP1
     - x86 and x64
-    - limited
+    - Limited support
   * - Windows Server 2003
     - x86 and x64
-    - limited
+    - Limited support
   * - Windows XP SP3
     - x86 and x64
-    - limited
+    - Limited support
   * - Windows XP SP2
     - x86 and x64
-    - limited
+    - Limited support
 
 Unsupported
 ^^^^^^^^^^^
 
-* VMWare ESX - see https://knowledge.broadcom.com/external/article?legacyId=1036544
-* many others 
+* VMware ESX - see `Broadcom knowledge base article 1036544 <https://knowledge.broadcom.com/external/article?legacyId=1036544>`__
+* Other unsupported platforms and architectures may require a different collection and analysis approach
 
-If you need to perform an analysis on unsupported operating systems or architectures, contact us
-for a solution using `THOR Thunderstorm <https://www.nextron-systems.com/thor-thunderstorm/>`__
+If you need to analyze unsupported operating systems or architectures,
+contact us for a solution using `THOR Thunderstorm <https://www.nextron-systems.com/thor-thunderstorm/>`__
 and `Thunderstorm collectors <https://github.com/NextronSystems/thunderstorm-collector>`__.
 
 Some of our customers have a productive setup which uses Thunderstorm
@@ -105,14 +105,16 @@ to collect/analyze files from the following systems:
 Update Servers
 --------------
 
-To download the newest updates for THOR and our signatures, you need an active internet connection.
-The endpoint performing the update needs to reach our update servers to do this.
+To download the latest updates for THOR and our signatures, you need an
+active internet connection. The endpoint performing the update must be
+able to reach our update servers.
 
 For a detailed and up to date list of our update and licensing
 servers, please visit `our knowledge base <https://knowledge.nextron-systems.com/general/hosts-ip-addresses>`__.
 
 .. hint::
-  You do not need an active internet connection to scan an endpoint. This is only needed
-  if you want to update to the latest THOR and signature versions. There are special
-  licenses for special circumstances, for example when the licensed system does not
-  have internet access, and you need to use another system to download updates.
+  You do not need an active internet connection to scan an endpoint.
+  Internet access is only required to update THOR and the signature
+  databases. Special license arrangements are available for
+  circumstances in which the licensed system does not have internet
+  access and another system must be used to download updates.
