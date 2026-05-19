@@ -1,36 +1,35 @@
 Special Scan Modes
 ==================
 
-This section describes special purpose scan modes that
-change THOR's mode of operation or activate particular
-features. Some of these modes need a special license
-which is highlighted in the ``note`` box. If you have
-any questions regarding pricing of those licenses,
-please contact our sales department at sales@nextron-systems.com
+This section describes special-purpose scan modes that change THOR's
+mode of operation or activate specific features. Some of these modes
+require a special license, which is highlighted in the relevant notes.
+If you have questions about those licenses, please contact our sales
+department at sales@nextron-systems.com.
 
 Lab Scanning
 ------------
 
-Lab scanning mode that is activated with ``--lab`` (formerly
-``--fsonly``). It is used to scan mounted forensic images or a single
-directory on a forensic workstation. All resource control functions are
-disabled and intense mode is activated by default.
+Lab scanning mode is activated with ``--lab`` (formerly ``--fsonly``).
+It is used to scan mounted forensic images or a single directory on a
+forensic workstation. All resource control functions are disabled, and
+intense mode is activated by default.
 
-The ``--lab`` parameter automatically activates the following other
-options:
+The ``--lab`` parameter automatically activates the following options:
 
 * Enable intense mode, which causes several changes:
 
-  * scan every file intensively regardless of its extension or magic header
-  * Use ``--max_file_size_intense`` (200MB by default) instead of ``--max_file_size``
+  * Scan every file intensively regardless of extension or magic header
+  * Use ``--max_file_size_intense`` (200 MB by default) instead of ``--max_file_size``
   * Set ``--max-reasons`` to unlimited
   * Reduce ``--minimum-sigma-level`` to medium
-  * Set ``--nosoft`` (do not automatically activate soft mode on systems with single core CPUs or low memory)
-* norescontrol (do not limit system resources or interrupt scan on low memory)
-* nodoublecheck (do not check for other THOR instances on the same system and do not interrupt scan if another instance has been found)
-* multi-threading (it automatically sets the number of threads to use to the number of CPU cores found on the workstation)
+  * Set ``--nosoft`` so that soft mode is not activated automatically on systems with a single CPU core or low memory
+* ``--norescontrol`` (do not limit system resources or interrupt the scan on low memory)
+* ``--nodoublecheck`` (do not check for other THOR instances on the same system)
+* Multi-threading (THOR automatically sets the number of threads to the number of CPU cores found on the workstation)
 
-The chapter :ref:`usage/use-cases:use cases` contains some use cases in which this scan mode is used. You may find the guides useful. 
+The chapter :ref:`usage/use-cases:use cases` contains practical use
+cases that make use of this scan mode.
 
 .. note::
 
@@ -43,12 +42,14 @@ The chapter :ref:`usage/use-cases:use cases` contains some use cases in which th
 Forensic Lab License
 ^^^^^^^^^^^^^^^^^^^^
 
-The scanning of mounted disk images, memory images, or network shares is a use case that we call **lab scanning**.
-It requires a `forensic lab license <https://www.nextron-systems.com/2020/11/11/thor-forensic-lab-license-features/>`__ 
-which is meant to be used in corporate digital forensic labs.
+The scanning of mounted disk images, memory images, or network shares
+is a use case that we refer to as **lab scanning**. It requires a
+`forensic lab license <https://www.nextron-systems.com/2020/11/11/thor-forensic-lab-license-features/>`__
+that is intended for corporate digital forensic labs.
 
-All other license types are meant for other use cases. (usually live system scanning).
-You can get a similar but not an equally thorough scan using the following command line flags 
+All other license types are intended for different use cases, usually
+live system scanning. You can achieve a similar, but not equally
+thorough, scan with the following command-line flags:
 
 .. code-block:: doscon 
 
@@ -58,14 +59,15 @@ Without a valid lab license, you cannot use multiple instances of THOR on a sing
 The features mentioned in the following sub chapters
 are also limited to a lab license.
 
-`This article <https://www.nextron-systems.com/2020/11/11/thor-forensic-lab-license-features/>`__ explains that advantages of a lab licenses.
+`This article <https://www.nextron-systems.com/2020/11/11/thor-forensic-lab-license-features/>`__
+explains the advantages of a lab license.
 
 Virtual Drive Mapping
 ^^^^^^^^^^^^^^^^^^^^^
 
-Since THOR enriches messages with more details, it could be problematic
-to scan a mounted drive “s:”, which has originally been a partition “c:”
-on the source system of the image.
+Because THOR enriches messages with additional details, it can be
+problematic to scan a mounted drive such as ``S:`` if it originally was
+partition ``C:`` on the source system.
 
 E.g. The analyst has mounted a partition "C:" from a source system to
 drive "F:" on the forensic lab workstation. A SHIMCache entry points to
