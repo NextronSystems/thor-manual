@@ -1,31 +1,32 @@
 
-Output Options 
+Output Options
 ==============
 
 Scan Output
 -----------
 
-THOR creates several files during and at the end of the scan.
+THOR creates several output files during the scan and after it
+finishes.
 
-* **Real Time**
-  
-  * the text log file is written during the scan process.
-    Also the SYSLOG output is sent in real-time to one or more remote
+* **Real time**
+
+  * The text log file is written during the scan.
+  * Syslog output is also sent in real time to one or more remote
     systems.
 
 * **End of Scan**
 
-  * the full HTML report and CSV file with all file scan
-    elements reported as suspicious are written at the end of the scan.
+  * The full HTML report and the CSV file with suspicious file scan
+    results are written at the end of the scan.
 
-You can define different formatting options for each the FILE and the
-SYSLOG output.
+You can define different formatting options for both file-based output
+and syslog output.
 
 Placeholders
 ^^^^^^^^^^^^
 
-Two placeholders can be used in command line parameters to facilitate
-the use of parameter on different operating systems.
+Two placeholders can be used in command-line parameters to make them
+easier to use across different operating systems.
 
 * \:hostname\:
 * \:time\:
@@ -56,9 +57,9 @@ way it can easily be imported to most SIEM or log analysis systems.
 CSV Output (.csv)
 ^^^^^^^^^^^^^^^^^
 
-The CSV output is an optional legacy output file without much details.
-It contains only “Filescan” module findings and consist of 3 columns,
-file hash, file path and score.
+The CSV output is an optional legacy format with limited detail. It
+contains only ``Filescan`` module findings and consists of three
+columns: file hash, file path, and score.
 
 CSV File Output:
 
@@ -72,9 +73,9 @@ column.
 
 If you need more columns in that CSV, consider processing the JSON
 output instead. To do this, you can use ``thor-util`` to convert
-logs from one format to the other:
+logs from one format to another:
 
-https://thor-util-manual.nextron-systems.com/en/latest/usage/log-conversion.html
+`THOR Util log conversion documentation <https://thor-util-manual.nextron-systems.com/en/latest/usage/log-conversion.html>`__
 
 CSV Stats
 ^^^^^^^^^
@@ -118,12 +119,10 @@ The JSON output file can be configured with these options:
 Key Value Output
 ^^^^^^^^^^^^^^^^
 
-THOR provides the option to create a "Key/Value" pair output that
-simplifies the SIEM integration.
+THOR can generate key/value output to simplify SIEM integration.
 
-By using the "**--keyval**" option you get the text and syslog output
-transformed as shown in the following example. The command line output
-stays untouched by this setting.
+Using the ``--keyval`` option transforms the text log and syslog output
+as shown in the following example. Command-line output is not affected.
 
 There are three different Key Value Pair Formatting flags:
 
