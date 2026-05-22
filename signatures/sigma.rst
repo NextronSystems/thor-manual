@@ -163,13 +163,21 @@ rules:
    * - ``service_name``
      - ``SERVICE_NAME``
 
-To match null/empty fields:
+To match null (nonexistent) fields:
 
 .. code-block:: yaml
 
    detection:
        selection:
            FILE: null
+
+To match empty (but existent) fields:
+
+.. code-block:: yaml
+
+   detection:
+       selection:
+           FILE: ''
 
 Detection Examples
 ******************
