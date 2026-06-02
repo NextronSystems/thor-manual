@@ -289,7 +289,7 @@ rules. These variables are:
     a ZIP archive
   * Possible values include:
 
-    * Archives: ``ZIP``, ``RAR``, ``RAR``, ``TAR``, ``TARGZ``, ``TARBZ2``, ``CAB``, ``GZIP``, ``BZIP2``, ``7ZIP``
+    * Archives: ``ZIP``, ``RAR``, ``TAR``, ``TARGZ``, ``TARBZ2``, ``CAB``, ``GZIP``, ``BZIP2``, ``7ZIP``
     * From a module: ``CHM``, ``CHUNK``, ``EMAIL``, ``ICS``, ``MACROS``, ``MFT``, ``OLE``, ``REGISTRY``, ``UNESCAPE``, ``UPX``, ``VBEDECODE``
     * From a plugin: user-defined via `Scanner.ScanFile <https://github.com/NextronSystems/thor-plugin/blob/ee8583e935f06737d5f83102e2adcd83bfad7ec6/thorplugin.go#L112>`__ from a `THOR plugin <https://github.com/NextronSystems/thor-plugin>`__.
 
@@ -351,7 +351,7 @@ YARA rule using more complex THOR-specific attributes.
 The following YARA rule shows a typical combination used in one of the
 client specific rule sets, which are integrated in THOR. The rule
 matches on ``.idx`` files that contain strings used in the Java
-Version of the VNC remote access tool. Without the enhancements made
+Version of the VNC remote access tool. Without the enhancements made,
 this wouldn't be possible as there would be no way to apply the rule
 only to a special type of extension.
 
@@ -490,7 +490,7 @@ certain malicious files. The problem is the string expression
 length. Avoid regular expressions of undefined length whenever
 possible.
 
-AlientVault APT1 Rule: yara
+AlienVault APT1 Rule: yara
 
 .. code-block:: yara
    :linenos:

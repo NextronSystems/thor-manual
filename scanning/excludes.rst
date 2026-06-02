@@ -50,7 +50,7 @@ characters must be escaped with a backslash. This applies at least to:
      - Possible solution
    * - C:\\IBM\\temp\_tools\\custom.exe
      - ``C:\\IBM\\temp_tools\\``
-   * - Log folder of the tool "hpsm" regardless on the partition
+   * - Log folder of the tool "hpsm" regardless of the partition
      - ``\\HPSM\\log\\``
    * - Every file with the extension .nsf
      - ``\.nsf$``
@@ -58,6 +58,19 @@ characters must be escaped with a backslash. This applies at least to:
      - ``\\THOR\\custom\-signatures\\``
    * - SQL database
      - ``/var/lib/mysql/``
+
+Built-in Path Excludes
+^^^^^^^^^^^^^^^^^^^^^^^
+
+By default, THOR excludes a number of paths to avoid interfering with
+the operating system or other applications.
+
+You can disable this built-in list with ``--no-builtin-path-excludes``,
+allowing THOR to scan paths that are normally skipped for
+system-stability reasons. This flag is automatically activated when
+using ``--deep`` or ``--files-all``.
+
+Paths explicitly excluded via the --exclude-path flag will still be excluded.
 
 Eventlogs
 ^^^^^^^^^
