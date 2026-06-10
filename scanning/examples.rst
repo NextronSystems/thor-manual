@@ -67,14 +67,14 @@ Mounted as Drive Z (drive C on the source system)
 
 .. code-block:: doscon
 
-  C:\thor>thor64.exe --lab -p Z:\ --path-remap Z:C
+  C:\thor>thor64.exe --lab -p Z:\ --path-remap Z:C --target-os Windows
 
 Mounted as /mnt
 ~~~~~~~~~~~~~~~
 
 .. code-block:: doscon
 
-  C:\thor>thor64.exe --lab -p /mnt --path-remap /mnt:/
+  C:\thor>thor64.exe --lab -p /mnt --path-remap /mnt:/ --target-os Linux
 
 Scan Multiple Paths
 ^^^^^^^^^^^^^^^^^^^

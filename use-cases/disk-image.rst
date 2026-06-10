@@ -32,7 +32,7 @@ workstation, where the image is mounted at
 
 .. code-block:: console
 
-  nextron@unix:~/thor$ ./thor-linux-64 --lab --path-remap /mnt/image/fs/sysvol/:C -j WKS0001 -p /mnt/image/fs/sysvol/ 
+  nextron@unix:~/thor$ ./thor-linux-64 --lab --path-remap /mnt/image/fs/sysvol/:C -j WKS0001 -p /mnt/image/fs/sysvol/  --target-os Windows
 
 The ``--lab`` parameter enables several internal flags, for example deep
 scanning of every file, multi-threading, and disabled resource control.
@@ -41,6 +41,8 @@ their original drive letter so that message enrichment works correctly.
 The ``-j HOSTNAME`` parameter makes THOR write the hostname of the
 original system to every log line instead of the hostname of the
 forensic workstation.
+The ``--target-os`` parameter causes THOR to use Windows style paths and
+the built-in heuristics and excludes for Windows.
 
 You can find more information about these scan parameters in
 :ref:`scanning/special-scan-modes:lab scanning`.
