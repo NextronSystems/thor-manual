@@ -50,7 +50,7 @@ Scan Options
 
            By default, only the system drive is scanned.
 
-           This flag is only supported on Windows; on Unix systems, all mounted local drives are scanned even without this flag.
+           This flag only affects Windows systems; on Unix systems, all mounted local drives are scanned even without this flag.
 
            Alias:
              --allhds
@@ -324,8 +324,19 @@ Scan Modes
 
            This includes disabling all CPU / memory restrictions, and scanning all files.
 
+           The file size limit is increased to 200MB, unless a custom value is specified.
+
            Alias:
              --intense
+
+
+           See also:
+             --files-all
+             --no-builtin-registry-excludes
+             --alert-reason-limit
+             --file-size-limit
+             --chunk-size
+             --sigma-threshold
 
 --delta
 
@@ -354,6 +365,7 @@ Scan Modes
 
            See also:
              --lookback-module
+             --delta
 
 --lookback-global
 
@@ -379,6 +391,9 @@ Scan Modes
 --lookback-module <module1,module2,...>
 
            Apply selective lookback filtering based on module.
+
+           Default:
+             [Eventlog]
 
            Alias:
              --lookback-modules
@@ -420,13 +435,21 @@ Scan Modes
 
            making references outdated or incorrect.
 
-           This flag dynamically remaps paths, ensuring findings reflect the original system structure.
+           This flag dynamically remaps paths, ensuring that any paths in the THOR log reflect the original system structure.
 
            The passed value must contain the original path and the new path separated by a colon.
 
            Supports absolute paths and drive letter mappings on Windows.
 
-           The original path must not contain a colon.
+           The original path must not contain a colon; the current path may do so
+
+           (e.g. if it is a Windows mount point like D:\[root]).
+
+
+           The path style is auto-detected from the original path: If it contains backslashes or a drive letter, Windows style is assumed,
+
+           otherwise Unix style is used. The style thus detected must match the OS specified by --target-os.
+
 
            Requires a Forensic Lab License.
 
@@ -436,6 +459,42 @@ Scan Modes
            Examples:
              --path-remap /mnt/image/root:/
              --path-remap F:C
+             --path-remap D:\root:C
+
+
+           See also:
+             --target-os
+
+--target-os <os>
+
+           Assume that the scanned files all originate from the specified OS.
+
+           This has multiple effects:
+             - The path separators of files are changed to \ or / depending on the OS.
+
+               This affects filename IOCs, YARA rules and other heuristics that match file paths.
+             - Built-in heuristics and excludes are loaded for the specified OS.
+
+
+           By default, the current system's native OS is used.
+
+           --target-os should usually be used in combination with --lab, --path and --path-remap to correctly scan
+
+           mounted images from other systems, and to ensure that the correct heuristics and excludes are applied.
+
+           Incorrect use of --target-os (e.g. using other modules than Filescan or without --path to scan the host system)
+
+           may lead to system instability because the host OS will be scanned, but only excludes for the target OS will be applied.
+
+           Examples:
+             --target-os Windows
+             --target-os Linux
+
+
+           See also:
+             --path-remap
+             --lab
+             --path
 
 
 Resource Options
@@ -772,7 +831,7 @@ Active Modules
 
            Perform a detailed analysis of the MFT on the system drive.
 
-           This flag is only supported on Windows and requires the system drive to be NTFS formatted.
+           This flag only affects Windows systems and requires the system drive to be NTFS formatted.
 
            Alias:
              --mft
@@ -807,6 +866,9 @@ Module Extras
 --process-dump
 
            Create memory dumps for processes flagged as suspicious or malicious, facilitating further analysis.
+
+
+           This flag only affects Windows systems.
 
            Alias:
              --dump-procs
@@ -889,6 +951,10 @@ Module Extras
            Alias:
              --allfiles
 
+
+           See also:
+             --list-deepscan-criteria
+
 --alternate-data-streams
 
            Scan alternate data streams.
@@ -970,6 +1036,12 @@ Module Extras
            See also:
              --collector
 
+--wsl
+
+           Enable scanning of Windows Subsystem for Linux (WSL) distributions and their files.
+
+           THOR will walk the filesystem of all WSL environments on Windows systems.
+
 
 Active Features
 ----------------------------------------------------------------------
@@ -1048,13 +1120,13 @@ Feature Extras
 
            Use PE-Sieve and internal heuristics to analyze running processes for anomalies such as code injection and hollowing.
 
-           This feature is only available on Windows.
+           This feature only affects Windows systems.
 
 --process-integrity-full
 
            Enhance process integrity checks to detect signs of process tampering, impersonation, and injection.
 
-           This feature is only available on Windows.
+           This feature only affects Windows systems.
 
            Alias:
              --full-proc-integrity
@@ -1068,6 +1140,9 @@ Feature Extras
            To create a tesseract model, use the THOR Util's tesseract command.
 
            If this flag is not specified, Tesseract is not used at all.
+
+
+           This feature only affects Windows systems.
 
            Example:
              --tesseract-model /etc/thor/tesseract-model
@@ -1167,20 +1242,22 @@ Output Options
 ----------------------------------------------------------------------
 --json <file>
 
-           Generate a structured JSON log file containing scan results.
+           Generate a newline delimited JSON log file containing scan results.
+
+           Each line of the logfile contains a single JSON object describing a log entry.
 
            Default:
-             <hostname>_thor_<time>.json
+             <hostname>_thor_<time>.jsonl
 
            Alias:
              --jsonfile
 
            Example:
-             --json results.json
+             --json results.jsonl
 
 --html <file>
 
-           Create a human-readable HTML report summarizing scan findings.
+           Create a human-readable HTML report summarizing the scan.
 
            Default:
              <hostname>_thor_<time>.html
@@ -1323,7 +1400,7 @@ Output Options
 
 --silent
 
-           Run in silend mode, preventing all output to the terminal.
+           Run in silent mode, preventing all output to the terminal.
 
            Logs are still generated unless disabled.
 
@@ -1393,7 +1470,13 @@ Output Options
 
 --timestamp-rfc3339
 
-           Output all timestamps in logs and reports in RFC3339 format (YYYY-MM-DD'T'HH:mm:ss'Z').
+           Output all timestamps in the text log in RFC3339 format.
+
+           RFC3339 follows the following format: YYYY-MM-DD'T'HH:mm:ss[.nnnnnnnnn]TZ
+
+           For more details see https://www.rfc-editor.org/rfc/rfc3339.
+
+           This option only affects the text log; JSON logs will always use RFC3339 format for timestamps.
 
            Alias:
              --rfc3339
@@ -1404,9 +1487,9 @@ Output Options
 
            Useful for concise forensic reports and streamlined analysis.
 
---print-licenses
+--list-licenses
 
-           Display all available THOR licenses in the terminal.
+           Display all available THOR licenses and exit.
 
 --eventlog
 
@@ -1451,16 +1534,16 @@ Output Options
            Alias:
              --include-info-in-html
 
---audit-trail <file>[=<hostname>_audit_<time>.json.gz]
+--audit-trail <file>[=<hostname>_audit_<time>.jsonl.gz]
 
            Specify a file to save the scan results in an audit trail log file.
 
-           The audit trail log contains not only all findings, but also data about undetected files and objects
+           The audit trail log contains all assessments that THOR made, including
 
-           that were analyzed during the scan, and the relationships between them.
+           those of undetected files and objects, and the relationships between them.
 
            Example:
-             --audit-trail myhost_audittrail.json.gz
+             --audit-trail myhost_audittrail.jsonl.gz
 
 --console-background <schema>
 
@@ -1475,30 +1558,46 @@ Output Options
            Example:
              --console-background dark
 
---hex-matches
-
-           Print all matching strings as hex.
-
 --log-object <objecttype1,objecttype2,...>
 
-           Log all objects of a specified type as info messages.
+           Log all objects of a specified type as info messages, even those where the score is lower than the
+
+           minimal score specified.
 
 
-           The special values "all", "*" and "none" can be used to log all or no objects, respectively.
+           The available object types can be listed with --describe-object-type all.
 
 
-           Optionally, a limit can be set to only log a certain number of objects of that type.
+           The special values "all" or "*" can be used in place of an object type;
 
-           The limit must be specified in the format "objecttype:limit", e.g. "File:1000".
-
-           A limit of 0 is equivalent to no limit.
+           this is equivalent to specifying all object types.
 
 
-           THOR logs some object types by default; this flag overrides this behavior with the user-defined settings.
+           Optionally, a limit can be set to only log a certain number of objects of that type
+
+           to avoid flooding the log.
+
+           The limit must be specified in the format "objecttype:limit", e.g. "shim cache entry:2048".
+
+
+           THOR logs some object types by default; the full list can be found at
+
+           https://thor-manual.nextron-systems.com/en/v11/scanning/using-thor.html#object-logging.
+
+
+           Specified values override the defaults with the user-defined settings.
+
+           To disable these default log settings completely, use "all:0".
 
            Examples:
              --log-object File
              --log-object 'Amcache Entry:100'
+             --log-object all:0
+
+
+           See also:
+             --describe-object-type
+             --score-info
 
 --describe-object-type <objecttype1,objecttype2,...>
 
@@ -1507,6 +1606,10 @@ Output Options
            Examples:
              --describe-object-type File
              --describe-object-type 'Amcache Entry'
+
+
+           See also:
+             --log-object
 
 --log-size-limit <memory>
 
@@ -1532,7 +1635,7 @@ ThorDB
            The database helps apply delta scanning and track changes across multiple scans.
 
            Default:
-             /home/max/.local/state/thor/thor10.db
+             /home/max/.local/state/thor/thor.db
 
            Alias:
              --dbfile
@@ -1664,7 +1767,10 @@ Reporting and Actions
 ----------------------------------------------------------------------
 --score-info <score>
 
-           Set the minimum score for classifying a finding as an info.
+           Set the minimum score for classifying an assessment as an info.
+
+
+           THOR does not print objects below this score unless they are requested by --log-object.
 
            Default:
              30
@@ -1672,9 +1778,13 @@ Reporting and Actions
            Alias:
              --info
 
+
+           See also:
+             --log-object
+
 --score-notice <score>
 
-           Set the minimum score for classifying a finding as a notice.
+           Set the minimum score for classifying an assessment as a notice.
 
            Default:
              40
@@ -1684,7 +1794,7 @@ Reporting and Actions
 
 --score-warning <score>
 
-           Set the minimum score for classifying a finding as a warning.
+           Set the minimum score for classifying an assessment as a warning.
 
            Default:
              60
@@ -1694,7 +1804,12 @@ Reporting and Actions
 
 --score-alert <score>
 
-           Set the minimum score for classifying a finding as an alert.
+           Set the minimum score for classifying an assessment as an alert.
+
+
+           In addition to fulfilling this total score, events must have at least one subscore
+
+           of 75 or higher to be considered an alert.
 
            Default:
              81
@@ -1733,6 +1848,9 @@ THOR Remote
            Scan a remote host.
 
            Instead of scanning the local system, THOR will connect to the specified remote hosts and scan them.
+
+
+           This flag is only supported on Windows.
 
            Alias:
              --remote
@@ -1899,12 +2017,12 @@ Debugging and Info
 
            Options:
              - short: Show only the most important flags.
-             - full: Show all flags.
+             - long: Show all flags.
              - detailed: Show all flags and include longer descriptions.
 
            Examples:
              --help detailed
-             --help full
+             --help long
 
 --completions <shell>
 
@@ -1917,3 +2035,4 @@ Debugging and Info
 
            Example:
              --completions bash
+
