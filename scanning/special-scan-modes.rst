@@ -65,8 +65,8 @@ also limited to this license type.
 `This article <https://www.nextron-systems.com/2020/11/11/thor-forensic-lab-license-features/>`__
 explains the advantages of the lab license.
 
-Path Remapping
-^^^^^^^^^^^^^^^^^^^^^
+Scanning mounted disks
+^^^^^^^^^^^^^^^^^^^^^^
 
 Because THOR enriches messages with additional context, it can be
 problematic to scan a mounted drive such as ``S:``, which originally was
@@ -85,6 +85,10 @@ original name. The syntax is as follows:
 
    --path-remap current-location:original-location
 
+When scanning drives from a different OS, it should be combined with ``--target-os``.
+This informs THOR to use the path style and built-in heuristics and excludes
+for that target OS instead of the ones for the OS it runs on.
+
 Some examples:
 
 An original ``C:`` partition from the source system has been mounted as
@@ -99,14 +103,14 @@ Linux forensic workstation:
 
 .. code-block:: none
 
-   --path-remap /mnt/image1:/
+   --path-remap /mnt/image1:/ --target-os Linux
 
 A Windows image of drive ``C:`` mounted at ``/mnt/image1`` on a Linux
 forensic workstation:
 
 .. code-block:: none
 
-   --path-remap /mnt/image1:C
+   --path-remap /mnt/image1:C --target-os Windows
 
 .. note::
 
