@@ -3,6 +3,20 @@ Changelog
 
 This chapter lists the changes for THOR 10.7.
 
+THOR 10.7.31
+~~~~~~~~~~~~
+
+.. list-table::
+    :header-rows: 1
+    :widths: 15, 85
+
+    * - Type
+      - Description
+    * - Bugfix
+      - Fix a THOR Util issue where the created CSV log was missing a header
+    * - Bugfix
+      - Output host information on Unix OSs without trailing newline
+
 THOR 10.7.30
 ~~~~~~~~~~~~
 
