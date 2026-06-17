@@ -24,7 +24,11 @@ of a forensic Windows workstation.
 
 .. code-block:: doscon
 
-  C:\thor>thor64.exe --lab --path-remap S:C -j WKS0001 -p S:\
+  C:\thor>thor64.exe ^
+    --lab ^
+    --path-remap S:C ^
+    --overwrite-hostname WKS0001 ^
+    --path S:\
 
 The following example uses the same parameters on a Linux forensic
 workstation, where the image is mounted at
@@ -32,13 +36,17 @@ workstation, where the image is mounted at
 
 .. code-block:: console
 
-  nextron@unix:~/thor$ ./thor-linux-64 --lab --path-remap /mnt/image/fs/sysvol/:C -j WKS0001 -p /mnt/image/fs/sysvol/  --target-os Windows
+  nextron@unix:~/thor$ ./thor-linux-64 \
+    --lab \
+    --path-remap /mnt/image/fs/sysvol/:C \
+    --overwrite-hostname WKS0001 \
+    --path /mnt/image/fs/sysvol/
 
 The ``--lab`` parameter enables several internal flags, for example deep
 scanning of every file, multi-threading, and disabled resource control.
 The ``--path-remap`` parameter maps files found in the mounted image to
 their original drive letter so that message enrichment works correctly.
-The ``-j HOSTNAME`` parameter makes THOR write the hostname of the
+The ``--overwrite-hostname HOSTNAME`` parameter makes THOR write the hostname of the
 original system to every log line instead of the hostname of the
 forensic workstation.
 The ``--target-os`` parameter causes THOR to use Windows style paths and

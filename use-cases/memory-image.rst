@@ -75,7 +75,7 @@ You can now scan the extracted process memory images with THOR.
 
 .. code-block:: console 
 
-    user@linux:~$ ./thor-linux-64 --lab -p /mnt/mem-dumps/procs/
+    user@linux:~$ ./thor-linux-64 --lab --path /mnt/mem-dumps/procs/
 
 Without a valid lab license, you can simulate this behavior with the
 following command. See
@@ -84,7 +84,10 @@ lab scan mode and the flags it enables.
 
 .. code-block:: console
 
-    user@linux:~$ ./thor-linux-64 -a Filescan --deep -p /mnt/mem-dumps/procs/
+    user@linux:~$ ./thor-linux-64 \
+      --module Filescan \
+      --deep \
+      --path /mnt/mem-dumps/procs/
 
 The output of such a scan looks similar to the following example:
 

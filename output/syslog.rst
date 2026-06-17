@@ -20,7 +20,7 @@ different formats.
 
 .. code-block:: doscon
    
-   C:\thor>thor64.exe -s syslog1.server.net -s arcsight.server.net:514:CEF
+   C:\thor>thor64.exe --remote-log syslog1.server.net --remote-log arcsight.server.net:514:CEF
 
 THOR supports two different target definitions:
 

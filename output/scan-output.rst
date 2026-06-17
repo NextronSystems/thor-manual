@@ -96,7 +96,10 @@ templates across all platforms.
 
 .. code-block:: doscon
 
-   C:\thor>thor64.exe -a FileScan -p S:\\ -o "<hostname>\_<time>.csv"
+   C:\thor>thor64.exe ^
+     --module FileScan ^
+     --path S:\\ ^
+     --csv "<hostname>\_<time>.csv"
 
 Console Output
 ^^^^^^^^^^^^^^
@@ -202,7 +205,7 @@ the year and look like this:
 SCAN ID
 ^^^^^^^
 
-The ``-scan-id`` parameter allows you to set a specific scan ID
+The ``--scan-id`` parameter allows you to set a specific scan ID
 (``SCANID``) that appears in every log line.
 
 The scan ID helps SIEM and analysis systems correlate log lines from
@@ -223,7 +226,7 @@ that starts with ``S-`` and uses the characters
    * - S-Rooa61RfuuM
    * - S-0vRKu-1\_p7A
 
-You can override the scan ID with ``-scan-id myscanid`` to assign the
+You can override the scan ID with ``--scan-id myscanid`` to assign the
 logs of multiple scan runs to a single logical scan, for example when
 different partitions of a system are scanned separately in the lab but
 should appear as a single scan in Analysis Cockpit or a SIEM.
