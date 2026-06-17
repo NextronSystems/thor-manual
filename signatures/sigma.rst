@@ -37,32 +37,55 @@ the Sigma rule level:
  - Level high translates to score 70
  - Level critical translates to score 100
 
-Sigma matching on THOR output
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Scanning Logfiles with Sigma
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Sigma rules can also be written to match THOR-generated content. These
-rules must use a logsource with ``product: THOR`` and
-``service: object-type``.
+Perform a scan with Sigma rules on the local Windows Event Logs by
+using ``-a Eventlog``:
 
-The available object types can be listed with
-``--describe-object-type all``. All objects of a specific type can also
-be printed by using ``--log-object specificobjecttype``. This helps you
-determine which fields are available for matching.
+.. code-block:: doscon
+
+   C:\thor>thor64.exe -a Eventlog
+
+Perform a scan with Sigma rules on Linux log files:
+
+.. code-block:: console
+
+   $ ./thor-linux-64 -a Filescan -p /var/log
 
 Writing Custom Sigma Rules for THOR Object Types
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-THOR 11 allows you to write Sigma rules that match **any object type**
-produced by THOR, not just Windows Event Logs. This allows you to
-detect suspicious processes, persistence mechanisms, fileless malware,
-and much more by using the open Sigma standard.
+Sigma rules can also be written to match THOR-generated content, that
+is, rules that match **any object type** produced by THOR, not just,
+e.g., Windows Event Logs. This allows you to detect suspicious
+processes, persistence mechanisms, fileless malware, and much more by
+using the open Sigma standard.
 
 This feature is available in both **THOR** and **THOR Lite**.
+
+Logsource Format
+****************
+
+To target a THOR object type, use this logsource configuration:
+
+.. code-block:: yaml
+
+   logsource:
+       product: THOR
+       service: <Object Type Name>
+
+The ``service`` field must match the object type name exactly, for
+example ``Linux kernel module``, ``AmCache entry``, or ``cron job``.
 
 Discovering Object Types
 ************************
 
-Use these command-line flags to explore available object types:
+The available object types are listed with ``--describe-object-type all``.
+All objects of a specific type can also be printed by using
+``--log-object specificobjecttype``. The following summary lists these
+and other related command-line flags that can be used to explore
+available object types:
 
 .. list-table::
    :header-rows: 1
@@ -91,77 +114,29 @@ Example: Log process objects during a scan:
 
    $ ./thor-linux-64 --module ProcessCheck --log-object "process:10"
 
-Object Type Reference
-*********************
+Check the :ref:`signatures/sigma:object type reference` for an overview
+of commonly used object types.
 
-THOR includes many object types. The following are among the most
-commonly used in detection rules:
+Field Name Mapping
+******************
 
-**Process and Memory:**
-   ``process``, ``process connection``, ``process handle``, ``thread``
-
-**Persistence Mechanisms:**
-   ``autorun entry``, ``cron job``, ``scheduled task``, ``at job``,
-   ``Windows service``, ``systemd service``, ``init.d service``,
-   ``WMI startup command``
-
-**File System Artifacts:**
-   ``file``, ``MFT entry``, ``jump list entry``, ``prefetch info``,
-   ``shim cache entry``
-
-**Registry:**
-   ``registry key``, ``registry value``
-
-**Users and Authentication:**
-   ``Windows user``, ``Unix user``, ``authorized_keys entry``,
-   ``logged in user``, ``LSA session``
-
-**Network:**
-   ``DNS cache entry``, ``firewall rule``, ``hosts file entry``,
-   ``network session``, ``network share``
-
-**Security and Kernel:**
-   ``Linux kernel module``, ``eBPF program``, ``mutex``, ``named pipe``,
-   ``antivirus exclusion``
-
-**Logs and Events:**
-   ``eventlog entry``, ``log line``, ``journal log entry``, ``audit log entry``
-
-**Execution History:**
-   ``AmCache entry``, ``shim cache``, ``web page visit``, ``web download``
-
-Logsource Format
-****************
-
-To target a THOR object type, use this logsource configuration:
+Fields for matching can be derived from the JSON schema of the object
+type published at
+`<https://github.com/NextronSystems/jsonlog/releases>`_. Each field of
+the JSON representing an object type can be used directly using its
+name, with nested field names separated by dots; for array-like fields,
+the nested field name is the integer index of the element. For example,
+if matching on an AmCache entry requires the hash and the associated
+file's path, the detection snippet should look like:
 
 .. code-block:: yaml
 
-   logsource:
-       product: THOR
-       service: <Object Type Name>
-
-The ``service`` field must match the object type name exactly, for
-example ``Linux kernel module``, ``AmCache entry``, or ``cron job``.
-
-Field Naming Convention
-***********************
-
-Fields from the JSON schema are converted to **UPPERCASE** in Sigma
-rules:
-
-.. list-table::
-   :header-rows: 1
-   :widths: 50, 50
-
-   * - JSON Schema Field
-     - Sigma Field
-   * - ``included_in_kernel``
-     - ``INCLUDED_IN_KERNEL``
-   * - ``command``
-     - ``COMMAND``
-   * - ``service_name``
-     - ``SERVICE_NAME``
+   detection:
+       selection:
+           sha1: DEADBEEFDEADBEEFDEADBEEFDEADBEEFDEADBEEF
+       filter:
+           file.path|endswith: \benign.exe
+       condition: selection and not filter
 
 To match null (nonexistent) fields:
 
@@ -169,7 +144,7 @@ To match null (nonexistent) fields:
 
    detection:
        selection:
-           FILE: null
+           file: null
 
 To match empty (but existent) fields:
 
@@ -177,141 +152,13 @@ To match empty (but existent) fields:
 
    detection:
        selection:
-           FILE: ''
+           file: ''
 
-Detection Examples
-******************
+A quick overview of commonly used fields for different object types is
+available in the :ref:`signatures/sigma:quick field reference`.
 
-**Example 1: Execution of Known Malicious Hash via AmCache**
-
-.. code-block:: yaml
-
-   title: Execution of Known Malicious Hash via Amcache
-   logsource:
-       product: THOR
-       service: AmCache entry
-   detection:
-       selection:
-           SHA1: DEADBEEFDEADBEEFDEADBEEFDEADBEEFDEADBEEF
-       filter:
-           PATH|endswith: \benign.exe
-       condition: selection and not filter
-   falsepositives:
-       - Known good files matching the hash
-   level: critical
-
-**Example 2: Linux Kernel Module Without File (Rootkit Detection)**
-
-.. code-block:: yaml
-
-   title: Kernel Module Without File
-   status: experimental
-   description: Detects dynamically loaded kernel modules without associated files
-   logsource:
-       product: THOR
-       service: Linux kernel module
-   detection:
-       selection:
-           FILE: null
-           INCLUDED_IN_KERNEL: false
-       condition: selection
-   falsepositives:
-       - Custom kernels with manually loaded modules
-   level: medium
-
-**Example 3: Suspicious Process with Encoded PowerShell**
-
-.. code-block:: yaml
-
-   title: Process with Encoded PowerShell Execution
-   logsource:
-       product: THOR
-       service: process
-   detection:
-       selection:
-           COMMAND|contains:
-               - ' -enc '
-               - ' -EncodedCommand '
-           NAME|endswith:
-               - 'powershell.exe'
-               - 'pwsh.exe'
-       condition: selection
-   level: high
-
-**Example 4: Suspicious Cron Job (Linux Persistence)**
-
-.. code-block:: yaml
-
-   title: Cron Job with Suspicious Download Command
-   logsource:
-       product: THOR
-       service: cron job
-   detection:
-       selection_download:
-           COMMAND|contains:
-               - 'wget '
-               - 'curl '
-       selection_pipe:
-           COMMAND|contains:
-               - '| bash'
-               - '| sh'
-       condition: selection_download and selection_pipe
-   level: medium
-
-**Example 5: Autorun Entry from Suspicious Location**
-
-.. code-block:: yaml
-
-   title: Autorun Entry from Suspicious Location
-   logsource:
-       product: THOR
-       service: autorun entry
-   detection:
-       selection_path:
-           LAUNCH_STRING|contains:
-               - '\AppData\Roaming\'
-               - '\Users\Public\'
-               - '\Temp\'
-       selection_script:
-           LAUNCH_STRING|contains:
-               - '.vbs'
-               - '.hta'
-               - 'powershell'
-       condition: selection_path and selection_script
-   level: high
-
-**Example 6: Windows Service with Suspicious Binary Path**
-
-.. code-block:: yaml
-
-   title: Windows Service from Temp Directory
-   logsource:
-       product: THOR
-       service: Windows service
-   detection:
-       selection:
-           IMAGE|contains:
-               - '\Temp\'
-               - '\Users\Public\'
-               - '\AppData\'
-       condition: selection
-   level: high
-
-Scanning Logfiles with Sigma
-****************************
-
-Perform a scan with Sigma rules on the local Windows Event Logs by
-using ``-a Eventlog``:
-
-.. code-block:: doscon
-
-   C:\thor>thor64.exe -a Eventlog
-
-Perform a scan with Sigma rules on Linux log files:
-
-.. code-block:: console
-
-   $ ./thor-linux-64 -a Filescan -p /var/log
+For further examples, see the :ref:`signatures/sigma:detection examples`
+section.
 
 Deploying Custom Sigma Rules
 ****************************
@@ -345,8 +192,49 @@ Adjust the Sigma threshold if you want to see lower-level matches:
 
    $ ./thor-linux-64 --sigma-threshold medium
 
-Quick Reference
-***************
+Object Type Reference
+*********************
+
+THOR includes many object types. The following are among the most
+commonly used in detection rules:
+
+.. TODO: Adapt to root object rework of processes.
+
+**Process and Memory:**
+   ``process``, ``process.connection``, ``process.handle``, ``process.thread``
+
+**Persistence Mechanisms:**
+   ``autorun entry``, ``cron job``, ``scheduled task``, ``at job``,
+   ``Windows service``, ``systemd service``, ``init.d service``,
+   ``WMI startup command``
+
+**File System Artifacts:**
+   ``file``, ``MFT entry``, ``jump list entry``, ``prefetch info``,
+   ``shim cache entry``
+
+**Registry:**
+   ``registry key``, ``registry value``
+
+**Users and Authentication:**
+   ``Windows user``, ``Unix user``, ``authorized_keys entry``,
+   ``logged in user``, ``LSA session``
+
+**Network:**
+   ``DNS cache entry``, ``firewall rule``, ``hosts file entry``,
+   ``network session``, ``network share``
+
+**Security and Kernel:**
+   ``Linux kernel module``, ``eBPF program``, ``mutex``, ``named pipe``,
+   ``antivirus exclusion``
+
+**Logs and Events:**
+   ``eventlog entry``, ``log line``, ``journal log entry``, ``audit log entry``
+
+**Execution History:**
+   ``AmCache entry``, ``shim cache``, ``web page visit``, ``web download``
+
+Quick Field Reference
+*********************
 
 .. list-table::
    :header-rows: 1
@@ -357,28 +245,146 @@ Quick Reference
      - Key Fields
    * - Process monitoring
      - ``process``
-     - COMMAND, NAME, OWNER, PID
+     - command, name, owner, pid
    * - Linux persistence
      - ``cron job``
-     - COMMAND, USER, SCHEDULE
+     - command, user, schedule
    * - Windows persistence
      - ``scheduled task``
-     - COMMANDS, USER, RUN_LEVEL
+     - commands.0, user, run_level
    * - Autoruns
      - ``autorun entry``
-     - LAUNCH_STRING, LOCATION
+     - launch_string, location
    * - Services (Windows)
      - ``Windows service``
-     - SERVICE_NAME, IMAGE
+     - service_name, image.path
    * - Services (Linux)
      - ``systemd service``
-     - COMMAND, RUN_AS_USER
+     - command, run_as_user
    * - Kernel rootkits
      - ``Linux kernel module``
-     - FILE, INCLUDED_IN_KERNEL
+     - file, included_in_kernel
    * - File hashes
      - ``file``
-     - MD5, SHA1, SHA256, PATH
+     - hashes.md5, hashes.sha1, hashes.sha256, path
    * - Execution history
      - ``AmCache entry``
-     - SHA1, PATH, PRODUCT
+     - sha1, file.path, product
+
+Detection Examples
+******************
+
+**Example 1: Execution of Known Malicious Hash via AmCache**
+
+.. code-block:: yaml
+
+   title: Execution of Known Malicious Hash via Amcache
+   logsource:
+       product: THOR
+       service: AmCache entry
+   detection:
+       selection:
+           sha1: DEADBEEFDEADBEEFDEADBEEFDEADBEEFDEADBEEF
+       filter:
+           file.path|endswith: \benign.exe
+       condition: selection and not filter
+   falsepositives:
+       - Known good files matching the hash
+   level: critical
+
+**Example 2: Linux Kernel Module Without File (Rootkit Detection)**
+
+.. code-block:: yaml
+
+   title: Kernel Module Without File
+   status: experimental
+   description: Detects dynamically loaded kernel modules without associated files
+   logsource:
+       product: THOR
+       service: Linux kernel module
+   detection:
+       selection:
+           file: null
+           included_in_kernel: false
+       condition: selection
+   falsepositives:
+       - Custom kernels with manually loaded modules
+   level: medium
+
+**Example 3: Suspicious Process with Encoded PowerShell**
+
+.. code-block:: yaml
+
+   title: Process with Encoded PowerShell Execution
+   logsource:
+       product: THOR
+       service: process
+   detection:
+       selection:
+           command|contains:
+               - ' -enc '
+               - ' -EncodedCommand '
+           name|endswith:
+               - 'powershell.exe'
+               - 'pwsh.exe'
+       condition: selection
+   level: high
+
+**Example 4: Suspicious Cron Job (Linux Persistence)**
+
+.. code-block:: yaml
+
+   title: Cron Job with Suspicious Download Command
+   logsource:
+       product: THOR
+       service: cron job
+   detection:
+       selection_download:
+           command|contains:
+               - 'wget '
+               - 'curl '
+       selection_pipe:
+           command|contains:
+               - '| bash'
+               - '| sh'
+       condition: selection_download and selection_pipe
+   level: medium
+
+**Example 5: Autorun Entry from Suspicious Location**
+
+.. code-block:: yaml
+
+   title: Autorun Entry from Suspicious Location
+   logsource:
+       product: THOR
+       service: autorun entry
+   detection:
+       selection_path:
+           launch_string|contains:
+               - '\AppData\Roaming\'
+               - '\Users\Public\'
+               - '\Temp\'
+       selection_script:
+           launch_string|contains:
+               - '.vbs'
+               - '.hta'
+               - 'powershell'
+       condition: selection_path and selection_script
+   level: high
+
+**Example 6: Windows Service with Suspicious Binary Path**
+
+.. code-block:: yaml
+
+   title: Windows Service from Temp Directory
+   logsource:
+       product: THOR
+       service: Windows service
+   detection:
+       selection:
+           image.path|contains:
+               - '\Temp\'
+               - '\Users\Public\'
+               - '\AppData\'
+       condition: selection
+   level: high
