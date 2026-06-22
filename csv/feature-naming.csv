@@ -46,7 +46,6 @@ Analyze processes in-depth with PE-Sieve and thread analysis (Windows only);Proc
 Parse ICS files (calendar entries);ICS;
 Decode VBE files (obfuscated VB scripts);VBEDecoder;
 Parse Shim databases;ShimDB;
-Check for filesystem anomalies;Tesseract;Use ``--tesseract-model`` to enable
 Parse jumplist files (used by Windows to keep track of opened files);JumpList;
 Parse PS module analysis cache (gives information about once loaded PS modules);ModuleAnalysisCache;
 Compile and apply user provided plugins;Plugin;Only runs if user provides any plugins
