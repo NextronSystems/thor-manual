@@ -29,6 +29,5 @@ ETL File Scanning [3]_;Enabled;Enabled;Enabled;Enabled
 VBE Decoding;Enabled;Enabled;Enabled;Enabled
 ICS File Parsing;Enabled;Enabled;Enabled;Enabled
 ShimDB parsing;Enabled;Enabled;Enabled;Enabled
-Tesseract;Enabled;Enabled;Enabled;Enabled
 Jumplist parsing;Enabled;Enabled;Enabled;Enabled
 PS module analysis cache parsing;Enabled;Enabled;Enabled;Enabled

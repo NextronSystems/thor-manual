@@ -38,7 +38,6 @@ ProcessIntegrity;process;
 ICS;file;file
 VBEDecoder;file;file
 ShimDB;file;shim database entry
-Tesseract;file
 JumpList;file;jump list entry
 ModuleAnalysisCache;file;PowerShell module analysis cache module entry
 Plugin;any;data from plugin

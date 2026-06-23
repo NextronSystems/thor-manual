@@ -1131,44 +1131,6 @@ Feature Extras
            Alias:
              --full-proc-integrity
 
---tesseract-model <file>
-
-           Load a Tesseract model file to detect file outliers.
-
-           Tesseract can detect files that are unusual, e.g. executables in a folder for fonts.
-
-           To create a tesseract model, use the THOR Util's tesseract command.
-
-           If this flag is not specified, Tesseract is not used at all.
-
-
-           This feature only affects Windows systems.
-
-           Example:
-             --tesseract-model /etc/thor/tesseract-model
-
---tesseract-threshold <float>
-
-           Threshold for Tesseract outlier detection.
-
-           It should be a value between -0.5 and 0.5; higher values are more sensitive and FP prone.
-
-           Example:
-             --tesseract-threshold 0.1
-
---tesseract-min-score <score>
-
-           Minimum score given to files identified by Tesseract as an outlier.
-
-           The score should be between 0 and 100.
-
---tesseract-max-score <score>
-
-           Maximum score given to files identified by Tesseract as an outlier.
-
-           Default:
-             70
-
 --plugin-development-mode
 
            Enable plugin development mode which allows loading of unpacked plugins.
@@ -1809,7 +1771,7 @@ Reporting and Actions
 
            In addition to fulfilling this total score, events must have at least one subscore
 
-           of 75 or higher to be considered an alert.
+           higher than 75 to be considered an alert.
 
            Default:
              81
