@@ -36,7 +36,8 @@ The default version should be used for:
 THOR TechPreview
 ^^^^^^^^^^^^^^^^
 
-The TechPreview version is focused on detection coverage and speed. This
+The TechPreview channel offers a THOR version that is focused on
+detection coverage and speed. This
 `blog post <https://www.nextron-systems.com/2020/08/31/introduction-thor-techpreview/>`__
 contains more information on the differences.
 
