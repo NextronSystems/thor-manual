@@ -84,7 +84,7 @@ line. For example:
 
 .. code-block:: doscon
 
-   C:\thor>psexec \\server1 -u domain/admin -p pass schtasks /create /tn "THOR Run" /tr "\\server\share\thor_remote.bat" /sc ONCE /st 08:00:00 /ru DOMAIN/FUadmin /rp password
+   C:\thor>psexec \\server1 -u DOMAIN\admin -p pass schtasks /create /tn "THOR Run" /tr "\\server\share\thor_remote.bat" /sc ONCE /st 08:00:00 /ru DOMAIN\FUadmin /rp password
 
 Start THOR on the Remote System via WMIC
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

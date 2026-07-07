@@ -117,6 +117,10 @@ know exactly what you are doing.
       space checks are implemented but may still fail
   * - **--no-builtin-registry-excludes**
     - Longer runtime with limited benefit
+  * - **--no-builtin-path-excludes**
+    - Possible stability issues because paths that
+      are normally skipped to avoid interfering with the operating
+      system or other applications are no longer excluded
 
 Lesser Known But Useful Flags
 -----------------------------

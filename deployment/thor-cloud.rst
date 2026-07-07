@@ -24,11 +24,11 @@ There are currently two THOR Cloud variants:
   - Free version of THOR (THOR Lite) with a limited number of monthly scans
   - Contains our Lite Signatures
   - Free sign-up
-  - [thorcloud-lite.nextron-systems.com](https://thorcloud-lite.nextron-systems.com/)
+  - `thorcloud-lite.nextron-systems.com <https://thorcloud-lite.nextron-systems.com/>`__
 
 - THOR Cloud
 
   - Enterprise version of THOR
   - Full feature and signature set of THOR
   - Paid; please contact our sales department
-  - [thor-cloud.nextron-services.com](https://thor-cloud.nextron-services.com)
+  - `thor-cloud.nextron-services.com <https://thor-cloud.nextron-services.com>`__

@@ -16,7 +16,7 @@ Rule info pages can be accessed using the following URL scheme:
 
 :samp:`https://valhalla.nextron-systems.com/info/rule/RULE\_NAME`
 
-[Example rule info page](https://valhalla.nextron-systems.com/info/rule/HKTL_Empire_ShellCodeRDI_Dec19_1)
+`Example rule info page <https://valhalla.nextron-systems.com/info/rule/HKTL_Empire_ShellCodeRDI_Dec19_1>`__
 
 .. figure:: ../images/image34.png
    :alt: Rule Info Page

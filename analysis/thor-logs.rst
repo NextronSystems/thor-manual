@@ -15,7 +15,7 @@ Management Center and can also be used where THOR is executed manually
 or controlled by third party solutions. It is available as a virtual
 appliance on VMWare and also as a dedicated hardware appliance.
 
-THOR can also be seen or used as hunting solution, it is optimized to
+THOR can also be seen or used as a hunting solution. It is optimized to
 avoid false negatives – meaning optimized to not miss an indicator of
 compromise. On the other side this clearly leads to more anomalies and
 false positives being reported.
@@ -32,10 +32,10 @@ it is now easy to focus on relevant Alerts and Warnings as only
 differences between the first and second scans are shown.
 
 The ASGARD Analysis Cockpit comes with an integrated and highly configurable
-ticketing system that helps organizing your analysis workflow.
+ticketing system that helps organize your analysis workflow.
 Furthermore, the ASGARD Analysis Cockpit comes with a rule based alert
 forwarding and SIEM integration that makes it easy for your organization
-to react quickly on new incidents.
+to react quickly to new incidents.
 
 .. figure:: ../images/analysis_cockpit.png
    :alt: ASGARD Analysis Cockpit View
@@ -47,7 +47,7 @@ Splunk
 
 We offer a THOR Splunk App and Add-on via the official Splunk App Store.
 This App helps you to extract the event fields and provides dashboards
-to get a better overview on distributed runs on multiple systems.
+to get a better overview of distributed runs on multiple systems.
 
 .. figure:: ../images/image15.png
    :alt: THOR Splunk App (free)

@@ -21,7 +21,7 @@ of frequency):
 
 .. note::
    A process termination that always happens at the same element is a
-   sign for an Antivirus or EDR detection.
+   sign of an Antivirus or EDR detection.
 
 Insufficient Free Memory
 ^^^^^^^^^^^^^^^^^^^^^^^^

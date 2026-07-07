@@ -24,7 +24,7 @@ JSON File Output (.jsonl)
 
 The JSON log file is written by default. It provides scan results in a
 structured, machine-readable format. See the
-[JSON log schema](https://github.com/NextronSystems/jsonlog) for a
+`JSON log schema <https://github.com/NextronSystems/jsonlog>`__ for a
 detailed description of the format.
 
 * **--no-json**
@@ -181,7 +181,7 @@ Timestamps in all modules use the **ANSI C** format:
    Mon Jan  2 15:04:05 2006
    Mon Mar 19 09:04:05 2018
 
-[Go time format reference](https://go.dev/src/time/format.go)
+`Go time format reference <https://go.dev/src/time/format.go>`__
 
 UTC
 ~~~

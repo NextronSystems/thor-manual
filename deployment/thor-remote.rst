@@ -67,7 +67,7 @@ THOR Remote Licensing
 ^^^^^^^^^^^^^^^^^^^^^
 
 Valid licenses for all target systems are required. Place them in the
-program folder or any sub folder within the program directory (e.g.
+program folder or any subfolder within the program directory (e.g.
 ``./licenses``). In case of incident response licenses, just place that
 single license in the program folder.
 
