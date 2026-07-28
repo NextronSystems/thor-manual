@@ -119,30 +119,63 @@ It can be customized with the following flags:
 Audit trail
 ^^^^^^^^^^^
 
-Audit trail output differs from the other output options. Usually, THOR
-prints only elements such as files or registry entries that matched a
-signature. Audit trail mode, by contrast, contains *all* scanned
-elements, including those that THOR considers inconspicuous, as well as
-their relations to each other.
+The audit trail is not a mode that is activated like the other modes
+THOR knows. It is an additional output that is written while the normal,
+configured scan is running: THOR scans exactly as it would otherwise and 
+writes its regular output as usual, plus a separate audit trail file.
 
-This information can be used to visualize relationships between
-elements, group suspicious items, and discover additional suspicious
-elements laterally.
+The audit trail also differs in content from the other output options. 
+Usually, THOR reports only elements such as files or registry entries 
+that matched a signature. The audit trail, by contrast, contains *all* 
+scanned elements, including those that THOR considers inconspicuous, as 
+well as their relations to each other. In addition, it contains the THOR
+messages that were logged during the scan.
+
+This information can be used to visualize relationships between elements, 
+group suspicious items, and discover additional suspicious elements laterally.
+
+Because the audit trail is a record of the scan that was actually performed, 
+everything that limits the scope of that scan also limits the audit trail - 
+module filters, time based filters, exclusions and similar restrictions. 
+Elements that THOR never looks at cannot appear in it.
+
+Filters that are applied to the output rather than to the scan have no 
+effect on it. In particular, score based thresholds that control which 
+findings end up in the regular output are ignored: the audit trail always 
+contains all assessed elements, regardless of their score.
+
+Two exceptions exist. Log lines, eventlog entries, Linux audit log entries,
+registry keys and values and journald entries occur in such large numbers
+that they are only written if a signature with a positive score matched
+them, if they are connected to another element by more than a parent or
+origin relation, or if other elements were derived from them. And only
+signatures with a positive score are listed as reasons; a negative
+signature does not remove the element, only the reason itself.
+
+``--no-personal-data`` also applies to the audit trail. ``--log-size-limit``
+does not: it only counts the regular log output, so the size of the audit
+trail file is not bounded by it. Log encryption does not apply either, the
+audit trail is always written as a plain gzipped file.
 
 Output format
 ~~~~~~~~~~~~~
 
-Audit trail output is written as a gzipped JSON file. The output file
-can be specified with ``--audit-trail my-target-file.json.gz``.
+Audit trail output is written as a gzipped JSONL file. The output file can
+be specified with ``--audit-trail my-target-file.jsonl.gz``, or without a
+value to write ``<hostname>_audit_<time>.jsonl.gz`` into the output directory.
 
-The file contains newline-delimited JSON. Each JSON object follows the
-following schema:
+The file contains newline-delimited JSON. Every object carries a ``type``
+field that identifies the record.
+
+Objects of type ``THOR audit trail`` describe a scanned element:
 
 .. code-block:: json
 
    {
+      "type": "THOR audit trail",
       "id": "string",
-      "object": {
+      "subject": {
+         "type": "string",
          "...": "..."
       },
       "timestamps": {
@@ -151,7 +184,10 @@ following schema:
       "reasons": [
          {
             "summary": "string",
-            "score": "int",
+            "signature": {
+               "score": "int",
+               "...": "..."
+            },
             "...": "..."
          }
       ],
@@ -163,13 +199,55 @@ following schema:
          }
       ]
    }
+   {
+      "type": "THOR message",
+      "meta": {
+         "time": "string",
+         "level": "string",
+         "module": "string",
+         "scan_id": "string",
+         "event_id": "string",
+         "hostname": "string"
+         },
+      "message": "string",
+      "fields": { "...": "..." },
+      "log_version": "string"
+   }
 
 - ``id`` contains a unique ID for the element
-- ``object`` contains the matched element
-- ``timestamps`` contains all timestamps found within this element
+- ``subject`` contains the scanned element
+- ``timestamps`` contains all timestamps found within this element, in UTC.
+  If the element has none, a single ``OBSERVED_AT`` entry with the time of
+  observation is written instead
 - ``reasons`` contains a list of signatures that matched this element
 - ``references`` contains a list of IDs of other elements referenced by
   this element
+
+Objects of type ``THOR message`` contain the messages that THOR logged
+during the scan, in the same form as in the JSON log:
+
+.. code-block:: json
+
+   {
+      "type": "THOR message",
+      "meta": {
+         "time": "string",
+         "level": "string",
+         "module": "string",
+         "scan_id": "string",
+         "event_id": "string",
+         "hostname": "string"
+      },
+      "message": "string",
+      "fields": {
+         "...": "..."
+      },
+      "log_version": "string"
+   }
+
+The first object in the file is always such a message; its ``log_version``
+states the version of the audit trail format. Debug messages are never
+written to the audit trail.
 
 Timestamps
 ^^^^^^^^^^
