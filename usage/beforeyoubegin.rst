@@ -19,7 +19,7 @@ purposes, THOR also supports
 
 .. tip::
    THOR can also retrieve licenses from our licensing portal or from a
-   local ASGARD Management Center. See
+   local Management Center. See
    :ref:`usage/other-topics:license retrieval` for more information.
 
 Generate a License
