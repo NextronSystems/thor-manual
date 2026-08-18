@@ -19,28 +19,27 @@ not need a license.
    program folder, no new license will be downloaded or issued from the
    remote source.
 
-ASGARD License Retrieval
-^^^^^^^^^^^^^^^^^^^^^^^^
+Management Center License Retrieval
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-If you have a local ASGARD Management Center instance and use its
+If you have a local Management Center instance and use its
 license pool for THOR scans, you can use the ``--asgard`` flag to
 download a valid license. This also requires the ``--asgard-token``
 flag. The token can be found in the **Download** section of your
-ASGARD Management Center.
+Management Center.
 
 Example:
 
 .. code-block:: console
 
-  nextron@unix:~/thor$ ./thor-linux-64 --asgard "my-asgard.local" --asgard-token "download-token"
+  nextron@unix:~/thor$ ./thor-linux-64 --asgard "mgmt-center.local" --asgard-token "download-token"
   [...SNIP...]
-  Info License file found LICENSE: my-asgard.local OWNER: John Doe TYPE: Server STARTS: 2023/08/30 EXPIRES: 2023/11/01 SCANNER: THOR VALID: true REASON:
+  Info License file found LICENSE: mgmt-center.local OWNER: John Doe TYPE: Server STARTS: 2023/08/30 EXPIRES: 2023/11/01 SCANNER: THOR VALID: true REASON:
 
 The retrieved license is placed in THOR's program folder so that you
 can run THOR next time without the extra flags. The file name is
 ``<hostname>.lic``. Rerunning the command does not issue a new license;
-it downloads the already valid license again from your ASGARD
-Management Center.
+it downloads the already valid license again from your Management Center.
 
 Nextron Portal License Retrieval
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
