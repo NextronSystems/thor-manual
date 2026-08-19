@@ -14,15 +14,15 @@ starts; otherwise, THOR exits immediately.
 
 There are several ways to retrieve a valid license for a host.
 
-With ASGARD:
+With a Management Center:
 
-* use an ASGARD Agent
-* download THOR package with license from ASGARD's ``Downloads`` section
-* generate licenses in ASGARD's web GUI under ``Licensing > Generate Licenses``
+* use an Endpoint Agent
+* download THOR package with license from the Management Center's ``Downloads`` section
+* generate licenses in the Management Center's web GUI under ``Licensing > Generate Licenses``
 * use THOR's ``--asgard`` and ``--asgard-token`` parameters to retrieve a license
-* use ASGARD's API to retrieve a license manually
+* use the Management Centers's API to retrieve a license manually
 
-Without ASGARD:
+Without a Management Center:
 
 * generate a license in the web GUI of the `customer portal <https://portal.nextron-systems.com>`__
 * use THOR's ``--portal-key`` and ``--portal-contracts`` parameters to retrieve a license from the customer portal
@@ -31,19 +31,19 @@ Without ASGARD:
 Some of these options are described in more detail in the following
 sections.
 
-Retrieve Valid License From ASGARD
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Retrieve Valid License From Management Center
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Use THOR's ``--asgard`` and ``--asgard-token`` parameters
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-In ASGARD 2.5 and later, you can configure a download token to limit
+In the Management Center 2.5 and later, you can configure a download token to limit
 THOR package and license downloads to clients that know this token. It
 helps prevent unauthorized package retrieval and unintended overuse of
 your license quota.
 
 The download token can be configured in the ``Downloads`` section of
-your ASGARD server.
+your Management Center server.
 
 .. figure:: ../images/download-token.png
    :alt: Downloads > Download Token Configuration
@@ -55,28 +55,28 @@ built-in ``--asgard`` and ``--asgard-token`` parameters.
 
 .. code-block:: doscon 
 
-   C:\temp\thor>thor64.exe --asgard my-asgard.internal
+   C:\temp\thor>thor64.exe --asgard mgmt-center.internal
 
 .. code-block:: doscon 
 
-   C:\temp\thor>thor64.exe --asgard my-asgard.internal --asgard-token OCU92GW1CyOJLzaHkGrim1v2O0_ZkHPu0A
+   C:\temp\thor>thor64.exe --asgard mgmt-center.internal --asgard-token OCU92GW1CyOJLzaHkGrim1v2O0_ZkHPu0A
 
 If everything works as expected, you will see an INFO-level message in
 the output similar to the following:
 
 .. code-block:: batch 
 
-   Info: Init License file found LICENSE: my-asgard.internal OWNER: Master ASGARD: ACME Inc TYPE: Workstation STARTS: 2021/06/18 EXPIRES: 2022/06/18 SCANNER: All Scanners VALID: true REASON:
+   Info: Init License file found LICENSE: mgmt-center.internal OWNER: Master MGMT: ACME Inc TYPE: Workstation STARTS: 2021/06/18 EXPIRES: 2022/06/18 SCANNER: All Scanners VALID: true REASON:
 
-Use ASGARD's API to retrieve a license manually
-"""""""""""""""""""""""""""""""""""""""""""""""
+Use Management Center's API to retrieve a license manually
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-You can also automate license retrieval from a local ASGARD server by
-using the API. The help box in ASGARD's ``Licensing > Generate
+You can also automate license retrieval from a local Management
+Center by using the API. The help box in the Management Centers's ``Licensing > Generate
 License`` section shows ``curl`` requests that can be used to retrieve
-licenses from your ASGARD server.
+licenses from said server.
 
-.. figure:: ../images/asgard-license-gen.png
+.. figure:: ../images/mgmt-center-license-gen.png
    :alt: Licensing > Generate Licenses
 
    Licensing > Generate Licenses
@@ -97,17 +97,17 @@ you can use the following command:
 
 .. code-block:: console 
 
-   nextron@unix:~$ curl -XPOST "https://my-asgard.internal:8443/api/v0/licensing/issue?token=OJCBaTq4VGLjrCes2k4ACCQOzg0AxAoz01" -o licenses.zip -d "type=server" -d "hostnames=SRV001" -d "hostnames=SRV002" ... -d "hostnames=hostnameN"
+   nextron@unix:~$ curl -XPOST "https://mgmt-center.internal:8443/api/v0/licensing/issue?token=OJCBaTq4VGLjrCes2k4ACCQOzg0AxAoz01" -o licenses.zip -d "type=server" -d "hostnames=SRV001" -d "hostnames=SRV002" ... -d "hostnames=hostnameN"
 
 If you can't use curl and want to retrieve a license as part of a bigger PowerShell script,
 you can use the following code snippet to help you with the retrieval.
 
-.. literalinclude:: ../examples/asgard-license-gen.ps1
+.. literalinclude:: ../examples/mgmt-center-license-gen.ps1
    :language: powershell
    :linenos:
 
-Check the ASGARD helper scripts section in
-`our Github repo <https://github.com/NextronSystems/nextron-helper-scripts/tree/master/asgard>`__
+Check the Management Center helper scripts section in
+`our Github repository <https://github.com/NextronSystems/nextron-helper-scripts/tree/master/management-center>`__
 for more scripts and snippets.
 
 Retrieve Valid License From Customer Portal
@@ -296,20 +296,15 @@ the scan.
    
    C:\temp\thor> wmic /node:10.0.2.10 /user:MYDOM\scanadmin process call create "cmd.exe /c \\server\thor10\thor.exe"
 
-ASGARD Management Center (Windows, Linux, macOS)
-------------------------------------------------
+Management Center (Windows, Linux, macOS)
+-----------------------------------------
 
-ASGARD is the central management platform for THOR scans. It manages
+The Management Center is the central management platform for THOR scans. It manages
 distributed THOR scans on thousands of systems, collects, forwards and
-analyses logs. Furthermore, ASGARD can control and execute complex
+analyses logs. Furthermore, the Management Center can control and execute complex
 response tasks if needed.
 
-ASGARD comes in two variations: While ASGARD Management Center features
-scan control and response functions, ASGARD Analysis Cockpit can be used
-to analyze large amounts of scan logs through an integrated base-lining
-and case management.
-
-The hardened, Linux-based ASGARD appliance is a powerful, solid and
+The hardened, Linux-based appliance is a powerful, solid and
 scalable response platform with agents for Windows, Linux and macOS. It
 provides essential response features like the collection of files,
 directories and main memory, remote file system browsing and other
@@ -327,14 +322,14 @@ services are:
 * **Evidence Collection** – collect evidences (files and memory) from asset
 
 .. figure:: ../images/image5.png
-   :alt: ASGARD Management Center
+   :alt: Management Center
 
-   ASGARD Management Center
+   Management Center
 
 .. figure:: ../images/image6.png
-   :alt: ASGARD Response Control
+   :alt: Response Control
 
-   ASGARD Response
+   Response Control
 
 Ansible (Linux)
 ---------------
@@ -840,10 +835,10 @@ THOR executable and collect the report files afterwards.
 
 The most usable format in this use case is the HTML report if only a few
 reports have to be analyzed. If the number of collected reports is high,
-we recommend using ASGARD Analysis Cockpit or Splunk with the free App
+we recommend using the Analysis Cockpit or Splunk with the free App
 and Add-on.
 
-ASGARD Analysis Cockpit: https://portal.nextron-systems.com
+Analysis Cockpit: https://analysis-cockpit-manual.nextron-systems.com
 
 THOR APT Scanner App: https://splunkbase.splunk.com/app/3717/
 

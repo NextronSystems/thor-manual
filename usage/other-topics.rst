@@ -19,28 +19,27 @@ not need a license.
    program folder, no new license will be downloaded or issued from the
    remote source.
 
-ASGARD License Retrieval
-^^^^^^^^^^^^^^^^^^^^^^^^
+Management Center License Retrieval
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-If you have a local ASGARD Management Center instance and use its
+If you have a local Management Center instance and use its
 license pool for THOR scans, you can use the ``--asgard`` flag to
 download a valid license. This also requires the ``--asgard-token``
 flag. The token can be found in the **Download** section of your
-ASGARD Management Center.
+Management Center.
 
 Example:
 
 .. code-block:: console
 
-  nextron@unix:~/thor$ ./thor-linux-64 --asgard "my-asgard.local" --asgard-token "download-token"
+  nextron@unix:~/thor$ ./thor-linux-64 --asgard "mgmt-center.local" --asgard-token "download-token"
   [...SNIP...]
-  Info License file found LICENSE: my-asgard.local OWNER: John Doe TYPE: Server STARTS: 2023/08/30 EXPIRES: 2023/11/01 SCANNER: THOR VALID: true REASON:
+  Info License file found LICENSE: mgmt-center.local OWNER: John Doe TYPE: Server STARTS: 2023/08/30 EXPIRES: 2023/11/01 SCANNER: THOR VALID: true REASON:
 
 The retrieved license is placed in THOR's program folder so that you
 can run THOR next time without the extra flags. The file name is
 ``<hostname>.lic``. Rerunning the command does not issue a new license;
-it downloads the already valid license again from your ASGARD
-Management Center.
+it downloads the already valid license again from your Management Center.
 
 Nextron Portal License Retrieval
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -119,26 +118,6 @@ processes.
 
 Also note that THOR will never dump lsass.exe to prevent these dumps
 from potentially being used to extract passwords by any attackers.
-
-
-File Collection (Bifrost v2)
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-Bifrost v2 cannot be used standalone yet. The required API Key is set by
-ASGARD v2 during initialization and is unknown to a THOR user.
-
-You can activate the quarantine function via Bifrost v2 when creating a
-single or group scan via the ASGARD management interface.
-
-.. figure:: ../images/image21.png
-   :alt: Configure Quarantine via Bifrost in New Scan Dialogue
-
-   Configure Quarantine via Bifrost in New Scan Dialogue
-
-.. figure:: ../images/image22.png
-   :alt: Collected File Evidence in ASGARD v2
-
-   Collected File Evidence in ASGARD v2
 
 Resource Control
 ----------------

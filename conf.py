@@ -1,7 +1,7 @@
 import os
 
 project = 'THOR Manual'
-copyright = '2025, Nextron Systems GmbH'
+copyright = '2026, Nextron Systems GmbH'
 version="1.0"
 author = 'Nextron Systems GmbH'
 extensions = [
@@ -35,3 +35,6 @@ autosectionlabel_prefix_document = True
 autosectionlabel_maxdepth = 5
 # disable epub mimetype warnings
 suppress_warnings = ["epub.unknown_project_files"]
+# Skip these sites entirely. They block automated requests (HTTP 403), so the
+# link check cannot verify them even with a browser-like User-Agent.
+linkcheck_ignore = [r'^https://stackoverflow\.com']
