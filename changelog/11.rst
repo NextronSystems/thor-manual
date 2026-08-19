@@ -16,48 +16,98 @@ THOR 11.0
     * - Type
       - Description
     * - Feature
+      - THOR's JSON log messages and findings are now structured objects with a schema defined in https://github.com/NextronSystems/jsonlog.
+    * - Feature
+      - New ``--log-object`` flag defines which object types THOR prints.
+    * - Feature
+      - New plugin system. Plugins for THOR can be placed in the plugins/ folder and will be loaded on start, unless ``--no-plugins`` is specified. Plugins can also be provided as signed ZIP packages. See https://github.com/NextronSystems/thor-plugin for the plugin interface.
+    * - Feature
+      - THOR is now available for Windows and Linux on ARM64
+    * - Feature
+      - New ``--target-os`` flag to scan filesystem images from a different OS; THOR then uses the matching path style, signatures and excludes
+    * - Feature
+      - Linux kernel modules are now listed and matched against THOR's signatures in the new ``Lsmod`` module
+    * - Feature
+      - Loaded eBPF programs on Linux are now listed and matched against THOR's signatures in the new ``EBPF`` module
+    * - Feature
+      - New ``Antivirus`` module that reports the installed antivirus products on Windows
+    * - Feature
+      - New ``EndOfLifeCheck`` module that warns if the scanned Windows version no longer receives updates
+    * - Feature
+      - Journald log file parsing is now supported
+    * - Feature
+      - MPLog (Microsoft Protection Log, written by Windows Defender) parsing is now supported
+    * - Feature
+      - Web browser history parsing is now supported
+    * - Feature
+      - SRUM (System Resource Usage Monitor) parsing is now supported
+    * - Feature
+      - User Access Logging (UAL) database parsing is now supported
+    * - Feature
+      - macOS quarantine database parsing is now supported
+    * - Feature
+      - CHM (compiled HTML help) files are now extracted and scanned
+    * - Feature
+      - PowerShell module analysis cache parsing is now supported
+    * - Feature
+      - ICS calendar file parsing is now supported
+    * - Feature
+      - VBE (encoded VBScript) decoding is now supported
+    * - Feature
+      - Shim Database (``.sdb`` application compatibility files) parsing is now supported
+    * - Feature
+      - Jumplist parsing is now supported
+    * - Feature
       - Added ``.bz2`` support in the ``Archive`` feature
     * - Feature
-      - New ``--sigma-ruleset`` flag to use the Core, Core+ or Core++ Sigma ruleset
+      - Added LZX compression support for cabinet files
     * - Feature
-      - New plugin system. Plugins for THOR can be placed in the plugins/ folder and will be loaded on start, unless ``--no-plugins`` is specified. See https://github.com/NextronSystems/thor-plugin for the plugin interface.
+      - New ``--exclude-component`` flag to disable individual modules and features, including the new ones listed above; the various ``--no...`` flags are deprecated in its favor. See https://thor-manual.nextron-systems.com/en/v11/scanning/modules.html for a list of all modules.
     * - Feature
-      - PowerShell module analysis cache parsing is now supported. This can be disabled with ``--exclude-component ModuleAnalysisCache``.
+      - New flags ``--exclude-process``, ``--exclude-eventlog`` and ``--exclude-registry-key`` to exclude processes, event logs and registry keys
     * - Feature
-      - ICS file parsing is now supported. This can be disabled with ``--exclude-component ICS``.
+      - New ``--score-info`` flag that prints findings above the specified score as Info messages; it complements ``--score-notice``, ``--score-warning`` and ``--score-alert`` (previously ``--notice``, ``--warning`` and ``--alert``)
     * - Feature
-      - VBE decoding is now supported. This can be disabled with ``--exclude-component VBEDecoder``.
+      - New ``--list-deepscan-criteria`` flag for displaying information on which files are analyzed with YARA rules
     * - Feature
-      - Shim Database parsing is now supported. This can be disabled with ``--exclude-component ShimDB``.
+      - Remote logging with ``--remote-log`` now supports HTTP(S) URLs as targets (e.g. ``--remote-log https://logserver.example.net``)
     * - Feature
-      - New ``--hex-matches`` flag for displaying all match strings as hex
+      - A license can now be passed base64-encoded via the THOR_LICENSE environment variable
     * - Feature
-      - New ``--print-deepscan-criteria`` flag for displaying information on which files are analyzed with YARA rules
-    * - Feature
-      - New ``--log-object`` flag for defining which objects are printed by THOR.
-    * - Feature
-      - New ``--describe-object-type`` flag for inspecting the JSON schema for objects printed by THOR.
-    * - Feature
-      - Jumplist parsing is now supported. This can be disabled with ``--exclude-component JumpList``.
-    * - Feature
-      - New ``--max-log-size`` flag to limit the size of the log file (used to be a fixed 64 MB)
-    * - Feature
-      - New ``--info`` flag, that, analogous to ``--notice``, ``--warning`` and ``--alert``, prints findings above a specified score as Info messages
-    * - Feature
-      - New ``--no-builtin-path-excludes`` flag to disable the built-in list of path excludes that THOR skips by default. It is enabled automatically with ``--deep`` and ``--files-all``.
+      - Thunderstorm now provides an endpoint to list the loaded signatures (``/api/signatures``)
     * - Change
-      - Multiple THOR modules now use APIs to query information (instead of using system utilities)
+      - Default log format is now JSON instead of text. The old text format can still be generated using ``--text``.
+    * - Change
+      - JSON log files now use the ``.jsonl`` extension
+    * - Change
+      - All command line flags have been renamed to a consistent scheme (e.g. ``--alldrives`` is now ``--all-drives``, ``--vtkey`` is now ``--vt-key``, ``--template`` is now ``--config``, ``--max-hits`` is now ``--match-limit``, ``--quick`` is now ``--fast``, ``--intense`` is now ``--deep``). The old flag names continue to work as aliases.
+    * - Change
+      - Thunderstorm is now shipped as a separate binary that uses THOR under the hood (instead of being started via ``thor --thunderstorm``). It can be found at ``tools/thunderstorm`` in the THOR package for Linux; it is no longer included in the Windows and macOS packages.
+    * - Change
+      - 32-bit builds have been removed; THOR and THOR Util are now 64-bit only
+    * - Change
+      - The Action feature has been removed. The ``--action_command``, ``--action_args`` and ``--action_level`` flags are still accepted for backwards compatibility, but no longer have any effect. Users should migrate to plugins (see https://github.com/NextronSystems/thor-plugin).
+    * - Change
+      - Bifrost feature has been removed (it was already deprecated; users should migrate to Bifrost 2).
+    * - Change
+      - ``--min`` has been deprecated. Use ``--score-notice`` instead.
+    * - Change
+      - The default file size limit was raised from 30 MB to 64 MB; ``--file-size-limit 0`` now scans files of any size
+    * - Change
+      - ``directory-excludes.cfg`` has been renamed to ``path-excludes.cfg`` (the old name is still read)
+    * - Change
+      - ``--all-drives`` is now enabled automatically if the path specified with ``--path`` is on a network filesystem
+    * - Change
+      - If THOR runs without elevated privileges, the THOR DB is now stored in the user directory
     * - Change
       - THOR Remote upload directory now defaults to ``C:\Program Files\Thor-Remote\Temp``; as before, it can be changed with ``--remote-dir``
     * - Change
-      - Update to Golang v1.20.13
+      - Update to Golang v1.26
     * - Change
-      - Update to OpenSSL v3.1.3
+      - Update to OpenSSL v3.5.4
+    * - Feature
+      - New ``--wsl`` flag to enable scanning of WSL filesystems on Windows
     * - Change
-      - Update to YARA v4.5.0
+      - THOR Util was updated to 2.0.0
     * - Change
-      - ``--resume`` now restores passed parameters from the resumed scan. If no resumable scan exists, it fails. This change makes ``--resumeonly`` obsolete.
-    * - Change
-      - ``--min`` has been deprecated. Use ``--notice`` instead.
-    * - Change
-      - Bifrost feature has been removed (it was already deprecated; users should migrate to Bifrost 2).
+      - THOR Lite can now use ``--image_file``
