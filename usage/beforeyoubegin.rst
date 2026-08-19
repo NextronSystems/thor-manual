@@ -267,7 +267,7 @@ Defining THOR exclusions across all relevant McAfee services is not
 straightforward. You need to exclude the process in multiple sections
 (AV, EDR, On-Access). We have compiled a list of recommended
 exclusions, which you can find
-`here <https://asgard-manual.nextron-systems.com/en/latest/requirements/av_edr.html#mcafee-edr-exclusions>`__.
+`here <https://management-center-manual.nextron-systems.com/en/latest/requirements/av_edr.html#mcafee-edr-exclusions>`__.
 
 Grant Full Disk Access on macOS
 -------------------------------
