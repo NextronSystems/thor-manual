@@ -23,7 +23,6 @@ Analyze authorized_keys SSH files;AuthorizedKeys;
 Parse and analyze .eml Email files;Eml;
 Parse Windows Event Trace Logging files and scan the contained logs;ETL;
 Parse job information stored by the 'at' tool;AtJobs;
-Upload suspicious files to an ASGARD;Bifrost2;automatically enabled when using ASGARD
 Slow down THOR scan when system is under heavy load to avoid slowing down critical applications;CPULimit;
 Parse crontab files and analyze their entries;CronParser;
 Check for DoublePulsar Backdoor in the rootkit module;DoublePulsar;
@@ -59,4 +58,4 @@ Parse the Microsoft Defender protection log for quarantined threats;MPLog;
 Parse and categorize ESE DB files;EseDB;
 Parse MFT index files to extract the MFT entries;MFTFile;
 Parse the User Access Log on Windows;UserAccessLog;
-Receive and execute commands from a controlling program (e.g. ASGARD Agent and THOR CLoud Launcher);CommandListener;
+Receive and execute commands from a controlling program (e.g. Endpoint Agent and THOR Cloud Launcher);CommandListener;

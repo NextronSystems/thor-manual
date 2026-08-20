@@ -130,21 +130,21 @@ string in the ``THOR_LICENSE`` environment variable:
 
 Then run THOR as usual.
 
-ASGARD Management Center
-^^^^^^^^^^^^^^^^^^^^^^^^
+Management Center
+^^^^^^^^^^^^^^^^^
 
-The ASGARD Management Center includes built-in licensing functionality.
-It is used to license your assets (an asset is an endpoint with our
-ASGARD Agent installed). It can also generate and download licenses for
+The Management Center includes built-in licensing functionality. It is
+used to license your assets (an asset is an endpoint with our Endpoint
+Agent installed). It can also generate and download licenses for
 standalone THOR instances.
 
-In the ASGARD Management Center, you can configure a download token to
+In the Management Center, you can configure a download token to
 restrict THOR package and license downloads to clients that know this
 token. This helps prevent unauthorized package retrieval and unintended
 overuse of your license quota.
 
 The download token can be configured in the ``Downloads`` section of
-your ASGARD server.
+your Management Center.
 
 .. figure:: ../images/download-token.png
    :alt: Downloads > Download Token Configuration
@@ -156,21 +156,21 @@ built-in ``--asgard-host`` and ``--asgard-token`` parameters.
 
 .. code-block:: doscon
 
-   C:\temp\thor>thor64.exe --asgard-host my-asgard.internal --asgard-token OCU92GW1CyOJLzaHkGrim1v2O0_ZkHPu0A
+   C:\temp\thor>thor64.exe --asgard-host mgmt-center.internal --asgard-token OCU92GW1CyOJLzaHkGrim1v2O0_ZkHPu0A
 
 If everything works as expected, you will see an INFO-level message in
 the output similar to the following:
 
 .. code-block:: none
 
-   Info: Init License file found LICENSE: my-asgard.internal OWNER: my-company ASGARD: ACME Inc TYPE: Workstation STARTS: 2021/06/18 EXPIRES: 2022/06/18 SCANNER: All Scanners VALID: true REASON:
+   Info: Init License file found LICENSE: mgmt-center.internal OWNER: my-company MGMT: ACME Inc TYPE: Workstation STARTS: 2021/06/18 EXPIRES: 2022/06/18 SCANNER: All Scanners VALID: true REASON:
 
-You can also automate license retrieval from a local ASGARD server by
-using the API. The help box in ASGARD's ``Licensing > Generate
-License`` section shows example ``curl`` requests that can be used to
-retrieve licenses from your ASGARD server.
+You can also automate license retrieval from a local Management Center
+by using the API. The help box in the Management Center's ``Licensing >
+Generate License`` section shows example ``curl`` requests that can be
+used to retrieve licenses from that server.
 
-.. figure:: ../images/asgard-license-gen.png
+.. figure:: ../images/mgmt-center-license-gen.png
    :alt: Licensing > Generate Licenses
 
    Licensing > Generate Licenses
@@ -184,11 +184,11 @@ You only need:
    Linux always uses the ``server`` license type.
 
 .. hint::
-   For more information about API endpoints in the ASGARD Management
-   Center, consult the built-in API documentation in the product.
+   For more information about API endpoints in the Management Center,
+   consult the built-in API documentation in the product.
 
-Check the ASGARD helper scripts section in
-`our GitHub repo <https://github.com/NextronSystems/nextron-helper-scripts/tree/master/asgard>`__
+Check the Management Center helper scripts section in
+`our GitHub repository <https://github.com/NextronSystems/nextron-helper-scripts/tree/master/management-center>`__
 for more scripts and snippets.
 
 Customer Portal
