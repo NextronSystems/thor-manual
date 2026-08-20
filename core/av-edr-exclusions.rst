@@ -51,6 +51,6 @@ A Note on McAfee
 
 Defining THOR exclusions across all relevant McAfee services is not
 straightforward. You need to exclude the process in multiple sections
-(AV, EDR, On-Access). For ASGARD customers, we have compiled a list of
-recommended exclusions, which you can find
-`here <https://asgard-manual.nextron-systems.com/en/latest/requirements/av_edr.html#mcafee-edr-exclusions>`__.
+(AV, EDR, On-Access). For Management Center customers, we have compiled
+a list of recommended exclusions, which you can find
+`here <https://management-center-manual.nextron-systems.com/en/latest/requirements/av_edr.html#mcafee-edr-exclusions>`__.
