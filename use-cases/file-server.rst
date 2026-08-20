@@ -46,8 +46,8 @@ be useful in specific scenarios.
     
   * If the share is not accessible anonymously, you need to mount the
     shares with valid user credentials before the scan and grant access
-    to the user running THOR. If you use ASGARD to launch THOR, the
-    scanning user is ``NT AUTHORITY\SYSTEM``.
+    to the user running THOR. If you use our Management Center to launch
+    THOR, the scanning user is ``NT AUTHORITY\SYSTEM``.
 
 * ``--no-soft``
 
