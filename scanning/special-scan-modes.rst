@@ -56,7 +56,13 @@ the following command-line flags:
 
 .. code-block:: doscon 
 
-   C:\thor>thor64.exe -a Filescan --deep --no-resource-check --cross-platform-paths -p path-to-scan --threads 0
+   C:\thor>thor64.exe ^
+     --module Filescan ^
+     --deep ^
+     --no-resource-check ^
+     --cross-platform-paths ^
+     --path path-to-scan ^
+     --threads 0
    
 Without a valid lab license, you cannot use multiple THOR instances on a
 single system. The features described in the following subsections are
@@ -120,7 +126,7 @@ forensic workstation:
 Hostname Replacement in Logs
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The ``-j`` parameter sets the hostname used in log files to a specified
+The ``--overwrite-hostname`` parameter sets the hostname used in log files to a specified
 identifier instead of using the current workstation name. If you do not
 use this flag, all output files created on the forensic workstation will
 use the workstation name as the source.
@@ -130,7 +136,7 @@ retrieved as the value for that parameter.
 
 .. code-block:: none
 
-   -j orig-hostname
+   --overwrite-hostname orig-hostname
 
 Artefact Collector
 ^^^^^^^^^^^^^^^^^^
@@ -182,7 +188,12 @@ environment:
 
 .. code-block:: doscon
 
-   C:\thor>thor64.exe --lab -p S:\ --path-remap S:C -j WKS001 -e C:\reports
+   C:\thor>thor64.exe ^
+     --lab ^
+     --path S:\ ^
+     --path-remap S:C ^
+     --overwrite-hostname WKS001 ^
+     --output-directory C:\reports
 
 It instructs THOR to scan the mounted ``S:`` partition in lab scanning
 mode, map the current partition ``S:`` to a virtual ``C:`` drive,
@@ -346,7 +357,10 @@ Usage Examples
 
 .. code-block:: doscon
 
-   C:\thor>thor64.exe --memory-dump-file systemX123.mem -j systemX123 -e C:\reports
+   C:\thor>thor64.exe ^
+     --memory-dump-file systemX123.mem ^
+     --overwrite-hostname systemX123 ^
+     --output-directory C:\reports
 
 .. note::
 
@@ -386,14 +400,14 @@ scans the following Event Logs:
 - Microsoft-Windows-Winlogon/Operational
 - Microsoft-Windows-UniversalTelemetryClient/Operational
 
-The ``-n`` parameter works like ``-p`` in the Filesystem module. It
+The ``--eventlog-target`` parameter works like ``--path`` in the Filesystem module. It
 takes the full name of the target Windows Event Log as its value.
 
 .. code-block:: doscon
 
-   C:\thor>thor64.exe -a Eventlog -n "Microsoft-Windows-Sysmon/Operational"
+   C:\thor>thor64.exe --module Eventlog --eventlog-target "Microsoft-Windows-Sysmon/Operational"
 
-You can also scan all Event Logs by using ``-n all``.
+You can also scan all Event Logs by using ``--eventlog-target all``.
 
 You can get the full name of a Windows Event Log by right-clicking the
 log in Windows Event Viewer and selecting ``Properties``.
@@ -403,14 +417,14 @@ log in Windows Event Viewer and selecting ``Properties``.
 
    Windows Eventlog Properties
 
-The ``-n`` parameter can also be used to restrict Eventlog scanning to
+The ``--eventlog-target`` parameter can also be used to restrict Eventlog scanning to
 specific logs. The following command starts a default THOR scan and
 instructs the Eventlog module to scan only the ``Security`` and
 ``System`` logs.
 
 .. code-block:: doscon
 
-   C:\thor>thor64.exe -n Security -n System
+   C:\thor>thor64.exe --eventlog-target Security --eventlog-target System
 
 MFT Analysis
 ------------

@@ -24,7 +24,7 @@
         state: file
 
     - name: Execute THOR
-      command: /mnt/temp_ram/thor-x64 -l /mnt/temp_ram/thor.txt
+      command: /mnt/temp_ram/thor-x64 --text /mnt/temp_ram/thor.txt
       args:
         creates: /mnt/temp_ram/thor.html
 

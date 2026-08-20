@@ -37,22 +37,6 @@ the Sigma rule level:
  - Level high translates to score 70
  - Level critical translates to score 100
 
-Scanning Logfiles with Sigma
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-Perform a scan with Sigma rules on the local Windows Event Logs by
-using ``-a Eventlog``:
-
-.. code-block:: doscon
-
-   C:\thor>thor64.exe -a Eventlog
-
-Perform a scan with Sigma rules on Linux log files:
-
-.. code-block:: console
-
-   $ ./thor-linux-64 -a Filescan -p /var/log
-
 Writing Custom Sigma Rules for THOR Object Types
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -159,38 +143,6 @@ available in the :ref:`signatures/sigma:quick field reference`.
 
 For further examples, see the :ref:`signatures/sigma:detection examples`
 section.
-
-Deploying Custom Sigma Rules
-****************************
-
-1. Save the rule as a ``.yml`` file.
-2. Copy it to the THOR custom signatures folder:
-
-   .. code-block:: console
-
-      $ cp my-rule.yml /path/to/thor/custom-signatures/sigma/
-
-3. For encrypted rules, use the ``.yms`` extension.
-4. Verify that the rule was loaded with ``--list-signatures``:
-
-   .. code-block:: console
-
-      $ ./thor-linux-64 --list-signatures | grep "my-rule"
-
-Testing Your Rules
-******************
-
-Examine real objects before writing rules:
-
-.. code-block:: console
-
-   $ ./thor-linux-64 --module ProcessCheck --log-object "process:10" --console-json
-
-Adjust the Sigma threshold if you want to see lower-level matches:
-
-.. code-block:: console
-
-   $ ./thor-linux-64 --sigma-threshold medium
 
 Object Type Reference
 *********************
@@ -388,3 +340,92 @@ Detection Examples
                - '\AppData\'
        condition: selection
    level: high
+
+Scanning Logfiles with Sigma
+****************************
+
+Perform a scan with Sigma rules on the local Windows Event Logs by
+using ``--module Eventlog``:
+
+.. code-block:: doscon
+
+   C:\thor>thor64.exe --module Eventlog
+
+Perform a scan with Sigma rules on Linux log files:
+
+.. code-block:: console
+
+   $ ./thor-linux-64 --module Filescan --path /var/log
+
+Deploying Custom Sigma Rules
+****************************
+
+1. Save the rule as a ``.yml`` file.
+2. Copy it to the THOR custom signatures folder:
+
+   .. code-block:: console
+
+      $ cp my-rule.yml /path/to/thor/custom-signatures/sigma/
+
+3. For encrypted rules, use the ``.yms`` extension.
+4. Verify that the rule was loaded with ``--list-signatures``:
+
+   .. code-block:: console
+
+      $ ./thor-linux-64 --list-signatures | grep "my-rule"
+
+Testing Your Rules
+******************
+
+Examine real objects before writing rules:
+
+.. code-block:: console
+
+   $ ./thor-linux-64 \
+     --module ProcessCheck \
+     --log-object "process:10" \
+     --console-json
+
+Adjust the Sigma threshold if you want to see lower-level matches:
+
+.. code-block:: console
+
+   $ ./thor-linux-64 --sigma-threshold medium
+
+Quick Reference
+***************
+
+.. list-table::
+   :header-rows: 1
+   :widths: 25, 25, 50
+
+   * - Use Case
+     - Object Type
+     - Key Fields
+   * - Process monitoring
+     - ``process``
+     - COMMAND, NAME, OWNER, PID
+   * - Linux persistence
+     - ``cron job``
+     - COMMAND, USER, SCHEDULE
+   * - Windows persistence
+     - ``scheduled task``
+     - COMMANDS, USER, RUN_LEVEL
+   * - Autoruns
+     - ``autorun entry``
+     - LAUNCH_STRING, LOCATION
+   * - Services (Windows)
+     - ``Windows service``
+     - SERVICE_NAME, IMAGE
+   * - Services (Linux)
+     - ``systemd service``
+     - COMMAND, RUN_AS_USER
+   * - Kernel rootkits
+     - ``Linux kernel module``
+     - FILE, INCLUDED_IN_KERNEL
+   * - File hashes
+     - ``file``
+     - MD5, SHA1, SHA256, PATH
+   * - Execution history
+     - ``AmCache entry``
+     - SHA1, PATH, PRODUCT

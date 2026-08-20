@@ -293,7 +293,7 @@ output.
 Run a Scan with Specific Modules
 --------------------------------
 
-With the ``-a`` parameter, you can run a single module or select a set
+With the ``--module`` parameter, you can run a single module or select a set
 of modules. All available modules can be found in the
 section :ref:`scanning/modules:modules`.
 
@@ -301,13 +301,13 @@ Run a Rootkit check only:
 
 .. code-block:: doscon
 
-  C:\thor>thor64.exe -a Rootkit
+  C:\thor>thor64.exe --module Rootkit
 
 Run the Eventlog and file system scan:
 
 .. code-block:: doscon
 	
-  C:\thor>thor64.exe -a Eventlog -a Filescan
+  C:\thor>thor64.exe --module Eventlog --module Filescan
 
 Select or filter Signatures during Initialization
 -------------------------------------------------

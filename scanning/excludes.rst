@@ -150,4 +150,7 @@ You can start such a test run with:
 
 .. code-block:: doscon
    
-   C:\thor>thor.exe -a FileScan --deep -p C:\\TestDir
+   C:\thor>thor.exe ^
+     --module FileScan ^
+     --deep ^
+     --path C:\\TestDir

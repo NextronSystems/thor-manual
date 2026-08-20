@@ -61,7 +61,7 @@ You can then use that file with:
 
 .. code-block:: doscon
 
-   C:\thor>thor64.exe -t targets.yml
+   C:\thor>thor64.exe --config targets.yml
 
 THOR Remote Licensing
 ^^^^^^^^^^^^^^^^^^^^^

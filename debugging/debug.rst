@@ -24,12 +24,15 @@ debug output:
 
 .. code-block:: doscon
 
-   C:\thor>thor64.exe -a Filescan -p C:\tools\file --debug
+   C:\thor>thor64.exe ^
+     --module Filescan ^
+     --path C:\tools\file ^
+     --debug
 
 The command above will:
 
-- Only use the Filescan module (``-a Filescan``)
-- Only scan a single file (``-p C:\tools\file``)
+- Only use the Filescan module (``--module Filescan``)
+- Only scan a single file (``--path C:\tools\file``)
 - Enable THOR's debug output (``--debug``)
 
 To run a scan with only specific modules, use the ``--module``
@@ -37,9 +40,9 @@ parameter, or its short form ``-a``:
 
 .. code-block:: doscon
 
-   C:\thor>thor64.exe -a Mutex
-   C:\thor>thor64.exe -a FileScan
-   C:\thor>thor64.exe -a Eventlog
+   C:\thor>thor64.exe --module Mutex
+   C:\thor>thor64.exe --module FileScan
+   C:\thor>thor64.exe --module Eventlog
 
 .. hint::
    You can specify multiple modules in a single command. See
@@ -47,15 +50,19 @@ parameter, or its short form ``-a``:
 
    .. code-block:: doscon
 
-      C:\thor>thor64.exe -a Mutex,EnvCheck,Users
+      C:\thor>thor64.exe --module Mutex,EnvCheck,Users
 
 You can reduce the scope of some modules even further by using
 ``--lookback``:
 
 .. code-block:: doscon
 
-   C:\thor>thor64.exe -a Eventlog --lookback 3
-   C:\thor>thor64.exe -a FileScan -p C:\Windows\System32 --lookback-global --lookback 1
+   C:\thor>thor64.exe --module Eventlog --lookback 3
+   C:\thor>thor64.exe ^
+     --module FileScan ^
+     --path C:\Windows\System32 ^
+     --lookback-global ^
+     --lookback 1
 
 To find out why a file was not detected, use ``--debug`` together with
 ``--log-object file`` and, if needed, test the same path in
@@ -63,8 +70,17 @@ To find out why a file was not detected, use ``--debug`` together with
 
 .. code-block:: doscon
 
-   C:\thor>thor64.exe -a Filescan -p C:\testfolder --debug --log-object file
-   C:\thor>thor64.exe -a Filescan -p C:\testfolder --debug --log-object file --deep
+   C:\thor>thor64.exe ^
+     --module Filescan ^
+     --path C:\testfolder ^
+     --debug ^
+     --log-object file
+   C:\thor>thor64.exe ^
+     --module Filescan ^
+     --path C:\testfolder ^
+     --debug ^
+     --log-object file ^
+     --deep
 
 If the file is detected in ``--deep`` mode but not in default mode, the
 file extension or the magic header is the most likely cause. You can

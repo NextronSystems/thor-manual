@@ -89,7 +89,10 @@ occurred.
 
 .. code-block:: doscon
 
-   C:\thor>thor64.exe --fast -e D:\logs -p C:\Windows\System32
+   C:\thor>thor64.exe ^
+     --fast ^
+     --output-directory D:\logs ^
+     --path C:\Windows\System32
 
 Provide a diagnostics pack or crash output
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -111,14 +114,18 @@ The easiest way is to rerun the scan with the same parameters and add
 
 .. code-block:: doscon
 
-   C:\thor>thor64.exe --fast -e D:\logs -p C:\Windows\System32 --debug
+   C:\thor>thor64.exe ^
+     --fast ^
+     --output-directory D:\logs ^
+     --path C:\Windows\System32 ^
+     --debug
 
 If you can narrow the issue down to a specific module, you can limit the
 scan to that module to reach the problematic element more quickly.
 
 .. code-block:: doscon
 
-   C:\thor>thor64.exe -a Rootkit --debug
+   C:\thor>thor64.exe --module Rootkit --debug
 
 After the scan, you will find the text log (``*.txt``) in the program
 folder. You can redact confidential information such as hostnames or IP

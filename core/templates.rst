@@ -16,7 +16,7 @@ Default Template
 
 By default, THOR applies only the file named ``thor.yml`` in the
 ``./config`` subfolder. Additional config files can be applied with the
-``-t`` command-line parameter.
+``--config`` command-line parameter.
 
 Apply Custom Scan Templates
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -26,7 +26,7 @@ The following command applies a custom scan template named
 
 .. code-block:: doscon
 
-   C:\thor>thor.exe -t config\mythor.yml
+   C:\thor>thor.exe --config config\mythor.yml
 
 Example Templates
 ^^^^^^^^^^^^^^^^^
