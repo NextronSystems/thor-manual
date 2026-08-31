@@ -35,6 +35,10 @@ already be out of date.
    ask us for a ``silent license``. It can be used for testing purposes
    and also allows THOR and signature updates.
 
+Please mind any changes the upgrade may introduce, in particular any breaking
+changes on major version updates. See the :ref:`changelog/index:changelog` for
+details.
+
 .. important::
    With the upgrade to THOR 11, we advise to work with a fresh THOR
    installation/directory because many options changed and your old
