@@ -18,4 +18,4 @@ You can decrypt the logs later with THOR Util:
    nextron@unix:~$ thor-util decrypt --privkey mykey-private.pem thorlog.jsonl
 
 For more information about ``thor-util``, see the separate `THOR Util
-manual <https://thor-util-manual.nextron-systems.com/>`__.
+manual <https://thor-util-manual.nextron-systems.com>`__.

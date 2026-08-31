@@ -35,6 +35,17 @@ already be out of date.
    ask us for a ``silent license``. It can be used for testing purposes
    and also allows THOR and signature updates.
 
+.. important::
+   With the upgrade to THOR 11, we advise to work with a fresh THOR
+   installation/directory because many options changed and your old
+   configuration may not be compatible anymore. Most notably, ``--memory-limit``,
+   the old ``--minmem`` (see :ref:`core/flags:resource options`), was changed to
+   use bytes instead of megabytes thus an old default configuration file now
+   yields virtually useless scans. You can find a new default configuration
+   file in a THOR 11 package in the ``config`` folder, next to a
+   ``thor.yml.defaults`` that provides a reference for all available options.
+   Please check your configuration file and adapt it to the new options.
+
 Update Signatures
 -----------------
 
