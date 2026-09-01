@@ -144,13 +144,11 @@ effect on it. In particular, score based thresholds that control which
 findings end up in the regular output are ignored: the audit trail always 
 contains all assessed elements, regardless of their score.
 
-Two exceptions exist. Log lines, eventlog entries, Linux audit log entries,
+One exception exists: Log lines, eventlog entries, Linux audit log entries,
 registry keys and values and journald entries occur in such large numbers
-that they are only written if a signature with a positive score matched
+that they are only written if a signature matched
 them, if they are connected to another element by more than a parent or
-origin relation, or if other elements were derived from them. And only
-signatures with a positive score are listed as reasons; a negative
-signature does not remove the element, only the reason itself.
+origin relation, or if other elements were derived from them.
 
 ``--no-personal-data`` also applies to the audit trail. ``--log-size-limit``
 does not: it only counts the regular log output, so the size of the audit
@@ -247,24 +245,45 @@ during the scan, in the same form as in the JSON log:
 
 The first object in the file is always such a message; its ``log_version``
 states the version of the audit trail format. Debug messages are never
-written to the audit trail.
+written to the audit trail and are found exclusively in the THOR report.
 
 Timestamps
 ^^^^^^^^^^
 
-Timestamps in all modules use the **ANSI C** format:
+The text log writes two kinds of timestamps. Every event starts with the
+time it was written, always in UTC:
+
+.. code-block:: none
+
+   Aug  3 18:54:22
+
+Timestamps within a message, such as the file times of a scanned file,
+use the following format. The same format is used for the console output
+and for the text based syslog formats:
 
 .. code-block:: none
 
    Mon Jan  2 15:04:05 2006
    Mon Mar 19 09:04:05 2018
 
-`Go time format reference <https://go.dev/src/time/format.go>`__
+This format is known as the **ANSI C** format. See the
+`Go time format reference <https://go.dev/src/time/format.go>`__ for its
+exact definition.
+
+The day of month is padded with a space, not with a zero, and no time
+zone is given: These timestamps are in the local time zone of the scanned
+system unless ``--timestamp-utc`` is set. ``--timestamp-rfc3339`` writes
+them in RFC3339 format instead, which includes the timezone.
+
+The JSON log and the audit trail are not affected by either option. They
+always use RFC3339 with nanoseconds and always include the timezone.
 
 UTC
 ~~~
 
-The ``--timestamp-utc`` parameter forces all timestamps to use UTC.
+``--timestamp-utc`` converts the timestamps of all scanned elements to UTC.
+This applies to the text log, the JSON log and the audit trail alike. The
+leading timestamp of each text log event is written in UTC in any case.
 
 RFC3339 Time Stamps
 ~~~~~~~~~~~~~~~~~~~
