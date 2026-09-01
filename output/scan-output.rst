@@ -142,39 +142,43 @@ Elements that THOR never looks at cannot appear in it.
 Filters that are applied to the output rather than to the scan have no 
 effect on it. In particular, score based thresholds that control which 
 findings end up in the regular output are ignored: the audit trail always 
-contains all assessed elements, regardless of their score.
+contains all observed elements, regardless of their score.
 
-Two exceptions exist. Log lines, eventlog entries, Linux audit log entries,
+One exception exists: Log lines, eventlog entries, Linux audit log entries,
 registry keys and values and journald entries occur in such large numbers
-that they are only written if a signature with a positive score matched
-them, if they are connected to another element by more than a parent or
-origin relation, or if other elements were derived from them. And only
-signatures with a positive score are listed as reasons; a negative
-signature does not remove the element, only the reason itself.
+that they are only written if a signature matched them, if other elements 
+were found within them, or if they refer to a file that THOR scanned 
+as a separate element (see ``references`` below).
 
 ``--no-personal-data`` also applies to the audit trail. ``--log-size-limit``
 does not: it only counts the regular log output, so the size of the audit
-trail file is not bounded by it. Log encryption does not apply either, the
-audit trail is always written as a plain gzipped file.
+trail file is not bounded by it. ``--encryption-key`` applies as well (see
+:ref:`output/encryption:encrypted output files`): the audit trail is
+compressed first and then encrypted, so the decrypted file is still
+zstd-compressed.
 
 Output format
 ~~~~~~~~~~~~~
 
-Audit trail output is written as a gzipped JSONL file. The output file can
-be specified with ``--audit-trail my-target-file.jsonl.gz``, or without a
-value to write ``<hostname>_audit_<time>.jsonl.gz`` into the output directory.
+Audit trail output is written as a zstd-compressed JSONL file. The output
+file can be specified with ``--audit-trail my-target-file.jsonl.zst``, or
+without a value to write ``<hostname>_thor_audit_<time>.jsonl.zst`` into the
+output directory.
 
 The file contains newline-delimited JSON. Every object carries a ``type``
 field that identifies the record.
 
-Objects of type ``THOR audit trail`` describe a scanned element:
+Objects of type ``THOR audit record`` describe a scanned element:
+
+See the `THOR log definition <https://github.com/NextronSystems/jsonlog>`__
+for the full definitions, including a JSON schema for audit trail entries.
 
 .. code-block:: json
 
    {
-      "type": "THOR audit trail",
+      "type": "THOR audit record",
       "id": "string",
-      "subject": {
+      "object": {
          "type": "string",
          "...": "..."
       },
@@ -194,50 +198,43 @@ Objects of type ``THOR audit trail`` describe a scanned element:
       "references": [
          {
             "target_id": "string",
-            "relation_name": "string",
-            "relation_type": "string"
+            "relation": "string"
          }
-      ]
-   }
-   {
-      "type": "THOR message",
-      "meta": {
-         "time": "string",
-         "level": "string",
-         "module": "string",
-         "scan_id": "string",
-         "event_id": "string",
-         "hostname": "string"
-         },
-      "message": "string",
-      "fields": { "...": "..." },
+      ],
       "log_version": "string"
    }
 
 - ``id`` contains a unique ID for the element
-- ``subject`` contains the scanned element
+- ``object`` contains the scanned element
 - ``timestamps`` contains all timestamps found within this element, in UTC.
-  If the element has none, a single ``OBSERVED_AT`` entry with the time of
+  If the element has none, a single ``OBSERVED`` entry with the time of
   observation is written instead
-- ``reasons`` contains a list of signatures that matched this element
-- ``references`` contains a list of IDs of other elements referenced by
-  this element
+- ``reasons`` contains the reasons THOR found for this element. Reasons
+  with a score of 0 or below are omitted
+- ``references`` contains a list of relations to other elements. ``target_id``
+  is the ``id`` of the referenced element, ``relation`` is one of:
 
-Objects of type ``THOR message`` contain the messages that THOR logged
-during the scan, in the same form as in the JSON log:
+  - ``child of``: the element was found within the referenced element while
+    scanning it, e.g. a file extracted from an archive or an entry read from
+    an event log. Only the direct parent is referenced; the full chain can be
+    followed through the references of the parent.
+  - ``points to``: the element refers to a file that THOR scanned as a
+    separate element, e.g. the executable of a scheduled task.
+
+- ``log_version`` contains the version of the log format the record was
+  written with
+
+Objects of type ``THOR audit message`` contain the messages that THOR logged
+during the scan. They are a reduced form of the messages in the JSON log:
+the metadata is flattened and limited to time, level and module.
 
 .. code-block:: json
 
    {
-      "type": "THOR message",
-      "meta": {
-         "time": "string",
-         "level": "string",
-         "module": "string",
-         "scan_id": "string",
-         "event_id": "string",
-         "hostname": "string"
-      },
+      "type": "THOR audit message",
+      "time": "string",
+      "level": "string",
+      "module": "string",
       "message": "string",
       "fields": {
          "...": "..."
@@ -247,24 +244,45 @@ during the scan, in the same form as in the JSON log:
 
 The first object in the file is always such a message; its ``log_version``
 states the version of the audit trail format. Debug messages are never
-written to the audit trail.
+written to the audit trail and are found exclusively in the THOR report.
 
 Timestamps
 ^^^^^^^^^^
 
-Timestamps in all modules use the **ANSI C** format:
+The text log writes two kinds of timestamps. Every event starts with the
+time it was written, always in UTC:
+
+.. code-block:: none
+
+   Aug  3 18:54:22
+
+Timestamps within a message, such as the file times of a scanned file,
+use the following format. The same format is used for the console output
+and for the text based syslog formats:
 
 .. code-block:: none
 
    Mon Jan  2 15:04:05 2006
    Mon Mar 19 09:04:05 2018
 
-`Go time format reference <https://go.dev/src/time/format.go>`__
+This format is known as the **ANSI C** format. See the
+`Go time format reference <https://go.dev/src/time/format.go>`__ for its
+exact definition.
+
+The day of month is padded with a space, not with a zero, and no time
+zone is given: These timestamps are in the local time zone of the scanned
+system unless ``--timestamp-utc`` is set. ``--timestamp-rfc3339`` writes
+them in RFC3339 format instead, which includes the timezone.
+
+The JSON log and the audit trail are not affected by either option. They
+always use RFC3339 with nanoseconds and always include the timezone.
 
 UTC
 ~~~
 
-The ``--timestamp-utc`` parameter forces all timestamps to use UTC.
+``--timestamp-utc`` converts the timestamps of all scanned elements to UTC.
+This applies to the text log, the JSON log and the audit trail alike. The
+leading timestamp of each text log event is written in UTC in any case.
 
 RFC3339 Time Stamps
 ~~~~~~~~~~~~~~~~~~~
