@@ -6,15 +6,14 @@ THOR Logs
 This chapter explains the possibilities for collecting and analyzing
 THOR logs.
 
-ASGARD Analysis Cockpit
------------------------
+Analysis Cockpit
+----------------
 
-The **ASGARD Analysis Cockpit** is the central platform for analyzing
-THOR logs. It can be used in environments where scans are controlled by
-the ASGARD Management Center, but it also works when THOR is executed
-manually or controlled by third-party solutions. It is available both
-as a virtual appliance for VMware and as a dedicated hardware
-appliance.
+The **Analysis Cockpit** is the central platform for analyzing THOR
+logs. It can be used in environments where scans are controlled by the
+Management Center, but it also works when THOR is executed manually or
+controlled by third-party solutions. It is available both as a virtual
+appliance for VMware and as a dedicated hardware appliance.
 
 THOR can also be used as a hunting solution. It is optimized to avoid
 false negatives, which means it is designed not to miss indicators of
@@ -25,21 +24,20 @@ If you scan your infrastructure frequently, you either see the same
 anomalies again and again or need to create many rules to filter them
 out and save analysis time.
 
-The ASGARD Analysis Cockpit is designed to support this process. It can
-help generate these rules automatically so that you can define baseline
+The Analysis Cockpit is designed to support this process. It can help
+generate these rules automatically so that you can define baseline
 filters after the first scan. Once that baseline is in place, it
 becomes much easier to focus on relevant alerts and warnings because
 only the differences between scans are highlighted.
 
-The ASGARD Analysis Cockpit also includes a highly configurable
-ticketing system to help organize analysis workflows, as well as
-rule-based alert forwarding and SIEM integration for faster reaction to
-new incidents.
+The Analysis Cockpit also includes a highly configurable ticketing
+system to help organize analysis workflows, as well as rule-based alert
+forwarding and SIEM integration for faster reaction to new incidents.
 
 .. figure:: ../images/analysis_cockpit.png
-   :alt: ASGARD Analysis Cockpit View
+   :alt: Analysis Cockpit View
 
-   ASGARD Analysis Cockpit View
+   Analysis Cockpit View
 
 Splunk
 ------

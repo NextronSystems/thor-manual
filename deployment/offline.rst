@@ -10,9 +10,9 @@ report files afterwards.
 
 If only a few reports need to be reviewed, the HTML report is usually
 the most practical format. If you expect to collect a larger number of
-reports, we recommend using ASGARD Analysis Cockpit or Splunk with the
+reports, we recommend using the Analysis Cockpit or Splunk with the
 free app and add-on.
 
-* `ASGARD Analysis Cockpit <https://portal.nextron-systems.com/ui/downloads>`_
+* `Analysis Cockpit <https://portal.nextron-systems.com/ui/downloads>`_
 * `THOR APT Scanner App for Splunk <https://splunkbase.splunk.com/app/3717/>`_
 * `THOR Add-On for Splunk <https://splunkbase.splunk.com/app/3718/>`_
