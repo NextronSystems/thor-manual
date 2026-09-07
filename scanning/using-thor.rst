@@ -283,11 +283,11 @@ output.
     - Description
   * - **--debug**
     - Print debug information if errors occur
-  * - **--help (short|full|detailed)**
+  * - **--help (short|long|detailed)**
     - Print help with different levels of detail:
 
       - **short**: Summaries of the most important scan options
-      - **full**: Summaries of all options
+      - **long**: Summaries of all options
       - **detailed**: Long descriptions of all options
 
 Run a Scan with Specific Modules
