@@ -52,9 +52,9 @@ the custom template.
 As shown in the example file, template files must use the long form of
 command-line parameters (for example ``remote-log``), not the short form
 (for example ``-s``). You can look up the long forms in the command-line
-help with ``--help full``.
+help with ``--help long``.
 
 .. figure:: ../images/image20.png
-   :alt: Lookup command line parameter long forms using --help full
+   :alt: Lookup command line parameter long forms using --help long
 
-   Lookup command line parameter long forms using ``--help full``
+   Lookup command line parameter long forms using ``--help long``

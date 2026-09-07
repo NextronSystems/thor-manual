@@ -171,7 +171,7 @@ special files such as ``$UsnJrnl``. The downside is slightly longer
 runtime. If you do not need these special files and want to speed up the
 collection process, use ``--collector-no-mft``.
 
-All flags can be found in the THOR full help (``--help full``).
+All flags can be found in the THOR long help (``--help long``).
 
 .. note::
    The ``Artefact Collector`` feature requires the ``THOR Deep
