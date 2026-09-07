@@ -10,23 +10,27 @@ department at sales@nextron-systems.com.
 Lab Scanning
 ------------
 
-Lab scanning mode is activated with ``--lab`` (formerly ``--fsonly``).
-It is used to scan mounted forensic images or a single directory on a
-forensic workstation. All resource control functions are disabled, and
-intense mode is activated by default.
+``--lab`` activates **Lab scanning mode** (formerly ``--fsonly``). Use
+this mode to scan a mounted forensic image or a specific directory on a
+forensic workstation. Because it removes resource safeguards intended
+for live-system scans, use it only on a dedicated forensic workstation.
 
-The ``--lab`` parameter automatically activates the following options:
+``--lab`` is a preset. THOR automatically applies the settings and
+behaviors listed below; you do not need to specify them separately:
 
-* Enable intense mode, which causes several changes:
-
-  * Scan every file intensively regardless of extension or magic header
-  * Use ``--max_file_size_intense`` (200 MB by default) instead of ``--max_file_size``
-  * Set ``--max-reasons`` to unlimited
-  * Reduce ``--minimum-sigma-level`` to medium
-  * Set ``--nosoft`` so that soft mode is not activated automatically on systems with a single CPU core or low memory
-* ``--norescontrol`` (do not limit system resources or interrupt the scan on low memory)
-* ``--nodoublecheck`` (do not check for other THOR instances on the same system)
-* Multi-threading (THOR automatically sets the number of threads to the number of CPU cores found on the workstation)
+* Scan every file, regardless of its extension or magic header.
+* Use ``--max_file_size_intense`` (200 MB by default) instead of
+  ``--max_file_size``.
+* Set ``--max-reasons`` to unlimited.
+* Reduce ``--minimum-sigma-level`` to ``medium``.
+* Enable ``--nosoft`` to prevent automatic activation of soft mode on
+  systems with a single CPU core or low memory.
+* Disable resource control (``--norescontrol``), so THOR does not limit
+  resource usage or interrupt the scan when memory is low.
+* Disable the check for other running THOR instances
+  (``--nodoublecheck``).
+* Enable multi-threading and set the number of threads to the number of
+  detected CPU cores.
 
 The chapter :ref:`usage/use-cases:use cases` contains practical use
 cases that make use of this scan mode.
