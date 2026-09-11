@@ -3,6 +3,26 @@ Changelog
 
 This chapter lists the changes for THOR 10.7.
 
+THOR 10.7.32
+~~~~~~~~~~~~
+
+.. list-table::
+    :header-rows: 1
+    :widths: 15, 85
+
+    * - Type
+      - Description
+    * - Bugfix
+      - Fix an issue with certain 7zip archive files that were unpacked incorrectly
+    * - Change
+      - Reduce score of some built-in heuristics
+    * - Bugfix
+      - List related files only once in process check
+    * - Bugfix
+      - Correctly handle log lines containing Unicode chars
+    * - Bugfix
+      - Better error messages for broken shim caches
+
 THOR 10.7.31
 ~~~~~~~~~~~~
 
