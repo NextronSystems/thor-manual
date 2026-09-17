@@ -319,12 +319,12 @@ It features templates for scan runs and lets you plan and schedule
 distributed sweeps with the lowest impact on system resources. Other
 services are:
 
-* **Quarantine Service** - file quarantine via Bifrost protocol
 * **Update Service** - automatic updates for THOR scanners
 * **License Service** - central registration and sub license generation
 * **Asset Management Service** - central inventory and status dashboard
 * **IOC Management** – manage and scan with custom IOC and YARA rule sets
 * **Evidence Collection** – collect evidences (files and memory) from asset
+* **Quarantine Service** - file quarantine via Bifrost protocol (deprecated)
 
 .. figure:: ../images/image5.png
    :alt: ASGARD Management Center

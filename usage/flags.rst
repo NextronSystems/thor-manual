@@ -316,6 +316,12 @@ THOR Remote
 
 Automatic Collection of Suspicious Files (Bifrost)
 ----------------------------------------------------------------------
+.. attention::
+  File collection via Bifrost v2 and Management Center is deprecated. THOR 11
+  and later does not support Bifrost anymore.
+
+..
+
       --bifrost2Server string   Server running the Bifrost 2 quarantine service. THOR will upload all suspicious files to this server.
 
                                 This flag is only usable when invoking THOR from ASGARD 2.

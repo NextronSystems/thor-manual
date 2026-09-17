@@ -25,7 +25,7 @@ Analyze authorized_keys SSH files;AuthorizedKeys;--noauthorizedkeys
 Parse and analyze .eml Email files;Eml;--noeml
 Parse Windows Event Trace Logging files and scan the contained logs;ETL;--noetl
 Parse jobs files scheduled with the 'at' tool;AtJobs;--noatjobs
-Upload suspicious files to a server running the Bifrost 2 quarantine service;Bifrost2;per default disabled, use ``--bifrost2Server`` to enable
+Upload suspicious files to a server running the Bifrost 2 quarantine service [deprecated];Bifrost2;per default disabled, use ``--bifrost2Server`` to enable
 Scan multiple entries as a single block;BulkScan;can't be disabled
 Disable cpulimit check;CPULimit;--nocpulimit
 Run filename IOC, keyword IOC, and YARA rules on a chunk of data;CheckString;can't be disabled

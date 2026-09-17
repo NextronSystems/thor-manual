@@ -58,6 +58,6 @@ The THOR package includes the following files and directories:
    * - THOR Changelog
      - **changes.log**
    * - Additional Tools
-     - Located in ``./tools`` - EXE packers and the Bifrost server script
+     - Located in ``./tools`` - EXE packer
    * - THOR Manuals
      - Located in ``./docs``
