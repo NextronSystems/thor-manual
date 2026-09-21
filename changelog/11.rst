@@ -88,7 +88,7 @@ THOR 11.0
     * - Change
       - The Action feature has been removed. The ``--action_command``, ``--action_args`` and ``--action_level`` flags are still accepted for backwards compatibility, but no longer have any effect. Users should migrate to plugins (see https://github.com/NextronSystems/thor-plugin).
     * - Change
-      - Bifrost feature has been removed (it was already deprecated; users should migrate to Bifrost 2).
+      - Bifrost feature has been removed (it was already deprecated).
     * - Change
       - ``--min`` has been deprecated. Use ``--score-notice`` instead.
     * - Change
