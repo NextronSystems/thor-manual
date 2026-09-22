@@ -71,6 +71,8 @@ Scan Options
 
            Use 0 to disable this limit.
 
+           Specify the value in bytes, or with a suffix like KB, MB, GB, TB.
+
            .. warning::
               Increasing this limit will also increase memory usage of THOR.
 
@@ -95,6 +97,8 @@ Scan Options
            Set the maximum process size for scanning.
 
            Processes larger than this limit are excluded from the scan.
+
+           Specify the value in bytes, or with a suffix like KB, MB, GB, TB.
 
            Default:
              2GB
@@ -321,7 +325,7 @@ Scan Modes
              - Analyze only files changed within the last 3 days, or in particularly relevant directories
 
            .. warning::
-              May miss certain threads due to reduced coverage.
+              May miss certain threats due to reduced coverage.
 
            Alias:
              --quick
@@ -353,7 +357,7 @@ Scan Modes
            Activates automatically on low-resource systems (1 CPU core or <1024 MB RAM).
 
            .. warning::
-              May miss certain threads due to reduced coverage.
+              May miss certain threats due to reduced coverage.
 
 --deep
 
@@ -625,6 +629,8 @@ Resource Options
 
            Stop scanning if free RAM drops below the specified amount.
 
+           Specify the value in bytes, or with a suffix like KB, MB, GB, TB.
+
            This option has no impact if --no-resource-check is used.
 
            Default:
@@ -676,15 +682,6 @@ Resource Options
            See also:
              --soft
 
---no-thread-lock
-
-           Do not bind Golang routines to threads.
-
-           This may improve performance, however, due to thread-local storage, it may increase memory usage.
-
-           Alias:
-             --nolockthread
-
 --yara-timeout <seconds>
 
            Cancel YARA scans that exceed the specified time limit in seconds.
@@ -722,7 +719,9 @@ Resource Options
 
 --chunk-size <memory>
 
-           Specify the maximum amount of data (in MB) processed together for e.g. log lines, registry entries, or other scanned data.
+           Specify the maximum amount of data processed together for e.g. log lines, registry entries, or other scanned data.
+
+           Specify the value in bytes, or with a suffix like KB, MB, GB, TB.
 
            Increasing this value improves performance by reducing processing overhead at the cost of increased memory usage.
 
@@ -731,6 +730,11 @@ Resource Options
 
            Alias:
              --bulk-size
+
+           **Examples**::
+
+             --chunk-size 50MB
+             --chunk-size 1GB
 
 
 Special Scan Modes
@@ -753,6 +757,8 @@ Special Scan Modes
 --memory-dump-chunk-size <memory>
 
            Scan memory dumps in chunks of the specified size.
+
+           Specify the value in bytes, or with a suffix like KB, MB, GB, TB.
 
            A smaller chunk size will reduce the false positive rate while possibly increasing the false negative rate.
 
@@ -835,9 +841,6 @@ License Retrieval
            Look for a license in the specified directory.
 
            If no license is found, THOR will try alternative methods (ASGARD or Portal).
-
-           Default:
-             /home/max/Downloads/thor-dev
 
            **Example**::
 
@@ -1008,9 +1011,6 @@ Module Extras
 
            Store process dumps of suspicious processes in this directory.
 
-           Default:
-             /var/lib/thor
-
            Alias:
              --procdump-dir
 
@@ -1153,6 +1153,8 @@ Module Extras
            Define a file size limit for files collected by the Artifact Collector module.
 
            Use 0 to disable the limit.
+
+           Specify the value in bytes, or with a suffix like KB, MB, GB, TB.
 
            Alias:
              --collector-max-filesize
@@ -1502,7 +1504,7 @@ Output Options
            Requires a Forensic Lab License.
 
            Default:
-             maxarch
+             <hostname>
 
            **Example**::
 
@@ -1814,6 +1816,8 @@ Output Options
 
            Use 0 to disable this limit.
 
+           Specify the value in bytes, or with a suffix like KB, MB, GB, TB.
+
            Alias:
              --max-log-size
 
@@ -1829,9 +1833,6 @@ ThorDB
            Set the file path where THOR stores and retrieves scan history.
 
            The database helps apply delta scanning and track changes across multiple scans.
-
-           Default:
-             /home/max/.local/state/thor/thor.db
 
            Alias:
              --dbfile
@@ -1913,8 +1914,6 @@ Remote Logging
 --syslog-rfc5424
 
            Truncate syslog messages to 2048 bytes to comply with RFC 5424.
-
-           This ensures compatibility with older syslog systems.
 
            Alias:
              --rfc5424
