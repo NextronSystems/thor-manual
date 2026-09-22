@@ -189,15 +189,16 @@ Change the output directory
 
   thor64.exe -e Z:\
 
-Only scan the last 7 days of (Windows) Event Logs
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Limit log scans to the last 7 days
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code-block:: none
 
   thor64.exe --lookback 7
 
-By default the ``--lookback`` flag/value only applies to (Windows) Event Logs.
-To apply it to all modules, use the ``--global-lookback`` flag.
+By default, ``--lookback`` applies to Windows Event Logs, ordinary log
+files, and EVTX files. To apply it to other modules that support
+lookback, add ``--global-lookback``.
 
 Scan System with Defaults and Make a Surface Scan
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
