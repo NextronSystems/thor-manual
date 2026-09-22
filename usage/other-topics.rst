@@ -124,6 +124,10 @@ from potentially being used to extract passwords by any attackers.
 File Collection (Bifrost v2)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+.. attention::
+  File collection via Bifrost v2 and Management Center is deprecated. THOR 11
+  and later does not support Bifrost anymore.
+
 Bifrost v2 cannot be used standalone yet. The required API Key is set by
 ASGARD v2 during initialization and is unknown to a THOR user.
 

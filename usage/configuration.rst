@@ -209,6 +209,27 @@ characters must be masqueraded by backslash. This applies at least for:
    * - SQL database
      - ``/var/lib/mysql/``
 
+Processes
+^^^^^^^^^
+
+Process excludes can be configured using the ``process-excludes.cfg`` file.
+
+THOR will not scan the memory of these processes. It may still list them
+or scan the executable itself.
+
+The format of this file is the same as above.
+
+.. list-table::
+   :header-rows: 1
+   :widths: 60, 40
+
+   * - Element to exclude
+     - Possible solution
+   * - C:\\Program Files\\MyAV 12\\av.exe
+     - ``C:\\Program Files\\MyAV [0-9]+\\av\.exe``
+   * - Executable, regardless of location
+     - ``\\executable\.exe``
+
 Eventlogs
 ^^^^^^^^^
 
