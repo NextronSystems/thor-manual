@@ -112,14 +112,14 @@ Thor Thunderstorm Service
 
 License Retrieval
 ----------------------------------------------------------------------
-      --asgard string           Hostname of the ASGARD server from which a license should be requested, e.g. asgard.my-company.internal
-      --asgard-token string     Use this token to authenticate with the License API of the asgard server. The token can be found in the 'Downloads' or 'Licensing' section in the ASGARD. This requires ASGARD 2.5+.
-      -q, --license-path string     Path containing the THOR license (default is application directory) (default ".")
-      --portal-key string       Get a license for this host from portal.nextron-systems.com using this API Key.
+      --management-center string           Hostname of the Management Center server from which a license should be requested, e.g. mgmt-center.my-company.internal
+      --management-center-token string     Use this token to authenticate with the License API of the Management Center server. The token can be found in the 'Downloads' or 'Licensing' section of the Management Center. This requires Management Center v2.5+.
+      -q, --license-path string            Path containing the THOR license (default is application directory) (default ".")
+      --portal-key string                  Get a license for this host from portal.nextron-systems.com using this API Key.
 
-                                This feature is only supported for host-based server / workstation contracts.
-      --portal-contracts ints   Use these contracts for license generation. If no contract is specified, the portal selects a contract by itself. See --portal-key.
-      --portal-nonewlic         Only use an existing license from the portal. If none exists, exit. See --portal-key.
+                                           This feature is only supported for host-based server / workstation contracts.
+      --portal-contracts ints              Use these contracts for license generation. If no contract is specified, the portal selects a contract by itself. See --portal-key.
+      --portal-nonewlic                    Only use an existing license from the portal. If none exists, exit. See --portal-key.
 
 Active Modules
 ----------------------------------------------------------------------
@@ -324,10 +324,10 @@ Automatic Collection of Suspicious Files (Bifrost)
 
       --bifrost2Server string   Server running the Bifrost 2 quarantine service. THOR will upload all suspicious files to this server.
 
-                                This flag is only usable when invoking THOR from ASGARD 2.
+                                This flag is only usable when invoking THOR from Management Center v2+.
       --bifrost2Score int       Send all files with at least this score to the Bifrost 2 quarantine service.
 
-                                This flag is only usable when invoking THOR from ASGARD 2. (default 60)
+                                This flag is only usable when invoking THOR from Management Center v2+. (default 60)
 
 VirusTotal Integration
 ----------------------------------------------------------------------

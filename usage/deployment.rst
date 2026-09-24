@@ -19,7 +19,7 @@ With a Management Center:
 * use an Endpoint Agent
 * download THOR package with license from the Management Center's ``Downloads`` section
 * generate licenses in the Management Center's web GUI under ``Licensing > Generate Licenses``
-* use THOR's ``--asgard`` and ``--asgard-token`` parameters to retrieve a license
+* use THOR's ``--management-center`` and ``--management-center-token`` parameters to retrieve a license
 * use the Management Centers's API to retrieve a license manually
 
 Without a Management Center:
@@ -34,10 +34,12 @@ sections.
 Retrieve Valid License From Management Center
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Use THOR's ``--asgard`` and ``--asgard-token`` parameters
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+// short intro to management center
 
-In the Management Center 2.5 and later, you can configure a download token to limit
+Use THOR's ``--management-center`` parameter
+""""""""""""""""""""""""""""""""""""""""""""
+
+You can configure a download token in your ``Management Center`` to limit
 THOR package and license downloads to clients that know this token. It
 helps prevent unauthorized package retrieval and unintended overuse of
 your license quota.
@@ -51,22 +53,23 @@ your Management Center server.
    Downloads > Download Token Configuration
 
 You can retrieve an appropriate THOR license at scan start using the
-built-in ``--asgard`` and ``--asgard-token`` parameters.
+built-in ``--management-center`` and ``--management-center-token``
+parameters.
 
 .. code-block:: doscon 
 
-   C:\temp\thor>thor64.exe --asgard mgmt-center.internal
+   C:\temp\thor>thor64.exe --management-center mgmt-center.internal
 
 .. code-block:: doscon 
 
-   C:\temp\thor>thor64.exe --asgard mgmt-center.internal --asgard-token OCU92GW1CyOJLzaHkGrim1v2O0_ZkHPu0A
+   C:\temp\thor>thor64.exe --management-center mgmt-center.internal --management-center-token <your-token>
 
 If everything works as expected, you will see an INFO-level message in
 the output similar to the following:
 
 .. code-block:: batch 
 
-   Info: Init License file found LICENSE: mgmt-center.internal OWNER: Master MGMT: ACME Inc TYPE: Workstation STARTS: 2021/06/18 EXPIRES: 2022/06/18 SCANNER: All Scanners VALID: true REASON:
+   Info: Init License file found LICENSE: mgmt-center.internal OWNER: John Doe MGMT: ACME Inc TYPE: Workstation STARTS: 2021/06/18 EXPIRES: 2022/06/18 SCANNER: All Scanners VALID: true REASON:
 
 Use Management Center's API to retrieve a license manually
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -97,7 +100,7 @@ you can use the following command:
 
 .. code-block:: console 
 
-   nextron@unix:~$ curl -XPOST "https://mgmt-center.internal:8443/api/v0/licensing/issue?token=OJCBaTq4VGLjrCes2k4ACCQOzg0AxAoz01" -o licenses.zip -d "type=server" -d "hostnames=SRV001" -d "hostnames=SRV002" ... -d "hostnames=hostnameN"
+   nextron@unix:~$ curl -XPOST "https://mgmt-center.internal:8443/api/v0/licensing/issue?token=<your-token>" -o licenses.zip -d "type=server" -d "hostnames=SRV001" -d "hostnames=SRV002" ... -d "hostnames=hostnameN"
 
 If you can't use curl and want to retrieve a license as part of a bigger PowerShell script,
 you can use the following code snippet to help you with the retrieval.
