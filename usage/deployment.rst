@@ -31,10 +31,24 @@ Without a Management Center:
 Some of these options are described in more detail in the following
 sections.
 
+.. important::
+   Licenses retrieved with THOR's ``--management-center`` or
+   ``--portal-key`` parameters are stored in THOR's program folder as
+   ``<hostname>.lic``, so that subsequent scans can run without these
+   parameters. If a valid license for the host is already present in
+   the program folder, no new license is downloaded or issued. If the
+   parameters are used again without a local license file, THOR
+   downloads the existing valid license instead of issuing a new one.
+
 Retrieve Valid License From Management Center
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-// short intro to management center
+The Management Center maintains a central license pool for THOR scans.
+If you operate a local Management Center instance, you can issue and
+download licenses for your endpoints from it, either automatically at
+scan start or manually via its API. See
+:ref:`usage/deployment:management center (windows, linux, macos)` for a
+general overview of the platform.
 
 Use THOR's ``--management-center`` parameter
 """"""""""""""""""""""""""""""""""""""""""""
@@ -123,6 +137,11 @@ To retrieve a licenses from the customer portal, you need a portal key. The port
 (API key) can be configured in the ``My Settings > API Key`` section of the
 `customer portal <https://portal.nextron-systems.com>`__.
 
+The ``--portal-key`` parameter accepts either the API key of your portal
+user or a download token for one of your contracts. When using an API
+key, THOR retrieves the first available license from the contract with
+the lowest ID and issues it to your host.
+
 .. important::
    API functionality needs to be activated by Nextron. Please contact support/sales
    to activate the API functionality.
@@ -164,6 +183,13 @@ If everything works as expected, you'll see an **INFO** level message in the out
 You can specify a proxy by setting the ``HTTP_PROXY`` and ``HTTPS_PROXY`` environment variables, e.g. to ``my-proxy.internal:3000``.
 
 Username and password can be specified as part of the proxy URL as ``http://username:password@host:port/``.
+
+.. attention::
+   If no valid license is found, a new one will be issued. This can be
+   prevented with the ``--portal-nonewlic`` flag. If THOR can't find a
+   valid license within the account/contracts, it will simply exit.
+   This is a useful feature if you want to prevent over-issuing of
+   licenses within your contracts.
 
 Use the Customer Portal's API to retrieve a license manually
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -328,11 +354,6 @@ services are:
    :alt: Management Center
 
    Management Center
-
-.. figure:: ../images/image6.png
-   :alt: Response Control
-
-   Response Control
 
 Ansible (Linux)
 ---------------
@@ -789,8 +810,10 @@ scanning feature (the source system of the scans, e.g. admin
 workstation).
 
 .. hint::
-   You can pair THOR Remote with the :ref:`usage/other-topics:license retrieval`
-   options available within THOR, to make deployment easier.
+   You can pair THOR Remote with the :ref:`usage/deployment:licensing`
+   options available within THOR, to make deployment easier. In that
+   case, all licenses are downloaded to the host that runs the initial
+   THOR Remote command.
 
 Output
 ^^^^^^
