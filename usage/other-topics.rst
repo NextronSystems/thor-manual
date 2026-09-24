@@ -2,86 +2,6 @@
 Other Topics
 ============
 
-License Retrieval
------------------
-
-THOR offers more flexible ways to retrieve licenses in addition to the
-classic approach of placing a license file in the program folder. This
-chapter describes both available license retrieval options.
-
-These two options also work with :ref:`usage/deployment:thor remote`.
-In that case, all licenses are downloaded to the host that runs the
-initial THOR Remote command. The system running THOR Remote itself does
-not need a license.
-
-.. important::
-   If a valid THOR license for the host is already present in THOR's
-   program folder, no new license will be downloaded or issued from the
-   remote source.
-
-Management Center License Retrieval
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-If you have a local Management Center instance and use its
-license pool for THOR scans, you can use the ``--asgard`` flag to
-download a valid license. This also requires the ``--asgard-token``
-flag. The token can be found in the **Download** section of your
-Management Center.
-
-Example:
-
-.. code-block:: console
-
-  nextron@unix:~/thor$ ./thor-linux-64 --asgard "mgmt-center.local" --asgard-token "download-token"
-  [...SNIP...]
-  Info License file found LICENSE: mgmt-center.local OWNER: John Doe TYPE: Server STARTS: 2023/08/30 EXPIRES: 2023/11/01 SCANNER: THOR VALID: true REASON:
-
-The retrieved license is placed in THOR's program folder so that you
-can run THOR next time without the extra flags. The file name is
-``<hostname>.lic``. Rerunning the command does not issue a new license;
-it downloads the already valid license again from your Management Center.
-
-Nextron Portal License Retrieval
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-If you use standalone THOR packages, you can speed up deployment by
-using the ``--portal-key`` flag. This allows you to download a THOR
-license directly from the Licensing Portal without having to generate
-and download licenses manually first. This is a practical way to
-automate scanning.
-
-The ``--portal-key`` argument accepts one of the following values:
-
-* The API key of your portal user
-* A download token for one of your contracts
-
-When using an API key, THOR retrieves the first available license from
-the contract with the lowest ID and issues it to your host. No new
-license is issued if a valid license is already available for the host.
-If no valid license is found, a new one is issued. If you want to limit
-license issuance or downloads to specific contracts, provide the
-``--portal-contracts`` flag.
-
-Example:
-
-.. code-block:: console
-
-   nextron@unix:~/thor$ ./thor-linux-64 --portal-key "my-api-key" --portal-contracts "3,5,12,13"
-   ...SNIP...
-   Info License file found LICENSE: portal.nextron-systems.com OWNER: Jane Doe TYPE: Server STARTS: 2023/03/10 EXPIRES: 2023/09/29 SCANNER: THOR VALID: true REASON:
-
-The retrieved license is placed in THOR's program folder so that you
-can run THOR next time without the extra flags. The file name is
-``<hostname>.lic``. Rerunning the command does not issue a new license;
-it downloads the already valid license again from the portal.
-
-.. attention:: 
-  If no valid license is found, a new one will be issued. This can be
-  prevented with the ``--portal-nonewlic`` flag. If THOR can't find a
-  valid license within the account/contracts, it will simply exit.
-  This is a useful feature if you want to prevent over-issuing of
-  licenses within your contracts.
-
 Evidence Collection
 -------------------
 
@@ -252,7 +172,7 @@ calculated with the following formula:
 
 .. code-block :: none
 
-  100 * (1 - (1 - s_0 / 100 / 2^0) * (1 - s_1 / 100 / 2^1)  * (1 - s_2 / 100 / 2^2) * ...)
+   100 * (1 - (1 - s_0 / 100 / 2^0) * (1 - s_1 / 100 / 2^1)  * (1 - s_2 / 100 / 2^2) * ...)
 
 This means, scores are "capped" at a maximum of 100, and multiple lower
 scores are weighted far less.
@@ -263,14 +183,14 @@ threshold of 75 to turn classify this as an alert:
 
 .. code-block:: python
 
-  subscore0 = 1 - 70 / 100 / pow(2, 0)
-  subscore1 = 1 - 70 / 100 / pow(2, 1)
-  subscore2 = 1 - 50 / 100 / pow(2, 2)
-  subscore3 = 1 - 40 / 100 / pow(2, 3)
-  subscore4 = 1 - 40 / 100 / pow(2, 4)
-  score = 100 * (1 - (subscore0 * subscore1 * subscore2 * subscore3 * subscore4))
-  print(score)
-  84.195859375
+   subscore0 = 1 - 70 / 100 / pow(2, 0)
+   subscore1 = 1 - 70 / 100 / pow(2, 1)
+   subscore2 = 1 - 50 / 100 / pow(2, 2)
+   subscore3 = 1 - 40 / 100 / pow(2, 3)
+   subscore4 = 1 - 40 / 100 / pow(2, 4)
+   score = 100 * (1 - (subscore0 * subscore1 * subscore2 * subscore3 * subscore4))
+   print(score)
+   84.195859375
 
 Default Scores
 ^^^^^^^^^^^^^^
@@ -334,37 +254,37 @@ Imagine the following filename IOC signatures:
 
 .. code-block:: none
 
-  \\nmap.exe;70
-  \\bin\\nmap.exe;-30
+   \\nmap.exe;70
+   \\bin\\nmap.exe;-30
 
 and the following Keyword signature:
 
 .. code-block:: none
 
-  nmap.exe
+   nmap.exe
 
 The ``checkString()`` function receives the following string from the
 Eventlog scan module (here: a Sysmon Eventlog entry):
 
 .. code-block:: none
 
-  Process Create:
-  UtcTime: 20180110 10:22:25.277
-  ProcessGuid: {c1b49677e9615a5500000010bbc80702}
-  ProcessId: 3912
-  Image: C:\\Program Files\\Nmap\\bin\\nmap.exe
-  CommandLine: nmap.exe
-  CurrentDirectory: C:\\Windows\\system32\\
-  User: PROMETHEUS\\user1
-  LogonGuid: {c1b496771d725a5300000020d4232500}
-  LogonId: 0x2523d4
-  TerminalSessionId: 1
-  IntegrityLevel: High
-  Hashes: SHA1=F5DC12D658402900A2B01AF2F018D113619B96B8, MD5=9FEA051A9585F2A303D55745B4BF63AA
-  ParentProcessGuid: {c1b496771d745a530000001057452500}
-  ParentProcessId: 1036
-  ParentImage: C:\\Windows\\explorer.exe
-  ParentCommandLine: C:\\Windows\\Explorer.EXE
+   Process Create:
+   UtcTime: 20180110 10:22:25.277
+   ProcessGuid: {c1b49677e9615a5500000010bbc80702}
+   ProcessId: 3912
+   Image: C:\\Program Files\\Nmap\\bin\\nmap.exe
+   CommandLine: nmap.exe
+   CurrentDirectory: C:\\Windows\\system32\\
+   User: PROMETHEUS\\user1
+   LogonGuid: {c1b496771d725a5300000020d4232500}
+   LogonId: 0x2523d4
+   TerminalSessionId: 1
+   IntegrityLevel: High
+   Hashes: SHA1=F5DC12D658402900A2B01AF2F018D113619B96B8, MD5=9FEA051A9585F2A303D55745B4BF63AA
+   ParentProcessGuid: {c1b496771d745a530000001057452500}
+   ParentProcessId: 1036
+   ParentImage: C:\\Windows\\explorer.exe
+   ParentCommandLine: C:\\Windows\\Explorer.EXE
 
 The ``checkString()`` function would create two messages: 1 "warning" for
 the keyword signature and 1 "notice" of the filename IOC signatures.
@@ -382,8 +302,8 @@ Action on Match
 
 .. note::
 
-    This feature requires a `forensic lab license <https://www.nextron-systems.com/2020/11/11/thor-forensic-lab-license-features/>`__
-    type, which is meant to be used in forensic labs. 
+   This feature requires a `forensic lab license <https://www.nextron-systems.com/2020/11/11/thor-forensic-lab-license-features/>`__
+   type, which is meant to be used in forensic labs. 
 
 The action command allows you define a command that runs whenever THOR
 encounters a file during "Filescan" that has a certain total score or
@@ -416,13 +336,13 @@ A typical use would be e.g. to copy a sample to a network share:
 
 .. code-block:: doscon
    
-  C:\Users\nextron>copy %filepath% \\\\server\\share1
+   C:\Users\nextron>copy %filepath% \\\\server\\share1
 
 To instruct THOR to run this command, you need
 
 .. code-block:: doscon
    
-  C:\nextron\thor>thor64.exe --action_command copy --action_args %filepath% --action_args \\server\share1
+   C:\nextron\thor>thor64.exe --action_command copy --action_args %filepath% --action_args \\server\share1
 
 Use in a Config File
 ^^^^^^^^^^^^^^^^^^^^
@@ -433,8 +353,8 @@ the action commands.
 Content of 'tmpl-action.yml':
 
 .. literalinclude:: ../examples/tmpl-action.yml
-  :language: yaml
-  :linenos:
+   :language: yaml
+   :linenos:
 
 THOR DB
 -------

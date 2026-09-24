@@ -20,7 +20,7 @@ purposes, THOR also supports
 .. tip::
    THOR can also retrieve licenses from our licensing portal or from a
    local Management Center. See
-   :ref:`usage/other-topics:license retrieval` for more information.
+   :ref:`usage/deployment:licensing` for more information.
 
 Generate a License
 ^^^^^^^^^^^^^^^^^^
