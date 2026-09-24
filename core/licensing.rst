@@ -114,6 +114,15 @@ network share with one THOR copy that already includes all required
 licenses. Another use case is :ref:`deployment/thor-remote:Thor Remote`,
 which requires a license for every remote system you plan to scan.
 
+Licenses that THOR retrieves at scan start from a
+:ref:`core/licensing:management center` or the
+:ref:`core/licensing:customer portal` are stored in the program folder
+as ``<hostname>.lic``, so that subsequent scans can run without the
+retrieval parameters. If a valid license for the host is already
+present, no new license is downloaded or issued. If the retrieval
+parameters are used again without a local license file, THOR downloads
+the existing valid license instead of issuing a new one.
+
 License Injection via Environment
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -152,11 +161,12 @@ your Management Center.
    Downloads > Download Token Configuration
 
 THOR can retrieve an appropriate license at scan start using the
-built-in ``--asgard-host`` and ``--asgard-token`` parameters.
+built-in ``--management-center-host`` and ``--management-center-token``
+parameters.
 
 .. code-block:: doscon
 
-   C:\temp\thor>thor64.exe --asgard-host mgmt-center.internal --asgard-token OCU92GW1CyOJLzaHkGrim1v2O0_ZkHPu0A
+   C:\temp\thor>thor64.exe --management-center-host mgmt-center.internal --management-center-token OCU92GW1CyOJLzaHkGrim1v2O0_ZkHPu0A
 
 If everything works as expected, you will see an INFO-level message in
 the output similar to the following:
@@ -208,6 +218,9 @@ The portal key (API key) can be configured in the
 
    Settings > API Key
 
+The ``--portal-api-key`` parameter accepts either the API key of your
+portal user or a download token for one of your contracts.
+
 THOR can retrieve an appropriate license at scan start using the
 built-in ``--portal-api-key`` and ``--portal-contracts`` parameters.
 The ``--portal-contracts`` parameter is optional. Use it if you want
@@ -236,6 +249,13 @@ in the output similar to the following:
 .. code-block:: none
 
    Info License file found LICENSE: portal.nextron-systems.com OWNER: ACME Inc TYPE: Workstation STARTS: 2021/06/23 EXPIRES: 2021/06/30 SCANNER: All Scanners VALID: true REASON:
+
+.. attention::
+   If no valid license is found for the host, the portal issues a new
+   one. You can prevent this with the ``--portal-existing-license``
+   flag: THOR then exits instead of issuing a new license. This is
+   useful if you want to avoid over-issuing licenses within your
+   contracts.
 
 You can specify a proxy by setting the ``HTTP_PROXY`` and
 ``HTTPS_PROXY`` environment variables, for example to
