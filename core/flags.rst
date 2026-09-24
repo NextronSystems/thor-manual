@@ -852,8 +852,6 @@ License Retrieval
 
            Aliases:
              --management-center
-             --asgard-host
-             --asgard
 
            **Examples**::
 
@@ -866,11 +864,9 @@ License Retrieval
 
            The token can be found in the 'Downloads' or 'Licensing' section of the Management Center.
 
-           Alias:
-             --asgard-token
+           **Example**::
 
-           Example:
-             --asgard-token 1234567890abcdef
+             --management-center-token 1234567890abcdef
 
 
            See also:
