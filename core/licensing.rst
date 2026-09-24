@@ -114,6 +114,15 @@ network share with one THOR copy that already includes all required
 licenses. Another use case is :ref:`deployment/thor-remote:Thor Remote`,
 which requires a license for every remote system you plan to scan.
 
+Licenses that THOR retrieves at scan start from a
+:ref:`core/licensing:management center` or the
+:ref:`core/licensing:customer portal` are stored in the program folder
+as ``<hostname>.lic``, so that subsequent scans can run without the
+retrieval parameters. If a valid license for the host is already
+present, no new license is downloaded or issued. If the retrieval
+parameters are used again without a local license file, THOR downloads
+the existing valid license instead of issuing a new one.
+
 License Injection via Environment
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -130,21 +139,21 @@ string in the ``THOR_LICENSE`` environment variable:
 
 Then run THOR as usual.
 
-ASGARD Management Center
-^^^^^^^^^^^^^^^^^^^^^^^^
+Management Center
+^^^^^^^^^^^^^^^^^
 
-The ASGARD Management Center includes built-in licensing functionality.
-It is used to license your assets (an asset is an endpoint with our
-ASGARD Agent installed). It can also generate and download licenses for
+The Management Center includes built-in licensing functionality. It is
+used to license your assets (an asset is an endpoint with our Endpoint
+Agent installed). It can also generate and download licenses for
 standalone THOR instances.
 
-In the ASGARD Management Center, you can configure a download token to
+In the Management Center, you can configure a download token to
 restrict THOR package and license downloads to clients that know this
 token. This helps prevent unauthorized package retrieval and unintended
 overuse of your license quota.
 
 The download token can be configured in the ``Downloads`` section of
-your ASGARD server.
+your Management Center.
 
 .. figure:: ../images/download-token.png
    :alt: Downloads > Download Token Configuration
@@ -152,25 +161,26 @@ your ASGARD server.
    Downloads > Download Token Configuration
 
 THOR can retrieve an appropriate license at scan start using the
-built-in ``--asgard-host`` and ``--asgard-token`` parameters.
+built-in ``--management-center-host`` and ``--management-center-token``
+parameters.
 
 .. code-block:: doscon
 
-   C:\temp\thor>thor64.exe --asgard-host my-asgard.internal --asgard-token OCU92GW1CyOJLzaHkGrim1v2O0_ZkHPu0A
+   C:\temp\thor>thor64.exe --management-center-host mgmt-center.internal --management-center-token OCU92GW1CyOJLzaHkGrim1v2O0_ZkHPu0A
 
 If everything works as expected, you will see an INFO-level message in
 the output similar to the following:
 
 .. code-block:: none
 
-   Info: Init License file found LICENSE: my-asgard.internal OWNER: my-company ASGARD: ACME Inc TYPE: Workstation STARTS: 2021/06/18 EXPIRES: 2022/06/18 SCANNER: All Scanners VALID: true REASON:
+   Info: Init License file found LICENSE: mgmt-center.internal OWNER: my-company MGMT: ACME Inc TYPE: Workstation STARTS: 2021/06/18 EXPIRES: 2022/06/18 SCANNER: All Scanners VALID: true REASON:
 
-You can also automate license retrieval from a local ASGARD server by
-using the API. The help box in ASGARD's ``Licensing > Generate
-License`` section shows example ``curl`` requests that can be used to
-retrieve licenses from your ASGARD server.
+You can also automate license retrieval from a local Management Center
+by using the API. The help box in the Management Center's ``Licensing >
+Generate License`` section shows example ``curl`` requests that can be
+used to retrieve licenses from that server.
 
-.. figure:: ../images/asgard-license-gen.png
+.. figure:: ../images/mgmt-center-license-gen.png
    :alt: Licensing > Generate Licenses
 
    Licensing > Generate Licenses
@@ -184,11 +194,11 @@ You only need:
    Linux always uses the ``server`` license type.
 
 .. hint::
-   For more information about API endpoints in the ASGARD Management
-   Center, consult the built-in API documentation in the product.
+   For more information about API endpoints in the Management Center,
+   consult the built-in API documentation in the product.
 
-Check the ASGARD helper scripts section in
-`our GitHub repo <https://github.com/NextronSystems/nextron-helper-scripts/tree/master/asgard>`__
+Check the Management Center helper scripts section in
+`our GitHub repository <https://github.com/NextronSystems/nextron-helper-scripts/tree/master/management-center>`__
 for more scripts and snippets.
 
 Customer Portal
@@ -207,6 +217,9 @@ The portal key (API key) can be configured in the
    :alt: Settings > API Key
 
    Settings > API Key
+
+The ``--portal-api-key`` parameter accepts either the API key of your
+portal user or a download token for one of your contracts.
 
 THOR can retrieve an appropriate license at scan start using the
 built-in ``--portal-api-key`` and ``--portal-contracts`` parameters.
@@ -236,6 +249,13 @@ in the output similar to the following:
 .. code-block:: none
 
    Info License file found LICENSE: portal.nextron-systems.com OWNER: ACME Inc TYPE: Workstation STARTS: 2021/06/23 EXPIRES: 2021/06/30 SCANNER: All Scanners VALID: true REASON:
+
+.. attention::
+   If no valid license is found for the host, the portal issues a new
+   one. You can prevent this with the ``--portal-existing-license``
+   flag: THOR then exits instead of issuing a new license. This is
+   useful if you want to avoid over-issuing licenses within your
+   contracts.
 
 You can specify a proxy by setting the ``HTTP_PROXY`` and
 ``HTTPS_PROXY`` environment variables, for example to

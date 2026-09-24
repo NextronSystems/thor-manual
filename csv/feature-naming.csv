@@ -58,4 +58,4 @@ Parse the Microsoft Defender protection log for quarantined threats;MPLog;
 Parse and categorize ESE DB files;EseDB;
 Parse MFT index files to extract the MFT entries;MFTFile;
 Parse the User Access Log on Windows;UserAccessLog;
-Receive and execute commands from a controlling program (e.g. ASGARD Agent and THOR CLoud Launcher);CommandListener;
+Receive and execute commands from a controlling program (e.g. Endpoint Agent and THOR Cloud Launcher);CommandListener;

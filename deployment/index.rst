@@ -11,7 +11,7 @@ Most of these methods are OS-specific.
 
     thor-cloud
     smb
-    amc
+    management-center
     thunderstorm
     thor-remote
     thor-seed
