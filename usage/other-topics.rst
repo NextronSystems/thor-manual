@@ -120,28 +120,13 @@ Also note that THOR will never dump lsass.exe to prevent these dumps
 from potentially being used to extract passwords by any attackers.
 
 
-File Collection (Bifrost v2)
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+File Collection (Bifrost)
+^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. attention::
-  File collection via Bifrost v2 and Management Center is deprecated. THOR 11
-  and later does not support Bifrost anymore.
-
-Bifrost v2 cannot be used standalone yet. The required API Key is set by
-ASGARD v2 during initialization and is unknown to a THOR user.
-
-You can activate the quarantine function via Bifrost v2 when creating a
-single or group scan via the ASGARD management interface.
-
-.. figure:: ../images/image21.png
-   :alt: Configure Quarantine via Bifrost in New Scan Dialogue
-
-   Configure Quarantine via Bifrost in New Scan Dialogue
-
-.. figure:: ../images/image22.png
-   :alt: Collected File Evidence in ASGARD v2
-
-   Collected File Evidence in ASGARD v2
+  File collection via ``Bifrost`` and ``Management Center`` is deprecated.
+  THOR 11 and later does not support Bifrost anymore. Management Center
+  version >= 4.0.0 dropped Bifrost support completely.
 
 Resource Control
 ----------------
