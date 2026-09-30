@@ -3,8 +3,8 @@ Upgrading to THOR 11
 
 This chapter helps THOR 10 users prepare for an upgrade to THOR 11.
 It focuses on changes that affect existing scan configurations,
-command lines, and resource planning. The other chapters in this
-manual continue to describe THOR 10.
+command lines, log processing, Thunderstorm integrations, and resource
+planning. The other chapters in this manual continue to describe THOR 10.
 
 .. note::
    Check the configuration reference and help included with the THOR 11
@@ -18,6 +18,8 @@ Before You Upgrade
   deployment tools, including the configuration files they load.
 * Start with the THOR 11 configuration and reapply only the settings you
   still need, using the new option names and value formats.
+* Review log collectors, parsers, and Thunderstorm clients for the
+  changed output and response formats.
 * Test your intended scan settings on representative systems and check
   memory usage before a wider rollout.
 
@@ -168,6 +170,71 @@ the file size limit to ``200MB`` unless a custom ``file-size-limit`` is
 specified. Do not copy the old setting into the new configuration
 without reviewing the intended scan mode and limit.
 
+JSON v3 Logs as the Default
+---------------------------
+
+THOR 11 writes its scan log file in **JSONL format** (``.jsonl``) by default,
+using **THOR JSON log format version 3**. Each line contains a JSON
+object representing a log entry. The text log file that was created
+by default in THOR 10 must now be enabled explicitly.
+
+Version 3 introduces a defined schema with structured objects for
+findings, messages, and the elements they describe. Existing parsers
+for THOR 10 JSON output also need to be checked against this schema;
+changing the expected file extension alone is not sufficient. See the
+`THOR JSON log format documentation and schema <https://github.com/NextronSystems/jsonlog>`__
+for details.
+
+Before upgrading, check that your log collectors pick up ``.jsonl``
+files and that your SIEM integrations, field mappings, and dashboards
+can process version 3 events. Test these integrations with logs from
+the THOR 11 build you intend to deploy.
+
+Enable the Text Log Explicitly
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+If you still need the text log format, specify ``--text <file>``.
+For example, on Windows:
+
+.. code-block:: doscon
+
+   C:\thor>thor64.exe --text thor-scan.txt
+
+This creates a text log in addition to the default JSONL log. To
+disable the JSONL log, add ``--no-json``. This also disables the HTML
+report, which is generated from the JSON log.
+
+THOR 11 represents scan results internally as objects. Its text log is
+reconstructed from these objects and is intended to match the THOR 10
+text format as closely as possible. Minor formatting or field
+differences may remain. Test any scripts or parsers that depend on the
+exact THOR 10 text format before upgrading. JSON preserves richer
+structured information and is the preferred format for new integrations.
+
+Changed Thunderstorm Responses
+------------------------------
+
+When THOR Thunderstorm runs with THOR 11, the format of the scan results
+returned by the service changes as well. Applications that submit
+samples and process the server's responses must account for the new
+response structure. Existing THOR 10 response parsers may require
+changes even if sample submission still succeeds.
+
+Before upgrading a Thunderstorm service:
+
+* Review the API documentation served at the root URL of the THOR 11
+  Thunderstorm instance, for example ``http://my-server:8080/``.
+* Test your clients with representative responses, including results
+  with findings, results without findings, and errors.
+* Adapt response parsing, field mappings, and downstream processing
+  before switching production clients to the upgraded service. Include
+  result retrieval for asynchronous submissions if your integration
+  uses that mode.
+
+The ``--text`` option described above controls THOR's text log file.
+Do not assume that enabling it restores the THOR 10 Thunderstorm
+response format; validate the service responses separately.
+
 Higher Memory Usage
 -------------------
 
@@ -221,5 +288,5 @@ formats. The short form ``-h`` also accepts the verbosity argument.
    - Confirm detection conditions and wording of the old-config message.
    - Confirm handling of max_file_size_intense in older custom templates.
    - Validate the approximate 40% memory increase against release builds.
-   - Consider adding JSON output/parser migration and deployment-specific
-     changes after engineering review of the final THOR 11 behavior.
+   - Validate JSON/parser and Thunderstorm response migration guidance
+     against release builds and add any further deployment-specific changes.
