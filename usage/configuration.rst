@@ -113,6 +113,10 @@ is 30 MB. The maximum file size for the ``--intense`` scan mode is 200 MB.
 You can adjust the values in ``./config/thor.yml``. This file does not
 get overwritten by an update or upgrade.
 
+When moving to THOR 11, review the changed option names, value formats,
+and defaults described in :doc:`upgrade-to-thor11`. That chapter also
+explains how to explicitly replace the old configuration during an upgrade.
+
 Special scan features like the EVTX or Memory Dump scan ignore these
 limits.
 

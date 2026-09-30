@@ -12,6 +12,9 @@ Running ``thor-util --help`` shows two options that look very similar:
 For more information on ``thor-util``, see the separate
 `THOR Util manual <https://thor-util-manual.nextron-systems.com>`__.
 
+If you are moving from THOR 10 to THOR 11, read
+:doc:`upgrade-to-thor11` before upgrading an existing installation.
+
 Update Locations
 ----------------
 

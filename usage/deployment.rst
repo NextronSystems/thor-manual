@@ -441,6 +441,10 @@ The command line flag ``--thunderstorm`` starts THOR as a RESTful web
 service on a given network interface and port. This service receives
 samples and returns a scan result.
 
+Before upgrading a service to THOR 11, review
+:ref:`usage/upgrade-to-thor11:Changed Thunderstorm Responses` for the
+impact on clients that process scan results.
+
 .. figure:: ../images/image7.png
    :alt: THOR Thunderstorm Overview
 

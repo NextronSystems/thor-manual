@@ -43,6 +43,10 @@ Log File Output (.txt)
 
 The standard log file is written by default.
 
+THOR 11 changes the default log file to JSONL and requires an explicit
+option for text logs. Before upgrading, read
+:ref:`usage/upgrade-to-thor11:JSON v3 Logs as the Default`.
+
 * **--nolog**
   
   * Don't create a log file

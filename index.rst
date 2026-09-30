@@ -23,6 +23,7 @@ see the `THOR 10.6 manual <https://thor-manual.nextron-systems.com/en/v10.6/>`_.
    usage/configuration
    usage/output-options
    usage/update
+   usage/upgrade-to-thor11
    usage/custom-signatures
    usage/other-topics
    usage/flags
