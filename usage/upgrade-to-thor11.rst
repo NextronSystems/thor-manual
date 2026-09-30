@@ -7,7 +7,6 @@ command lines, and resource planning. The other chapters in this
 manual continue to describe THOR 10.
 
 .. note::
-   The examples and defaults below reflect the THOR 11 preview builds.
    Check the configuration reference and help included with the THOR 11
    package you intend to deploy.
 
@@ -98,17 +97,14 @@ package.
    need using THOR 11 syntax. This is a reset, not a conversion of your
    old settings. Review custom templates separately.
 
-For the development TechPreview build, run the following command from
-the THOR directory:
+To upgrade to THOR 11 TechPreview and reset the default configuration,
+run the following command from the THOR directory:
 
 .. code-block:: console
 
-   ./thor-util upgrade --reinitialize-config --dev --techpreview
+   ./thor-util upgrade --reinitialize-config --techpreview
 
 On Windows, use ``thor-util.exe`` instead of ``./thor-util``.
-The ``--dev --techpreview`` options select the development TechPreview
-package; they are specific to this preview example. The option that
-resets the configuration is ``--reinitialize-config``.
 
 You can check whether your THOR Util version supports the reset option
 with ``thor-util upgrade --help``. For general upgrade and package
@@ -221,7 +217,7 @@ Use ``--help detailed`` when reviewing renamed options and their value
 formats. The short form ``-h`` also accepts the verbosity argument.
 
 .. Editorial review before release:
-   - Confirm the final upgrade channel and command with engineering.
+   - Confirm the release upgrade/download commands with engineering.
    - Confirm detection conditions and wording of the old-config message.
    - Confirm handling of max_file_size_intense in older custom templates.
    - Validate the approximate 40% memory increase against release builds.
