@@ -188,7 +188,7 @@ You only need:
    Center, consult the built-in API documentation in the product.
 
 Check the ASGARD helper scripts section in
-`our GitHub repo <https://github.com/NextronSystems/nextron-helper-scripts/tree/master/asgard>`__
+`our GitHub repo <https://github.com/NextronSystems/nextron-helper-scripts/tree/master/management-center>`__
 for more scripts and snippets.
 
 Customer Portal
