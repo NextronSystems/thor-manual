@@ -107,7 +107,7 @@ you can use the following code snippet to help you with the retrieval.
    :linenos:
 
 Check the ASGARD helper scripts section in
-`our Github repo <https://github.com/NextronSystems/nextron-helper-scripts/tree/master/asgard>`__
+`our Github repo <https://github.com/NextronSystems/nextron-helper-scripts/tree/master/management-center>`__
 for more scripts and snippets.
 
 Retrieve Valid License From Customer Portal
@@ -227,62 +227,108 @@ directly via its UNC path (e.g. ``\\server\share\thor.exe`` or ``\\server\share\
 Place THOR on a Network Share
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-A good way to run THOR on multiple systems is by defining a "Scheduled
-Task" using your Windows domain's group policy functionality.
+In this setup, all systems start ``thor64.exe`` from a central network
+share. THOR reads its license and scan parameters from the program
+folder on that share and writes the results to a second share.
 
-The preferred way to run THOR on a remote system is by providing a
-network share on which the extracted THOR package resides. You can use
-this directory as the output directory but it is recommended to create
-another share with write permissions especially for the HTML and TXT
-result files. The share that holds the THOR program folder should be
-read-only. The various output files must be disabled or defined in
-different locations in order to avoid write-access errors.
+1. Create a **read-only** share for the program folder, e.g.
+   ``\\fileserver\thor``, and extract the THOR package into its root.
+2. Place the license files in the program folder, e.g. in a
+   ``licenses`` subfolder. THOR searches its program folder and all
+   subfolders for a license that is valid for the scanned system (see
+   :ref:`usage/beforeyoubegin:About License Files`).
+3. Create a separate **writable** share for the results, e.g.
+   ``\\fileserver\thor-logs``.
+4. Add your scan parameters to the default config file
+   ``config\thor.yml`` in the program folder (see below).
 
-The necessary steps are:
+Scheduled Tasks that run as ``SYSTEM`` access network shares with the
+computer account of the scanned system (``DOMAIN\HOSTNAME$``). Grant
+the ``Domain Computers`` group read access to the program share and
+write access to the output share, on both the share and the NTFS
+permissions.
 
-1. Create a network share and extract the THOR package into the root of
-   the share, i.e. ``\\fileserver\thor\``
-2. Find the "thor\_remote.bat" batch file, which can be found in the
-   "tools" sub folder, place it directly in the root of the program
-   folder and adjust it to your needs.
+THOR always applies the file ``config\thor.yml`` next to the THOR
+executable (see :ref:`usage/configuration:Default Template`). This also
+works when THOR runs from a network share. If you put all scan
+parameters into this file, every system uses the same settings.
 
-   -  set the network share UNC path
+THOR writes its output files to the current working directory by
+default. A Scheduled Task usually runs in ``C:\Windows\System32``,
+so always set ``rebase-dir``. THOR names the files after the
+scanned system, so all systems can write to the same share. Add the
+setting to the existing content of ``config\thor.yml``:
 
-   -  set the parameters for the THOR run (see :ref:`usage/scan:scan`)
+.. code-block:: yaml
 
-You should then test the setting like this:
+   # Write all result files to the output share
+   rebase-dir: \\fileserver\thor-logs
 
-1. Connect to a remote system (Remote Desktop), which you would like to
-   scan
-2. Start a command line "as Administrator" (right click > Run as Administrator)
-3. Run the following command, which is going to mount a network drive,
-   run THOR and disconnect the previously mounted drive:
-   ``\\fileserver\thor\thor_remote.bat``
+Add other parameters as required (see :ref:`usage/flags:Command Line Options`),
+for example ``syslog`` to send the results to your SIEM.
 
-After a successful test run, you decide on how to invoke the script on
-the network drive. The following chapters list different options.
+To test the setup:
+
+1. Connect to a system that you want to scan, e.g. via Remote Desktop.
+2. Start a command prompt as Administrator (right-click > Run as
+   Administrator).
+3. Run ``\\fileserver\thor\thor64.exe``.
+4. Make sure that the scan starts with a valid license and that the
+   result files appear on the output share.
+
+This test runs with your user account, not with the computer account.
+To test with the computer account, run THOR as ``SYSTEM``, e.g. with
+``psexec -s \\fileserver\thor\thor64.exe``.
 
 Create a Scheduled Task via GPO
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-In a Windows Domain environment, you can create a Scheduled Task and
-distribute this Scheduled Task via GPO. This Scheduled Task would invoke
-the batch file on the network share and runs THOR. Make sure that the
-respective user account has the rights to mount the configured network
-share.
+In a Windows domain environment, distribute a Scheduled Task through
+a Group Policy Object. The task starts THOR from the network share.
 
-You can find more information `here <https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2008-R2-and-2008/cc725745(v=ws.11)?redirectedfrom=MSDN>`_
+1. Open the Group Policy Management Console and create a new GPO.
+   Link it to the organizational unit that contains the systems to scan.
+2. Edit the GPO and go to **Computer Configuration > Preferences >
+   Control Panel Settings > Scheduled Tasks**.
+3. Select **New > Immediate Task (At least Windows 7)** for a one-time
+   scan as soon as the systems apply the policy. Select **New > Scheduled
+   Task (At least Windows 7)** instead for scans at a fixed time or on a
+   recurring schedule.
+4. On the **General** tab:
+
+   - Set a name, e.g. ``THOR Scan``
+   - Set the user account to ``NT AUTHORITY\System``
+   - Select **Run whether user is logged on or not** and
+     **Run with highest privileges**
+
+5. On the **Actions** tab, create a **Start a program** action:
+
+   - Program/script: ``\\fileserver\thor\thor64.exe``
+
+6. On the **Settings** tab, adjust **Stop the task if it runs longer
+   than** to a value that is longer than a full scan. The default of
+   3 days is usually sufficient. A shorter value terminates long scans.
+7. For an Immediate Task, select **Apply once and do not reapply** on
+   the **Common** tab. Otherwise, the scan starts again with every
+   policy refresh.
+
+The systems apply the policy at the next Group Policy refresh (by
+default every 90 minutes, with a random offset of up to 30 minutes).
+To apply it immediately on a system, run ``gpupdate /force``.
+
+For more information, see
+`Group Policy preferences in Windows <https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/manage/group-policy/group-policy-preferences>`_.
 
 Create a Scheduled Task via PsExec
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 This method uses Sysinternals PsExec and a list of target systems to
-connect and create a Scheduled Task via the command line. This could
-look like the following example:
+connect to each system and create a Scheduled Task from the command
+line. For example:
 
 .. code-block:: doscon
-   
-   C:\temp\thor>psexec \\server1 -u domain/admin -p pass schtasks /create /tn "THOR Run" /tr "\\server\share\thor_remote.bat" /sc ONCE /st 08:00:00 /ru DOMAIN/FUadmin /rp password
+
+   C:\thor>psexec \\server1 -u DOMAIN\admin -p pass schtasks /create /tn "THOR Run" /tr "\\fileserver\thor\thor64.exe" /sc ONCE /st 08:00:00 /ru SYSTEM /rl HIGHEST
 
 Start THOR on the Remote System via WMIC
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
