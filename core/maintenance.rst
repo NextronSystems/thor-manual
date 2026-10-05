@@ -86,13 +86,13 @@ Windows:
 
 .. code-block:: doscon
 
-    C:\thor>thor-util.exe update --sigdev
+    C:\thor>thor-util.exe update --signatures-preview
 
 Linux:
 
 .. code-block:: console
 
-   nextron@unix:~/Documents/thor$ ./thor-util update --sigdev
+   nextron@unix:~/Documents/thor$ ./thor-util update --signatures-preview
 
 Use YARA Forge Signatures
 -------------------------
