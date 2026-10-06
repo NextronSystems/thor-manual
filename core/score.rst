@@ -12,7 +12,9 @@ The scoring system is one of THOR's core features:
 * If an element matches several signatures, its **assessment** can have
   several reasons.
 * THOR combines those reason-scores into **one overall score** that
-  determines the assessment's **level** (Info, Notice, Warning, or Alert).
+  determines the assessment's **level** (Notice, Warning, or Alert).
+* Assessments below the minimum score set with ``--min`` (default 40)
+  are not reported.
 * **Alert** additionally requires at least one high-scoring reason.
 
 Score of a Single Finding
@@ -32,23 +34,16 @@ the higher its overall score. The overall score maps to these levels:
 
 .. list-table::
   :header-rows: 1
-  :widths: 20, 20, 60
+  :widths: 30, 70
 
   * - Minimum score
     - Level
-    - Flag
-  * - 30
-    - Info
-    - ``--score-info``
   * - 40
     - Notice
-    - ``--score-notice``
   * - 60
     - Warning
-    - ``--score-warning``
   * - 81
     - Alert
-    - ``--score-alert``
 
 These minima apply to an assessment's **overall** score. For Alert,
 the overall score alone is not enough:
@@ -57,7 +52,7 @@ the overall score alone is not enough:
 
     An assessment is logged as an Alert only when **both** of these hold:
 
-    * its **overall score** is at least **81** (set with ``--score-alert``),
+    * its **overall score** is at least **81**,
       **and**
     * at least **one reason** scores higher than **75**.
 

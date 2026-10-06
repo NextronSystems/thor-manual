@@ -9,5 +9,5 @@ cpu-limit: 95
 memory-limit: 50MB
 # Truncate THOR's field values after 2048 characters
 truncate: 2048
-# Minimum score to report as a notice is 40
-score-notice: 40
+# Minimum score to report is 40
+min: 40

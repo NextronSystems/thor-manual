@@ -1,20 +1,19 @@
-.. Index:: ASGARD Management Center
+.. Index:: Management Center
 
-ASGARD Management Center
-========================
+Management Center
+=================
 
-ASGARD is the central management platform for THOR scans. It manages
-distributed THOR scans across thousands of systems, collects and
+The Management Center is the central management platform for THOR
+scans. It manages distributed THOR scans across thousands of systems, collects and
 forwards logs, and supports log analysis. It can also control and
 execute complex response tasks when needed.
 
-ASGARD is available in two variants. ASGARD Management Center focuses on
-scan control and response functions, while ASGARD Analysis Cockpit is
-used to analyze large volumes of scan logs through integrated
-baselining and case management.
+The Management Center focuses on scan control and response functions,
+while the Analysis Cockpit is used to analyze large volumes of scan
+logs through integrated baselining and case management.
 
-The hardened, Linux-based ASGARD appliance is a scalable response
-platform with agents for Windows, Linux, and macOS. It provides
+The hardened, Linux-based Management Center appliance is a scalable
+response platform with agents for Windows, Linux, and macOS. It provides
 essential response features such as collecting files, directories, and
 main memory, browsing remote file systems, and executing additional
 response measures.
@@ -30,11 +29,11 @@ services include:
 * **Evidence Collection** - collect evidence (files and memory) from assets
 
 .. figure:: ../images/amc-assets.png
-   :alt: ASGARD Management Center
+   :alt: Management Center
 
-   ASGARD Management Center
+   Management Center
 
 .. figure:: ../images/amc-response.png
-   :alt: ASGARD Response Control
+   :alt: Management Center Response Control
 
-   ASGARD Response
+   Management Center Response

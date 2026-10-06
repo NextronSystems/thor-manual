@@ -185,7 +185,7 @@ Scan Options
 
 
            See also:
-             --asgard-host
+             --management-center
              --vt-key
              --portal-api-key
              --no-system-ca
@@ -840,37 +840,41 @@ License Retrieval
 
            Look for a license in the specified directory.
 
-           If no license is found, THOR will try alternative methods (ASGARD or Portal).
+           If no license is found, THOR will try alternative methods (Management Center or Portal).
 
            **Example**::
 
               --license-path /etc/thor
 
---asgard-host <host>
+--management-center <host>
 
-           Download a license from the specified ASGARD server if no local license is found.
+           Download a license from the specified Management Center if no local license is found.
 
-           Alias:
+           Aliases:
+             --asgard-host
              --asgard
 
            **Examples**::
 
-             --asgard-host asgard.my-company.internal
-             --asgard-host 10.121.1.13
+             --management-center management-center.my-company.internal
+             --management-center 10.121.1.13
 
---asgard-token <token>
+--management-center-token <token>
 
-           Use this token to authenticate with the License API of the ASGARD server.
+           Use this token to authenticate with the License API of a Nextron Management Center.
 
-           The token can be found in the 'Downloads' or 'Licensing' section in the ASGARD.
+           The token can be found in the 'Downloads' or 'Licensing' section of the Management Center.
+
+           Alias:
+             --asgard-token
 
            **Example**::
 
-              --asgard-token 1234567890abcdef
+              --management-center-token 1234567890abcdef
 
 
            See also:
-             --asgard-host
+             --management-center
 
 --portal-api-key <key>
 
@@ -1793,7 +1797,7 @@ Output Options
 
            See also:
              --describe-object-type
-             --score-info
+             --min
 
 --describe-object-type <objecttype1,objecttype2,...>
 
@@ -1962,57 +1966,19 @@ Remote Logging
 
 Reporting and Actions
 ----------------------------------------------------------------------
---score-info <score>
+-x, --min <score>
 
-           Set the minimum score for classifying an assessment as an info.
+           Set the minimum score for an assessment to be reported.
 
 
            THOR does not print objects below this score unless they are requested by --log-object.
 
            Default:
-             30
-
-           Alias:
-             --info
+             40
 
 
            See also:
              --log-object
-
---score-notice <score>
-
-           Set the minimum score for classifying an assessment as a notice.
-
-           Default:
-             40
-
-           Alias:
-             --notice
-
---score-warning <score>
-
-           Set the minimum score for classifying an assessment as a warning.
-
-           Default:
-             60
-
-           Alias:
-             --warning
-
---score-alert <score>
-
-           Set the minimum score for classifying an assessment as an alert.
-
-
-           In addition to fulfilling this total score, events must have at least one subscore
-
-           higher than 75 to be considered an alert.
-
-           Default:
-             81
-
-           Alias:
-             --alert
 
 --no-fs-errors
 
