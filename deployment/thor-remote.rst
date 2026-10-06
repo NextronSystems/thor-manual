@@ -76,8 +76,11 @@ scanning feature, for example the administrator workstation used as the
 source system.
 
 .. hint::
-   You can pair THOR Remote with the :ref:`core/licensing:customer portal`
-   options available within THOR, to make deployment easier.
+   You can pair THOR Remote with the license retrieval options available
+   within THOR (:ref:`core/licensing:management center` and
+   :ref:`core/licensing:customer portal`), to make deployment easier. In
+   that case, all licenses are downloaded to the host that runs the
+   initial THOR Remote command.
 
 Output
 ^^^^^^
