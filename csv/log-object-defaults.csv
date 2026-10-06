@@ -26,5 +26,4 @@ quarantine event;20
 raw firewall rule;100
 registry scheduled task;100
 scheduled task;100
-shim cache entry;2048
 systemd service;unlimited
