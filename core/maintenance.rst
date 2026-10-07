@@ -67,20 +67,15 @@ Linux:
 
    nextron@unix:~/Documents/thor$ ./thor-util update
 
-Use Preview Signatures
-----------------------
+Get Early Access to New Signatures
+----------------------------------
 
-We provide preview signatures that contain the newest rules. These
-signatures have passed our automated pipeline and quality checks, but
-new rules may not yet have completed manual testing.
+New signatures are validated before they are published as stable. In
+rare cases, such as a newly discovered severe threat or public
+proof-of-concept code, you may not want to wait that long.
 
-Preview signatures are intended for time-critical engagements where the
-latest detections are more important than minimizing false positives.
-Use them carefully, as they may produce a higher false positive rate. In
-general, we recommend using them only if the regular signature set is a
-few days old.
-
-Run the following command to download the latest preview signatures:
+To get early access to new signatures, use the ``--signatures-preview``
+flag (formerly ``--sigdev``):
 
 Windows:
 
@@ -93,6 +88,17 @@ Linux:
 .. code-block:: console
 
    nextron@unix:~/Documents/thor$ ./thor-util update --signatures-preview
+
+This downloads the regular signature set plus the new signatures that
+are still in validation.
+
+These new signatures have passed our automated pipeline and quality
+checks, but may not yet have completed manual testing. Use early access
+carefully, as it can lead to a higher false positive rate.
+
+To return to the regular signature set, use ``thor-util update``. This
+replaces your current signature set with the latest stable set, even if
+your current set is newer.
 
 Use YARA Forge Signatures
 -------------------------
