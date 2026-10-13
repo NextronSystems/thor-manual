@@ -57,7 +57,7 @@ thorough, scan with the following command-line flags:
 
 .. code-block:: doscon 
 
-   C:\nextron\thor>thor64.exe -a Filescan --intense --norescontrol --cross-platform -p path-to-scan
+   C:\nextron\thor>thor64.exe -a Filescan --intense --norescontrol --cross-platform -p path-to-scan --threads 0
    
 Without a valid lab license, you cannot use multiple instances of THOR on a single system.
 The features mentioned in the following sub chapters
