@@ -259,11 +259,9 @@ File Size Limit
 ---------------
 
 The default file size limit for content checks such as hash calculation
-and YARA scanning is ``64 MB``. In ``--deep`` scan mode, the limit is
-``200 MB``.
-
-You can adjust the values in ``./config/thor.yml``. This file does not
-get overwritten by an update or upgrade.
+and YARA scanning is ``64 MB``. In ``--deep`` scan mode, the default limit
+is raised to ``200 MB``. In either mode, you can override the default
+with ``--file-size-limit``.
 
 Some features, such as EVTX or memory dump scanning, ignore these
 limits. See :ref:`scanning/features:Features` for a full list of features
