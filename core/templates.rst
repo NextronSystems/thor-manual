@@ -26,7 +26,7 @@ The following command applies a custom scan template named
 
 .. code-block:: doscon
 
-   C:\thor>thor.exe --config config\mythor.yml
+   C:\thor>thor64.exe --config config\mythor.yml
 
 Example Templates
 ^^^^^^^^^^^^^^^^^

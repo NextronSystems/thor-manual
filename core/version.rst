@@ -109,12 +109,39 @@ To download THOR Legacy, either download it directly from our portal
 Which Architecture?
 -------------------
 
-THOR packages include both 32-bit and 64-bit executables. Never run the
-32-bit THOR binary named ``thor.exe`` on a 64-bit system. Compared with
-the 64-bit version, the 32-bit binary has limitations such as lower
-available memory and different views of the file system and registry.
+THOR is available for 64-bit systems only. The following
+operating systems and architectures are supported:
 
-Make sure to run the correct binary for your target architecture.
+.. list-table::
+   :widths: 20, 45, 35
+   :header-rows: 1
+
+   * - OS
+     - Architecture
+     - THOR Binary
+   * - Windows
+     - x64
+     - ``thor64.exe``
+   * - Windows
+     - ARM64
+     - ``thor64.exe``
+   * - Linux
+     - x64
+     - ``thor-linux-64``
+   * - Linux
+     - ARM64
+     - ``thor-linux-64``
+   * - macOS
+     - x64 and ARM64 (Apple Silicon)
+     - ``thor-macosx``
+   * - AIX
+     - POWER (ppc64)
+     - ``thor-aix``
+
+Make sure to download the package that matches the architecture of
+your target system.
+
+For 32-bit systems, see :ref:`core/version:thor legacy`.
 
 What Command Line Flags?
 ------------------------
