@@ -29,7 +29,7 @@ are generally expected to work as well.
     - Windows
     - macOS
   * - RHEL/CentOS 7
-    - Windows 10 x86/x64
+    - Windows 10
     - macOS 11 (Big Sur)
   * - SuSE SLES 12.2
     - Windows Server 2016
@@ -40,6 +40,9 @@ are generally expected to work as well.
   * - Debian 9
     -
     -
+
+THOR runs on x64 and ARM64 systems. See
+:ref:`core/version:which architecture?` for the available packages.
 
 Legacy Systems
 ^^^^^^^^^^^^^^

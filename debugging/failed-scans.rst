@@ -38,8 +38,7 @@ Probable causes:
 1. Other processes consume a lot of memory
 2. THOR needs a lot of memory to scan certain elements
 3. You've set ulimit values that are too restrictive
-4. You are using the wrong THOR version for your architecture
-5. You enabled a feature that consumes a lot of memory (for example ``--mft-analysis`` or ``--deep``)
+4. You enabled a feature that consumes a lot of memory (for example ``--mft-analysis`` or ``--deep``)
 
 If THOR detects that free memory is running low, it checks the top three
 memory-consuming processes on the system and includes them in the log
@@ -47,11 +46,6 @@ message before exiting the scan.
 
 You can try running THOR in Soft Mode (``--soft``), which disables
 modules and features that require a lot of memory.
-
-Using the 32-bit THOR binary ``thor.exe`` on a 64-bit system can cause
-scans to abort with the error message shown above. The 32-bit binary
-cannot address as much memory as the 64-bit version. Always make sure
-to use the correct THOR binary for the respective architecture.
 
 Several ``ulimits`` can cause THOR to terminate if they are too
 restrictive, including:

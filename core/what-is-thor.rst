@@ -50,9 +50,9 @@ The THOR package contains the following files and directories:
    * - Component
      - Files/Directories
    * - THOR Binaries
-     - Windows: **thor.exe** and **thor64.exe**
+     - Windows: **thor64.exe**
 
-       Linux: **thor-linux** and **thor-linux-64**
+       Linux: **thor-linux-64**
 
        macOS: **thor-macosx**
 
