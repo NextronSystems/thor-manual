@@ -1,4 +1,4 @@
-Tag;Feature;Applied regardless of Filesize limit
+Tag;Feature;Also parses files above the file size limit
 AMCACHE;Amcache;no
 BZIP2COMPRESSEDFILE;Archive;no
 CABARCHIVE;Archive;no

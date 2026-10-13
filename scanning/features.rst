@@ -88,10 +88,11 @@ The standard signatures already contain a number of rules with these
 tags. However, if a relevant artifact is not matched, you can add
 additional custom signatures with the same tags.
 
-The last column shows how a feature handles files above the
-:ref:`file size limit <scanning/using-thor:file size limit>`. ``no``
-means that the feature skips such files, ``yes`` means that it processes
-them regardless of their size.
+The last column shows whether a feature also parses files above the
+:ref:`file size limit <scanning/using-thor:file size limit>`. ``yes``
+means that the feature parses such files regardless of their size,
+``no`` means that it skips them. The column says nothing about whether
+the feature is active in a scan mode.
 
 .. csv-table::
   :file: ../csv/feature-selector-list.csv
