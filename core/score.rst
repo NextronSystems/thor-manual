@@ -32,34 +32,36 @@ the higher its overall score. The overall score maps to these levels:
 
 .. list-table::
   :header-rows: 1
-  :widths: 20, 20, 60
+  :widths: 30, 70
 
   * - Minimum score
     - Level
-    - Flag
-  * - 30
+  * - 0
     - Info
-    - ``--score-info``
   * - 40
     - Notice
-    - ``--score-notice``
   * - 60
     - Warning
-    - ``--score-warning``
   * - 81
     - Alert
-    - ``--score-alert``
 
-These minima apply to an assessment's **overall** score. For Alert,
-the overall score alone is not enough:
+These thresholds are fixed and apply to an assessment's **overall**
+score. For Alert, the overall score alone is not enough:
 
 .. admonition:: When is an assessment an Alert?
 
     An assessment is logged as an Alert only when **both** of these hold:
 
-    * its **overall score** is at least **81** (set with ``--score-alert``),
-      **and**
+    * its **overall score** is at least **81**, **and**
     * at least **one reason** scores higher than **75**.
+
+THOR reports an assessment only if its overall score reaches the
+minimum score. The default minimum score is **40**. With the default,
+THOR reports Notices, Warnings and Alerts, but no Infos.
+
+To change the minimum score, use ``--min <score>``. For example, with
+``--min 30``, THOR also reports assessments with an overall score from
+30 to 39 as Info.
 
 .. note::
 
