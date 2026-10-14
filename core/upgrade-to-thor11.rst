@@ -6,13 +6,17 @@ It focuses on changes that affect existing scan configurations,
 command lines, log processing, Thunderstorm integrations, and resource
 planning. The other chapters in this manual describe THOR 11.
 
+For a full change log visit :ref:`changelog/11.rst:THOR 11 (Techpreview)`.
+
 .. note::
-   Check the configuration reference and help included with the THOR 11
-   package you intend to deploy.
+   You may check the configuration reference
+   (``config/thor.yml.defaults``) and ``--help detailed`` command
+   included with the THOR 11 package you intend to deploy.
 
 Before You Upgrade
 ------------------
 
+* Read the change log in :ref:`changelog/11.rst:THOR 11 (Techpreview)`
 * Back up your ``config`` directory and any custom scan templates.
 * Review the command lines used in scripts, scheduled scans, and
   deployment tools, including the configuration files they load.
@@ -27,10 +31,11 @@ For an initial evaluation, download a fresh THOR 11 TechPreview package:
 
 .. code-block:: console
 
-   thor-util download --techpreview -t thor-windows
+   ./thor-util download --techpreview -t thor-windows
 
 Use ``thor-linux`` or ``thor-macos`` instead of ``thor-windows`` to
-download a package for Linux or macOS. Extract the downloaded ZIP file
+download a package for Linux or macOS. See ``thor-util download --help``
+for all options. Extract the downloaded ZIP file
 into a separate directory. This gives you the new configuration files
 and lets you compare your existing settings before migrating them.
 
@@ -38,14 +43,35 @@ To upgrade an existing installation to the TechPreview version, run:
 
 .. code-block:: console
 
-   thor-util upgrade --techpreview
+   ./thor-util upgrade --techpreview
 
 This preserves the existing configuration. Before upgrading, read
 :ref:`core/upgrade-to-thor11:Reinitialize the Default Configuration`
 to decide whether to reset ``config/thor.yml`` during the upgrade.
 
-On Windows, use ``thor-util.exe``; on Linux and macOS, use
-``./thor-util`` when running the utility from its directory.
+.. note::
+    On Windows, use ``thor-util.exe``; on Linux and macOS, use
+    ``./thor-util`` when running the utility from its directory.
+
+How to Downgrade
+----------------
+
+It is recommended to start with a fresh THOR 11 package but if you
+decided to upgrade in-place anyway you can easily downgrade back to
+THOR 10 if anything isn't working as desired. You can do so using:
+
+.. code-block:: console
+
+   ./thor-util upgrade
+
+or if you have set ``techpreview: True`` in ``config/thor-util.yml`` using:
+
+.. code-block:: console
+
+   ./thor-util upgrade --version ^10.0.0
+
+Then restore the config from your backup.
+
 
 Command-Line and Configuration Compatibility
 --------------------------------------------
@@ -122,7 +148,7 @@ THOR 11 includes the following configuration files in the ``config`` directory:
   contains commented examples of common settings. Leave these commented
   to use THOR's built-in defaults, or uncomment and adjust individual
   settings when you need an override.
-* ``thor.yml.defaults`` lists the available configuration options, their
+* ``thor.yml.defaults`` lists all available configuration options, their
   defaults, and explanatory comments. Use it as a reference when
   choosing settings for ``thor.yml`` or a custom template. Its commented
   entries do not enable options by themselves.
@@ -141,34 +167,37 @@ every THOR 10 value.
    * - ``max_file_size``
      - ``file-size-limit: 64MB``
      - The default increases from 30 MB to 64 MB. Review any custom
-       limit and write the intended size with an explicit unit.
+       limit and write the intended size with an explicit unit. This setting
+       also sets the file size limit for ``--deep`` mode. If you do not intend
+       to deviate from the default, omit the option.
    * - ``max_runtime``
      - ``timeout: 168``
      - The value is still a duration in hours.
    * - ``cpulimit``
-     - ``cpu-limit: 95``
-     - The value is a CPU load threshold in percent.
+     - ``cpu-limit: 70``
+     - The value is a CPU load threshold in percent. The new default value is
+       reduced to 70 but as THOR 11 now uses more threads by default overall
+       CPU usage can increase on multi-core systems.
    * - ``minmem``
      - ``memory-limit: 50MB``
      - The minimum free physical memory, not a cap on THOR's memory
        consumption. Specify the unit explicitly.
    * - ``min``
-     - ``score-notice: 40``
-     - Sets the minimum score for a Notice. Info findings have a
-       separate threshold; see below.
+     - ``min: 40``
+     - Minimum score for an assessment to be shown. Unchanged.
    * - ``truncate``
      - ``truncate: 2048``
-     - The limit remains a number of characters per field value.
-
-THOR 11 also reports Info findings, with a default ``score-info`` of
-``30``. Setting ``score-notice: 40`` therefore does not recreate a
-general minimum reporting score of 40.
+     - Limits the maximum character length of any single value. Unchanged.
 
 Review ``max_file_size_intense`` separately when migrating intense scans.
 THOR 11's ``--deep`` mode, which has ``--intense`` as an alias, increases
 the file size limit to ``200MB`` unless a custom ``file-size-limit`` is
 specified. Do not copy the old setting into the new configuration
-without reviewing the intended scan mode and limit.
+without reviewing the intended scan mode and limit. If you just copy a ``30MB``
+limit for ``--file-size-limit``, ``--deep`` mode will use it. If you used the
+previous defaults listed in :ref:`core/upgrade-to-thor11:Why an Existing Configuration Needs Attention`
+you can just remove the respective option.
+
 
 JSON v3 Logs as the Default
 ---------------------------
@@ -176,7 +205,7 @@ JSON v3 Logs as the Default
 THOR 11 writes its scan log file in **JSONL format** (``.jsonl``) by default,
 using **THOR JSON log format version 3**. Each line contains a JSON
 object representing a log entry. The text log file that was created
-by default in THOR 10 must now be enabled explicitly.
+by default in THOR 10 must now be enabled explicitly (see next section).
 
 Version 3 introduces a defined schema with structured objects for
 findings, messages, and the elements they describe. Existing parsers
@@ -188,7 +217,7 @@ for details.
 Before upgrading, check that your log collectors pick up ``.jsonl``
 files and that your SIEM integrations, field mappings, and dashboards
 can process version 3 events. Test these integrations with logs from
-the THOR 11 build you intend to deploy.
+THOR 11.
 
 Enable the Text Log Explicitly
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -215,7 +244,7 @@ Changed Thunderstorm Responses
 ------------------------------
 
 When THOR Thunderstorm runs with THOR 11, the format of the scan results
-returned by the service changes as well. Applications that submit
+returned by the service changes to JSON v3 as well. Applications that submit
 samples and process the server's responses must account for the new
 response structure. Existing THOR 10 response parsers may require
 changes even if sample submission still succeeds.
@@ -230,10 +259,6 @@ Before upgrading a Thunderstorm service:
   before switching production clients to the upgraded service. Include
   result retrieval for asynchronous submissions if your integration
   uses that mode.
-
-The ``--text`` option described above controls THOR's text log file.
-Do not assume that enabling it restores the THOR 10 Thunderstorm
-response format; validate the service responses separately.
 
 Higher Memory Usage
 -------------------
@@ -266,12 +291,13 @@ for all options. In THOR 11, select the detail level with
    * - Option
      - Output
    * - ``--help short``
-     - The most important options.
+     - The most important options. Default if no verbosity
+       is selected.
    * - ``--help long``
-     - All available options; use this in place of THOR 10's
-       ``--fullhelp``.
+     - All available options. Similar to the old ``--fullhelp``.
    * - ``--help detailed``
-     - All available options with extensive descriptions.
+     - All available options with extensive descriptions and
+       examples. Recommended for manual-like usage.
 
 For example, on Windows:
 
@@ -282,11 +308,3 @@ For example, on Windows:
 
 Use ``--help detailed`` when reviewing renamed options and their value
 formats. The short form ``-h`` also accepts the verbosity argument.
-
-.. Editorial review before release:
-   - Confirm the release upgrade/download commands with engineering.
-   - Confirm detection conditions and wording of the old-config message.
-   - Confirm handling of max_file_size_intense in older custom templates.
-   - Validate the approximate 40% memory increase against release builds.
-   - Validate JSON/parser and Thunderstorm response migration guidance
-     against release builds and add any further deployment-specific changes.
