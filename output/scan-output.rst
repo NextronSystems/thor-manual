@@ -36,6 +36,8 @@ Log File Output (.txt)
 
 The text log file is written only when explicitly enabled. It provides
 the text log format that was the default in THOR 10.
+Before upgrading, read
+:ref:`core/upgrade-to-thor11:JSON v3 Logs as the Default`.
 
 * **--text log.txt**
 

@@ -4,7 +4,9 @@ THOR Thunderstorm Service
 =========================
 
 THOR Thunderstorm exposes THOR's scanning capabilities as a RESTful web
-service. It receives submitted samples and returns scan results.
+service. It receives submitted samples and returns scan results. Before upgrading a service to THOR 11, review
+:ref:`core/upgrade-to-thor11:Changed Thunderstorm Responses` for the
+impact on clients that process scan results.
 
 Thunderstorm Deployment
 ^^^^^^^^^^^^^^^^^^^^^^^
