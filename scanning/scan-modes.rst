@@ -30,7 +30,10 @@ Additional scan modes:
 - **Soft** ``--soft`` - force disable with ``--no-soft``
 
   This mode disables modules and checks that could put system stability
-  at risk. It also tries to reduce THOR's RAM usage.
+  at risk. It also tries to reduce THOR's RAM usage, lowers the CPU limit
+  to 50 % and scans with a single thread, unless ``--cpu-limit`` or
+  ``--threads`` is set. It cannot be combined with ``--deep`` or
+  ``--no-resource-check``.
   It is automatically activated on:
 
   - Systems with only a single CPU core
@@ -56,7 +59,7 @@ Additional scan modes:
   susceptible to so-called "timestomping".
 
 These scan modes can also be combined, for example ``--soft --delta``.
-Not every combination is useful, for example ``--soft --deep``.
+Not every combination is possible, for example ``--soft --deep``.
 
 For more detail on module coverage and scan behavior, see
 :ref:`scanning/modules:modules` for the full list of available modules
