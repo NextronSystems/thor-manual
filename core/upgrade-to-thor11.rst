@@ -99,7 +99,7 @@ THOR 10 installations commonly contain settings such as:
 A regular ``thor-util upgrade`` preserves the existing configuration.
 An upgrade in the same directory can therefore leave THOR 10 settings
 active when you start THOR 11. THOR 11 prints a command-line message
-when it detects an old configuration. Review that message and migrate
+when it detects potential misconfiguration. Review that message and migrate
 the settings before using the installation for regular scans.
 
 Use explicit units for file sizes and memory values, for example
@@ -186,15 +186,11 @@ every THOR 10 value.
      - ``truncate: 2048``
      - Limits the maximum character length of any single value. Unchanged.
 
-Review ``max_file_size_intense`` separately when migrating intense scans.
-THOR 11's ``--deep`` mode, which has ``--intense`` as an alias, increases
-the file size limit to ``200MB`` unless a custom ``file-size-limit`` is
-specified. Do not copy the old setting into the new configuration
-without reviewing the intended scan mode and limit. If you just copy a ``30MB``
-limit for ``--file-size-limit``, ``--deep`` mode will use it. If you used the
-previous defaults listed in :ref:`core/upgrade-to-thor11:Why an Existing Configuration Needs Attention`
-you can just remove the respective option.
-
+If you used the THOR 10 defaults (see config in
+:ref:`core/upgrade-to-thor11:Why an Existing Configuration Needs Attention`),
+remove ``max_file_size`` and ``max_file_size_intense``.
+Otherwise set ``file-size-limit`` explicitly, knowing it also applies to ``--deep`` 
+(formerly ``--intense``).
 
 JSON v3 Logs as the Default
 ---------------------------
