@@ -4,6 +4,7 @@ THOR Thunderstorm Service
 =========================
 
 THOR Thunderstorm exposes THOR's scanning capabilities as a RESTful web
+service. It receives submitted samples and returns scan results.
 
 Thunderstorm Deployment
 ^^^^^^^^^^^^^^^^^^^^^^^
