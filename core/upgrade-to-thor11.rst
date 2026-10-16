@@ -6,7 +6,7 @@ It focuses on changes that affect existing scan configurations,
 command lines, log processing, Thunderstorm integrations, and resource
 planning.
 
-For a full change log visit :ref:`changelog/11:THOR 11 (Techpreview)`.
+For a full change log visit :ref:`changelog/11:THOR 11 (TechPreview)`.
 
 .. note::
    You may check the configuration reference
@@ -16,7 +16,7 @@ For a full change log visit :ref:`changelog/11:THOR 11 (Techpreview)`.
 Before You Upgrade
 ------------------
 
-* Read the change log in :ref:`changelog/11:THOR 11 (Techpreview)`
+* Read the change log in :ref:`changelog/11:THOR 11 (TechPreview)`
 * Back up your ``config`` directory and any custom scan templates.
 * Review the command lines used in scripts, scheduled scans, and
   deployment tools, including the configuration files they load.
