@@ -4,7 +4,7 @@ Upgrading to THOR 11
 This chapter helps THOR 10 users prepare for an upgrade to THOR 11.
 It focuses on changes that affect existing scan configurations,
 command lines, log processing, Thunderstorm integrations, and resource
-planning. The other chapters in this manual describe THOR 11.
+planning.
 
 For a full change log visit :ref:`changelog/11:THOR 11 (Techpreview)`.
 
@@ -31,7 +31,7 @@ For an initial evaluation, download a fresh THOR 11 TechPreview package:
 
 .. code-block:: console
 
-   ./thor-util download --techpreview -t thor-windows
+   thor-util download --techpreview -t thor-windows
 
 Use ``thor-linux`` or ``thor-macos`` instead of ``thor-windows`` to
 download a package for Linux or macOS. See ``thor-util download --help``
@@ -43,15 +43,11 @@ To upgrade an existing installation to the TechPreview version, run:
 
 .. code-block:: console
 
-   ./thor-util upgrade --techpreview
+   thor-util upgrade --techpreview
 
 This preserves the existing configuration. Before upgrading, read
 :ref:`core/upgrade-to-thor11:Reinitialize the Default Configuration`
 to decide whether to reset ``config/thor.yml`` during the upgrade.
-
-.. note::
-    On Windows, use ``thor-util.exe``; on Linux and macOS, use
-    ``./thor-util`` when running the utility from its directory.
 
 How to Downgrade
 ----------------
@@ -62,13 +58,13 @@ THOR 10 if anything isn't working as desired. You can do so using:
 
 .. code-block:: console
 
-   ./thor-util upgrade
+   thor-util upgrade
 
 or if you have set ``techpreview: True`` in ``config/thor-util.yml`` using:
 
 .. code-block:: console
 
-   ./thor-util upgrade --version ^10.0.0
+   thor-util upgrade --version ^10.0.0
 
 Then restore the config from your backup.
 
@@ -130,13 +126,14 @@ run the following command from the THOR directory:
 
 .. code-block:: console
 
-   ./thor-util upgrade --reinitialize-config --techpreview
+   thor-util upgrade --reinitialize-config --techpreview
 
-On Windows, use ``thor-util.exe`` instead of ``./thor-util``.
-
-You can check whether your THOR Util version supports the reset option
-with ``thor-util upgrade --help``. For general upgrade and package
-selection options, see the
+You can check whether your THOR Util version supports the
+reinitialization option with ``thor-util upgrade --help``.
+If not, you need to use ``thor-util`` from a THOR 11 package
+or perform ``thor-util upgrade --techpreview`` to get the
+newest version.
+For general upgrade and package selection options, see the
 `THOR Util manual <https://thor-util-manual.nextron-systems.com/en/latest/usage/upgrade-and-updates.html>`__.
 
 Use the New Configuration Reference
