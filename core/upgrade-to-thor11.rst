@@ -233,8 +233,19 @@ differences may remain. Test any scripts or parsers that depend on the
 exact THOR 10 text format before upgrading. JSON preserves richer
 structured information and is the preferred format for new integrations.
 
+THOR Thunderstorm
+-----------------
+
+New Dedicated Binary
+^^^^^^^^^^^^^^^^^^^^
+
+THOR Thunderstorm is no longer started from a normal THOR binary but
+has its own binary that you can find in ``tools/thunderstorm`` or
+``tools\thunderstorm.exe``. See :ref:`deployment/thunderstorm:Thunderstorm Deployment` for
+more information.
+
 Changed Thunderstorm Responses
-------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 When THOR Thunderstorm runs with THOR 11, the format of the scan results
 returned by the service changes to JSON v3 as well. Applications that submit
@@ -252,6 +263,7 @@ Before upgrading a Thunderstorm service:
   before switching production clients to the upgraded service. Include
   result retrieval for asynchronous submissions if your integration
   uses that mode.
+
 
 Higher Memory Usage
 -------------------
