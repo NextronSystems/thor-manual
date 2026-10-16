@@ -51,7 +51,8 @@ Often Used Parameters
     - Description
   * - **--soft**
     - Reduce CPU usage by skipping checks that may consume a lot of
-      memory, even if only briefly
+      memory, even if only briefly, and by scanning with a single thread
+      and a CPU limit of 50 %
   * - **--fast**
     - Perform a faster scan. This skips Eventlog checks and limits file
       scanning to recent files and the most relevant folders; see
@@ -186,10 +187,9 @@ CPU Limit
 Because the behavior of ``--cpu-limit`` can be confusing at first, it is
 explained in more detail here.
 
-This argument accepts an integer (default ``95``; minimum ``15``) that
-represents the maximum CPU load at which THOR will actively scan. The
-value is interpreted as a percentage of the system's total CPU
-capacity.
+This argument accepts an integer (default ``70``, minimum ``15``) that represents the
+maximum CPU load at which THOR will actively scan. The value is
+interpreted as a percentage of the system's total CPU capacity.
 
 This can help reduce load on server systems with real-time services or
 reduce fan noise on laptops.
@@ -427,13 +427,15 @@ Multi-Threading
 THOR can scan a system with multiple threads in parallel, which can
 significantly increase scan speed at the cost of higher CPU usage.
 
-To use this feature, set the ``--threads`` flag to the desired number of
-parallel threads.
+To set the number of parallel threads explicitly, use the ``--threads``
+flag. Otherwise, THOR derives the number of threads from the CPU limit
+(see :ref:`scanning/using-thor:cpu limit`): with the default CPU limit of
+70 %, it uses 70 % of the available CPU cores, rounded up. In soft mode,
+THOR uses a single thread.
 
 When using the ``--lab`` (Lab Scanning), ``--dropzone`` (sample drop
 zone) or ``--thunderstorm`` (Thunderstorm) command line flags, THOR will
-default to using as many threads as the system has CPU cores. Otherwise,
-THOR defaults to running with a single thread.
+default to using as many threads as the system has CPU cores.
 
 .. note::
   The modes listed above are available only with the "Lab",
