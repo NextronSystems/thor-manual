@@ -165,6 +165,29 @@ To disable an entry from this default list, use ``--log-object "object-type:0"``
 this overwrites the default limit with zero and disables
 ``--log-object`` for that object type.
 
+To log every object of a type, use ``all`` as the limit, for example
+``--log-object "shim cache entry:all"``. Leaving the limit out has the
+same effect. Object type names are not case-sensitive, and
+``--describe-object-type all`` lists them. The flag can be given more
+than once; the object types add up.
+
+THOR 10 had separate flags that printed all entries of some object
+types. In THOR 11 they are replaced by ``--log-object``:
+
+.. list-table::
+   :header-rows: 1
+   :widths: 30, 70
+
+   * - THOR 10
+     - THOR 11
+   * - ``--printshim``
+     - ``--log-object "shim cache entry:all"``
+   * - ``--printamcache``
+     - ``--log-object "AmCache entry:all"``
+
+THOR logs the entries as informational messages. ``AmCache entry`` has a
+default limit of 100 (see the list above), which ``all`` replaces.
+
 UTC Timestamps
 ^^^^^^^^^^^^^^
 
