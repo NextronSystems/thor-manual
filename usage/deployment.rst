@@ -107,7 +107,7 @@ you can use the following code snippet to help you with the retrieval.
    :linenos:
 
 Check the ASGARD helper scripts section in
-`our Github repo <https://github.com/NextronSystems/nextron-helper-scripts/tree/master/asgard>`__
+`our Github repo <https://github.com/NextronSystems/nextron-helper-scripts/tree/master/management-center>`__
 for more scripts and snippets.
 
 Retrieve Valid License From Customer Portal
