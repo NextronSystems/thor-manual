@@ -88,6 +88,11 @@ THOR for AIX
 We provide native THOR scanner packages for IBM AIX. Our current platform
 focus is AIX 7.2 and 7.3. Older AIX versions are outside this scope.
 
+The native scanner requires POWER8 or newer processor capabilities;
+POWER7 is not supported, even if it runs AIX 7.2. This reflects the
+`Go ppc64 processor requirements
+<https://go.dev/wiki/MinimumRequirements#ppc64-big-endian>`__.
+
 **Test platform and available environments**
 
 THOR for AIX is tested on AIX 7.3 with IBM POWER9 in IBM Cloud. The
@@ -136,6 +141,25 @@ of binary variants low. No final policy has been defined for:
 * the minimum supported AIX level for each THOR version;
 * whether one binary can cover AIX 7.2 and 7.3 or separate variants are
   required.
+
+**POWER7 and other systems without native scanner support**
+
+For POWER7 systems, use `THOR Thunderstorm
+<https://www.nextron-systems.com/thor-thunderstorm/>`__ to analyze files
+collected from the AIX host. Use a collection script or another file
+transfer method compatible with the target system. The Go-based
+Thunderstorm collector also requires POWER8 or newer processor
+capabilities and is not a workaround for POWER7. See the
+`Thunderstorm collection scripts
+<https://github.com/NextronSystems/thunderstorm-collector/tree/master/scripts>`__
+for available script variants; validate their dependencies on the target
+AIX system.
+
+Alternatively, use THOR with a Forensic Lab License to scan exported
+files or a filesystem made accessible on a supported analysis host. The
+license does not enable a native scanner to run on unsupported hardware.
+Both approaches analyze the supplied files and do not include live
+process or other volatile system checks on the AIX host.
 
 Contact us to confirm compatibility with your AIX level and THOR version,
 or to request a test license for validation in your environment.
