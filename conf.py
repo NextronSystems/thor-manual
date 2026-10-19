@@ -37,4 +37,8 @@ autosectionlabel_maxdepth = 5
 suppress_warnings = ["epub.unknown_project_files"]
 # Skip these sites entirely. They block automated requests (HTTP 403), so the
 # link check cannot verify them even with a browser-like User-Agent.
-linkcheck_ignore = [r'^https://stackoverflow\.com']
+linkcheck_ignore = [
+    r'^https://stackoverflow\.com',
+    # IBM Docs also blocks automated requests; limit this exception to our reference.
+    r'^https://www\.ibm\.com/docs/en/aix/7\.3\.0\?topic=aix-binary-compatibility$',
+]
