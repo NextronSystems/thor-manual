@@ -35,3 +35,8 @@ autosectionlabel_prefix_document = True
 autosectionlabel_maxdepth = 5
 # disable epub mimetype warnings
 suppress_warnings = ["epub.unknown_project_files"]
+
+# IBM Docs blocks automated requests (HTTP 403); skip only this reference.
+linkcheck_ignore = [
+    r'^https://www\.ibm\.com/docs/en/aix/7\.3\.0\?topic=aix-binary-compatibility$',
+]
