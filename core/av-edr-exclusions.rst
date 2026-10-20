@@ -46,11 +46,30 @@ processes. We cannot generally exclude these signatures from the scan.
 Be aware that results from the ``ProcessCheck`` module on a system
 running SentinelOne may contain many false positives.
 
-A Note on McAfee
-^^^^^^^^^^^^^^^^
+McAfee EDR Exclusions
+^^^^^^^^^^^^^^^^^^^^^
 
-Defining THOR exclusions across all relevant McAfee services is not
-straightforward. You need to exclude the process in multiple sections
-(AV, EDR, On-Access). For Management Center customers, we have compiled
-a list of recommended exclusions, which you can find
-`here <https://management-center-manual.nextron-systems.com/en/latest/requirements/av_edr.html#mcafee-edr-exclusions>`__.
+McAfee requires exclusions in multiple locations. In addition to the
+general recommendation, customers with McAfee EDR need to set the following
+exclusions.
+
+McAfee On-Access Scan
+"""""""""""""""""""""
+
+.. list-table::
+  :header-rows: 1
+  :stub-columns: 1
+  :widths: 25, 75
+
+  * -
+    - McAfee On-Access Scan Exclusions
+  * - **Low Risk**
+    - thor.exe
+  * -
+    - thor64.exe
+  * - **Exclusions**
+    -
+  * - Access Protection
+    - thor.exe
+  * -
+    - thor64.exe
