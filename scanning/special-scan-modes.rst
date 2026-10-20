@@ -91,7 +91,8 @@ original name. The syntax is as follows:
 
    --path-remap current-location:original-location
 
-When scanning drives from a different OS, it should be combined with ``--target-os``.
+When scanning drives from a different OS, it must be combined with ``--target-os``;
+otherwise THOR rejects the remapping and exits before scanning.
 This informs THOR to use the path style and built-in heuristics and excludes
 for that target OS instead of the ones for the OS it runs on.
 
@@ -193,12 +194,13 @@ environment:
      --path S:\ ^
      --path-remap S:C ^
      --overwrite-hostname WKS001 ^
+     --target-os Windows ^
      --output-directory C:\reports
 
 It instructs THOR to scan the mounted ``S:`` partition in lab scanning
 mode, map the current partition ``S:`` to a virtual ``C:`` drive,
-replace the hostname in the output with ``WKS001``, and store all output
-files in ``C:\reports``.
+replace the hostname in the output with ``WKS001``, apply the Windows
+heuristics and excludes, and store all output files in ``C:\reports``.
 
 .. note::
    This feature requires a `forensic lab license <https://www.nextron-systems.com/2020/11/11/thor-forensic-lab-license-features/>`__,
