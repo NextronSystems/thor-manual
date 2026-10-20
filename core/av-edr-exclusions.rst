@@ -67,8 +67,6 @@ McAfee On-Access Scan
     - thor.exe
   * -
     - thor64.exe
-  * - **Exclusions**
-    -
   * - Access Protection
     - thor.exe
   * -
