@@ -28,6 +28,7 @@ of a forensic Windows workstation.
     --lab ^
     --path-remap S:C ^
     --overwrite-hostname WKS0001 ^
+    --target-os Windows ^
     --path S:\
 
 The following example uses the same parameters on a Linux forensic
@@ -40,6 +41,7 @@ workstation, where the image is mounted at
     --lab \
     --path-remap /mnt/image/fs/sysvol/:C \
     --overwrite-hostname WKS0001 \
+    --target-os Windows \
     --path /mnt/image/fs/sysvol/
 
 The ``--lab`` parameter enables several internal flags, for example deep
@@ -49,8 +51,10 @@ their original drive letter so that message enrichment works correctly.
 The ``--overwrite-hostname HOSTNAME`` parameter makes THOR write the hostname of the
 original system to every log line instead of the hostname of the
 forensic workstation.
-The ``--target-os`` parameter causes THOR to use Windows style paths and
-the built-in heuristics and excludes for Windows.
+The ``--target-os Windows`` parameter causes THOR to use Windows style paths and
+the built-in heuristics and excludes for Windows. It is required for cross-platform
+scans: without it, THOR assumes the OS it runs on, rejects a ``--path-remap``
+whose original path belongs to another OS, and exits before scanning.
 
 You can find more information about these scan parameters in
 :ref:`scanning/special-scan-modes:lab scanning`.
