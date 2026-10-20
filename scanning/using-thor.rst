@@ -113,6 +113,9 @@ know exactly what you are doing.
       or other remote file systems may be scanned
   * - **--mft-analysis**
     - Possible stability issues due to high memory usage
+  * - **--file-size-limit**
+    - Possible stability issues due to high memory usage when set to
+      ``0`` (no limit) or to very high values
   * - **--process-dump**
     - Possible stability issues and high disk space usage. Free disk
       space checks are implemented but may still fail
