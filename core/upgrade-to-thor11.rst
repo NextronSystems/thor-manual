@@ -240,8 +240,7 @@ New Dedicated Binary
 ^^^^^^^^^^^^^^^^^^^^
 
 THOR Thunderstorm is no longer started from a normal THOR binary but
-has its own binary that you can find in ``tools/thunderstorm`` or
-``tools\thunderstorm.exe``. See :ref:`deployment/thunderstorm:Thunderstorm Deployment` for
+has its own binary that you can find in ``tools/thunderstorm``. It is only available on Linux. See :ref:`deployment/thunderstorm:Thunderstorm Deployment` for
 more information.
 
 Changed Thunderstorm Responses
