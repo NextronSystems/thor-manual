@@ -56,11 +56,21 @@ To target a THOR object type, use this logsource configuration:
 .. code-block:: yaml
 
    logsource:
-       product: THOR
-       service: <Object Type Name>
+       service: THOR
+       category: <Object Type Name>
 
-The ``service`` field must match the object type name exactly, for
+The ``category`` field must match the object type name exactly, for
 example ``Linux kernel module``, ``AmCache entry``, or ``cron job``.
+
+Optionally, ``product`` restricts the rule to the operating system
+of the scanned host (``windows``, ``linux``, or ``macos``):
+
+.. code-block:: yaml
+
+   logsource:
+       service: THOR
+       category: process
+       product: windows
 
 Discovering Object Types
 ************************
@@ -150,10 +160,8 @@ Object Type Reference
 THOR includes many object types. The following are among the most
 commonly used in detection rules:
 
-.. TODO: Adapt to root object rework of processes.
-
 **Process and Memory:**
-   ``process``, ``process.connection``, ``process.handle``, ``process.thread``
+   ``process``, ``process.connections``, ``process.handles``
 
 **Persistence Mechanisms:**
    ``autorun entry``, ``cron job``, ``scheduled task``, ``at job``,
@@ -232,8 +240,8 @@ Detection Examples
 
    title: Execution of Known Malicious Hash via Amcache
    logsource:
-       product: THOR
-       service: AmCache entry
+       service: THOR
+       category: AmCache entry
    detection:
        selection:
            sha1: DEADBEEFDEADBEEFDEADBEEFDEADBEEFDEADBEEF
@@ -252,8 +260,8 @@ Detection Examples
    status: experimental
    description: Detects dynamically loaded kernel modules without associated files
    logsource:
-       product: THOR
-       service: Linux kernel module
+       service: THOR
+       category: Linux kernel module
    detection:
        selection:
            file: null
@@ -269,8 +277,8 @@ Detection Examples
 
    title: Process with Encoded PowerShell Execution
    logsource:
-       product: THOR
-       service: process
+       service: THOR
+       category: process
    detection:
        selection:
            command|contains:
@@ -288,8 +296,8 @@ Detection Examples
 
    title: Cron Job with Suspicious Download Command
    logsource:
-       product: THOR
-       service: cron job
+       service: THOR
+       category: cron job
    detection:
        selection_download:
            command|contains:
@@ -308,8 +316,8 @@ Detection Examples
 
    title: Autorun Entry from Suspicious Location
    logsource:
-       product: THOR
-       service: autorun entry
+       service: THOR
+       category: autorun entry
    detection:
        selection_path:
            launch_string|contains:
@@ -330,8 +338,8 @@ Detection Examples
 
    title: Windows Service from Temp Directory
    logsource:
-       product: THOR
-       service: Windows service
+       service: THOR
+       category: Windows service
    detection:
        selection:
            image.path|contains:
