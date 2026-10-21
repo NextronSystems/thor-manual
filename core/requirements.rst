@@ -44,6 +44,8 @@ are generally expected to work as well.
 THOR runs on x64 and ARM64 systems. See
 :ref:`core/version:which architecture?` for the available packages.
 
+For AIX platforms and compatibility details, see `THOR for AIX`_.
+
 Legacy Systems
 ^^^^^^^^^^^^^^
 
@@ -83,13 +85,88 @@ THOR Legacy is available for the systems listed below.
 THOR for AIX
 ^^^^^^^^^^^^
 
-We provide native THOR scanner packages for IBM AIX.
+We provide native THOR scanner packages for IBM AIX. Our current platform
+focus is AIX 7.2 and 7.3. Older AIX versions are outside this scope.
 
-THOR for AIX supports IBM AIX 7.2 and 7.3. Build and test environments
-currently available to us include AIX 7.2 TL5 SP11 and AIX 7.3 TL3 SP0.
+The native scanner requires POWER8 or newer processor capabilities;
+POWER7 is not supported, even if it runs AIX 7.2. This reflects the
+`Go ppc64 processor requirements
+<https://go.dev/wiki/MinimumRequirements#ppc64-big-endian>`__.
 
-Older AIX versions are not supported. If you would like to validate
-compatibility in your environment, please contact us for a test license.
+**Test platform and available environments**
+
+THOR for AIX is tested on AIX 7.3 with IBM POWER9 in IBM Cloud. The
+following IBM Cloud environments are currently available for build and
+test activities:
+
+.. list-table::
+   :widths: 20, 35, 45
+   :header-rows: 1
+
+   * - AIX version
+     - Technology Level / Service Pack
+     - OS level (``oslevel -s``)
+   * - 7.2
+     - TL5 SP11
+     - ``7200-05-11-2546``
+   * - 7.3
+     - TL3 SP0
+     - ``7300-03-00-2446``
+
+These entries describe available environments. They are not a complete
+test matrix or minimum TL/SP requirements for every THOR release.
+
+**Binary compatibility**
+
+The scanner is primarily written in Go and includes native C components.
+Binary compatibility therefore also depends on the build environment,
+compiler toolchain and runtime libraries.
+
+`IBM's AIX binary compatibility guidance
+<https://www.ibm.com/docs/en/aix/7.3.0?topic=aix-binary-compatibility>`__
+describes running applications built on older AIX releases or Technology
+Levels on newer levels. The reverse should not be assumed: a package
+built on a newer level may depend on libraries or symbols that are
+unavailable on an older system. This guidance does not replace validation
+of a specific THOR package in the target environment.
+
+**Build and support strategy under evaluation**
+
+We are evaluating a strategy of building on a defined minimum AIX level
+and validating compatibility on newer levels, while keeping the number
+of binary variants low. No final policy has been defined for:
+
+* the build baseline, compiler toolchain and runtime dependency model;
+* the regular TL/SP test matrix;
+* the minimum supported AIX level for each THOR version;
+* whether one binary can cover AIX 7.2 and 7.3 or separate variants are
+  required.
+
+**POWER7 and other systems without native scanner support**
+
+For POWER7 systems, use `THOR Thunderstorm
+<https://www.nextron-systems.com/thor-thunderstorm/>`__ to analyze files
+collected from the AIX host. Use a collection script or another file
+transfer method compatible with the target system. The Go-based
+Thunderstorm collector also requires POWER8 or newer processor
+capabilities and is not a workaround for POWER7. See the
+`Thunderstorm collection scripts
+<https://github.com/NextronSystems/thunderstorm-collector/tree/master/scripts>`__
+for available script variants; validate their dependencies on the target
+AIX system.
+
+Alternatively, use THOR with a Forensic Lab License to scan exported
+files or a filesystem made accessible on a supported analysis host. The
+license does not enable a native scanner to run on unsupported hardware.
+Both approaches analyze the supplied files and do not include live
+process or other volatile system checks on the AIX host.
+
+Contact us to confirm compatibility with your AIX level and THOR version,
+or to request a test license for validation in your environment.
+
+.. note::
+   This section describes the THOR scanner. For ASGARD agent deployments,
+   contact support to confirm the agent's AIX requirements separately.
 
 Unsupported
 ^^^^^^^^^^^
