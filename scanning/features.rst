@@ -88,11 +88,25 @@ The standard signatures already contain a number of rules with these
 tags. However, if a relevant artifact is not matched, you can add
 additional custom signatures with the same tags.
 
+The last column shows whether a feature also parses files above the
+:ref:`file size limit <scanning/using-thor:file size limit>`. ``yes``
+means that the feature parses such files regardless of their size,
+``no`` means that it skips them. The column says nothing about whether
+the feature is active in a scan mode.
+
 .. csv-table::
   :file: ../csv/feature-selector-list.csv
   :widths: 40, 40, 50
   :delim: ;
   :header-rows: 1
+
+.. [7] THOR parses the message regardless of its size. It does not scan
+   a message body or attachment above the file size limit, and it does
+   not read the parts that follow such a part.
+.. [8] THOR parses the file regardless of its size, but skips contained
+   files above the file size limit.
+.. [9] THOR parses the hive regardless of its size, but skips registry
+   values above the file size limit.
 
 Archive Scan
 ^^^^^^^^^^^^

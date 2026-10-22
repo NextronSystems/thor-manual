@@ -9,6 +9,12 @@ missing.
 THOR did not scan a file because of file size restrictions
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+THOR does not scan the content of files above the file size limit, but
+it still checks their names and paths. It reads some types of files,
+for example log files and event logs, regardless of their size. See
+:ref:`scanning/using-thor:file size limit` for details. Run THOR with
+``--debug`` to find out which files it skipped.
+
 **Solution**: Use the ``--file-size-limit`` parameter or set it permanently
 in the config file ``./config/thor.yml``.
 
