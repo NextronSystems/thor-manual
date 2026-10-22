@@ -1,4 +1,4 @@
-THOR 11 (Techpreview)
+THOR 11 (TechPreview)
 #####################
 
 .. hint::

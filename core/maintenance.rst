@@ -49,6 +49,8 @@ details.
    file in a THOR 11 package in the ``config`` folder, next to a
    ``thor.yml.defaults`` that provides a reference for all available options.
    Please check your configuration file and adapt it to the new options.
+   See :ref:`core/upgrade-to-thor11:Upgrading to THOR 11` for a
+   step-by-step migration guide.
 
 Update Signatures
 -----------------
