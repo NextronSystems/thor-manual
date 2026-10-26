@@ -350,20 +350,29 @@ Scan Modes
                - Hosts file
                - DoublePulsar check
                - Executable decompression
-             - Lowering max CPU usage to 70%
+             - Lowering max CPU usage to 50% (unless --cpu-limit is set)
+             - Lowering thread count to 1 (unless --threads is set)
              - Setting low process priority for THOR
 
 
            Activates automatically on low-resource systems (1 CPU core or <1024 MB RAM).
 
+           Cannot be combined with --no-resource-check, --deep, --lab, --dropzone or --http-server.
+
            .. warning::
               May miss certain threats due to reduced coverage.
+
+
+           See also:
+             --cpu-limit
+             --threads
+             --no-resource-check
 
 --deep
 
            Enable deep forensic analysis at the cost of high resource consumption and actions that may endanger system stability.
 
-           This includes disabling all CPU / memory restrictions, and scanning all files.
+           This includes disabling all checks that monitor available system resources, and scanning all files.
 
            The file size limit is increased to 200MB, unless a custom value is specified.
 
@@ -384,6 +393,7 @@ Scan Modes
              --sigma-threshold
              --no-builtin-registry-excludes
              --no-builtin-path-excludes
+             --no-resource-check
 
 --delta
 
@@ -483,6 +493,7 @@ Scan Modes
              - Disable scan instance locking
              - Scan all drives by default, or limited to a provided path if combined with -p
              - Disable the signature match limit
+             - Resolve file references (e.g. symlink targets or paths in artifacts) only via --path-remap
 
            Requires a Forensic Lab License.
 
@@ -520,6 +531,13 @@ Scan Modes
            otherwise Unix style is used. The style thus detected must match the OS specified by --target-os.
 
 
+           If --path-remap, --lab or --target-os is used, referenced files (e.g. symlink targets or paths in artifacts)
+
+           are only opened if their path starts with an original path of a remapping. Other references are not followed
+
+           to avoid scanning files of the analysis system instead of the image.
+
+
            Requires a Forensic Lab License.
 
            Alias:
@@ -544,6 +562,7 @@ Scan Modes
 
                This affects filename IOCs, YARA rules and other heuristics that match file paths.
              - Built-in heuristics and excludes are loaded for the specified OS.
+             - Referenced files are only resolved via --path-remap.
 
 
            By default, the current system's native OS is used.
@@ -584,11 +603,13 @@ Resource Options
 
            Usually, setting --cpu-limit alone (without --threads) is sufficient to control THOR's CPU usage.
 
+           If set explicitly, the limit also applies when resource checks are disabled (see --no-resource-check).
+
            .. warning::
               Very low values combined with CPU usage from other processes can cause THOR to pause permanently, ultimately causing a scan timeout.
 
            Default:
-             95
+             70
 
            Alias:
              --cpulimit
@@ -596,6 +617,7 @@ Resource Options
 
            See also:
              --threads
+             --no-resource-check
 
 --no-soft
 
@@ -612,6 +634,10 @@ Resource Options
 
            Disable all checks that monitor available system resources.
 
+           This also lifts the CPU limit to 100%, unless --cpu-limit is set explicitly.
+
+           Cannot be combined with --soft.
+
            .. warning::
               May cause system instability if available resources are insufficient. Use with care!
 
@@ -624,6 +650,7 @@ Resource Options
              --cpu-limit
              --log-size-limit
              --no-soft
+             --soft
 
 --memory-limit <memory>
 
@@ -699,6 +726,8 @@ Resource Options
            If this flag is not set, the number of threads is derived from the CPU limit (see --cpu-limit),
 
            so that the number of used CPU cores roughly matches the limit.
+
+           In soft mode (see --soft), THOR uses a single thread instead.
 
            Usually, setting --cpu-limit alone is sufficient; use --threads only to control the number of threads explicitly.
 
@@ -850,10 +879,6 @@ License Retrieval
 
            Download a license from the specified Management Center if no local license is found.
 
-           Aliases:
-             --asgard-host
-             --asgard
-
            **Examples**::
 
              --management-center management-center.my-company.internal
@@ -864,9 +889,6 @@ License Retrieval
            Use this token to authenticate with the License API of a Management Center.
 
            The token can be found in the 'Downloads' or 'Licensing' section of the Management Center.
-
-           Alias:
-             --asgard-token
 
            **Example**::
 
@@ -1279,6 +1301,22 @@ Feature Extras
            Alias:
              --full-proc-integrity
 
+--cobaltstrike-beacons
+
+           Search files and processes for Cobalt Strike beacons.
+
+           In deep scans and with --files-all, every file is searched; otherwise, only files and processes that match a Cobalt Strike YARA rule are checked.
+
+           This scan is disabled by default because it may report false positives and increases scan time when every file is searched.
+
+           .. warning::
+              May cause false positives.
+
+
+           See also:
+             --deep
+             --files-all
+
 --plugin-development-mode
 
            Enable plugin development mode which allows loading of unpacked plugins.
@@ -1557,7 +1595,7 @@ Output Options
 
 --encryption-key <file-or-key>
 
-           Use this RSA public key to encrypt the JSON, CSV and text log files.
+           Use this RSA public key to encrypt the JSON, CSV, text and audit trail log files.
 
            Accepts either a raw key or a file path containing the key.
 
@@ -1718,13 +1756,15 @@ Output Options
            Alias:
              --include-info-in-html
 
---audit-trail <file>[=<hostname>_audit_<time>.jsonl.gz]
+--audit-trail <file>[=<hostname>_thor_audit_<time>.jsonl.zst]
 
            Write an audit trail log file next to the regular scan output.
 
            The audit trail contains all assessments that THOR made, including
 
-           undetected files and objects, and the relationships between them.
+           undetected files and objects, and the relationships between them, as well
+
+           as all administrative THOR messages related to the scan status that were logged during the scan.
 
            This is not a scan mode:
              it does not change what THOR scans or reports, it
@@ -1741,7 +1781,7 @@ Output Options
 
            **Example**::
 
-              --audit-trail myhost_audittrail.jsonl.gz
+              --audit-trail myhost_audittrail.jsonl.zst
 
 --console-background <schema>
 

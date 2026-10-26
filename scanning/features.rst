@@ -54,6 +54,7 @@ Feature Scan Mode Overview
   :delim: ;
   :header-rows: 1
 
+.. [1] Enable with ``--cobaltstrike-beacons`` (see :ref:`core/flags:feature extras`)
 .. [2] Disabled on Domain Controllers
 .. [3] Only supported on Windows
 .. [4] Only supported on Windows and Linux
