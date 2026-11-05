@@ -20,5 +20,6 @@ THOR effectively.
     templates
     flags
     maintenance
+    upgrade-to-thor11
     av-edr-exclusions
     score
