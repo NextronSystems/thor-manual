@@ -130,9 +130,9 @@ run the following command from the THOR directory:
 
 You can check whether your THOR Util version supports the
 reinitialization option with ``thor-util upgrade --help``.
-If not, you need to use ``thor-util`` from a THOR 11 package
-or perform ``thor-util upgrade --techpreview`` to get the
-newest version.
+If not, first upgrade to the latest version using
+``thor-util upgrade``, then upgrade to THOR 11 using the command
+above.
 For general upgrade and package selection options, see the
 `THOR Util manual <https://thor-util-manual.nextron-systems.com/en/latest/usage/upgrade-and-updates.html>`__.
 
@@ -142,13 +142,13 @@ Use the New Configuration Reference
 THOR 11 includes the following configuration files in the ``config`` directory:
 
 * ``thor.yml`` is the default scan configuration. The supplied file
-  contains commented examples of common settings. Leave these commented
+  contains commented out examples of common settings. Leave these commented
   to use THOR's built-in defaults, or uncomment and adjust individual
   settings when you need an override.
 * ``thor.yml.defaults`` lists all available configuration options, their
   defaults, and explanatory comments. Use it as a reference when
   choosing settings for ``thor.yml`` or a custom template. Its commented
-  entries do not enable options by themselves.
+  out entries do not enable options by themselves.
 
 The following table covers the common settings shown above. The THOR 11
 column shows the supplied defaults, not a conversion that preserves
