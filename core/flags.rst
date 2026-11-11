@@ -770,7 +770,13 @@ Special Scan Modes
 ----------------------------------------------------------------------
 -m, --memory-dump-file <file>
 
-           Scan a single memory dump file for threats.
+           Scan a single memory dump file for threats and nothing else.
+
+           In this scan mode, THOR runs only the DeepDive module on this file.
+
+           It cannot be combined with other scan modes such as --dropzone, --http-server, or --collector-only, nor with --collector, --path, or --module for modules other than DeepDive. THOR exits with an error in that case.
+
+           It can be combined with --lab to scan the dump file with the lab mode settings.
 
            This option is not meant for scanning disk images. For forensic disk analysis, use --lab and mount the image beforehand.
 
@@ -782,6 +788,10 @@ Special Scan Modes
            **Example**::
 
               --memory-dump-file /mnt/image.raw
+
+
+           See also:
+             --lab
 
 --memory-dump-chunk-size <memory>
 
