@@ -38,3 +38,14 @@ suppress_warnings = ["epub.unknown_project_files"]
 # Skip these sites entirely. They block automated requests (HTTP 403), so the
 # link check cannot verify them even with a browser-like User-Agent.
 linkcheck_ignore = [r'^https://stackoverflow\.com']
+# Server Products sit behind a login, which causes them to redirect to the portal login page.
+_PORTAL_LOGIN = r'https://portal\.nextron-systems\.com/docs/authorize\?.*'
+_LOGIN_PROTECTED = (
+    r'https://knowledge\.nextron-systems\.com(/.*)?$',
+    r'https://management-center-manual\.nextron-systems\.com(/.*)?$',
+    r'https://analysis-cockpit-manual\.nextron-systems\.com(/.*)?$',
+)
+linkcheck_allowed_redirects = dict.fromkeys(_LOGIN_PROTECTED, _PORTAL_LOGIN)
+
+# The login page does not carry the anchors of the page it is guarding
+linkcheck_anchors_ignore_for_url = _LOGIN_PROTECTED

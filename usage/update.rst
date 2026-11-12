@@ -10,7 +10,7 @@ Running ``thor-util --help`` shows two options that look very similar:
 - **update** : signature updates only
 
 For more information on ``thor-util``, see the separate
-`THOR Util manual <https://thor-util-manual.nextron-systems.com>`__.
+`THOR Util manual <https://thor-util-manual.nextron-systems.com/en/latest/>`__.
 
 Update Locations
 ----------------

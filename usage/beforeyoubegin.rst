@@ -450,7 +450,7 @@ You can verify the executable files in the THOR package with
 * thor-util's "verify" feature
 * openssl verifying the integrity of executables manually
 
-Find more information on THOR Util in its dedicated `online manual <https://thor-util-manual.nextron-systems.com>`__.
+Find more information on THOR Util in its dedicated `online manual <https://thor-util-manual.nextron-systems.com/en/latest/>`__.
 
 .. hint::
    THOR Util automatically verifies the signatures of the contained
