@@ -120,7 +120,7 @@ and its signature sets. The system performing the update must be able to
 reach our update servers.
 
 For a detailed and up-to-date list of our update and licensing
-servers, please visit https://www.nextron-systems.com/hosts/.
+servers, please visit https://www.nextron-systems.com/resources/hosts/.
 
 .. hint::
   THOR does not require an active internet connection to scan a system.

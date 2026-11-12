@@ -31,7 +31,7 @@ PowerShell:
    PS C:\Users\nextron>Add-MpPreference -ExclusionProcess 'c:\temp\thor\thor64.exe'
 
 For more information, see
-`the Microsoft documentation <https://docs.microsoft.com/en-us/microsoft-365/security/defender-endpoint/configure-process-opened-file-exclusions-microsoft-defender-antivirus?view=o365-worldwide>`__.
+`the Microsoft documentation <https://learn.microsoft.com/en-us/defender-endpoint/microsoft-defender-antivirus-exclusions-overview>`__.
 
 A Note on SentinelOne
 ^^^^^^^^^^^^^^^^^^^^^

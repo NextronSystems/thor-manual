@@ -247,13 +247,13 @@ rules. These variables are:
 * **timezone**
 
   * The system time zone (see
-    https://golang.org/src/time/zoneinfo_abbrs_windows.go for valid
+    https://go.dev/src/time/zoneinfo_abbrs_windows.go for valid
     values)
 
 * **language**
 
   * The system language settings (see
-    https://docs.microsoft.com/en-us/windows/win32/intl/sort-order-identifiers)
+    https://learn.microsoft.com/en-us/windows/win32/intl/sort-order-identifiers)
 
 * **owner**
 
@@ -291,7 +291,9 @@ rules. These variables are:
 
     * Archives: ``ZIP``, ``RAR``, ``TAR``, ``TARGZ``, ``TARBZ2``, ``CAB``, ``GZIP``, ``BZIP2``, ``7ZIP``
     * From a module: ``CHM``, ``CHUNK``, ``EMAIL``, ``ICS``, ``MACROS``, ``MFT``, ``OLE``, ``REGISTRY``, ``UNESCAPE``, ``UPX``, ``VBEDECODE``
-    * From a plugin: user-defined via `Scanner.ScanFile <https://github.com/NextronSystems/thor-plugin/blob/ee8583e935f06737d5f83102e2adcd83bfad7ec6/thorplugin.go#L112>`__ from a `THOR plugin <https://github.com/NextronSystems/thor-plugin>`__.
+    * From a plugin: user-defined via
+      `Scanner.ScanFile <https://github.com/NextronSystems/thor-plugin/blob/ee8583e935f06737d5f83102e2adcd83bfad7ec6/thorplugin.go#L112>`__
+      from a `THOR plugin <https://github.com/NextronSystems/thor-plugin>`__.
 
 * **unpack_source**
 

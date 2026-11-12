@@ -59,7 +59,7 @@ The THOR package contains the following files and directories:
        AIX: **thor-aix**
    * - THOR Utility
      - Helper utility for updates, encryption, report generation, signature
-       verification, and other tasks. See `THOR Util Manual <https://thor-util-manual.nextron-systems.com/>`_
+       verification, and other tasks. See `THOR Util Manual <https://thor-util-manual.nextron-systems.com/en/latest/>`_
 
        Windows: **thor-util.exe**
 

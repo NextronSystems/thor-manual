@@ -14,11 +14,11 @@ specific Linux distribution.
 Ansible
 ^^^^^^^
 
-`Ansible <https://www.ansible.com>`_ is a solution for performing tasks
-across multiple systems in a network. It is available in an open-source
-edition as well as in commercially supported enterprise offerings.
-Ansible uses SSH to connect to target hosts and executes defined sets of
-tasks called playbooks. By default, it uses key-based authentication,
+`Ansible <https://www.redhat.com/en/ansible-collaborative>`_ is a solution
+for performing tasks across multiple systems in a network. It is available
+in an open-source edition as well as in commercially supported enterprise
+offerings. Ansible uses SSH to connect to target hosts and executes defined
+sets of tasks called playbooks. By default, it uses key-based authentication,
 but other authentication methods can also be configured. Tasks and
 targets can be customized using host groups, which can be used, for
 example, to separate different Linux distributions. The remaining steps
@@ -60,7 +60,7 @@ target hosts. The file is later used with the ``-i`` parameter of the
    132.123.213.111
 
 To learn more about Ansible inventory files, refer to the
-`official documentation <https://docs.ansible.com/ansible/latest/user_guide/intro_inventory.html>`_.
+`official documentation <https://docs.ansible.com/projects/ansible/latest/inventory_guide/intro_inventory.html>`_.
 
 Ansible Playbook Template
 ^^^^^^^^^^^^^^^^^^^^^^^^^

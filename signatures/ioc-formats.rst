@@ -22,7 +22,7 @@ that ``mysource-c2-iocs.txt`` and
 If you do not want to place your custom IOCs on potentially compromised
 systems during an engagement, you can use ``thor-util`` to encrypt
 custom signatures. This is described in detail in the `THOR Util manual
-<https://thor-util-manual.nextron-systems.com>`__.
+<https://thor-util-manual.nextron-systems.com/en/latest/>`__.
 
 YAML IOC files
 ~~~~~~~~~~~~~~
