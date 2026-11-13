@@ -135,39 +135,63 @@ Artefact Collector
 ^^^^^^^^^^^^^^^^^^
 
 THOR 10.7.8 introduces the ``Artefact Collector`` module. The purpose of
-this module is to be able to quickly collect and archive system
-artifacts into a single ZIP via THOR.
+this module is to quickly collect and archive system artifacts into a
+single ZIP via THOR.
+
 It can be activated via ``--collector`` (running the collector module at
 the end of a THOR run) or ``--collector-only`` (only running the
 collector module) and uses ``:hostname:_collector.zip`` as output path
-for the ZIP archive per default. The default ZIP archive path can be
+for the ZIP archive by default. The default ZIP archive path can be
 changed with ``--collector-output <path>``.
+
 The ZIP archive includes all found artifacts and a special file called
 ``collector.log`` containing logging information for the module execution
-(e.g. timestamps, hashes, filesize, ...)
+(such as timestamps, hashes and file sizes).
 
-The artifacts which are collected per default (GLOB patterns) can be seen
-with ``--collector-print-config``. To change the default settings use
+.. important::
+
+   As of September 2026, the Artefact Collector can only collect artifacts
+   from the live system on which THOR is running.
+
+   The scan target of a THOR Lab scan is currently not used as the source
+   for artifact collection. This means that running THOR against a mounted
+   forensic image or mounted file system and enabling ``--collector`` does
+   not collect artifacts from that mounted image.
+
+   The same limitation applies to ``--collector-only``.
+
+   Support for collecting artifacts directly from mounted forensic images
+   is not yet implemented, but is planned for an upcoming update.
+
+The artifacts which are collected by default (GLOB patterns) can be seen
+with ``--collector-print-config``. To change the default settings, use
 ``--collector-config <file>``.
 
 .. tip::
+
    Pipe the output of ``--collector-print-config`` to a file and use a
    modified version of it.
 
-For testing the collector config you can use ``--collector-dry-run`` -
-this only prints the artifacts which would be collected to stdout - no
-output ZIP archive will be created. It is also possible to limit the
-artifact size via the ``--collector-max-filesize`` flag.
+For testing the collector config, you can use ``--collector-dry-run``.
+This only prints the artifacts which would be collected to stdout; no
+output ZIP archive will be created.
 
-If run on Windows, the collector module will parse the MFT and collect
-files based on the extracted information. This allows the collection of
-all files including special files like ``$UsnJrnl``. The downside of MFT
-parsing is that it takes a bit longer. If you do not care about special
-files and want to speed up the collection process, use ``--collector-no-mft``.
+It is also possible to limit the artifact size via the
+``--collector-max-filesize`` flag.
+
+When run on Windows, the collector module parses the MFT of the live
+system and collects files based on the extracted information. This
+allows the collection of all files, including special files like
+``$UsnJrnl``.
+
+The downside of MFT parsing is that it takes a bit longer. If you do not
+care about special files and want to speed up the collection process,
+use ``--collector-no-mft``.
 
 All flags can be found in the THOR full help (``--fullhelp``).
 
 .. note::
+
    A special license called ``THOR Deep Forensics`` is needed to use the
    ``Artefact Collector`` feature.
 
@@ -196,7 +220,7 @@ log, HTML, CSV) to a reports folder named ``C:\reports``.
 Artefact Collector Example
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The command line of a THOR scan in collector-only mode would like this:
+The command line of a THOR scan in collector-only mode would look like this:
 
 .. code-block:: doscon
 
@@ -210,8 +234,8 @@ artifacts, use:
    C:\nextron\thor>thor.exe <normal-THOR-flags> --collector
 
 .. note::
-   This feature requires a `forensic lab license <https://www.nextron-systems.com/2020/11/11/thor-forensic-lab-license-features/>`__
-   type which is meant to be used in forensic labs.
+
+   This feature requires a ``THOR Deep Forensics`` license.
 
 Lookback Mode
 -------------
