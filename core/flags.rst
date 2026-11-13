@@ -1650,7 +1650,7 @@ Output Options
 
            RFC3339 follows the following format: YYYY-MM-DD'T'HH:mm:ss[.nnnnnnnnn]TZ
 
-           For more details see https://www.rfc-editor.org/rfc/rfc3339.
+           For more details see https://www.rfc-editor.org/info/rfc3339/
 
            This option only affects the text log; JSON logs will always use RFC3339 format for timestamps.
 
@@ -1860,7 +1860,12 @@ Output Options
 
            Use 0 to disable this limit.
 
+           The default limit is not applied if --debug, --trace, --no-resource-check or --print-files is used.
+
            Specify the value in bytes, or with a suffix like KB, MB, GB, TB.
+
+           Default:
+             200MB
 
            Alias:
              --max-log-size
@@ -1868,6 +1873,13 @@ Output Options
            **Example**::
 
               --log-size-limit 60MB
+
+
+           See also:
+             --debug
+             --trace
+             --no-resource-check
+             --print-files
 
 
 ThorDB
@@ -2156,7 +2168,7 @@ VirusTotal Integration
 
            Confirm acceptance of the VirusTotal EULA before using the service.
 
-           https://www.virustotal.com/en/about/terms-of-service/
+           https://cloud.google.com/terms
 
 --vt-wait-quota
 
