@@ -137,7 +137,7 @@ Upgrade signatures:
 
    nextron@unix:~$ thor-util upgrade
 
-See the `THOR Util Manual <https://thor-util-manual.nextron-systems.com>`_
+See the `THOR Util Manual <https://thor-util-manual.nextron-systems.com/en/latest/>`_
 for details on how to use these functions.
 
 Thunderstorm Update Script

@@ -35,9 +35,20 @@ autosectionlabel_prefix_document = True
 autosectionlabel_maxdepth = 5
 # disable epub mimetype warnings
 suppress_warnings = ["epub.unknown_project_files"]
-# Ignore anchors but still check link for the listed sites.
-# E.g., required for websites that add anchors via JavaScript.
-linkcheck_anchors_ignore_for_url = ['^https://github.com']
 # Skip these sites entirely. They block automated requests (HTTP 403), so the
 # link check cannot verify them even with a browser-like User-Agent.
 linkcheck_ignore = [r'^https://stackoverflow\.com']
+# Server Products sit behind a login, which causes them to redirect to the portal login page.
+_PORTAL_LOGIN = r'https://portal\.nextron-systems\.com/docs/authorize\?.*'
+_LOGIN_PROTECTED = (
+    r'https://knowledge\.nextron-systems\.com(/.*)?$',
+    r'https://management-center-manual\.nextron-systems\.com(/.*)?$',
+    r'https://analysis-cockpit-manual\.nextron-systems\.com(/.*)?$',
+)
+linkcheck_allowed_redirects = dict.fromkeys(_LOGIN_PROTECTED, _PORTAL_LOGIN)
+linkcheck_anchors_ignore_for_url = [
+    # GitHub builds line anchors (#L112) in JavaScript
+    r'^https://github\.com',
+    # The login page does not carry the anchors of the page it is guarding.
+    *_LOGIN_PROTECTED,
+]

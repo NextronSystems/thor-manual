@@ -275,7 +275,7 @@ after it has been scanned. Example:
 .. note::
 
     This feature requires a `forensic lab license <https://www.nextron-systems.com/2020/11/11/thor-forensic-lab-license-features/>`__
-    or `Thunderstorm license <https://www.nextron-systems.com/thor/license-packs/>`__ which are meant to be used in forensic labs.
+    or `Thunderstorm license <https://www.nextron-systems.com/thor-thunderstorm/>`__ which are meant to be used in forensic labs.
 
 Drop Zone Mode Output
 ^^^^^^^^^^^^^^^^^^^^^

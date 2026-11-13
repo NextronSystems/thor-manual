@@ -204,14 +204,14 @@ the following methods:
 * openssl verifying the integrity of executables manually
 
 Find more information on THOR Util in its dedicated
-`online manual <https://thor-util-manual.nextron-systems.com>`__.
+`online manual <https://thor-util-manual.nextron-systems.com/en/latest/>`__.
 
 .. hint::
    THOR Util automatically verifies the signatures of the contained
    binaries in an update package and exits if one or more signatures
    cannot be verified. You do not need to check them manually unless you
    do not trust THOR Util itself. In that case, you can use the public
-   key published on `our web page <https://www.nextron-systems.com/pki/>`__.
+   key published on `our web page <https://www.nextron-systems.com/resources/keys/>`__.
 
 After downloading the public key, you can manually verify the signatures
 with the following command:
