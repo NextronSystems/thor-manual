@@ -640,7 +640,7 @@ Upgrade signatures:
 
    nextron@unix:~$ thor-util upgrade
 
-See the `THOR Util Manual <https://thor-util-manual.nextron-systems.com>`_  manual for details on how to use these functions.
+See the `THOR Util Manual <https://thor-util-manual.nextron-systems.com/en/latest/>`_  manual for details on how to use these functions.
 
 Thunderstorm Update Script
 """"""""""""""""""""""""""
@@ -910,7 +910,7 @@ reports have to be analyzed. If the number of collected reports is high,
 we recommend using the Analysis Cockpit or Splunk with the free App
 and Add-on.
 
-Analysis Cockpit: https://analysis-cockpit-manual.nextron-systems.com
+Analysis Cockpit: https://analysis-cockpit-manual.nextron-systems.com/en/latest/
 
 THOR APT Scanner App: https://splunkbase.splunk.com/app/3717/
 

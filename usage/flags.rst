@@ -334,7 +334,7 @@ VirusTotal Integration
       --vtkey string     Virustotal API key for hash / sample uploads
       --vtmode string    VirusTotal lookup mode (limited = hash lookups only, full = hash and sample uploads) (default "limited")
       --vtscore int      Minimum score for hash lookup / sample upload to VirusTotal (default 40)
-      --vtaccepteula     By specifying this option, you accept VirusTotal's EULA: https://www.virustotal.com/en/about/terms-of-service/
+      --vtaccepteula     By specifying this option, you accept VirusTotal's EULA: https://cloud.google.com/terms
       --vtwaitforquota   Wait if the VirusTotal API key quota is exceeded
       --vtverbose        Show more information from VirusTotal
 
