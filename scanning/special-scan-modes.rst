@@ -20,7 +20,8 @@ is activated by default.
 The ``--lab`` parameter automatically activates the following options:
 
 * deep (scan every file intensively regardless of extension or magic
-  header, with a larger file size limit)
+  header, with a larger file size limit of ``200 MB``; see
+  :ref:`scanning/using-thor:file size limit`)
 * no-resource-check (do not limit system resources or stop the scan on
   low memory)
 * no-soft (do not automatically activate soft mode on systems with a
