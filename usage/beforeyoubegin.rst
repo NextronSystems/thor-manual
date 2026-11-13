@@ -19,8 +19,8 @@ purposes, THOR also supports
 
 .. tip::
    THOR can also retrieve licenses from our licensing portal or from a
-   local ASGARD Management Center. See
-   :ref:`usage/other-topics:license retrieval` for more information.
+   local Management Center. See
+   :ref:`usage/deployment:licensing` for more information.
 
 Generate a License
 ^^^^^^^^^^^^^^^^^^
@@ -267,7 +267,7 @@ Defining THOR exclusions across all relevant McAfee services is not
 straightforward. You need to exclude the process in multiple sections
 (AV, EDR, On-Access). We have compiled a list of recommended
 exclusions, which you can find
-`here <https://asgard-manual.nextron-systems.com/en/latest/requirements/av_edr.html#mcafee-edr-exclusions>`__.
+`here <https://management-center-manual.nextron-systems.com/en/latest/requirements/av_edr.html#mcafee-edr-exclusions>`__.
 
 Grant Full Disk Access on macOS
 -------------------------------
@@ -450,7 +450,7 @@ You can verify the executable files in the THOR package with
 * thor-util's "verify" feature
 * openssl verifying the integrity of executables manually
 
-Find more information on THOR Util in its dedicated `online manual <https://thor-util-manual.nextron-systems.com>`__.
+Find more information on THOR Util in its dedicated `online manual <https://thor-util-manual.nextron-systems.com/en/latest/>`__.
 
 .. hint::
    THOR Util automatically verifies the signatures of the contained

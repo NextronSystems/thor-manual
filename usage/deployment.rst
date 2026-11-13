@@ -14,15 +14,15 @@ starts; otherwise, THOR exits immediately.
 
 There are several ways to retrieve a valid license for a host.
 
-With ASGARD:
+With a Management Center:
 
-* use an ASGARD Agent
-* download THOR package with license from ASGARD's ``Downloads`` section
-* generate licenses in ASGARD's web GUI under ``Licensing > Generate Licenses``
-* use THOR's ``--asgard`` and ``--asgard-token`` parameters to retrieve a license
-* use ASGARD's API to retrieve a license manually
+* use an Endpoint Agent
+* download THOR package with license from the Management Center's ``Downloads`` section
+* generate licenses in the Management Center's web GUI under ``Licensing > Generate Licenses``
+* use THOR's ``--management-center`` and ``--management-center-token`` parameters to retrieve a license
+* use the Management Centers's API to retrieve a license manually
 
-Without ASGARD:
+Without a Management Center:
 
 * generate a license in the web GUI of the `customer portal <https://portal.nextron-systems.com>`__
 * use THOR's ``--portal-key`` and ``--portal-contracts`` parameters to retrieve a license from the customer portal
@@ -31,19 +31,35 @@ Without ASGARD:
 Some of these options are described in more detail in the following
 sections.
 
-Retrieve Valid License From ASGARD
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.. important::
+   Licenses retrieved with THOR's ``--management-center`` or
+   ``--portal-key`` parameters are stored in THOR's program folder as
+   ``<hostname>.lic``, so that subsequent scans can run without these
+   parameters. If a valid license for the host is already present in
+   the program folder, no new license is downloaded or issued. If the
+   parameters are used again without a local license file, THOR
+   downloads the existing valid license instead of issuing a new one.
 
-Use THOR's ``--asgard`` and ``--asgard-token`` parameters
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+Retrieve Valid License From Management Center
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-In ASGARD 2.5 and later, you can configure a download token to limit
+The Management Center maintains a central license pool for THOR scans.
+If you operate a local Management Center instance, you can issue and
+download licenses for your endpoints from it, either automatically at
+scan start or manually via its API. See
+:ref:`usage/deployment:management center (windows, linux, macos)` for a
+general overview of the platform.
+
+Use THOR's ``--management-center`` parameter
+""""""""""""""""""""""""""""""""""""""""""""
+
+You can configure a download token in your ``Management Center`` to limit
 THOR package and license downloads to clients that know this token. It
 helps prevent unauthorized package retrieval and unintended overuse of
 your license quota.
 
 The download token can be configured in the ``Downloads`` section of
-your ASGARD server.
+your Management Center server.
 
 .. figure:: ../images/download-token.png
    :alt: Downloads > Download Token Configuration
@@ -51,32 +67,33 @@ your ASGARD server.
    Downloads > Download Token Configuration
 
 You can retrieve an appropriate THOR license at scan start using the
-built-in ``--asgard`` and ``--asgard-token`` parameters.
+built-in ``--management-center`` and ``--management-center-token``
+parameters.
 
 .. code-block:: doscon 
 
-   C:\temp\thor>thor64.exe --asgard my-asgard.internal
+   C:\temp\thor>thor64.exe --management-center mgmt-center.internal
 
 .. code-block:: doscon 
 
-   C:\temp\thor>thor64.exe --asgard my-asgard.internal --asgard-token OCU92GW1CyOJLzaHkGrim1v2O0_ZkHPu0A
+   C:\temp\thor>thor64.exe --management-center mgmt-center.internal --management-center-token <your-token>
 
 If everything works as expected, you will see an INFO-level message in
 the output similar to the following:
 
 .. code-block:: batch 
 
-   Info: Init License file found LICENSE: my-asgard.internal OWNER: Master ASGARD: ACME Inc TYPE: Workstation STARTS: 2021/06/18 EXPIRES: 2022/06/18 SCANNER: All Scanners VALID: true REASON:
+   Info: Init License file found LICENSE: mgmt-center.internal OWNER: John Doe MGMT: ACME Inc TYPE: Workstation STARTS: 2021/06/18 EXPIRES: 2022/06/18 SCANNER: All Scanners VALID: true REASON:
 
-Use ASGARD's API to retrieve a license manually
-"""""""""""""""""""""""""""""""""""""""""""""""
+Use Management Center's API to retrieve a license manually
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-You can also automate license retrieval from a local ASGARD server by
-using the API. The help box in ASGARD's ``Licensing > Generate
+You can also automate license retrieval from a local Management
+Center by using the API. The help box in the Management Centers's ``Licensing > Generate
 License`` section shows ``curl`` requests that can be used to retrieve
-licenses from your ASGARD server.
+licenses from said server.
 
-.. figure:: ../images/asgard-license-gen.png
+.. figure:: ../images/mgmt-center-license-gen.png
    :alt: Licensing > Generate Licenses
 
    Licensing > Generate Licenses
@@ -97,17 +114,17 @@ you can use the following command:
 
 .. code-block:: console 
 
-   nextron@unix:~$ curl -XPOST "https://my-asgard.internal:8443/api/v0/licensing/issue?token=OJCBaTq4VGLjrCes2k4ACCQOzg0AxAoz01" -o licenses.zip -d "type=server" -d "hostnames=SRV001" -d "hostnames=SRV002" ... -d "hostnames=hostnameN"
+   nextron@unix:~$ curl -XPOST "https://mgmt-center.internal:8443/api/v0/licensing/issue?token=<your-token>" -o licenses.zip -d "type=server" -d "hostnames=SRV001" -d "hostnames=SRV002" ... -d "hostnames=hostnameN"
 
 If you can't use curl and want to retrieve a license as part of a bigger PowerShell script,
 you can use the following code snippet to help you with the retrieval.
 
-.. literalinclude:: ../examples/asgard-license-gen.ps1
+.. literalinclude:: ../examples/mgmt-center-license-gen.ps1
    :language: powershell
    :linenos:
 
-Check the ASGARD helper scripts section in
-`our Github repo <https://github.com/NextronSystems/nextron-helper-scripts/tree/master/asgard>`__
+Check the Management Center helper scripts section in
+`our Github repository <https://github.com/NextronSystems/nextron-helper-scripts/tree/master/management-center>`__
 for more scripts and snippets.
 
 Retrieve Valid License From Customer Portal
@@ -119,6 +136,11 @@ Use THOR's ``--portal-key`` and ``--portal-contracts`` parameters to retrieve a 
 To retrieve a licenses from the customer portal, you need a portal key. The portal key
 (API key) can be configured in the ``My Settings > API Key`` section of the
 `customer portal <https://portal.nextron-systems.com>`__.
+
+The ``--portal-key`` parameter accepts either the API key of your portal
+user or a download token for one of your contracts. When using an API
+key, THOR retrieves the first available license from the contract with
+the lowest ID and issues it to your host.
 
 .. important::
    API functionality needs to be activated by Nextron. Please contact support/sales
@@ -161,6 +183,13 @@ If everything works as expected, you'll see an **INFO** level message in the out
 You can specify a proxy by setting the ``HTTP_PROXY`` and ``HTTPS_PROXY`` environment variables, e.g. to ``my-proxy.internal:3000``.
 
 Username and password can be specified as part of the proxy URL as ``http://username:password@host:port/``.
+
+.. attention::
+   If no valid license is found, a new one will be issued. This can be
+   prevented with the ``--portal-nonewlic`` flag. If THOR can't find a
+   valid license within the account/contracts, it will simply exit.
+   This is a useful feature if you want to prevent over-issuing of
+   licenses within your contracts.
 
 Use the Customer Portal's API to retrieve a license manually
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -227,62 +256,108 @@ directly via its UNC path (e.g. ``\\server\share\thor.exe`` or ``\\server\share\
 Place THOR on a Network Share
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-A good way to run THOR on multiple systems is by defining a "Scheduled
-Task" using your Windows domain's group policy functionality.
+In this setup, all systems start ``thor64.exe`` from a central network
+share. THOR reads its license and scan parameters from the program
+folder on that share and writes the results to a second share.
 
-The preferred way to run THOR on a remote system is by providing a
-network share on which the extracted THOR package resides. You can use
-this directory as the output directory but it is recommended to create
-another share with write permissions especially for the HTML and TXT
-result files. The share that holds the THOR program folder should be
-read-only. The various output files must be disabled or defined in
-different locations in order to avoid write-access errors.
+1. Create a **read-only** share for the program folder, e.g.
+   ``\\fileserver\thor``, and extract the THOR package into its root.
+2. Place the license files in the program folder, e.g. in a
+   ``licenses`` subfolder. THOR searches its program folder and all
+   subfolders for a license that is valid for the scanned system (see
+   :ref:`usage/beforeyoubegin:About License Files`).
+3. Create a separate **writable** share for the results, e.g.
+   ``\\fileserver\thor-logs``.
+4. Add your scan parameters to the default config file
+   ``config\thor.yml`` in the program folder (see below).
 
-The necessary steps are:
+Scheduled Tasks that run as ``SYSTEM`` access network shares with the
+computer account of the scanned system (``DOMAIN\HOSTNAME$``). Grant
+the ``Domain Computers`` group read access to the program share and
+write access to the output share, on both the share and the NTFS
+permissions.
 
-1. Create a network share and extract the THOR package into the root of
-   the share, i.e. ``\\fileserver\thor\``
-2. Find the "thor\_remote.bat" batch file, which can be found in the
-   "tools" sub folder, place it directly in the root of the program
-   folder and adjust it to your needs.
+THOR always applies the file ``config\thor.yml`` next to the THOR
+executable (see :ref:`usage/configuration:Default Template`). This also
+works when THOR runs from a network share. If you put all scan
+parameters into this file, every system uses the same settings.
 
-   -  set the network share UNC path
+THOR writes its output files to the current working directory by
+default. A Scheduled Task usually runs in ``C:\Windows\System32``,
+so always set ``rebase-dir``. THOR names the files after the
+scanned system, so all systems can write to the same share. Add the
+setting to the existing content of ``config\thor.yml``:
 
-   -  set the parameters for the THOR run (see :ref:`usage/scan:scan`)
+.. code-block:: yaml
 
-You should then test the setting like this:
+   # Write all result files to the output share
+   rebase-dir: \\fileserver\thor-logs
 
-1. Connect to a remote system (Remote Desktop), which you would like to
-   scan
-2. Start a command line "as Administrator" (right click > Run as Administrator)
-3. Run the following command, which is going to mount a network drive,
-   run THOR and disconnect the previously mounted drive:
-   ``\\fileserver\thor\thor_remote.bat``
+Add other parameters as required (see :ref:`usage/flags:Command Line Options`),
+for example ``syslog`` to send the results to your SIEM.
 
-After a successful test run, you decide on how to invoke the script on
-the network drive. The following chapters list different options.
+To test the setup:
+
+1. Connect to a system that you want to scan, e.g. via Remote Desktop.
+2. Start a command prompt as Administrator (right-click > Run as
+   Administrator).
+3. Run ``\\fileserver\thor\thor64.exe``.
+4. Make sure that the scan starts with a valid license and that the
+   result files appear on the output share.
+
+This test runs with your user account, not with the computer account.
+To test with the computer account, run THOR as ``SYSTEM``, e.g. with
+``psexec -s \\fileserver\thor\thor64.exe``.
 
 Create a Scheduled Task via GPO
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-In a Windows Domain environment, you can create a Scheduled Task and
-distribute this Scheduled Task via GPO. This Scheduled Task would invoke
-the batch file on the network share and runs THOR. Make sure that the
-respective user account has the rights to mount the configured network
-share.
+In a Windows domain environment, distribute a Scheduled Task through
+a Group Policy Object. The task starts THOR from the network share.
 
-You can find more information `here <https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2008-R2-and-2008/cc725745(v=ws.11)?redirectedfrom=MSDN>`_
+1. Open the Group Policy Management Console and create a new GPO.
+   Link it to the organizational unit that contains the systems to scan.
+2. Edit the GPO and go to **Computer Configuration > Preferences >
+   Control Panel Settings > Scheduled Tasks**.
+3. Select **New > Immediate Task (At least Windows 7)** for a one-time
+   scan as soon as the systems apply the policy. Select **New > Scheduled
+   Task (At least Windows 7)** instead for scans at a fixed time or on a
+   recurring schedule.
+4. On the **General** tab:
+
+   - Set a name, e.g. ``THOR Scan``
+   - Set the user account to ``NT AUTHORITY\System``
+   - Select **Run whether user is logged on or not** and
+     **Run with highest privileges**
+
+5. On the **Actions** tab, create a **Start a program** action:
+
+   - Program/script: ``\\fileserver\thor\thor64.exe``
+
+6. On the **Settings** tab, adjust **Stop the task if it runs longer
+   than** to a value that is longer than a full scan. The default of
+   3 days is usually sufficient. A shorter value terminates long scans.
+7. For an Immediate Task, select **Apply once and do not reapply** on
+   the **Common** tab. Otherwise, the scan starts again with every
+   policy refresh.
+
+The systems apply the policy at the next Group Policy refresh (by
+default every 90 minutes, with a random offset of up to 30 minutes).
+To apply it immediately on a system, run ``gpupdate /force``.
+
+For more information, see
+`Group Policy preferences in Windows <https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/manage/group-policy/group-policy-preferences>`_.
 
 Create a Scheduled Task via PsExec
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 This method uses Sysinternals PsExec and a list of target systems to
-connect and create a Scheduled Task via the command line. This could
-look like the following example:
+connect to each system and create a Scheduled Task from the command
+line. For example:
 
 .. code-block:: doscon
-   
-   C:\temp\thor>psexec \\server1 -u domain/admin -p pass schtasks /create /tn "THOR Run" /tr "\\server\share\thor_remote.bat" /sc ONCE /st 08:00:00 /ru DOMAIN/FUadmin /rp password
+
+   C:\thor>psexec \\server1 -u DOMAIN\admin -p pass schtasks /create /tn "THOR Run" /tr "\\fileserver\thor\thor64.exe" /sc ONCE /st 08:00:00 /ru SYSTEM /rl HIGHEST
 
 Start THOR on the Remote System via WMIC
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -296,20 +371,15 @@ the scan.
    
    C:\temp\thor> wmic /node:10.0.2.10 /user:MYDOM\scanadmin process call create "cmd.exe /c \\server\thor10\thor.exe"
 
-ASGARD Management Center (Windows, Linux, macOS)
-------------------------------------------------
+Management Center (Windows, Linux, macOS)
+-----------------------------------------
 
-ASGARD is the central management platform for THOR scans. It manages
+The Management Center is the central management platform for THOR scans. It manages
 distributed THOR scans on thousands of systems, collects, forwards and
-analyses logs. Furthermore, ASGARD can control and execute complex
+analyses logs. Furthermore, the Management Center can control and execute complex
 response tasks if needed.
 
-ASGARD comes in two variations: While ASGARD Management Center features
-scan control and response functions, ASGARD Analysis Cockpit can be used
-to analyze large amounts of scan logs through an integrated base-lining
-and case management.
-
-The hardened, Linux-based ASGARD appliance is a powerful, solid and
+The hardened, Linux-based appliance is a powerful, solid and
 scalable response platform with agents for Windows, Linux and macOS. It
 provides essential response features like the collection of files,
 directories and main memory, remote file system browsing and other
@@ -327,14 +397,9 @@ services are:
 * **Quarantine Service** - file quarantine via Bifrost protocol (deprecated)
 
 .. figure:: ../images/image5.png
-   :alt: ASGARD Management Center
+   :alt: Management Center
 
-   ASGARD Management Center
-
-.. figure:: ../images/image6.png
-   :alt: ASGARD Response Control
-
-   ASGARD Response
+   Management Center
 
 Ansible (Linux)
 ---------------
@@ -575,7 +640,7 @@ Upgrade signatures:
 
    nextron@unix:~$ thor-util upgrade
 
-See the `THOR Util Manual <https://thor-util-manual.nextron-systems.com>`_  manual for details on how to use these functions.
+See the `THOR Util Manual <https://thor-util-manual.nextron-systems.com/en/latest/>`_  manual for details on how to use these functions.
 
 Thunderstorm Update Script
 """"""""""""""""""""""""""
@@ -791,8 +856,10 @@ scanning feature (the source system of the scans, e.g. admin
 workstation).
 
 .. hint::
-   You can pair THOR Remote with the :ref:`usage/other-topics:license retrieval`
-   options available within THOR, to make deployment easier.
+   You can pair THOR Remote with the :ref:`usage/deployment:licensing`
+   options available within THOR, to make deployment easier. In that
+   case, all licenses are downloaded to the host that runs the initial
+   THOR Remote command.
 
 Output
 ^^^^^^
@@ -840,10 +907,10 @@ THOR executable and collect the report files afterwards.
 
 The most usable format in this use case is the HTML report if only a few
 reports have to be analyzed. If the number of collected reports is high,
-we recommend using ASGARD Analysis Cockpit or Splunk with the free App
+we recommend using the Analysis Cockpit or Splunk with the free App
 and Add-on.
 
-ASGARD Analysis Cockpit: https://portal.nextron-systems.com
+Analysis Cockpit: https://analysis-cockpit-manual.nextron-systems.com/en/latest/
 
 THOR APT Scanner App: https://splunkbase.splunk.com/app/3717/
 

@@ -267,7 +267,7 @@ In general, the following options are not recommended but can help in special sc
 
 If the share is not accessible anonymously, you need to mount the shares using valid
 user credentials. This has to be done before the scan and access granted to the user running the THOR scan.
-If you use ASGARD to launch THOR the user performing the scan is ``NT AUTHORITY\SYSTEM``.
+If you use our Management Center to launch THOR the user performing the scan is ``NT AUTHORITY\SYSTEM``.
 
 The usage of diff and lookback are generally not recommended, but can be used if your fileshare scan does not finish in the timeframe you desire.
 Another option is to use multiple dedicated systems to run scans on the fileserver shares in parallel.

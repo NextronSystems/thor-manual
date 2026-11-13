@@ -5,11 +5,11 @@ Analysis
 This chapter describes the available options for collecting and
 analyzing THOR logs.
 
-ASGARD Analysis Cockpit
------------------------
+Analysis Cockpit
+----------------
 
 The ANALYSIS COCKPIT is the central platform for analyzing THOR logs.
-It can be used in environments where scans are controlled by the ASGARD
+It can be used in environments where scans are controlled by the
 Management Center, but also when THOR is executed manually or managed
 by third-party solutions. It is available as a virtual appliance on
 VMware and also as dedicated hardware.
@@ -84,4 +84,4 @@ We have written a detailed Log Analysis Manual that:
 * Lists potential false positives you might encounter
 * Explains how different attributes should be evaluated
 
-`log-analysis-manual.nextron-systems.com <https://log-analysis-manual.nextron-systems.com>`__
+`log-analysis-manual.nextron-systems.com <https://log-analysis-manual.nextron-systems.com/en/latest/>`__
