@@ -3,6 +3,40 @@ Changelog
 
 This chapter lists the changes for THOR 10.7.
 
+THOR 10.7.33
+~~~~~~~~~~~~
+
+.. list-table::
+    :header-rows: 1
+    :widths: 15, 85
+
+    * - Type
+      - Description
+    * - Feature
+      - HTML report viewer has been reworked
+    * - Change
+      - Bifrost 2 is deprecated and will be removed with THOR 11
+    * - Change
+      - THOR Util's '--sigdev' flag has been renamed to '--signatures-preview'
+    * - Change
+      - '--asgard' has been renamed to '--management-center' and related flags accordingly. The old flag names will continue to work for now.
+    * - Change
+      - Upgrade YARA to v4.6.0
+    * - Bugfix
+      - THOR no longer reports FPs on its own files
+    * - Bugfix
+      - '--print-signatures' and similar flags no longer create log files
+    * - Bugfix
+      - Sigma rule tags are now reported correctly
+    * - Bugfix
+      - Fixed a potential memory corruption on Windows
+    * - Bugfix
+      - Fixed a false positive issue on checking user names
+    * - Bugfix
+      - Fixed an issue where YARA PE parsing was incomplete on some Windows files
+    * - Bugfix
+      - Fixed an issue where EVTX events using an event ID with qualifiers were parsed incorrectly
+
 THOR 10.7.32
 ~~~~~~~~~~~~
 
