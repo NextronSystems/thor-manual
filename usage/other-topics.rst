@@ -155,7 +155,7 @@ Scoring per Signature Type Match
   * - Filename IOC match
     - Defined in the 2\ :sup:`nd` field of the CSV (e.g. ``\\evil.exe;80``)
   * - Keyword IOC match
-    - "warning" level messages, see :ref:`usage/other-topics:Default Scores`
+    - Fixed score of 70, see :ref:`usage/other-topics:Default Scores`
   * - C2 IOC match
     - Defined after the IOC, separated by a semicolon (e.g. ``evil.com;80``), see :ref:`usage/other-topics:Default Scores`
 
@@ -218,6 +218,10 @@ receive the following default score:
     - 100
   * - C2 IOC without a score
     - 100
+
+Keyword IOCs cannot define a score. Each keyword IOC match always
+receives a score of 70. On its own, a keyword IOC match therefore
+results in a "Warning" level message.
 
 Exception: High total score with low sub scores
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -304,7 +308,7 @@ the keyword signature and 1 "notice" of the filename IOC signatures.
 
 The keyword IOC matches in the ``checkKeyword()`` sub-check and
 ``checkString()`` returns a match, that generates a "Warning" level
-message that automatically receives a score of 75 (see :ref:`usage/other-topics:Default Scores`).
+message with the fixed keyword IOC score of 70 (see :ref:`usage/other-topics:Default Scores`).
 
 The filename IOCs would both match on the string in the
 ``checkFilename()`` sub-check and both scores would be summed up to a total
