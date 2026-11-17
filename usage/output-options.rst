@@ -249,30 +249,48 @@ Field Descriptions
 Timestamps
 ^^^^^^^^^^
 
-Timestamp in all modules are using the  **ANSI C** format:
+The text log contains two kinds of timestamps.
+
+Every line starts with the time at which THOR wrote the line. This line
+header uses the syslog format, which has no year, and is always in UTC:
+
+.. code-block:: none
+
+   Mar 19 08:04:05
+
+Timestamps within a message, such as the creation or modification time
+of a file, use the **ANSI C** format. This format includes the year.
+Some timestamps also include milliseconds:
 
 .. code-block:: none
 
    Mon Jan  2 15:04:05 2006
-   Mon Mar 19 09:04:05 2018
+   Mon Mar 19 09:04:05.123 2018
 
 https://go.dev/src/time/format.go
+
+These timestamps do not contain a time zone. They are in the local time
+zone of the scanned system unless you use ``--utc``.
 
 UTC
 ~~~
 
-The ``--utc`` parameter allows to use UTC in all timestamps.
+The ``--utc`` parameter converts all timestamps within messages to UTC.
+The line header is always in UTC.
 
 RFC3339 Time Stamps
 ~~~~~~~~~~~~~~~~~~~
 
-The parameter ``--rfc3339`` generates time stamps for UTC time in the
-format described in RFC 3339. In contrast to the default time stamps RFC
-3339 timestamps include a year and look like this:
+The parameter ``--rfc3339`` writes the timestamps within messages in the
+format described in RFC 3339 instead of the ANSI C format. Unlike ANSI C
+timestamps, RFC 3339 timestamps include the time zone offset. They are
+still in the local time zone unless you also use ``--utc``. The line
+header does not change. RFC 3339 timestamps look like this:
 
 .. list-table::
 
-  * - 2017-02-31T23:59:60Z
+  * - 2018-03-19T09:04:05+01:00
+  * - 2018-03-19T08:04:05Z (with ``--utc``)
 
 SCAN ID
 ^^^^^^^
