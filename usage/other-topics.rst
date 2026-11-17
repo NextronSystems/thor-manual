@@ -125,9 +125,13 @@ resulting log message.
   * - >= 60
     - Warning
     - 
-  * - > 80
+  * - >= 81
     - Alert
-    - At least 1 sub score more than 75
+    - At least 1 sub score higher than 75
+
+These are the default thresholds. You can change them with ``--notice``,
+``--warning`` and ``--alert``. The sub score condition for alerts is
+fixed, see :ref:`usage/other-topics:Exception: High total score with low sub scores`.
 
 .. note::
   As of THOR version 10.7, we reworked the scoring system to only
@@ -153,7 +157,7 @@ Scoring per Signature Type Match
   * - Keyword IOC match
     - "warning" level messages, see :ref:`usage/other-topics:Default Scores`
   * - C2 IOC match
-    - "warning" and "alert" level massages, see :ref:`usage/other-topics:Default Scores`
+    - Defined after the IOC, separated by a semicolon (e.g. ``evil.com;80``), see :ref:`usage/other-topics:Default Scores`
 
 Accumulated Scores
 ^^^^^^^^^^^^^^^^^^
@@ -177,9 +181,8 @@ calculated with the following formula:
 This means, scores are "capped" at a maximum of 100, and multiple lower
 scores are weighted far less.
 
-You can use python to calculate the score and try the formula. Please note
-that we use an example with five sub-scores and no sub-score higher than the
-threshold of 75 to turn classify this as an alert:
+You can use python to calculate the score and try the formula. The example
+uses five sub-scores, none of them higher than 75:
 
 .. code-block:: python
 
@@ -192,40 +195,50 @@ threshold of 75 to turn classify this as an alert:
    print(score)
    84.195859375
 
+Although the total score of 84 exceeds the alert level, THOR reports
+this element as a "Warning", because no sub score is higher than 75 (see
+:ref:`usage/other-topics:Exception: High total score with low sub scores`).
+
 Default Scores
 ^^^^^^^^^^^^^^
 
-If no score is set in an "alert" or "warning" message, THOR
-automatically appends a score that corresponds to the message level:
+THOR derives the level of a message from its total score, as shown in
+the table above. If a signature does not define a score, its matches
+receive the following default score:
 
 .. list-table::
   :header-rows: 1
   :widths: 50, 50
 
-  * - Level
-    - Score
-  * - Warning
-    - 60
-  * - Alert
-    - 80
+  * - Signature Type
+    - Default Score
+  * - YARA rule without a "score" value
+    - 75
+  * - Hash IOC without a score
+    - 100
+  * - C2 IOC without a score
+    - 100
 
 Exception: High total score with low sub scores
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-"Alerts" on file system elements are only generated if one of the sub
-scores is more than 75.
+THOR generates an "Alert" only if both of these conditions are met:
 
-Before that change, multiple low scoring reasons had led to a score
-higher 100 and caused an "Alert" level message although not a single
-hard match was included in the "Reasons". A wrong extension, e.g.
+* The total score reaches the alert level (``--alert``, default 81).
+* At least one sub score is higher than 75.
+
+If the total score reaches the alert level, but no sub score is higher
+than 75, THOR generates a "Warning" instead. The sub score threshold of
+75 is fixed and does not change if you adjust the alert level with
+``--alert``. The rule applies to file system elements as well as to
+other elements, such as Eventlog entries or registry keys.
+
+THOR uses this rule since version 8.27.2. Before that change, multiple
+low scoring reasons could cause an "Alert" level message although not a
+single hard match was included in the "Reasons". A wrong extension, e.g.
 ``.txt`` for an executable, which is often used by employees to hand
 executables through tight mail filters, and a suspicious location, e.g.
 ``C:\Temp\funprog.txt`` caused an "Alert" level message.
-
-Since version 8.27.2, one of the sub scores that pushes the total score
-over 100 has to be more than 75. (internally calculated as "alert\_level
-- 25" because the user can adjust the alert level via the ``--alert``
-parameter)
 
 Exception: Filename IOC Matches
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
