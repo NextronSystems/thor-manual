@@ -108,10 +108,15 @@ Maximum File Size
 -----------------
 
 The default maximum file size for content checks (hash calculation and YARA scanning)
-is 30 MB. The maximum file size for the ``--intense`` scan mode is 200 MB.
+is 30 MB (``--max_file_size``). In the ``--intense`` scan mode, which ``--lab``
+also activates, and with ``--allfiles``, THOR raises the limit to 200 MB,
+unless you set a different value with ``--max_file_size``.
 
-You can adjust the values in ``./config/thor.yml``. This file does not
-get overwritten by an update or upgrade.
+You can set ``max_file_size`` permanently in ``./config/thor.yml``. This
+file does not get overwritten by an update or upgrade. The default
+``thor.yml`` also contains ``max_file_size_intense``, which holds the
+200 MB limit for intense scans. This setting is deprecated and no longer
+listed in the command line help; use ``max_file_size`` instead.
 
 Special scan features like the EVTX or Memory Dump scan ignore these
 limits.
