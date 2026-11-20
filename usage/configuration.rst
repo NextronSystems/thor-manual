@@ -118,8 +118,40 @@ file does not get overwritten by an update or upgrade. The default
 200 MB limit for intense scans. This setting is deprecated and no longer
 listed in the command line help; use ``max_file_size`` instead.
 
-Special scan features like the EVTX or Memory Dump scan ignore these
-limits.
+Because THOR keeps this file, an installation that has been upgraded
+over several versions can still contain a lower value from an older
+release. THOR prints the limit that is in effect at the start of each
+scan (``Max. file size to be scanned is ... MB``).
+
+THOR does not ignore every file above the limit. What happens to a file
+above the limit in the default scan mode depends on its type:
+
+.. list-table::
+  :header-rows: 1
+  :widths: 35, 65
+
+  * - Type of file
+    - Above the limit
+  * - Ordinary files
+    - THOR does not scan the content, which means that hash IOCs, generic
+      YARA rules and STIX checks do not apply. THOR still checks the name
+      and path of the file, and meta rules still scan its first 2048
+      bytes.
+  * - Files that match a meta rule with the ``FORCE`` tag
+    - THOR scans these files regardless of their size.
+  * - Archives, OLE files (for example legacy Office documents and MSI
+      installers), e-mail files, obfuscated scripts and UPX-packed
+      executables
+    - THOR does not open or parse these files. In an archive below the
+      limit, THOR skips the files that are above the limit when
+      unpacked.
+  * - Event logs (EVTX), registry hives, log files, memory dumps, the
+      MFT and other system artifacts
+    - THOR parses these files regardless of their size.
+  * - Amcache
+    - THOR 10.7.33 and later, and older versions with a current
+      signature set, parse the Amcache regardless of its size. Otherwise
+      THOR does not parse an Amcache hive above the limit.
 
 Features that obey the file size limit:
 
