@@ -261,14 +261,96 @@ consumers that may have caused the memory exhaustion.
 File Size Limit
 ---------------
 
-The default file size limit for content checks such as hash calculation
-and YARA scanning is ``64 MB``. In ``--deep`` scan mode, the default limit
-is raised to ``200 MB``. In either mode, you can override the default
-with ``--file-size-limit``.
+The file size limit defines up to which size THOR reads the content of a
+file. The default limit is ``64 MB``. In ``--deep`` scan mode, which
+``--lab`` also activates, and with ``--files-all``, the default limit is
+raised to ``200 MB``. In any mode, you can override the default with
+``--file-size-limit``. ``--file-size-limit 0`` removes the limit, but
+THOR then needs more memory.
 
-Some features, such as EVTX or memory dump scanning, ignore these
-limits. See :ref:`scanning/features:Features` for a full list of features
-and how they interact with the file size limit.
+What the Limit Applies To
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+THOR does not ignore every file above the limit. What happens to a file
+above the limit depends on its type:
+
+.. list-table::
+  :header-rows: 1
+  :widths: 30, 70
+
+  * - Type of file
+    - Above the limit
+  * - Ordinary files
+    - THOR does not scan the content, which means that generic YARA rules,
+      hash IOCs, and STIX checks do not apply. THOR still checks the name
+      and path of the file, and meta rules still scan its first 64 KB
+      (see :ref:`signatures/yara:Meta YARA Rules`).
+  * - Files that match a meta rule with the ``FORCE`` tag
+    - THOR scans these files regardless of their size (see
+      :ref:`signatures/yara:Deepscan Rules`).
+  * - Archives
+    - THOR does not open an archive above the limit. In an archive below
+      the limit, THOR skips the files above the limit and scans the
+      other files.
+  * - OLE files, ICS calendars, shim databases, Amcache files, VBE
+      scripts, obfuscated scripts, UPX-packed executables, and browser
+      history databases
+    - THOR does not parse these files.
+  * - E-mail
+    - THOR parses the message regardless of its size. It does not scan a
+      message body or attachment above the limit, and it does not read
+      the parts that follow such a part.
+  * - Log files
+    - THOR reads log files regardless of their size, but only up to
+      ``--log-line-limit`` lines per file.
+  * - Event logs, registry hives, memory dumps, and other system
+      artifacts
+    - THOR parses these files regardless of their size. It skips
+      registry values above the limit, and it reads memory dumps in
+      chunks (see ``--memory-dump-chunk-size``).
+
+Features that THOR triggers with a tag from a YARA rule handle files
+above the limit as shown in the last column of the table in
+:ref:`scanning/features:Feature selectors`.
+
+To apply the limit to every file, including the files that THOR parses
+regardless of their size, use ``--enforce-file-size-limit``. THOR then
+ignores files above the limit completely: it does not check their names
+and paths, and it does not scan files that match a ``FORCE`` rule.
+
+Related Limits
+^^^^^^^^^^^^^^
+
+The file size limit applies to files only. Other parameters limit other
+kinds of data:
+
+.. list-table::
+  :header-rows: 1
+  :widths: 30, 70
+
+  * - Parameter
+    - Description
+  * - **--log-line-limit**
+    - Maximum number of lines that THOR checks per log file. The
+      default is ``1000000``.
+  * - **--memory-dump-chunk-size**
+    - Size of the chunks in which THOR scans memory dump files. The
+      default is ``12 MB``.
+  * - **--process-size-limit**
+    - Maximum memory usage of a process that THOR scans. The default is
+      ``2 GB``. THOR does not apply this limit in ``--deep`` scan mode.
+  * - **--archive-file-limit**
+    - Maximum number of files that THOR scans per archive. The default
+      is ``100000``. THOR does not apply this limit in ``--deep`` scan
+      mode.
+
+Find Files above the Limit
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+THOR does not list the files that it skips because of their size in its
+regular output. With ``--debug``, THOR writes a debug message for each
+of them, for example ``File exceeds maximum file size`` or, for a file
+inside an archive, ``Archive file is too large for analysis``.
 
 Help and Debugging
 ------------------
