@@ -28,6 +28,45 @@ in the config file ``./config/thor.yml``.
    :linenos:
    :emphasize-lines: 3
 
+THOR does not report an expected Amcache entry
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+THOR reads the Amcache from the hive file
+``C:\Windows\AppCompat\Programs\Amcache.hve``. If the log does not
+contain an entry that you expect, one of the following reasons applies:
+
+* **The entry did not match a signature.** THOR only reports an Amcache
+  entry if it matches a signature, for example a SHA1 hash IOC, a
+  keyword or a Sigma rule, or if it points to a suspicious location. Use
+  ``--log-object "Amcache Entry"`` to log all entries as ``Info``
+  messages.
+* **Windows has not written the entry to the hive file yet.** Windows
+  maintains the Amcache and writes new entries with a delay. THOR reads
+  the hive file as it is on disk and does not see changes that Windows
+  has not written to it. This mostly affects programs that ran shortly
+  before the scan.
+* **THOR did not parse the hive.** The log contains the line
+  ``Analyzing Amcache Hive`` when THOR parses the file.
+
+**Solution**: Restart the system before the scan, so that Windows writes
+its pending changes, and log all entries with a scan of the folder:
+
+.. code-block:: doscon
+
+   C:\thor>thor64.exe -a Filescan -p C:\Windows\AppCompat\Programs --log-object "Amcache Entry"
+
+If the entry is still missing, Windows has not recorded the program.
+
+.. note::
+   ``first_run`` is the time at which Windows wrote the Amcache entry.
+   It is not the exact start time of the program. An Amcache entry shows
+   that the file was present on the system, but it does not prove in
+   every case that the file ran.
+
+   Windows calculates the SHA1 of an Amcache entry over the first
+   31,457,280 bytes of a file only. A SHA1 hash IOC or a Sigma rule with
+   the SHA1 of a larger file does not match its Amcache entry.
+
 THOR did not scan a file because deeper inspection was skipped
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 

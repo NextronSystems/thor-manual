@@ -1,5 +1,5 @@
 Tag;Feature;Also parses files above the file size limit
-AMCACHE;Amcache;no
+AMCACHE;Amcache;yes
 BZIP2COMPRESSEDFILE;Archive;no
 CABARCHIVE;Archive;no
 GZIPCOMPRESSEDFILE;Archive;no
@@ -38,8 +38,8 @@ SDB;ShimDB;no
 UNESCAPE;Unescaper;no
 VBEDECODER;VBE;no
 TOMCATUSERS;VulnerabilityCheck;yes
-SQLITEDB;WebHistory (only in deep mode);no
-CHROMEHISTORY;WebHistory;no
-FIREFOXHISTORY;WebHistory;no
+SQLITEDB;WebHistory (only in deep mode);yes
+CHROMEHISTORY;WebHistory;yes
+FIREFOXHISTORY;WebHistory;yes
 WER;WER;yes
 WMIPERSISTENCE;WMIPersistence;yes

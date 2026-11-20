@@ -289,10 +289,11 @@ above the limit depends on its type:
     - THOR does not open an archive above the limit. In an archive below
       the limit, THOR skips the files above the limit and scans the
       other files.
-  * - OLE files, ICS calendars, shim databases, Amcache files, VBE
-      scripts, obfuscated scripts, UPX-packed executables, and browser
-      history databases
+  * - OLE files, ICS calendars, shim databases, VBE scripts, obfuscated
+      scripts, and UPX-packed executables
     - THOR does not parse these files.
+  * - Amcache files and browser history databases
+    - THOR parses these files regardless of their size.
   * - E-mail
     - THOR parses the message regardless of its size. It does not scan a
       message body or attachment above the limit, and it does not read
