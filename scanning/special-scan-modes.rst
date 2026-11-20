@@ -317,8 +317,8 @@ Chunk Size in DeepDive
 ^^^^^^^^^^^^^^^^^^^^^^
 
 The chunk size used by the ``DeepDive`` module is defined with
-``--chunk-size``. ``DeepDive`` uses overlapping chunks of this size for
-YARA rule scanning.
+``--memory-dump-chunk-size``. ``DeepDive`` uses overlapping chunks of
+this size for YARA rule scanning.
 
 Example: If the chunk size is set to the default of ``12 MB``,
 ``DeepDive`` uses the following chunks when applying the YARA rules:
