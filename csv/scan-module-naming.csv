@@ -12,7 +12,7 @@ Network Share Check;NetworkShares;--nonetworkshares
 Logged In Check;LoggedIn;--nologons
 Process Check;ProcessCheck;--noprocs
 Service Check;ServiceCheck;--noservices
-Autoruns Check;Autoruns;--noautorons
+Autoruns Check;Autoruns;--noautoruns
 Rootkit Check;Rootkit;--norootkits
 LSA Sessions Analysis;LSASessions;--nolsasessions
 User Account Check;Users;--nousers

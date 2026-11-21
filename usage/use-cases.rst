@@ -248,7 +248,7 @@ In general, the following options are not recommended but can help in special sc
 
 * ``--max_file_size ?????``
  
-  * Maximum file size In bytes. The default is 20 MB. If you need to scan bigger files,
+  * Maximum file size in bytes. The default is 30 MB. If you need to scan bigger files,
     you might need to increase the maximum file size.
 
 * ``--no<feature>``
@@ -262,7 +262,8 @@ In general, the following options are not recommended but can help in special sc
 * ``--allfiles``
 
   * Scan all files, independent of file extensions or magic headers.
-    Use ``--max_file_size_intense`` instead of ``--max_file_size``. (Caution: This will
+    Also raises the maximum file size to 200 MB, unless you set a different value with
+    ``--max_file_size``. (Caution: This will
     increase the scan time drastically!)
 
 If the share is not accessible anonymously, you need to mount the shares using valid

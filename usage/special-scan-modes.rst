@@ -19,8 +19,8 @@ for live-system scans, use it only on a dedicated forensic workstation.
 behaviors listed below; you do not need to specify them separately:
 
 * Scan every file, regardless of its extension or magic header.
-* Use ``--max_file_size_intense`` (200 MB by default) instead of
-  ``--max_file_size``.
+* Raise the maximum file size from 30 MB to 200 MB, unless you set a
+  different value with ``--max_file_size``.
 * Set ``--max-reasons`` to unlimited.
 * Reduce ``--minimum-sigma-level`` to ``medium``.
 * Enable ``--nosoft`` to prevent automatic activation of soft mode on

@@ -108,13 +108,50 @@ Maximum File Size
 -----------------
 
 The default maximum file size for content checks (hash calculation and YARA scanning)
-is 30 MB. The maximum file size for the ``--intense`` scan mode is 200 MB.
+is 30 MB (``--max_file_size``). In the ``--intense`` scan mode, which ``--lab``
+also activates, and with ``--allfiles``, THOR raises the limit to 200 MB,
+unless you set a different value with ``--max_file_size``.
 
-You can adjust the values in ``./config/thor.yml``. This file does not
-get overwritten by an update or upgrade.
+You can set ``max_file_size`` permanently in ``./config/thor.yml``. This
+file does not get overwritten by an update or upgrade. The default
+``thor.yml`` also contains ``max_file_size_intense``, which holds the
+200 MB limit for intense scans. This setting is deprecated and no longer
+listed in the command line help; use ``max_file_size`` instead.
 
-Special scan features like the EVTX or Memory Dump scan ignore these
-limits.
+Because THOR keeps this file, an installation that has been upgraded
+over several versions can still contain a lower value from an older
+release. THOR prints the limit that is in effect at the start of each
+scan (``Max. file size to be scanned is ... MB``).
+
+THOR does not ignore every file above the limit. What happens to a file
+above the limit in the default scan mode depends on its type:
+
+.. list-table::
+  :header-rows: 1
+  :widths: 35, 65
+
+  * - Type of file
+    - Above the limit
+  * - Ordinary files
+    - THOR does not scan the content, which means that hash IOCs, generic
+      YARA rules and STIX checks do not apply. THOR still checks the name
+      and path of the file, and meta rules still scan its first 2048
+      bytes.
+  * - Files that match a meta rule with the ``FORCE`` tag
+    - THOR scans these files regardless of their size.
+  * - Archives, OLE files (for example legacy Office documents and MSI
+      installers), e-mail files, obfuscated scripts and UPX-packed
+      executables
+    - THOR does not open or parse these files. In an archive below the
+      limit, THOR skips the files that are above the limit when
+      unpacked.
+  * - Event logs (EVTX), registry hives, log files, memory dumps, the
+      MFT and other system artifacts
+    - THOR parses these files regardless of their size.
+  * - Amcache
+    - THOR 10.7.33 and later, and older versions with a current
+      signature set, parse the Amcache regardless of its size. Otherwise
+      THOR does not parse an Amcache hive above the limit.
 
 Features that obey the file size limit:
 

@@ -125,9 +125,13 @@ resulting log message.
   * - >= 60
     - Warning
     - 
-  * - > 80
+  * - >= 81
     - Alert
-    - At least 1 sub score more than 75
+    - At least 1 sub score higher than 75
+
+These are the default thresholds. You can change them with ``--notice``,
+``--warning`` and ``--alert``. The sub score condition for alerts is
+fixed, see :ref:`usage/other-topics:Exception: High total score with low sub scores`.
 
 .. note::
   As of THOR version 10.7, we reworked the scoring system to only
@@ -151,9 +155,9 @@ Scoring per Signature Type Match
   * - Filename IOC match
     - Defined in the 2\ :sup:`nd` field of the CSV (e.g. ``\\evil.exe;80``)
   * - Keyword IOC match
-    - "warning" level messages, see :ref:`usage/other-topics:Default Scores`
+    - Fixed score of 70, see :ref:`usage/other-topics:Default Scores`
   * - C2 IOC match
-    - "warning" and "alert" level massages, see :ref:`usage/other-topics:Default Scores`
+    - Defined after the IOC, separated by a semicolon (e.g. ``evil.com;80``), see :ref:`usage/other-topics:Default Scores`
 
 Accumulated Scores
 ^^^^^^^^^^^^^^^^^^
@@ -177,9 +181,8 @@ calculated with the following formula:
 This means, scores are "capped" at a maximum of 100, and multiple lower
 scores are weighted far less.
 
-You can use python to calculate the score and try the formula. Please note
-that we use an example with five sub-scores and no sub-score higher than the
-threshold of 75 to turn classify this as an alert:
+You can use python to calculate the score and try the formula. The example
+uses five sub-scores, none of them higher than 75:
 
 .. code-block:: python
 
@@ -192,60 +195,84 @@ threshold of 75 to turn classify this as an alert:
    print(score)
    84.195859375
 
+Although the total score of 84 exceeds the alert level, THOR reports
+this element as a "Warning", because no sub score is higher than 75 (see
+:ref:`usage/other-topics:Exception: High total score with low sub scores`).
+
 Default Scores
 ^^^^^^^^^^^^^^
 
-If no score is set in an "alert" or "warning" message, THOR
-automatically appends a score that corresponds to the message level:
+THOR derives the level of a message from its total score, as shown in
+the table above. If a signature does not define a score, its matches
+receive the following default score:
 
 .. list-table::
   :header-rows: 1
   :widths: 50, 50
 
-  * - Level
-    - Score
-  * - Warning
-    - 60
-  * - Alert
-    - 80
+  * - Signature Type
+    - Default Score
+  * - YARA rule without a "score" value
+    - 75
+  * - Hash IOC without a score
+    - 100
+  * - C2 IOC without a score
+    - 100
+
+Keyword IOCs cannot define a score. Each keyword IOC match always
+receives a score of 70. On its own, a keyword IOC match therefore
+results in a "Warning" level message.
 
 Exception: High total score with low sub scores
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-"Alerts" on file system elements are only generated if one of the sub
-scores is more than 75.
+THOR generates an "Alert" only if both of these conditions are met:
 
-Before that change, multiple low scoring reasons had led to a score
-higher 100 and caused an "Alert" level message although not a single
-hard match was included in the "Reasons". A wrong extension, e.g.
+* The total score reaches the alert level (``--alert``, default 81).
+* At least one sub score is higher than 75.
+
+If the total score reaches the alert level, but no sub score is higher
+than 75, THOR generates a "Warning" instead. The sub score threshold of
+75 is fixed and does not change if you adjust the alert level with
+``--alert``. The rule applies to file system elements as well as to
+other elements, such as Eventlog entries or registry keys.
+
+THOR uses this rule since version 8.27.2. Before that change, multiple
+low scoring reasons could cause an "Alert" level message although not a
+single hard match was included in the "Reasons". A wrong extension, e.g.
 ``.txt`` for an executable, which is often used by employees to hand
 executables through tight mail filters, and a suspicious location, e.g.
 ``C:\Temp\funprog.txt`` caused an "Alert" level message.
 
-Since version 8.27.2, one of the sub scores that pushes the total score
-over 100 has to be more than 75. (internally calculated as "alert\_level
-- 25" because the user can adjust the alert level via the ``--alert``
-parameter)
+Filename and Keyword IOC Matches in Strings
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Exception: Filename IOC Matches
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Many modules check strings with the "String Check" (``checkString()``),
+for example Eventlog entries, registry keys or log lines. The String
+Check applies the following signatures to the string:
 
-The "Filename IOC Check" is a sub check of the "String Check", which is
-applied to many elements, like Eventlog messages or Registry keys.
+* Filename IOCs
+* Keyword IOCs
+* YARA rules with the ``keyword`` tag and, depending on the module,
+  ``log`` or ``registry`` rules (see :ref:`usage/custom-signatures:Specific YARA Rules`)
 
-The function ``checkString()`` receives a string as input and returns
-possible matches.
+The String Check reports at most one message per checked string. Every
+matching signature becomes a sub score of this message:
 
-The string is checked in multiple sub-checks against different signature
-lists. The most important sub-checks are ``checkKeyword()`` and
-``checkFilename()``.
+* Each matching filename IOC contributes its own score. A negative score
+  lowers the total score.
+* Each matching keyword IOC contributes the fixed score of 70 (see
+  :ref:`usage/other-topics:Default Scores`).
+* Each matching YARA rule contributes the score of the rule.
 
-While the ``checkKeyword()`` sub-check returns each individual match, the
-``checkFilename()`` sub check accumulates the score of all matches and
-returns a single total score. It is possible that many different
-filename signatures have matched on that string but only one match with
-a total score is reported. This is an exception to the usual behavior 
-where only the "FileScan" module accumulates scores.
+THOR calculates the total score from these sub scores as described in
+:ref:`usage/other-topics:Accumulated Scores`. The level of the message
+follows from the total score, including the condition for alerts (see
+:ref:`usage/other-topics:Exception: High total score with low sub scores`).
+
+Some modules, for example the named pipe check, do not use the String
+Check. They apply keyword IOCs on their own and report a keyword IOC
+match in a separate message, also with a score of 70.
 
 Filename IOC Matching in String Check Example
 """""""""""""""""""""""""""""""""""""""""""""
@@ -263,39 +290,51 @@ and the following Keyword signature:
 
    nmap.exe
 
-The ``checkString()`` function receives the following string from the
-Eventlog scan module (here: a Sysmon Eventlog entry):
+The Eventlog module passes each Eventlog entry to ``checkString()`` as a
+single line of ``Key: Value`` pairs. The following string is a shortened
+Sysmon process creation event, shown on several lines for readability:
 
 .. code-block:: none
 
-   Process Create:
-   UtcTime: 20180110 10:22:25.277
-   ProcessGuid: {c1b49677e9615a5500000010bbc80702}
-   ProcessId: 3912
-   Image: C:\\Program Files\\Nmap\\bin\\nmap.exe
-   CommandLine: nmap.exe
-   CurrentDirectory: C:\\Windows\\system32\\
-   User: PROMETHEUS\\user1
-   LogonGuid: {c1b496771d725a5300000020d4232500}
-   LogonId: 0x2523d4
-   TerminalSessionId: 1
-   IntegrityLevel: High
-   Hashes: SHA1=F5DC12D658402900A2B01AF2F018D113619B96B8, MD5=9FEA051A9585F2A303D55745B4BF63AA
-   ParentProcessGuid: {c1b496771d745a530000001057452500}
-   ParentProcessId: 1036
-   ParentImage: C:\\Windows\\explorer.exe
-   ParentCommandLine: C:\\Windows\\Explorer.EXE
+   EventID: 1  Provider_Name: Microsoft-Windows-Sysmon  [...]
+   Channel: Microsoft-Windows-Sysmon/Operational  Computer: WKS-042  [...]
+   Image: C:\Program Files\Nmap\bin\nmap.exe  CommandLine: nmap.exe
+   CurrentDirectory: C:\Windows\system32\  User: PROMETHEUS\user1  [...]
+   ParentImage: C:\Windows\explorer.exe  ParentCommandLine: C:\Windows\Explorer.EXE
 
-The ``checkString()`` function would create two messages: 1 "warning" for
-the keyword signature and 1 "notice" of the filename IOC signatures.
+Both filename IOCs and the keyword IOC match this string. If no other
+signature matches, THOR creates one message with three sub scores:
 
-The keyword IOC matches in the ``checkKeyword()`` sub-check and
-``checkString()`` returns a match, that generates a "Warning" level
-message that automatically receives a score of 75 (see :ref:`usage/other-topics:Default Scores`).
+.. list-table::
+  :header-rows: 1
+  :widths: 50, 50
 
-The filename IOCs would both match on the string in the
-``checkFilename()`` sub-check and both scores would be summed up to a total
-score of 40 (70 + (-30) = 40), which would generate a "Notice".
+  * - Match
+    - Sub Score
+  * - Filename IOC ``\\nmap.exe``
+    - 70
+  * - Keyword IOC ``nmap.exe``
+    - 70
+  * - Filename IOC ``\\bin\\nmap.exe``
+    - -30
+
+THOR does not weight negative sub scores by their position. In the
+formula, a negative sub score of -n adds the factor ``(1 + n / 100)``,
+which lowers the total score:
+
+.. code-block:: python
+
+   subscore0 = 1 - 70 / 100 / pow(2, 0)
+   subscore1 = 1 - 70 / 100 / pow(2, 1)
+   negative0 = 1 + 30 / 100
+   score = 100 * (1 - (subscore0 * subscore1 * negative0))
+   print(round(score))
+   75
+
+The total score of 75 results in a "Warning" level message ("Suspicious
+eventlog entry found"). The message lists the two positive sub scores as
+reasons. The negative sub score lowers the total score, but THOR does not
+list it as a reason.
 
 Action on Match
 ---------------
