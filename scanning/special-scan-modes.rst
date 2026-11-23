@@ -246,6 +246,10 @@ that were created or modified during the last two days. This can reduce
 scan duration significantly. Use ``--lookback-module`` to restrict the
 lookback to specific modules.
 
+The lookback does not apply to predefined high-risk directories that
+attackers often use, such as temporary, user profile and web server
+directories. Use ``--lookback-aptdirs`` to apply it there as well.
+
 This mode is well suited for quick scans to verify SIEM-related events
 and is used by default in THOR Cloud executions via Microsoft Defender
 ATP.
