@@ -241,9 +241,10 @@ modules:
 * ``Services:`` Focusing on service configurations or states that have changed.
 * ``EVTX Scan:`` Excluding log entries that predate the lookback threshold.
 
-By setting ``--lookback-global --lookback 2``, THOR scans only elements
+By setting ``--lookback 2``, THOR scans only elements
 that were created or modified during the last two days. This can reduce
-scan duration significantly.
+scan duration significantly. Use ``--lookback-module`` to restrict the
+lookback to specific modules.
 
 This mode is well suited for quick scans to verify SIEM-related events
 and is used by default in THOR Cloud executions via Microsoft Defender

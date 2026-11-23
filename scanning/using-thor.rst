@@ -84,10 +84,10 @@ Parameters Possibly Relevant to Your Use Case
       ignored
   * - **--lookback <days>**
 
-      **--lookback-global**
+      **--lookback-module <modules>**
     - Limit checks to elements created or modified during the last
-      ``X`` days. ``--lookback`` applies to Windows Event Logs by
-      default; ``--lookback-global`` applies the limit to all supported
+      ``X`` days. ``--lookback`` applies to all supported modules by
+      default; ``--lookback-module`` restricts the limit to specific
       modules
 
 Risky Flags

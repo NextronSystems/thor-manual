@@ -54,10 +54,9 @@ be useful in specific scenarios.
   * If the scanning system has too few resources, soft mode is enabled
     automatically. This flag prevents that.
 
-* ``--lookback 8 --lookback-global``
+* ``--lookback 8``
 
-  * Scans only files that were modified within the last 8 days and
-    applies lookback to all supported modules, not just Eventlog. This
+  * Scans only files that were modified within the last 8 days. This
     speeds up the scan, but it is vulnerable to timestomping attacks.
 
 * ``--diff``

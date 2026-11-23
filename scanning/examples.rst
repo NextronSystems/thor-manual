@@ -53,11 +53,10 @@ Only Scan the Last 7 Days of Windows Event Logs
 
 .. code-block:: doscon
 
-  C:\thor>thor64.exe --lookback 7
+  C:\thor>thor64.exe --lookback 7 --lookback-module Eventlog
 
-By default, the ``--lookback`` flag applies only to Windows Event Logs.
-To apply the same limit to all supported modules, use
-``--lookback-global``.
+By default, the ``--lookback`` flag applies to all supported modules.
+``--lookback-module Eventlog`` restricts it to the Windows Event Logs.
 
 Intense Scan and DeepDive on a Mounted Image
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
