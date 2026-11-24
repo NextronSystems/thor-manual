@@ -61,7 +61,6 @@ You can reduce the scope of some modules even further by using
    C:\thor>thor64.exe ^
      --module FileScan ^
      --path C:\Windows\System32 ^
-     --lookback-global ^
      --lookback 1
 
 To find out why a file was not detected, use ``--debug`` together with
