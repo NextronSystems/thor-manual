@@ -216,70 +216,68 @@ artifacts, use:
 Lookback Mode
 -------------
 
-The ``--lookback`` option allows you to restrict the Eventlog and log
-file scan to a given amount of days. E.g. by using ``--lookback 3`` you
-instruct THOR to check only the log entries that have been created in
-the last 3 days.
+Use ``--lookback <days>`` to limit the scan of Windows Event Logs,
+ordinary log files, and EVTX files to entries from the specified number
+of days. For example, ``--lookback 3`` limits these scans to entries
+from the last three days. The default value is ``0``, which sets no
+time limit.
 
-In THOR v10.5 we've extended this feature to include all applicable
-modules:
+To apply the time limit to other modules that support lookback, combine
+``--lookback`` with ``--global-lookback``. Since THOR v10.5, these
+modules include:
 
-* ``FileScan:`` Skipping files that are unchanged since the specified lookback period.
-* ``Registry:`` Avoiding redundant analysis of registry keys or entries that have not been modified.
-* ``Services:`` Focusing on service configurations or states that have changed.
-* ``Registry Hives:`` Limiting scanning to hives with updates.
-* ``EVTX Scan:`` Excluding log entries that predate the lookback threshold.
+* ``FileScan:`` Skip files that have not changed within the lookback period.
+* ``Registry:`` Skip registry keys or entries that have not been modified.
+* ``Services:`` Focus on service configurations or states that have changed.
+* ``Registry Hives:`` Limit scanning to hives with updates.
 
-By setting the flags ``--global-lookback --lookback 2`` you instruct
-THOR to scan only elements that have been created or modified during the
-last 2 days. This reduces the scan duration significantly.
+For example, ``--global-lookback --lookback 2`` uses a two-day window
+for log scans and enables lookback in other supported modules. This can
+reduce scan time, but older data may be skipped. Manipulated timestamps
+can also cause THOR to miss elements that would otherwise be scanned.
 
-This scan mode is perfect for quick scans to verify SIEM related events
-and is used by default in THOR Cloud's settings for executions via
+Lookback is used for quick scans to verify SIEM-related events. It is
+also used by default in THOR Cloud's settings for executions via
 Microsoft Defender ATP.
 
 Drop Zone Mode
 --------------
 
-The drop zone mode allows you to define a folder on your local hard
-drive that is monitored for changes. If a new file is created in that
-folder, THOR scans this file and writes a log message if suspicious
-indicators have been found. The optional parameter ``--dropdelete`` can
-be used to remove the dropped file once it has been scanned. Example:
+Drop Zone Mode monitors a directory on the local system and scans files
+placed there for suspicious indicators. It requires a `Forensic Lab
+license <https://www.nextron-systems.com/2020/11/11/thor-forensic-lab-license-features/>`__.
+Specify the directory with ``-p``:
 
 .. code-block:: doscon
 
-   C:\thor>thor64.exe --dropzone –p C:\dropzone
+   C:\thor>thor64.exe --dropzone -p C:\dropzone
+
+THOR reports suspicious findings as Notice, Warning, or Alert messages.
+The optional ``--dropdelete`` flag enables automatic deletion of files
+from the drop zone. Use it only with copies that you do not need to keep.
 
 .. warning::
 
-    If another process writes a file to the drop zone, this is prone to
-    a race condition: THOR might read the file when no or not all data
-    has been written yet.
-
-    For consistent scan results, move files from another folder to the
-    dropzone.
-
-.. note::
-
-    This feature requires a `Forensic Lab license <https://www.nextron-systems.com/2020/11/11/thor-forensic-lab-license-features/>`__
-    or `Thunderstorm license <https://www.nextron-systems.com/thor-thunderstorm/>`__, both are meant to be used in forensic labs.
+    To avoid scanning a file while another process is still writing it,
+    finish writing the file in another directory, then move it into the
+    drop zone.
 
 Drop Zone Mode Output
 ^^^^^^^^^^^^^^^^^^^^^
 
-We designed the drop zone mode to show only relevant output (Notice, Warning or Alert)
-after the initialization to reduce clutter on the screen. This might look like no files
-are being scanned, which is actually not the case. To see if files are being scanned,
-you can do one of the following two options.
+After initialization, Drop Zone Mode shows only Notice, Warning, and
+Alert messages on the screen. No message does not necessarily mean that
+no files have been scanned. To check whether files are being scanned,
+use one of the following options.
 
-You can drop the `EICAR test file <https://www.eicar.org/download-anti-malware-testfile/>`_ into the
-defined dropzone to test if findings are shown properly:
+Place the `EICAR test file <https://www.eicar.org/download-anti-malware-testfile/>`_
+in the drop zone to check whether findings are displayed:
 
 .. figure:: ../images/thor_dropzone_mode_example1.png
    :alt: Example of a THOR Drop Zone Mode finding
 
-Or you can print all output with ``--printall`` - this might clutter the output:
+Alternatively, use ``--printall`` to display every file checked. This
+can produce a large amount of output:
 
 .. figure:: ../images/thor_dropzone_mode_example2.png
    :alt: Example of a THOR Drop Zone Mode finding

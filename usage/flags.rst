@@ -42,8 +42,8 @@ Scan Modes
       --diff                       Set lookback time (see --lookback) for each module to the last time the module ran successfully and activates --global-lookback.
 
                                    Effectively, this means that only elements that changed since the last scan are examined. (only works if ThorDB has been active)
-      --lookback int               Specify how many past days shall be analyzed. Event log entries from before this point will be ignored. 0 means no limit (default 0).
-      --global-lookback            Apply Lookback to all modules that support it (not only Eventlog). See also --lookback and --lookback-modules.
+      --lookback int               Specify how many past days of Windows Event Logs, ordinary log files, and EVTX files shall be analyzed. 0 means no limit (default 0).
+      --global-lookback            Apply Lookback to other modules that support it. See also --lookback and --lookback-modules.
 
                                    Warning: Timestomping or similar methods of antivirus evasion may result in elements not being examined.
       --force-aptdir-lookback      Enforce lookback application on all files in the FileScan module. By default, especially endangered directories ignore the lookback value.
