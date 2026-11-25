@@ -6,7 +6,7 @@ DNS Cache Check;Enabled;Enabled;Enabled;Enabled
 Environment Variables Check;Enabled;Enabled;Enabled;Enabled
 ETW Watcher;Enabled;Enabled;Enabled;Enabled
 Event Check;Enabled;Enabled;Enabled;Enabled
-Eventlog Analysis;Enabled;Disabled;Enabled;Enabled
+Eventlog Analysis;Enabled;Reduced;Enabled;Enabled
 File System Scan;Enabled;Reduced;Enabled;Enabled
 Firewall Config Check;Enabled;Disabled;Disabled;Enabled
 Hosts File Check;Enabled;Enabled;Disabled;Enabled
