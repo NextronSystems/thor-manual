@@ -54,8 +54,8 @@ Often Used Parameters
       memory, even if only briefly, and by scanning with a single thread
       and a CPU limit of 50 %
   * - **--fast**
-    - Perform a faster scan. This skips Eventlog checks and limits file
-      scanning to recent files and the most relevant folders; see
+    - Perform a faster scan. This limits Eventlog checks to recent entries
+      and file scanning to recent files and the most relevant folders; see
       :ref:`scanning/scan-modes:scan modes`
   * - **-e target-folder**
     - Write all output files to the given folder

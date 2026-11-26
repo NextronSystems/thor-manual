@@ -19,11 +19,11 @@ THOR provides several scan modes:
   This is the fastest scan mode. It follows a "Pareto Principle"
   approach by covering around 80% of the modules and checks in about 20%
   of the normal scan time. In fast mode, THOR skips elements that were
-  not created or modified within the last two days in the ``Eventlog``,
-  ``Registry``, and ``Filescan`` modules. A set of more than 40
-  predefined directories is still checked completely, for example
-  ``AppData``, ``Recycler``, and ``System32``. Fast mode is typically
-  used as a quick preventive scan.
+  not created or modified within the last three days in the ``Eventlog``
+  and ``Filescan`` modules. Files in predefined high-risk directories,
+  such as temporary, user profile and web server directories, are still
+  checked regardless of their age. Fast mode is typically used as a
+  quick preventive scan.
 
 Additional scan modes:
 
