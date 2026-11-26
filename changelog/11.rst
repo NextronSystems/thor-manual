@@ -66,8 +66,6 @@ THOR 11.0
     * - Feature
       - New flags ``--exclude-process``, ``--exclude-eventlog`` and ``--exclude-registry-key`` to exclude processes, event logs and registry keys
     * - Feature
-      - New ``--score-info`` flag that prints findings above the specified score as Info messages; it complements ``--score-notice``, ``--score-warning`` and ``--score-alert`` (previously ``--notice``, ``--warning`` and ``--alert``)
-    * - Feature
       - New ``--list-deepscan-criteria`` flag for displaying information on which files are analyzed with YARA rules
     * - Feature
       - Remote logging with ``--remote-log`` now supports HTTP(S) URLs as targets (e.g. ``--remote-log https://logserver.example.net``)
@@ -75,8 +73,12 @@ THOR 11.0
       - A license can now be passed base64-encoded via the THOR_LICENSE environment variable
     * - Feature
       - Thunderstorm now provides an endpoint to list the loaded signatures (``/api/signatures``)
+    * - Feature
+      - New HTML report viewer with a redesigned UI; the log is embedded into a single self-contained HTML file and rendered in the browser
     * - Change
-      - Default log format is now JSON instead of text. The old text format can still be generated using ``--text``.
+      - THOR now scans with multiple threads by default: unless ``--threads`` is set explicitly, the number of threads is derived from the configured CPU limit (``--cpu-limit``), so that the number of used CPU cores roughly matches the limit. With the default CPU limit of 95%, THOR uses 95% of the available cores, rounded up (e.g. all 16 cores on a 16-core system, but 19 out of 20 cores on a 20-core system). Previously, THOR scanned single-threaded unless ``--threads`` was set. Note that multithreaded scans use more memory.
+    * - Change
+      - Default log format is now JSON instead of text. The old text format can still be generated using --text.
     * - Change
       - JSON log files now use the ``.jsonl`` extension
     * - Change
@@ -88,9 +90,9 @@ THOR 11.0
     * - Change
       - The Action feature has been removed. The ``--action_command``, ``--action_args`` and ``--action_level`` flags are still accepted for backwards compatibility, but no longer have any effect. Users should migrate to plugins (see https://github.com/NextronSystems/thor-plugin).
     * - Change
-      - Bifrost feature has been removed (it was already deprecated).
+      - Bifrost feature has been removed (it was already deprecated; users should migrate to Bifrost 2).
     * - Change
-      - ``--min`` has been deprecated. Use ``--score-notice`` instead.
+      - The score thresholds for classifying findings as Notice (40), Warning (60) and Alert (81) are no longer configurable. The related flags are deprecated and have no effect.
     * - Change
       - The default file size limit was raised from 30 MB to 64 MB; ``--file-size-limit 0`` now scans files of any size
     * - Change
@@ -105,9 +107,15 @@ THOR 11.0
       - Update to Golang v1.26
     * - Change
       - Update to OpenSSL v3.5.4
+    * - Change
+      - Update to YARA v4.5.8
+    * - Change
+      - THOR Util's ``--sigdev`` flag has been renamed to ``--signatures-preview``
+    * - Change
+      - The audit trail log now also contains THOR audit messages and follows the schema in https://github.com/NextronSystems/jsonlog; it is now compressed with zstd instead of gzip and respects ``--encryption-key`` and ``--no-personal-data``
     * - Feature
       - New ``--wsl`` flag to enable scanning of WSL filesystems on Windows
     * - Change
       - THOR Util was updated to 2.0.0
     * - Change
-      - THOR Lite can now use ``--image_file``
+      - THOR Lite can now use --image_file
